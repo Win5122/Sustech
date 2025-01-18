@@ -1,0 +1,40 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<title>Product Details</title>  
+<style>  
+    /* 添加适当的CSS样式 */  
+</style>  
+</head>  
+<body>  
+<h1 id="product-name">Product Name Here</h1>  
+<p>SKU: <select id="sku-selector">  
+    <option value="sku1">SKU 1</option>  
+    <option value="sku2">SKU 2</option>  
+    <!-- 更多SKU选项... -->  
+</select></p>  
+<button onclick="purchaseProduct()">Buy Now</button>  
+  
+<script>  
+    // 假设的函数，用于初始化产品详情（这里应该是从服务器获取的）  
+    function initProductDetails(productId) {  
+        // 这里应该是一个AJAX请求来获取产品详情，然后填充到页面上  
+        // 但为了示例，我们仅更改产品名称  
+        document.getElementById('product-name').textContent = "Product " + productId;  
+        // 你可以在这里添加更多逻辑，比如根据产品ID加载SKU列表  
+    }  
+  
+    // 假设的购买函数  
+    function purchaseProduct() {  
+        // 这里应该包含将购买请求发送到服务器的逻辑  
+        // 但为了示例，我们仅打印一个消息  
+        console.log("Purchase requested for product with SKU:", document.getElementById('sku-selector').value);  
+    }  
+  
+    // 假设我们在页面加载时通过某种方式（如URL参数或父页面调用）获得了productId  
+    // 这里我们硬编码一个值作为示例  
+    initProductDetails(1); // 假设我们要展示的产品ID是1  
+</script>  
+</body>  
+</html>

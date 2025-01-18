@@ -1,0 +1,44 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<title>Product List</title>  
+<style>  
+    .product-list {  
+        list-style-type: none;  
+        padding: 0;  
+    }  
+    .product-item {  
+        margin-bottom: 10px;  
+        background-color: #f9f9f9;  
+        padding: 10px;  
+    }  
+    .product-name {  
+        font-weight: bold;  
+    }  
+</style>  
+</head>  
+<body>  
+<ul class="product-list">  
+    <!-- 这里应该是动态生成的产品列表，但为了示例我们硬编码了一个 -->  
+    <li class="product-item" onclick="showProductDetails(1)">  
+        <div class="product-name">Product 1</div>  
+        <!-- 这里可以添加更多产品信息，如价格、图片等 -->  
+    </li>  
+    <li class="product-item" onclick="showProductDetails(2)">  
+        <div class="product-name">Product 2</div>  
+    </li>  
+    <!-- 更多产品... -->  
+</ul>  
+  
+<script>  
+    // 假设的函数，用于展示产品详情  
+    function showProductDetails(productId) {  
+        // 这里应该是通过某种方式（如AJAX请求）获取产品详情并显示  
+        // 但为了示例，我们仅仅打印产品ID  
+        console.log("Showing details for product ID:", productId);  
+        // 在实际应用中，你可能会改变当前页面的内容或打开一个模态框来显示详情  
+    }  
+</script>  
+</body>  
+</html>

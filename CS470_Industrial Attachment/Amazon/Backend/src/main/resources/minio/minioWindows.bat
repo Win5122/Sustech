@@ -1,0 +1,1 @@
+minio.exe server minioFile
