@@ -1,0 +1,41 @@
+# a 4-node k8s cluster (1 control plane + 3 worker nodes)
+# Labels for workers:
+# 1. usage: normal
+# 2. usage: normal; capability: powerful
+# 3. usage: normal; capability: powerful
+# 4. usage: backup
+# 5. usage: backup
+# Taints for workers:
+# 1. NONE
+# 2. NONE
+# 3. if the pod does not tolerate class=vip, then it cannot be scheduled here
+# 4. NONE
+# 5. NONE
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+    labels:
+      usage: normal      
+  - role: worker
+    labels:
+      usage: normal
+      capability: powerful
+  - role: worker
+    kubeadmConfigPatches:
+    - |
+      kind: JoinConfiguration
+      nodeRegistration:
+        kubeletExtraArgs:
+          node-labels: "usage=normal,capability=powerful"
+        taints:
+        - key: class
+          value: "vip"
+          effect: NoSchedule
+  - role: worker
+    labels:
+      usage: backup
+  - role: worker
+    labels:
+      usage: backup
