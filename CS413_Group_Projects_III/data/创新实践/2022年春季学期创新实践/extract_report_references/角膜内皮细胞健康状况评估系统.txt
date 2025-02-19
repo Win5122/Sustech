@@ -1,0 +1,14 @@
+参考文献
+[1]YuL,WangS,XLi,etal.Uncertainty-awareSelf-ensemblingModelforSemi-supervised3DLeft
+AtriumSegmentation[J].2019.
+[2]JPVigueras-Guillén,Sari,B.,Goes,S.F.,Lemij,H.G.,VanRooij,J.,&Vermeer,K.A.,etal.
+(2019).Fullyconvolutionalarchitecturevssliding-windowcnnforcornealendotheliumcellsegmentation.
+BmcBiomedicalEngineering,1(1).
+[3]YarinGalandZoubinGhahramani.2016.DropoutasaBayesianapproximation:representingmodeluncertainty
+indeeplearning.In<i>Proceedingsofthe33rdInternationalConferenceonInternationalConferenceon
+MachineLearning-Volume48(ICML'16).JMLR.org,1050–1059.
+[4]RuggeriA,ScarpaF,LucaMD,etal.Asystemfortheautomaticestimationofmorphometricparameters
+ofcornealendotheliuminalizarinered-stainedimages.[J].BritishJournalofOphthalmology,2010,
+94(5):643-647.
+[5]KendallA,GalY.WhatUncertaintiesDoWeNeedinBayesianDeepLearningforComputerVision?[J].
+2017.

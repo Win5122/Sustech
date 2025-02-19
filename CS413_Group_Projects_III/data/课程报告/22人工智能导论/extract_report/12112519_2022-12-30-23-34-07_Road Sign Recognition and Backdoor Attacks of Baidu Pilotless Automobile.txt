@@ -1,0 +1,116 @@
+Road Sign Recognition and Backdoor Attacks of
+Baidu Pilotless Automobile
+Shiwen CAO
+12113024Xuanyu LIU
+12110408Tianyou SONG
+12112519Fanzhong WANG
+11911824Jinlong ZHANG
+12112528
+Abstract —Traffic image recognition is an indispensable func-
+tion in the field of automatic driving. It requires that the
+computer can accurately and quickly identify the traffic signs
+in the captured information. YOLOv5 is an algorithm that can
+effectively detect the far and small targets with high speed and
+accuracy. Backdoor attack is an operation aimed at malicious
+processing of data sets, and it is difficult for human eyes to detect
+the differences in images, However, after receiving the backdoor
+attack, many characteristic values of the data have changed,
+which will affect the judgment of the recognition algorithm.
+This paper will use the method of adding hidden watermark
+to simulate the backdoor attack to detect whether the backdoor
+attack has an impact on the accuracy of YOLOv5.
+Index Terms —Backdoor Attack, Watermark, Yolov5
+I. I NTRODUCTION
+A. Background
+With the development and application of artificial intelli-
+gence technology in license plate detection and driver-less
+driving. Due to the characteristics of its sliding window model,
+the traditional target detection algorithm has a certain degree
+of singularity in feature extraction and matching, and its
+accuracy and detection speed are relatively poor. Therefore, the
+deep learn-based target detection algorithm has the advantages
+of higher efficiency and accuracy, rapidly overtaking the
+traditional target detection algorithm and becoming the most
+mainstream target detection algorithm. It is mainly divided
+into two development directions: two-stage model and one-
+stage model.
+B. Backdoor Attack
+Data poisoning attack refers to that the attacker adds a small
+amount of carefully constructed poison data to the training set
+of the model, so that the model cannot be used normally in the
+test stage or assists the attacker to invade the model without
+damaging the accuracy of the model. The former destroys the
+availability of the model and is a no-target attack. The latter
+destroys the integrity of the model for targeted attacks. Data
+poisoning attack was first proposed by Dalvi, who used this
+attack to evade detection of spam classifiers. Poisoning attacks
+that destroy integrity have strong concealment: the poisoned
+model shows normal prediction ability for clean data, andonly outputs wrong results for the target data selected by
+the attacker. Such attacks that cause the AI model to output
+incorrect results on certain data can cause significant damage
+and in some critical scenarios, serious security failures.
+C. Motivation
+Through the computer to realize the human visual function,
+grasp and understand the image of the scene, identify and
+locate the target, determine their structure, spatial arrangement
+and distribution as well as the mutual relationship between the
+target and so on, according to the perceived image of the actual
+target and scene in the objective world to make a meaningful
+judgment.
+II. E XPERIMENT
+A. Backdoor Attack
+1) earlier stage: Through the operation of the frequency
+domain of the picture, the invisible watermark is added to the
+picture. The Algorithm used is invisible-watermark [1]. The
+resulting image is obviously different from the original image
+and fails to achieve the invisible watermark effect we expected.
+The reason may be that this method is suitable for large size
+pictures, and it is difficult to hide the watermark in the picture
+without being discovered for small size pictures.
+Fig. 1. The invisible watermark images in earlier stage
+2) later stage: Eventually the watermark adding methods
+is FTrojan [2], concrete process is: the parts of the need to add
+the watermark from the original cutting, part of the invisible
+watermark image, and will be processed images put back to
+the original image.
+B. Model Training
+1) Yolov5: In 2016, Redmon J proposed a new target detec-
+tion algorithm, YOLO (You Only Look Once). Different from
+the target detection algorithm based on classification, whichFig. 2. The invisible watermark images in later stage
+uses classifiers to perform detection, the YOLO algorithm
+treats the target detection framework as a spatial regression
+problem. A single neural network can obtain the prediction of
+boundary frame and category probability from the complete
+image after one operation, which is conducive to the end-
+to-end optimization of detection performance. Compared to
+previous networks, YOLOv5 uses Pytorch for the first time,
+which provides simpler support and easier deployment, and
+improves image reasoning time and detection average accuracy
+without any loss of accuracy.
+Fig. 3. Different target detection algorithms on COCO datasets
+Fig. 4. GPU speed of four Yolov5 models
+2) Training Result: AP (Average precision) is the main
+evaluation standard of target detection model. In the field of
+target detection, suppose we have a set of pictures containing
+several targets to be detected, Precision represents how many
+dozen targets can be detected by our model, and Recall
+represents how many percentage of all real targets can be
+detected by our model.
+Fig. 5. The test results without poisoning
+The possible causes of misidentification are:
+•Less similar data, can not train more accurate weight;
+•Part type characteristic value of similar images, bring
+certain difficulty to algorithm identification;
+•Datasets with poor quality, image distance is far and less
+information.
+Fig. 6. The test results with poisoning
+There are two conjectures as to why the poisoning effect
+is not obvious. One is that, yolov5 has powerful function,
+which can effectively filter poisoning information. Second
+is, Poisoned by the information is not obvious in the image
+characteristics, has not been identified.Explain the error in identification after poisoning:
+•Less training data, can not train more effective parame-
+ters;
+•Picture is too small, can identify the characteristics of
+less;
+•Information may be poisoning affects judgment.

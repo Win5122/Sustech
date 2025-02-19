@@ -1,0 +1,452 @@
+Depth Estimation and Defocus
+Deblurring of Microscope Images Based
+on Deep Learning
+Team Member: Xinyi Zhou (11812031), Yingquan Zhou (11812636)
+Instructor: Jiang Liu, Yan Hu
+Southern University of Science and Technology
+June 8, 2022
+I. Introduction
+Figure 1: Limited view during ophthalmic surgery.[12]
+In some ophthalmic surgeries, the doctors should
+do the surgery under the microscope, using tiny
+surgical instruments. For example, in epiretinal
+membranes peeling surgery, the view (shown in
+Fig.1) is limited and most importantly, it is hard to
+estimate the depth of the surgical instrument, which
+may hurt the retina accidentally. Severe cases may
+lead to retinal detachment, which is a kind of medical
+malpractice. Estimating depth may be a helpful way
+to aid to ophthalmic surgeries. Therefore, we plan
+to estimate the depth information from microscopic
+ophthalmic surgery images with the technology of
+Knowledge Distillation.
+However, in the microscopic scene, it is difficult to
+obtain monocular depth ground truth. But it is
+relatively easy for calculating the depth map for
+binocular images via disparities. Hence, we want to
+use binocular images as the assistant for predicting
+binocular depth.
+What’s more, during our observation of surgery
+images, we found that some regions were blurry due
+to the microscope’s limited depth of field. As seen in
+Fig.1, some details of the blood vessels are defocused
+and hard to recognize. Doing depth estimation withclear images is difficult enough, let alone with blurry
+images under high magnification microscopes.
+Thus, we separate the project into the two following
+tasks:
+1. Defocus Deblurring of Microscope Images
+2. Depth Estimation based on Microscope Images
+Reviewing related methodologies, we plan to adopt
+the following methods for each task:
+1. Multi-focus Image Fusion
+2. Multi-scale Depth Estimation
+II. Related Work
+i. Defocus Deblurring
+i.1 Defocus Blur
+Defocus Blur is a result of imperfect light conver-
+gence. A point light source will form a circle on the
+sensor plane instead of a point if the light ray can-
+not focus perfectly after going through the len. This
+circle is called Circle of Confusion (CoC) . When the
+radius of CoC is within a certain range, the human
+eyes can perceive it as a single point. Under this cir-
+cumstance, the whole image will look sharp to the
+eyes. If the size of CoC exceeds the range, the im-
+age will have regions identified as blurry to the eye.
+Whenmovingtheobjectfromfartonear, thereexists
+a distance that either farther or nearer will cause the
+image to have blurry regions. This special distance
+is called the Depth of Field (DoF) .
+i.2 Multi-focus Image Fusion
+The approach of multi-focus image fusion[4] aims to
+combine the focused parts from a stack of multiple
+regional out-of-focus images into one all-in-focus im-
+age. In another word, sharp information about each
+1pixel with different spatial coordinate is contained in
+this image stack. Therefore, the job is to select the
+most focused ones and fuse them into one image.
+Multiple approaches have emerged to in this
+field[10]. Transform domain-based solutions as [9]
+first convert the source images into the transform do-
+main, in which operations based on predefined fusion
+rules can be applied. The results are then inversely
+converted back to the original domain. The conver-
+sion between the two domains makes this kind of so-
+lution time-consuming. Pixel-based methods[20], as
+the most representative methods of spatial domain-
+based multi-focus image fusion solutions, utilize spa-
+tial features of the source image to generate a weight
+map and calculate each pixel value of the fused image
+as the weighted average of all source images.
+With the wide spread usage of deep neural networks
+(DNN) in computer vision, many multi-focus image
+fusion works adopted deep learning to reconstruct
+all-in-focus images. They can be divided into two
+kinds, classification methods and regression meth-
+ods[10]. Classification methods use DNN to gener-
+ate the focus weight map replacing the manual focus
+measure standards. Regression methods seek ways to
+generate all-in-focus images from an end-to-end ap-
+proach, so as to get rid of calculating the weighted
+average of all source images with a weight focus map.
+ii. Depth Estimation
+ii.1 Monocular depth prediction
+Estimating depth information from images is one of
+the basic and important tasks in computer vision.
+The task could be divided into several categories be-
+low:
+Sensor-based methods
+RGB-D and LIDAR cameras are designed for direct
+transmission of the image information directly. The
+RGB-D camera is designed to be used as an image,
+and the pixel map of the RGB image can be used as
+an image, and it can be used to display the image
+of the device[14]. The LIDAR in the pharmaceuti-
+cal industry is described in [19], and is described in
+3D.Othertowingdevicesareusedinthefieldandthe
+power supply of the power amplifier (RGB-D and LI-
+DAR cameras) is used in connection with the robotic
+power supply. Auxiliary equipment is used, the con-
+nection and the connection to the monocular camera
+are connected to the mains of the data card.
+Deep-learning-based methods
+With the rapid development in deep learning, deep
+neural networks show their outstanding performance
+on image processing, like image classification, objec-tive detection and semantic segmentation , etc. A va-
+riety of neural networks have manifested their effec-
+tiveness to address the monocular depth estimation,
+such as convolutional neural networks (CNNs)[4], re-
+current neural networks (RNNs)[17], and generative
+adversarial networks (GANs)[1].
+ii.2 Building dataset
+Microscopic Eye Surgery Dataset
+The emergence and continuous enrichment of oph-
+thalmic surgery datasets has greatly promoted the
+development of deep learning methods in the field
+of ophthalmology. Scientists typically record surgi-
+cal information in the form of videos or pictures.
+The CaDIS (Cataract Dataset for Image Segmenta-
+tion) dataset [5] contains 50 videos of cataract surg-
+eries performed at the University Hospital of Brest.
+The videos were captured during phacoemulsification
+surgery using a camera mounted on a surgical micro-
+scopetofocusonthepatient’seye. Thevideoshadan
+average duration of 10 minutes and 56 seconds and
+were recorded at 30 frames per second (fps). The
+dataset contains instrument labels and surgical stage
+labelsannotatedbyclinicalprofessionals, andintotal
+includes 4671 frames of fully annotated data.
+Virtual dataset
+Virtual data has emerged in many different fields.
+3D-front[3]isa3Ddatasetofinteriorscenes, modeled
+byCAD(Computer-AidedDesign)software,covering
+31 scene categories, object semantics (such as cate-
+gory, style, and material labels), and 18,968 rooms
+with 3D furniture objects. It can be applied to 3D
+scene reconstruction, 3D scene segmentation, SLAM
+and other 3D scene research directions. This dataset
+is also suitable for data-driven design studies such as
+floor plan synthesis and other tasks.
+III. Methodology
+i. Multi-focus Image Fusion for Defocus De-
+blurring
+Based on the principles of our baseline model, the
+AiFNet[11], we modified the framework to adopt it
+to our ophthalmic microscopic scenario.
+Figure.2 shows the general architecture of our
+method. TheoriginalnetworkofAiFNetiscontained
+in the Fusion Network (FN). Before inputting mul-
+tiple defocused images to the FN, we use the Canny
+Edge detector to extract the edge information used
+as a loss item. We also use the Focus Measure Block
+(FMB) to estimate each pixel’s focus level as those
+in the traditional methods. The channel-by-channel
+2focus level feature maps are then concatenated with
+the input 3-channel image to be sent into FN for fu-
+sion.
+The details about the FMB and FN are shown in Fig-
+ure.3 and Figure.4. The FMB adopts the method of
+Sum-Modified-Laplacian to extract the focus level,
+which is proved to have a relatively better focus
+level measurement[8]. Also, it uses thresholding and
+window-size summation to accommodate for spatial
+variation in images.
+The FN is a block where different branches of defo-
+cused images are processed. It encodes the features,
+selects pixels with maximum importance, and fuses
+them into one images under the supervision of loss
+items.
+From Figure.2, we can see there are four loss items.
+TheLedgeis for recovering detailed object edges, the
+LaifandLperceptual are for all-in-focus supervision,
+and the Lidentityis to maintain the original color
+mapping.
+Figure 2: General framework of our Defocus Deblurring
+Method.
+Figure 3: Details of the Focus Measure Block.
+ii. Depth Estimation
+We have done a survey for the reasons of the blurred
+and distorted boundary. As the point that came up
+Figure 4: Details of the Fusion Network.
+with by Zhao M[10] in 2018, lossing spatial resolu-
+tion in the estimated depth maps would make the
+estimation in the boundaries be unclear.
+Figure 5: Comparison among low and high resolution
+estimations.
+From the above comparative experiments, we can
+find that depth estimation with higher resolution is
+more clear. Therefore, we need to use both the
+method that abstract feature from high-resolution
+level and data with high resolution to keep our re-
+sults good. However, we also find that data with low
+resolution is not completely useless. For example,
+high-resolution data could express the detailed in-
+formation of the images. While low-resolution data
+has more advantages to abstract the details of ob-
+ject shapes. So we need to use a method that could
+combine the features abstracting from multiple reso-
+lutions to archive the best performance. The multi-
+scale depth estimation model came up by Hu, J et al
+[7] mets our requirement. The structure of the model
+is listed below. The network uses ResNet-18[6] to ex-
+tract depth feature from the scale of 64, 128 and 256
+and combine them to a total feature vector. The
+class of residual networks was proposed to solve the
+degradation problem of deep learning models. As the
+number of layers of deep learning networks become
+deeper, the network can refine more complex feature
+information, but the problem of gradient disappear-
+anceorexplosioncomeswithit,makingtheover-deep
+3network less effective. The residual learning can be
+a good solution to this problem. So ResNet could
+have effectively extract information from the input
+images.
+Figure 6: Network structure of multi-scale depth model.
+Another novelty of this method is that the loss
+function has not only the information of depth, but
+also the information of gradient and normal.
+ldepth =1
+nnX
+i=1F(ei)
+lgrad=1
+nnX
+i=1(F(∇x(ei)) +F(∇y(ei)))
+lnormal =1
+nnX
+i=1 
+1−nd
+i, ng
+ip
+nd
+i, nd
+ip
+ng
+i, ng
+i!(1)
+where F(x) = ln( x+α). It is shown that these two
+improvements enable to attain higher accuracy than
+the current state-of-the-arts.
+IV. Experiments and Results
+i. Multi-focus Image Fusion for Defocus De-
+blurring
+i.1 Dataset
+The dataset contains 3718 microscope fundus images
+captured with a fake eye model. Six image stacks are
+collected under commonly used magnifications of 10,
+16, and 20 in different numbers of images acording
+to different DoF. Among them, five stacks of each
+magnification are for training and another for test-
+ing. All images are rescaled to 256x256. The de-
+blurred ground-truth images are generated by [20],
+for its relatively good result.
+i.2 Experiments
+We trained the dataset with our modified network.
+At the same time, we did comparitive experiments
+on other methods: Wang[16], ASR[18], IFCNN[21],
+and the baseline AiFNet[11].
+Figure 7: Sample focal stack from the dataset.
+i.3 Results
+The metrics we choose are Structural Similarity
+(SSIM), Peak signal-to-noise ratio (PSNR). SSIM is
+to estimate the similarity level of estimated images to
+the ground-truths while PSNR is to quantify recon-
+struction quality for images. The quantitative results
+are shown in Table.1 and the qualitative results are
+shown in Figure.8
+Model Type SSIM PSNR
+Wang[16] Spatial 0.6782 25.04
+ASR[18] Transform 0.8054 29.26
+IFCNN[21] Deep Learning 0.8583 29.35
+AiFNet[11] Deep Learning 0.9054 31.91
+Ours Deep Learning 0.9230 32.10
+Table 1: Quantitative Results Comparing to Midterm.
+i.4 Discussions
+We can see from the comparison experiments that
+our model exceeds other models in this ophthalmic
+microscopic image dataset. Also, comparing the im-
+age results, our model fixed the problem of having
+blurring blood vessel boundaries and enhanced its
+capability of maintaining the identical color mapping
+byaddingedgeloss, identityloss, andtheFocusMea-
+sure Block.
+However, the image results still have potentials to
+be more fine-grained, which is a task left for future
+workers.
+4(a) Baseline
+ (b) Ground Truth
+(c) Midterm
+ (d) Our Model
+Figure 8: Image Results.
+ii. Depth Estimation
+ii.1 Review
+In the previous experiments, we have tried some al-
+gorithms to calculate the ground truth of depth map
+of microscopic image of surgical instruments. SFM
+(Structure From Motion)[15] is a method is for esti-
+mating 3D structure from a series of multiple 2D im-
+age sequences containing visual motion information.
+This requires estimating the rotation and translation
+matrix R,t of the photo from multiple views, and
+recovering the sparse point cloud structure of the ob-
+ject. This methods could only be used for monocular
+images. The results calculated by SFM is listed be-
+low:
+We could find that the performance of depth map
+calculation for monocular depth estimation is not
+idea enough even after filtering and flood-filling.
+Hence we still need to try other possible methods.
+Hence, we used a method that is specifically for com-
+puting depth maps for microscope images[13]. The
+results we obtained are listed below:
+We can find that the both the results have a obvi-
+ous flow: the boundary of the instruments is blurred
+anddistorted. Therefore, weneedfindothermethods
+to deal with this problem.
+Figure 9: Estimation results of SFM.
+Figure 10: Estimation results of microscopic method.
+ii.2 Data
+To solve the problem that our data are in low reso-
+lution, we built a simulated microscopic ophthalmic
+surgery dataset simulating the real scenes. Blender
+is a free, open source 3D authoring suite. It sup-
+ports the entire 3D authoring process - modeling,
+binding, animation, simulation, rendering, composit-
+ing and motion tracking, even video editing and
+game creation. Also, Blender Blender’s powerful fea-
+tures make it a great tool for free-hand modeling.
+Blender’s powerful features make it a great software
+for free-hand modeling. The Python interface pro-
+vided by the software also provides the ability to
+calculate real values after building the basic model.
+The Python interface also provides a way to calculate
+real values after building the basic model. Blender-
+Proc[2] is a Python library that interfaced with the
+Blender interface. This means that BlenderProc can
+take advantage of features such as ray tracing and
+5hardware accelerated rendering. It supports multi-
+channel parallel computing and is therefore suitable
+for generating realistic images for training convolu-
+tional neural networks that require large amounts of
+data. BlenderProc can compute data for segmenta-
+tion, depth, normal and pose estimation, etc. We
+constructed 64 different virtual scenes based on real
+cataract surgeries on Blender and calculated the cor-
+responding depth and segmentation ground truth for
+them. By now, we have collected 614 groups of data.
+Figure 11: Samples of virtual dataset.
+Instrument Amount Distance to camera
+Scissors 313 6-10cm
+Ring 325 8-12cm
+Latch needle 302 10-14cm
+Tweezers 318 8-12cm
+Cornea Scissors (curved) 315 4-8cm
+Cornea Scissors (straight) 320 4-8cm
+Table 2: Statistics of virtual data.
+ii.3 Train
+We have trained the model on our virtual dataset for
+10000iterations. Thevariationcurveofthelossfunc-
+tion is as follows: According to the figure, the value
+Figure 12: Variation curve of the training loss.
+of the loss function decreases significantly with theincrease of the number of training iterations in the
+early training period and then stabilizes at a lower
+range. This can also explain the effectiveness of our
+training to some extent.
+ii.4 Result Analysis
+We tested both the virtual data and the microscopic
+data under our trained model.
+The estimation results on the virtual data is good.
+The depth map could shows the depth changes in
+the instrument and the eye clearly. The predictions
+can even show changes in the depth of the bound-
+ary between the anterior and posterior anterior seg-
+ments. However,the estimation of the real data still
+Figure 13: Samples of test results of virtual data.
+haveflaws. Forexample, thepredictionoftheblurred
+areas at the tip of the instrument is very poor. And
+the dark color in the background of the image also
+interferes with the depth prediction. Therefore, we
+think there are still some necessary improvements:
+1. Optimize the way real images are taken. Avoid
+reflective or blurred camera positions when shooting,
+and adjust the background of the image to reduce the
+interference of the background on the prediction.
+2. Increase the size of virtual data sets. The current
+size of virtual datasets is small, which may result in
+weak generalization of the trained model and thus
+negatively affect the prediction results.
+6Figure 14: Samples of test results of real data.
+V. Summary
+i. Multi-focus Image Fusion for Defocus De-
+blurring
+Looking back to our work in defocus deblurring this
+semester, we did the following things:
+First, we finished the data collection. First, we
+measured the Depth-of-Field value under each mag-
+nification to determine the number of images we need
+to capture under each magnification. Then, we uti-
+lized the ophthalmic microscopes in the lab to col-
+lect a defocus microscopic image dataset. Although
+this dataset is collected using fake fundus model, it
+is enough to illustrate the problem of defocus deblur-
+ring in ophthalmic surgery.
+Then, we trained the baseline model of [11] on
+our dataset. We discovered from the results that it
+contains blurry blood vessel curves and mismatched
+color mapping between the input images and the out-
+puts. Therefore, wefixedtheproblembyaddingedge
+loss, identity loss, and Focus Measure Block onto the
+original network.
+In the future, the defocus algorithm can be com-
+bined with depth estimation method to help the sur-
+geons get better view and lower the patients’ risks
+during the surgery.
+ii. Depth Estimation from Knowledge Dis-
+tillation
+In this semester, we have tried different methods to
+obtain the depth estimation of microscopic dataset
+and solved a series of relative problems.
+First, we applied different traditional methods to
+calculate the ground truth of depth of our self-token
+microscopic data. The problem we encountered wasthat traditional methods can only effectively calcu-
+late depth maps for certain images taken at specific
+locations and angles but performed badly at large
+number of random data.
+We did a survey for the above problem and find
+that due to some characteristics of microscope data,
+such as the non-distinct texture and color of the ob-
+served object material, it is difficult for conventional
+depth prediction methods to effectively calculate the
+depth data of microscope images. Hence we found a
+method that is specially designed for the depth es-
+timation of microscopic data. This method is effec-
+tive in predicting the overall depth variation of mi-
+croscopy data, but the predictions at the boundaries
+are often blurred or distorted.
+Finally, we solved the problem of blurred and dis-
+torted boundaries by combining the depth feature
+extracted from multiple resolution scales and built
+a virtual data set to obtain high-resolution images
+and corresponding ground truth. The predictions are
+satisfying on virtual test dataset. But there are still
+some improvements need to be done before we could
+archive idea estimation of real microscopic data.

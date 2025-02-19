@@ -1,0 +1,117 @@
+Reference
+ [1] Tse, J.; Lin, X.; Vincent, D. High frequency
+ trading—Measurement, detection and re
+sponse. Credit Suisse, Zürich, Switzerland,
+ Tech. Rep 2012.
+ [2] Avellaneda, M. In New York University &
+ Finance Concepts LLC, Quant Congress
+ USA, 2011.
+ [3] Neuhierl, A.; Varneskov, R. T. Frequency
+ dependent risk. Journal of Financial Eco
+nomics 2021, 140, 644–675.
+ [4] Riordan, R.; Storkenmaier, A. Latency, liq
+uidity and price discovery. Journal of Fi
+nancial Markets 2012, 15, 416–437.
+ [5] Ntakaris, A.; Magris, M.; Kanniainen,
+ J.; Gabbouj, M.; Iosifidis, A. Benchmark
+ dataset for mid-price forecasting of limit or
+der book data with machine learning meth
+ods. Journal of Forecasting 2018, 37, 852
+866.
+ [6] Bollerslev, T.; Marrone, J.; Xu, L.; Zhou, H.
+ Stock Return Predictability and Variance
+ Risk Premia: Statistical Inference and In
+ternational Evidence. Journal of Financial
+ and Quantitative Analysis 2014, 49, 633
+661.
+ [7] Ferreira, M. A.; Santa-Clara, P. Forecasting
+ stock market returns: The sum of the parts
+ is more than the whole. Journal of Finan
+cial Economics 2011, 100, 514–537.
+ [8] Lecun, Y.; Bottou, L.; Bengio, Y.; Haffner,
+ P. Gradient-based learning applied to docu
+ment recognition. Proceedings of the IEEE
+ 1998, 86, 2278–2324.
+ [9] Sangadiev, A.; Rivera-Castro, R.; Stepanov,
+ K.; Poddubny, A.; Bubenchikov, K.;
+ Bekezin, N.; Pilyugina, P.; Burnaev, E.
+ DeepFolio: Convolutional neural networks
+ for portfolios with limit order book data.
+ arXiv preprint arXiv:2008.12152 2020.
+ [10] Zhang, Z.; Zohren, S.; Roberts, S.
+ DeepLOB: Deep Convolutional Neural
+ 11
+Networks for Limit Order Books. IEEE
+ Transactions on Signal Processing 2019,
+ 67, 3001–3012.
+ [11] Parlour, C. A.; Seppi, D. J. Limit order mar
+kets: A survey. Handbook of financial inter
+mediation and banking 2008, 5, 63–95.
+ [12] Tan, Z.; Yan, Z.; Zhu, G. Stock Selection
+ with Random Forest: An Exploitation of
+ Excess Return in the Chinese Stock Mar
+ket. Heliyon 2019, 5, e02347.
+ [13] Khaidem, L.; Saha, S.; Dey, S. R. Predicting
+ the Direction of Stock Market Prices Using
+ Random Forest. arXiv preprint 2016.
+ [14] Gatev, E.; Goetzmann, W. N.; Rouwen
+horst, K. G. Pairs Trading: Performance of
+ a Relative Value Arbitrage Rule, Rochester,
+ NY, 2006.
+ [15] Han, C.; He, Z.; Toh, A. J. W. Pairs Trading
+ via Unsupervised Learning, Rochester, NY,
+ 2021.
+ [16] MacQueen, J. In 1967.
+ [17] In Wikipedia, Page Version ID: 1186084028,
+ 2023.
+ [18] Ester, M.; Kriegel, H.; Sander, J.; Xu, X.
+ In Knowledge Discovery and Data Mining,
+ 1996.
+ [19] Johnson, S. C. Hierarchical clustering
+ schemes. Psychometrika 1967, 32, 241–254.
+ [20] Holland, J. H., Adaptation In Natural and
+ Artificial Systems; MIT Press: 1975.
+ [21] Aguilar-Rivera, R.; Valenzuela-Rendón, M.;
+ Rodríguez-Ortiz, J. Genetic algorithms and
+ Darwinian approaches in financial applica
+tions: A survey. Expert Systems with Ap
+plications 2015, 42, 7684–7697.
+ [22] Hirabayashi, A.; Aranha, C.; Iba, H. In Pro
+ceedings of the 11th Annual Conference on
+ Genetic and Evolutionary Computation, As
+sociation for Computing Machinery: Mon
+treal, Québec, Canada, 2009, 1529–1536.
+ [23] Murphy, J., Technical Analysis of the Fi
+nancial Markets: A Comprehensive Guide
+ to Trading Methods and Applications; New
+ York Institute of Finance Series; Penguin
+ Publishing Group: 1999.
+ [24] Matsumura, K.; Kakinoki, H. Portfolio
+ Strategy Optimizing Model for Risk Man
+agement Utilizing Evolutionary Computa
+tion. Electronics and Communications in
+ Japan 2014, 97, 45–62.
+ [25] Koza, J. R., Genetic Programming: On the
+ Programming of Computers by Means of
+ Natural Selection; MIT Press: Cambridge,
+ MA, USA, 1992.
+ [26] Xia, Y.; Liu, B.; Wang, S.; Lai, K. A model
+ for portfolio selection with order of expected
+ returns. Computers and Operations Re
+search 2000, 27, Cited by: 161, 409–422.
+ [27] Design and trade algorithmic trading strate
+gies in a web browser, with free fi
+nancial data, cloud backtesting and cap
+ital- QuantConnect.com https : / /
+ www . quantconnect . com/ (accessed
+ 12/27/2023).
+ [28] In Wikipedia, Page Version ID: 1158099323,
+ 2023.
+ [29] Pearson correlation coefficient- Wikipedia
+ https : / / en . wikipedia . org / wiki /
+ Pearson_correlation_coefficient (ac
+cessed 12/27/2023).
+ [30] Engle, R. F.; Granger, C. W. J. Co
+Integration and Error Correction: Represen
+tation, Estimation, and Testing. Economet
+rica 1987, 55, 251.

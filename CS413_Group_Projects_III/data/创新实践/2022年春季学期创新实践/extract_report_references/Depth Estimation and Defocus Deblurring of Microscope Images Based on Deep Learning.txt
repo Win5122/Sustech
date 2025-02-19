@@ -1,0 +1,88 @@
+ References
+ [1] Filippo Aleotti et al. “Generative adver
+sarial networks for unsupervised monocular
+ depth prediction”. In: Proceedings of the Euro
+pean Conference on Computer Vision (ECCV)
+ Workshops. 2018, pp. 0–0.
+ [2] Maximilian Denninger et al. “Blenderproc”. In:
+ arXiv preprint arXiv:1911.01911 (2019).
+ [3] Huan Fu et al. “3d-front: 3d furnished rooms
+ with layouts and semantics”. In: Proceedings
+ of the IEEE/CVF International Conference on
+ Computer Vision. 2021, pp. 10933–10942.
+ [4] Ravi Garg et al. “Unsupervised cnn for single
+ view depth estimation: Geometry to the res
+cue”. In: European conference on computer vi
+sion. Springer. 2016, pp. 740–756.
+ [5] Maria Grammatikopoulou et al. “CaDIS:
+ Cataract dataset for image segmentation”. In:
+ arXiv preprint arXiv:1906.11586 (2019).
+ [6] Kaiming He et al. “Deep residual learning
+ for image recognition”. In: Proceedings of the
+ IEEE conference on computer vision and pat
+tern recognition. 2016, pp. 770–778.
+[7] Junjie Hu et al. “Revisiting single image
+ depth estimation: Toward higher resolution
+ maps with accurate object boundaries”. In:
+ 2019 IEEE Winter Conference on Applications
+ of Computer Vision (WACV). IEEE. 2019,
+ pp. 1043–1051.
+ [8] Wei Huang and Zhongliang Jing. “Evaluation
+ of focus measures in multi-focus image fusion”.
+ In: Pattern recognition letters 28.4 (2007),
+ pp. 493–500.
+ [9] Yu Liu et al. “Image fusion with convolutional
+ sparse representation”. In: IEEE signal process
+ing letters 23.12 (2016), pp. 1882–1886.
+ [10] Yu Liu et al. “Multi-focus image fusion: A sur
+vey of the state of the art”. In: Information Fu
+sion 64 (2020), pp. 71–91.
+ [11] Maxim Maximov, Kevin Galim, and Laura
+ Leal-Taixé. “Focus on defocus: bridging the
+ synthetic to real domain gap for depth es
+timation”. In: Proceedings of the IEEE/CVF
+ Conference on Computer Vision and Pattern
+ Recognition. 2020, pp. 1071–1080.
+ [12] Dr Manish Nagpal. Epiretinal Membrane Peel
+ing | Keep Calm and Rescue On. url: https:
+ //www.youtube.com/watch?v=mblzpWXDTxI.
+ [13] Luca Palmieri et al. “Robust depth estima
+tion for light field microscopy”. In: Sensors 19.3
+ (2019), p. 500.
+ [14] Keisuke Tateno et al. “Cnn-slam: Real-time
+ dense monocular slam with learned depth pre
+diction”. In: Proceedings of the IEEE confer
+ence on computer vision and pattern recogni
+tion. 2017, pp. 6243–6252.
+ [15] Shimon Ullman. “The interpretation of struc
+ture from motion”. In: Proceedings of the Royal
+ Society of London. Series B. Biological Sci
+ences 203.1153 (1979), pp. 405–426.
+ [16] Lihui Wang et al. “Low-cost, readily available
+ 3D microscopy imaging system with variable
+ focus spinner”. In: Optics Express 26.23 (2018),
+ pp. 30576–30587.
+ [17] Rui Wang, Stephen M Pizer, and Jan-Michael
+ Frahm. “Recurrent neural network for (un-)
+ supervised learning of monocular video visual
+ odometry and depth”. In: Proceedings of the
+ IEEE/CVF Conference on Computer Vision
+ and Pattern Recognition. 2019, pp. 5555–5564.
+ [18] Zhaobin Wang, Zijing Cui, and Ying Zhu.
+ “Multi-modal medical image fusion by Lapla
+cian pyramid and adaptive sparse representa
+tion”. In: Computers in Biology and Medicine
+ 123 (2020), p. 103823.
+ [19] Keisuke Yoneda et al. “Lidar scan feature
+ for localization with highly precise 3-D map”.
+ In: 2014 IEEE Intelligent Vehicles Symposium
+ Proceedings. IEEE. 2014, pp. 1345–1350.
+ [20] Yu Zhang, Xiangzhi Bai, and Tao Wang.
+ “Boundary finding based multi-focus image fu
+sion through multi-scale morphological focus
+measure”. In: Information fusion 35 (2017),
+ pp. 81–101.
+ [21] Yu Zhang et al. “IFCNN: A general image fu
+sion framework based on convolutional neural
+ network”. In: Information Fusion 54 (2020),
+ pp. 99–118.

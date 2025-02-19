@@ -1,0 +1,6 @@
+参考文献
+[1] Zhao S ,  Wang Y ,  Yang Z , et al. Region Mutual Information Loss for Semantic  
+Segmentation[J].  2019.
+[2]Fan, M., Lai, S., Huang, J., Wei, X., Chai, Z., Luo, J., & Wei, X. (2021). Rethinking bisenet for real-
+time semantic segmentation. In Proceedings of the IEEE/CVF conference on computer vision and  
+pattern recognition  (pp. 9716-9725).

@@ -1,0 +1,41 @@
+参考文献
+Mao X L, Li X M. A Survey on Question and Answering Systems[J]. Chinese Journal of Computer Science and Exploration, 2012, 6(03): 193-207.(in Chinese)
+毛先领,李晓明.问答系统研究综述[J].计算机科学与探索,2012,6(03):193-207.
+Farea A, Yang Z, Duong K, et al. Evaluation of Question Answering Systems: Complexity of judging a natural language[J]. arXiv preprint arXiv:2209.12617, 2022. 
+Allam A M N, Haggag M H. The question answering systems: A survey[J]. International Journal of Research and Reviews in Information Sciences (IJRRIS), 2012, 2(3).
+Bouziane A, Bouchiha D, Doumi N, et al. Question answering systems: survey and trends[J]. Procedia Computer Science, 2015, 73: 366-375.
+Diefenbach D, Lopez V, Singh K, et al. Core techniques of question answering systems over knowledge bases: a survey[J]. Knowledge and Information systems, 2018, 55: 529-569.
+Clark J H, Choi E, Collins M, et al. Tydi qa: A benchmark for information-seeking question answering in ty pologically di verse languages[J]. Transactions of the Association for Computational Linguistics, 2020, 8: 454-470.
+Antonio M, Soares C, Parreiras F S. A literature review on question answering techniques, paradigms and systems[J]. Journal of King Saud University-Computer and Information Sciences, 2018, 8(5): 1-12.
+Wen S, Qian L, Hu M D, et al. A Survey of Research Progress of Question Answering Technology Based on Large Language Model[J/OL]. Chinese Journal of Data Analysis and Knowledge Discovery: 1-17[2023-12-09]. http://kns.cnki.net/kcms/detail/10.1478.G2.20231110.1612.002.html.(in Chinese)
+文森,钱力,胡懋地等.基于大语言模型的问答技术研究进展综述[J/OL].数据分析与知识发现:1-17[2023-12-09].http://kns.cnki.net/kcms/detail/10.1478.G2.20231110.1612.002.html.
+Wang X, Fan S, Houghton J, et al. Towards process-oriented, modular, and versatile question generation that meets educational needs[J]. arXiv preprint arXiv:2205.00355, 2022.
+Le H T, Cao D T, Bui T H, et al. Improve Quora Question Pair Dataset for Question Similarity Task[C]//2021 RIVF International Conference on Computing and Communication Technologies (RIVF). IEEE, 2021: 1-5.
+Pandya H A, Bhatt B S. Question answering survey: Directions, challenges, datasets, evaluation matrices[J]. arXiv preprint arXiv:2112.03572, 2021.
+Zhang, Z., Zhang, A., Li, M., Zhao, H., Karypis, G., & Smola, A.J. (2023). Multimodal Chain-of-Thought Reasoning in Language Models. ArXiv, abs/2302.00923.
+Ho N, Schmid L, Yun S Y. Large language models are reasoning teachers[J]. arXiv preprint arXiv:2212.10071, 2022.
+Magister L C, Mallinson J, Adamek J, et al. Teaching small language models to reason[J]. arXiv preprint arXiv:2212.08410, 2022.
+Li L H, Hessel J, Yu Y, et al. Symbolic Chain-of-Thought Distillation: Small Models Can Also" Think" Step-by-Step[J]. arXiv preprint arXiv:2306.14050, 2023.
+Yao Y, Li Z, Zhao H. Beyond Chain-of-Thought, Effective Graph-of-Thought Reasoning in Large Language Models[J]. arXiv preprint arXiv:2305.16582, 2023.
+Yao F, Tian C, Liu J, et al. Thinking like an expert: Multimodal hypergraph-of-thought (hot) reasoning to boost foundation modals[J]. arXiv preprint arXiv:2308.06207, 2023
+Sun X, Liu J, Lyu Y, et al. Answer-focused and position-aware neural question generation[C]//Proceedings of the 2018 conference on empirical methods in natural language processing. 2018: 3930-3939.
+Cao S, Wang L. Controllable open-ended question generation with a new question type ontology[J]. arXiv preprint arXiv:2107.00152, 2021.
+Fei Z, Zhang Q, Gui T, et al. CQG: A simple and effective controlled generation framework for multi-hop question generation[C]//Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). 2022: 6896-6906.
+Wei J, Wang X, Schuurmans D, et al. Chain-of-thought prompting elicits reasoning in large language models[J]. Advances in Neural Information Processing Systems, 2022, 35: 24824-24837.
+Kunneman F, Ferreira T C, Krahmer E, et al. Question similarity in community question answering: A systematic exploration of preprocessing methods and models[C]//Proceedings of the International Conference on Recent Advances in Natural Language Processing (RANLP 2019). 2019: 593-601.
+Aithal S G, Rao A B, Singh S. Automatic question-answer pairs generation and question similarity mechanism in question answering system[J]. Applied Intelligence, 2021: 1-14.
+Wang X, Zhou H, Li Z P, et al. Data scarcity and the asymmetry in the value of large model data[J]. Chinese Journal of Information Security Research, 2023, 9(7): 637. (in Chinese)
+王翔, 周辉, 李志鹏, 等. 数据稀缺性与大模型数据价值的非对称性[J]. 信息安全研究, 2023, 9(7): 637.
+Li J. Security Implications of AI Chatbots in Health Care[J]. Journal of Medical Internet Research, 2023, 25: e47551.
+Andriyanov N A, Andriyanov D A. The using of data augmentation in machine learning in image processing tasks in the face of data scarcity[C]//Journal of Physics: Conference Series. IOP Publishing, 2020, 1661(1): 012018.
+Kurdi G, Leo J, Parsia B, et al. A systematic review of automatic question generation for educational purposes[J]. International Journal of Artificial Intelligence in Education, 2020, 30: 121-204.
+Mensio M, Rizzo G, Morisio M. Multi-turn qa: A rnn contextual approach to intent classification for goal-oriented systems[C]//Companion Proceedings of the The Web Conference 2018. 2018: 1075-1080.
+Zaib M, Zhang W E, Sheng Q Z, et al. Conversational question answering: A survey[J]. Knowledge and Information Systems, 2022, 64(12): 3151-3195.
+Ma K, Ilievski F, Francis J, et al. Knowledge-driven data construction for zero-shot evaluation in commonsense question answering[C]//Proceedings of the AAAI Conference on Artificial Intelligence. 2021, 35(15): 13507-13515.
+Benotti L, Blackburn P. Ethics consideration sections in natural language processing papers[C]//Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing. 2022: 4509-4516.
+Hovy D, Spruit S L. The social impact of natural language processing[C]//Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers). 2016: 591-598.
+Loginova E, Varanasi S, Neumann G. Towards end-to-end multilingual question answering[J]. Information Systems Frontiers, 2021, 23: 227-241.
+Deng Y, Li Y, Zhang W, et al. Toward personalized answer generation in e-commerce via multi-perspective preference modeling[J]. ACM Transactions on Information Systems (TOIS), 2022, 40(4): 1-28.
+Hatun Ataş A, Delialioğlu Ö. A question–answer system for mobile devices in lecture-based instruction: a qualitative analysis of student engagement and learning[J]. Interactive Learning Environments, 2018, 26(1): 75-90.
+Arefeen M A, Debnath B, Chakradhar S. Leancontext: Cost-efficient domain-specific question answering using llms[J]. arXiv preprint arXiv:2309.00841, 2023.
+Xiong W, Wu J, Wang H, et al. TWEETQA: A social media focused question answering dataset[J]. arXiv preprint arXiv:1907.06292, 2019.

@@ -1,0 +1,100 @@
+ References
+ [1] Feng D , Haase-Schutz C , Rosenbaum L , et al. Deep
+ Multi-Modal Object Detection and Semantic Segmentation
+ for Autonomous Driving: Datasets, Methods, and
+ [2] Wang Z , Wu Y , Niu Q . Multi-Sensor Fusion in
+ Automated Driving: A Survey[J]. IEEE Access, 2020,
+ 8:2847-2868.
+ [3] J. Kim, J. Koh, Y. Kim, J. Choi, Y. Hwang, and J. W. Choi,
+ “Robust deep multi-modal learning based on gated
+ information fusion network,” arXiv:1807.06233 [cs.CV],
+ 2018
+ [4] G. Neuhold, T. Ollmann, S. R. Bulo, and P. Kontschieder,
+ “The ` Mapillary Vistas dataset for semantic understanding
+ of street scenes,” in Proc. IEEE Conf. Computer Vision, Oct.
+ 2017, pp. 5000–5009.
+ [5] Y. Yan, Y. Mao, and B. Li, “Second: Sparsely embedded
+ convolutional detection,” Sensors, vol. 18, no. 10, p. 3337,
+ 2018.
+ [6] C. Urmson et al., “Autonomous driving in urban
+ environments: Boss and the urban challenge,” J. Field
+ Robotics, vol. 25, no. 8, pp. 425–466, 2008.
+ [7] B. Xu and Z. Chen, “Multi-level fusion based 3D object
+ detection from monocular images,” in Proc. IEEE Conf.
+ Computer Vision and Pattern Recognition, 2018, pp.
+ 2345–2353.
+ [8] S. Gupta, R. Girshick, P. Arbelaez, and J. Malik, “Learning
+ rich features ´ from RGB-D images for object detection and
+ segmentation,” in Proc. Eur. Conf. Computer Vision.
+ Springer, 2014, pp. 345–360.
+ [9] K. Bengler, K. Dietmayer, B. Farber, M. Maurer, C. Stiller,
+ and H. Winner, “Three decades of driver assistance systems:
+ Review and future perspectives,” IEEE Intell. Transp. Syst.
+ Mag., vol. 6, no. 4, pp. 6–22, 2014.
+ [10] E. Arnold, O. Y. Al-Jarrah, M. Dianati, S. Fallah, D. Oxtoby,
+ and A. Mouzakitis, “A survey on 3d object detection
+ methods for autonomous driving applications,” IEEE
+ Transactions on Intelligent Transportation Systems, pp.
+ 1–14, 2019.
+ [11] A. Garcia-Garcia, S. Orts-Escolano, S. Oprea, V.
+ Villena-Martinez, and J. Garcia-Rodriguez, “A review on
+ deep learning techniques applied to semantic segmentation,”
+ arXiv:1704.06857 [cs.CV], 2017.
+ [12] L. Liu et al., “Deep learning for generic object detection: A
+ survey,” arXiv:1809.02165 [cs.CV], 2018.
+ [13] B. Li, T. Zhang, and T. Xia, “Vehicle detection from 3d lidar
+ using fully convolutional network,” in Proc. Robotics:
+ Science and Systems, Jun. 2016.
+ [14] A. Geiger, P. Lenz and R. Urtasun, "Are we ready for
+ autonomous driving? The KITTI vision benchmark
+ suite," 2012 IEEE Conference on Computer Vision and
+ Pattern
+ Recognition, 2012, pp. 3354-3361, doi:
+ 10.1109/CVPR.2012.6248074.
+ [15] A. Geiger, P. Lenz, C. Stiller, R. Urtasun. Vision meets
+ robotics: The KITTI dataset. The International Journal of
+ Robotics
+ Research.
+ doi:10.1177/0278364913491297
+ 2013;32(11):1231-1237.
+ [16] Q. Ha, K.Watanabe,T. Karasawa, Y.Ushikuand T. Harada,
+ "MFNet: Towards real-time semantic segmentation for
+ autonomous vehicles with multi-spectral scenes," 2017
+ IEEE/RSJ International Conference on Intelligent Robots
+ and Systems (IROS), 2017, pp. 5108-5115, doi:
+ 10.1109/IROS.2017.8206396.
+[17] Y. Choi et al., "KAIST Multi-Spectral Day/Night Data Set
+ for Autonomous and Assisted Driving," in IEEE
+ Transactions on Intelligent Transportation Systems, vol. 19,
+ no.
+ 3,
+ pp.
+ 934-948,
+ 10.1109/TITS.2018.2791533.
+ March
+ 2018,
+ doi:
+ [18] N. Kim, Y. Choi, S. Hwang, I. S. Kweon (2018).
+ Multispectral Transfer Network: Unsupervised Depth
+ Estimation for All-Day Vision. Proceedings of the AAAI
+ Conference
+ on
+ Artificial
+ Intelligence,
+ https://doi.org/10.1609/aaai.v32i1.12297
+ 32(1).
+ [19] The nuScene dataset. nuScene. [Online]. Available:
+ https://www.nuscenes.org/
+ [20] W.Maddern,G. Pascoe, C.Linegar, andP.Newman,“1 year,
+ 1000km: The Oxford RobotCar dataset,” Int. J. Robotics
+ Research, vol. 36, no. 1, pp. 3–15, 2017.
+ [21] Y. Zhou and O. Tuzel, “VoxelNet: End-to-end learning for
+ point cloud based 3d object detection, in Proc. IEEE Conf.
+ Computer Vision and Pattern Recognition, 2018.
+ [22] C. R. Qi, L. Yi, H. Su, and L. J. Guibas, “PointNet++: Deep
+ hierarchical feature learning on point sets in a metric space,”
+ in Advances in Neural Information Processing Systems,
+ 2017, pp. 5099–5108.
+ [23] T. Roddick, A. Kendall, and R. Cipolla, “ Orthographic
+ feature transform for monocular 3d object detection, ”
+ arXiv:1811.08188 [cs.CV], 2018

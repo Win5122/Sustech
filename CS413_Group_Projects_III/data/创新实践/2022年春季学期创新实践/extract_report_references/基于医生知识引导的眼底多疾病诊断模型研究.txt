@@ -1,0 +1,12 @@
+参考文献
+[1] 刘卫, 张勇进. 糖尿病性视网膜病变[J]. 国外医学. 眼科学分册,2005(05):74-79.
+ [2] Thomas Walter, Pascale Massin, Ali Erginay, Richard Ordonez, Clotilde Jeulin, Jean-Claude
+ Klein, Automatic detection of microaneurysms in color fundus images, Medical Image Analysis,
+ Volume 11, Issue 6, 2007, Pages 555-566, ISSN 1361-8415.
+ [3] Maximilian Ilse and Jakub M. Tomczak and Max Welling,Attention-based Deep Multiple In
+stance Learning, 2018, arXiv:1802.04712.
+ [4] Ronneberger, O., Fischer, P. & Brox, T. U-net: Convolutional networks for biomedical image
+ segmentation. In International Conference on Medical image computing and computer-assisted
+ intervention, 234–241 (Springer, 2015).
+ [5] Karargyris, A., Kashyap, S., Lourentzou, I. et al. Creation and validation of a chest X-ray
+ dataset with eye-tracking and report dictation for AI development. Sci Data 8, 92 (2021).

@@ -1,0 +1,27 @@
+REFERENCES
+[1] https://github.com/ShieldMnt/invisible-watermark
+[2] https://github.com/SoftWiser-group/FTrojan
+[3] Tong Wang, Yuan Yao, Feng Xu, Shengwei An, Hanghang Tong,
+and Ting Wang. 2022. An Invisible Black-Box Backdoor Attack
+Through Frequency Domain. In Computer Vision – ECCV 2022:
+17th European Conference, Tel Aviv, Israel, October 23–27, 2022,
+Proceedings, Part XIII. Springer-Verlag, Berlin, Heidelberg, 396–413.
+https://doi.org/10.1007/978-3-031-19778-9 23
+[4] Haoti Zhong, Cong Liao, Anna Cinzia Squicciarini, Sencun Zhu, and
+David Miller. 2020. Backdoor Embedding in Convolutional Neural
+Network Models via Invisible Perturbation. In Proceedings of the
+Tenth ACM Conference on Data and Application Security and Privacy
+(CODASPY ’20). Association for Computing Machinery, New York,
+NY , USA, 97–108. https://doi.org/10.1145/3374664.3375751
+[5] Y . Li, Y . Li, B. Wu, L. Li, R. He and S. Lyu, ”Invisible Backdoor
+Attack with Sample-Specific Triggers,” 2021 IEEE/CVF International
+Conference on Computer Vision (ICCV), 2021, pp. 16443-16452, doi:
+10.1109/ICCV48922.2021.01615.
+[6] S. Li, M. Xue, B. Z. H. Zhao, H. Zhu and X. Zhang, ”Invisi-
+ble Backdoor Attacks on Deep Neural Networks Via Steganography
+and Regularization,” in IEEE Transactions on Dependable and Secure
+Computing, vol. 18, no. 5, pp. 2088-2105, 1 Sept.-Oct. 2021, doi:
+10.1109/TDSC.2020.3021407.
+[7] Chang Yue, Peizhuo Lv, Ruigang Liang, Kai Chen. Invisible Back-
+door Attacks Using Data Poisoning in the Frequency Domain.
+https://doi.org/10.48550/arXiv.2207.04209

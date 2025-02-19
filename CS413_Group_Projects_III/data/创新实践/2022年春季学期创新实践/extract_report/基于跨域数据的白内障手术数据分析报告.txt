@@ -1,0 +1,457 @@
+Cataract Surgical Analysis Based on Cross Domain Data
+Mingyang Ou, Zemin Wu, Zihan Ma
+I. INTRODUCTION
+Semantic segmentation is one of the classic tasks in
+computer-aid system for surgical scenarios. Pixel-wise an-
+notations separate boarderlines between anatomy structure
+and instruments, helping clinicians make better decisions
+and operations. In recent years, deep neural networks(DNNs)
+become the leading trend for settling semantic segmentation
+task. However, 1)mass training data and heavy manual anno-
+tation works make generating datasets difficult, especially in
+cataract surgery. Meanwhile, 2)performance of semantic seg-
+mentation model drops due to cross-domain data in cataract
+surgery scenario. To desirably settle this two problems, a
+domain adaptation model is proposed combining the features
+of spectrum analysis, FFT domain randomization and multi-
+view learning.
+II. BACKGROUND
+A. Cataract
+Cataract is a common ophthalmic disease. The devel-
+opment of its related knowledge and treatment needs our
+attention. Cataract is a common blinding eye disease. The
+lens in the eyes of normal people is transparent, and the light
+reaches the retina smoothly, so that people can clearly see
+external objects. The loss of vision caused by lens opacity is
+called cataract. According to the statistics, 33% of the visual
+impairment and 51% of the blindness in the world come
+from cataracts that are not treated in time. According to the
+ophthalmology branch of Chinese Medical Association, the
+incidence rate of cataract among people aged 60 to 89 is
+80%, while the incidence rate of cataract is higher than 90%
+in people over 90 years old.
+Fig. 1. The eyes with cataract
+At present, surgery is still the only effective method
+to treat cataract. In 1967, Charles Kelman invented cataractphacoemulsification, which developed cataract surgery from
+general vision restoration surgery to refractive surgery with
+high quality, high efficiency and high satisfaction. Since then,
+cobble optimized the surgical process, greatly reduced the
+endothelial damage, and inspired many doctors to develop
+special surgical techniques and skills suitable for cataract
+with different machine modes, different hardness, different
+patients and surgeons. There is still a long way to go for
+the progress of surgery. In order to successfully implement
+cataract surgery and effectively promote the recovery of
+physiological visual function, it is necessary to continuously
+improve the surgical incision, capsulorhexis shape, operation
+efficiency and intraocular lens design, so as to restore the
+patient’s ocular physiological function. In the process of
+cataract surgery, surgeons need to operate a variety of pre-
+cision surgical instruments to cut cornea, emulsify, remove
+aging crystals, inject intraocular lenses and so on. However,
+due to the similarity of light, blood and surgical instruments
+in the surgical scene, the surgeon is prone to misjudgment
+and there is a risk of eye damage to the patient. Therefore,
+cataract surgery requires the surgeon’s rich experience.
+B. Semantic Segmentation and Domain Adaptation
+Semantic segmentation can help doctors avoid some
+misjudgments to a certain extent. Semantic segmentation
+processes the cataract surgery scene, divides the surgical
+instruments, pupil, iris, cornea and other areas, and assists
+the surgeon in precision operations such as lens removal.
+At present, many semantic segmentation algorithms based
+on cataract data have good results. However, in clinic,
+the performance of these algorithms cannot play their best
+performance because they cannot deal with the diversity of
+surgical scenes, that is, the generalization ability is insuffi-
+cient. Semantic Segmentation
+Fig. 2. Semantic Segmentation
+The current research challenges are roughly divided into
+two categories. First, deep convolution network has attracted
+extensive attention because of its good performance in se-
+mantic segmentation. However, the performance of deep
+network driven by data is based on a large number of training
+data and manual marking, and the cost of data acquisitionis high. Second, AI algorithms are greatly affected by the
+diversity of clinical data. After a large amount of data learn-
+ing, the deep neural network may not generalize the learned
+knowledge to the real application scenario, that is, there is
+a domain shift problem (data distribution drift problem).
+Even subtle differences may cause significant performance
+degradation of the model.
+This requires the use of domain adaptation and the full
+use of cross domain data to train the model. Through
+domain adaptation, the model has better robustness in clinical
+application. Domain adaptation is a field of computer vision,
+where our goal is to train a neural network on a source
+dataset and secure a good accuracy on the target dataset
+which is significantly different from the source dataset.
+III. P ROBLEM DEFINITION
+A. Definition
+Based on the background investigation, two primary prob-
+lems are to be settled. 1)First, the cataract surgery data
+available for analysis is insufficient. Specifically collecting
+cataract surgery data and giving manually annotations are
+costly. 2)Second, the semantic segmentation algorithms for
+cataract surgery has the problem of domain shift. Such
+domain shift makes semantic segmentation model degenerate
+in clinical cataract surgery scenarios.
+B. Solution
+Our solution is to designed a cataract surgery semantic
+segmentation neural network with domain adaptation ability.
+Such network can train with unlabled data, which solves
+the first problem(expensive workload to collect and annotate
+cataract surgery data). At the same time, the model could
+make full use of cross-domain data and show robust per-
+formance on inputs from other distribution, settling problem
+2.
+C. Procedure
+Procedure of our solution implementation can be conclude
+in two steps:
+•We first design a semantic segmentation model for
+cataract surgery. We proceed domain adaptation on two
+realistic cataract surgery datasets, one with pixel-level
+annotations(source domain) and one without(target do-
+main). Expected outcomes would be model is trained on
+source domain with annotations and have good quality
+semantic segmentation on target domain. Once we make
+excellent result, our semantic segmentation model has
+good generalization ability, therefore problem 1 could
+be solved.
+•Then we try to carry out domain adaptation task from
+synthetic dataset to realistic dataset. If we get com-
+pelling result, we could use abundant synthetic data for
+training which are paired with annotations and apply
+the trained model on realistic surgery scenario withouts
+performance degradation.IV. F LOW CHART
+Procedures to settle the problems are concluded in
+following flow Fig. 3. Since problems are defined based
+on previous background research, necessary related works
+are needed to give inspiration for solutions. Then a basic
+methodology should be proposed, following by verification
+of feasibility of each components. Dataset preprocessing is
+also essential for experiments like comparison experiments or
+just quantified measurement. Afterwards, model integration
+and baseline experiment should be carried out. Comparison
+experiment help us fine tune our model and if our model
+shows convincing domain adaptation results, we can have
+further exploration. As showing in the flow chart, blue part
+is what we have done this period.
+V. R ELATED WORKS
+Three papers are presented in detail,which includes
+the main idea of our model. [1]introduce a method that
+improves the unsupervised domain adaptation, which is by
+swapping the low-frequency spectrum of source and tar-
+get the difference between them is reduced. We can get
+a image that has the object of target with the style of
+source. [2]describe Frequency space Domain Randomiza-
+tion. It first converts the images into multiple frequency
+components(FCs) with discrete cosine transform; divide FCs
+into two groups: domain-invariant FCs(DIFs) and domain-
+variant FCs(DVFs); then keep the DIFs and randomizing
+DVFs. It can save the origin semantic structures, while the
+outcome image has different style. [3] Class-level adversarial
+networks (CLAN) are introduced, which aim to address the
+semantic inconsistency caused by global feature alignment
+during unsupervised domain adaptation (UDA). The model
+in the paper consists of a generator G and a discriminator
+D. After co-training, the weights of the two classifiers in the
+generator are different, providing us with different semantic
+predictions.
+VI. M ETHODOLOGY
+Our methodology are separated into three parts.
+•First, we identify domain invariant and variant fre-
+quency components of source domain using spectrum
+analysis.
+•Second, we replace domain variant frequency compo-
+nents of source domain with corresponding frequency
+components of target domain using FFT domain adap-
+tation method.
+•Finally, we input the resulting source domain images
+with target images to multi-view adversarial model to
+conduct domain alignment.
+A. Spectrum analysis
+Since filtering out the domain invariant can enhance the
+effect of domain adaptation. We first transform the source
+domain image to the frequency domain space through the
+DCT transform (Discrete Cosine Transform).Fig. 3. Flow Chart
+Then for the transformed frequency domain space, we di-
+vide it into 128 frequency band FCs (Frequency Com-
+ponents).Each group of frequency bands has part of the
+information of the input image, and we use band-stop filters
+to filter different groups of frequency bands respectively.
+The remaining frequency bands will be used as input to
+the classification model for training. Since different fre-
+quency bands carry information of different input images, the
+classification performance of the model will decrease after
+the frequency bands containing important domain invariant
+features are filtered out. Therefore, the trained models have
+performance differences in classification tasks. By comparing
+the worst performing models we filter out frequency band
+corresponding to the domain invariant.
+B. Frequency Domain Randomization
+We filter out the corresponding frequency bands of multi-
+ple groups of domain invariant, and then adopt the method
+of domain randomization to integrate the style target do-
+main image into the source domain image.Same as the first
+part.First, both the source domain and the target domain
+are projected into the frequency domain space. Then the
+corresponding frequency bands of the domain invariant fea-
+tures are excluded, the remaining frequency bands of the
+source domain and target domain are randomly selected for
+replacement, and finally the inverse FFT transform is used
+to obtain source domain images fused with target domain
+styles.
+C. Multi-View Adversarial Learning
+The adversarial neural network adopts the structure of the
+discriminator on the basis of the ordinary neural network,
+and the discriminator is trained so that it can distinguish
+the input of the source domain or the target domain.The
+discriminator identifies the characteristics of the source or
+target domain and the generator reduces the domain shift
+characteristics of the source domain and the target domain to
+form a confrontation relationship, constraining the generator
+to learn domain-invariant features.The multi-view learning
+method utilizes the characteristics of the dataset with multi-
+ple attribute sets, trains multiple classifiers at the same time,
+imposes difference constraints and requires them to have thesame segmentation effect to enhance the performance of the
+model.
+This project envisages combining the adversarial idea of
+adversarial neural networks and the advantages of multi-
+attempt learning, alternately inputting source domain and
+target domain images, training an improved dual-classifier
+semantic segmentation model based on the classic segmen-
+tation model U-Net, and convolution neural network is used
+as a discriminator constraint to train a cataract surgery image
+segmentation model with high generalization ability and
+accurate segmentation.
+VII. D ATASET
+Dataset name # of images # of categories
+CADIS(training) 3550 36
+CADIS(validation) 534 25
+CADIS(test) 586 28
+InSegCat(training) 237 13
+InSegCat(validation) 61 13
+InSegCat(test) 88 13
+Cataract surgery game(training) 6890 17
+Cataract surgery game(validation) 1200 17
+Cataract surgery game(test) 600 17
+TABLE I
+DATASET OVERVIEW
+A. Domain adaptation between realistic datasets
+For the first step, we evaluate our proposed model on two
+challenging cataract surgical datasets. The two datasets are
+CADIS[4] and InSegCat[5] as we introduce from Table I.
+Fig. 4. Phases of cataract surgery
+We treat CADIS dataset as source domain data where
+annotations are accessible, while data from InSegCat datasetstend to be the target domain data which we assume it does
+not contain ground truth label. Phases of the cataract surgical
+process are in Figure 4 and comparison of images from
+two datasets in the same phases are showed in Figure 5.
+From Figure 5, we can tell that styles including bright-
+ness, saturation and etc. are distinguished between the two
+datasets. In other words, domain shift exits between the two
+realistic datasets, which lay research foundation for further
+experiments.
+Fig. 5. Comparison of images of two different domains
+B. Domain adaptation from synthetic data to realistic data
+We already generated a datasets from a cataract surgical
+video game. We decompile the cataract surgical game with
+the help of decompiler JPEX. We replace the color of vector
+images of surgical tools and generate both images and masks
+of surgical scenarios using JPEX. For the second problem
+setting, we replace CADIS with the synthetic dataset to be
+the source domain.
+C. Data process of the dataset
+The label of InSegCat dataset only contain surgical instru-
+ments, comparing to other datasets(Figure 6), it is imperfect.
+In order to have more intuitive display of segmentation
+performance, to calculation of segmentation loss, and to
+prepare for follow-up comparative experiments, we relabeled
+the InSegCat. With the help of the doctors in the research
+group, we learned the relevant knowledge of cataract surgery,
+divided the labels into 15 categories, added the pupil and iris,
+and classified and supplemented the surgical instruments.We
+try to lable it using Pair with the new 15 lables. Thus, we can
+align labels of the two datasets and can use the dataset which
+has small number of data as the test dataset. There are two
+major step of the relabel progress to deal with difficulty of
+it:
+•Improve the contrast of the picture to have better clear
+boundaries between different domain.
+•Review the surgery video to differentiate similar surgi-
+cal instruments.
+Fig. 6. Label comparison between CADIS(left) and InSegCat(right)VIII. M ODEL OPTIMIZATION AND INTEGRATION
+Existing work world be the verification of each module. At
+this term, we first make optimization on each module. After-
+wards, modules are integrated and compares with other se-
+lected domain adaptation module for semantic segmentation
+to test the performance of our model. Here we demonstrate
+how we make optimization of each module and integrate
+them into a complete model.
+A. Spectrum Analysis
+Since last term, we have already determined that frequency
+components (3, 128] contains more DIFs, we did not make
+much improvements this term.
+B. Frequency Domain randomization
+As stated, we replace frequency components of source
+domain images with components of target domain images.
+While in previous implementation, we used 5 particular
+target images for randomization and stored the newly gen-
+erated dataset in local. Drawbacks would be such 5 specific
+images could not properly emulate the distribution of the
+target domain. As a result, the generated new source domain
+images could not transmit characteristic of target domain
+well. We come up with the solution of dynamically swapping
+frequency components in the process of training. Frequency
+components of each source domain image are swapped
+with one randomly selected target domain images before
+sent into neural networks. In such way, each image from
+source domain has possibility to merge characteristic of every
+domain image, greatly increasing randomness.
+C. Multi-View Adversarial Learning
+Due to the limitation of computing resources, our batch
+size ranges from 1 to 3. [6] shows that model is sensitive to
+batch size when it applies batch normalization, where small
+batch size could lead to increase of error rate(performance
+drop). Therefore, to reduce the effect of small batch size. We
+use instance normalization instead.
+After refinement of each module, we integrate them to be
+a whole segmentation model for cataract surgery scenarios
+with domain adaptation ability, as shown in Fig 8
+IX. C OMPARISON EXPERIMENTS
+Comparison experiments are necessary and essential to
+give evaluation of model performance. Therefore, we select
+2 semantic segmentation models with domain adaptation
+ability to compare with our model.
+A. Model Selection
+Two domain adaptation models are selected: Fourier
+Domain Adaptation(FDA) [7] and FCNs in the wild [8].
+1) FDA domain adaptation model holds the idea of low
+frequency contains more style-related information and style
+difference is one of the causes of domain gap. Therefore,
+using Fast Fourier Transformation(FFT) to swap low fre-
+quency components of source domain and target domain
+could transfer style of target domain to source domain andFig. 7. The data after label
+Fig. 8. Model Overview
+consequently enhance semantic segmentation performance
+on target domain. 2) FCNs in the wild reduce domain shifts
+in direction different from FDA. Using an encoder, input
+spaces of source domain and target domain are cast into
+feature spaces. FCN in the wilds uses adversarial loss to
+reduce distance between source domain features and target
+domain features, therefore improving segmentation results on
+target domain.
+B. Metric Selection
+Metrics should also carefully selected as they should
+objectively reflect the capability of models. Here Pixel
+Accuracy(PA) and Frequency Weight Intersection over
+Union(FWIoU) are chosen. Pixel accuracy are calculated
+simply by dividing number of pixel correctly predicted by
+total number of pixels:
+PA =PC
+n=0pnn
+pN(1)
+Such metric indicates the overall accuracy of prediction of
+the model. Meanwhile, FWIoU is a bit more complicated.Formula of FWIoU is given by:
+FWIoU =1
+pN·CX
+m=0pmmPC
+n=0pmn+PC
+n=0pnm−pmm
+(2)
+where pNrepresents total number of pixels, Crepresents
+the number of categories and pmnis the number of pixels
+of class mthat are predicted as nby the model. Accord-
+ingly, the evaluation metric assigning frequency weights to
+classes is able to comprehensively assess the segmentation
+performance. While PA evaluates model on a more general
+perspective, FWIoU introduces more category accuracy of
+the model. Therefore, we can gain impersonal insight into
+the capability of models.
+C. Results and Analysis
+Visualization of our comparison experiments are demon-
+strated above. For each input image, structure can be di-
+vided into foreground and background, where foreground are
+majorly surgical tools and background are mostly anatomy
+structures. Comparing with FDA and FCNs in the wild, our
+model achieve superior segmentation performance on mostFig. 9. Visualization of Comparison Experiment
+Model Pupil Iris Cornea Skin FWIoU PA
+FDA 75.49 49.49 52.96 46.19 51.28 64.54
+FCNs in the wild 67.96 31.13 53.72 54 50.25 65.71
+Ours 75.79 48.87 64.08 54.17 57.78 73.11
+Model Pri.Knife Pha.Cystotome A/I.Handpiece Lens Injector Cannula Eye Retractor
+FDA 3.87 0.73 4.47 1.13 20.55 14.21
+FCNs in the wild 15.18 1.92 6.07 1.28 13.76 20.27
+Ours 5.01 3.88 3.64 1.47 16.28 31.99
+TABLE II
+QUANTIFIED RESULTS
+of the background categories such as iris, pupils, cornea and
+skins. The segmentation masks are more consecutive and
+complete. For foreground surgical tools, our models does
+not overwhelmingly surpass the other two models. Tools like
+Cannula and Micro-manipulator can be carefully segmented
+by our model, while other tools like primary knife and sec-
+ondary knife are clearer in segmentation results of the other
+two models. Quantified results are also listed in Table II.
+For each category, we calculate intersection over union(IoU)
+and then we calculate FWIoU and PA for every model. The
+first three rows show iou of background categories and the
+overall performance of model evaluated by PA and FWIoU,
+while the last three rows demonstrate the foreground surgical
+tools. Our model attains superior performance on most of
+the background categories while for foreground categories,
+our model does not always do the best. Such quantitative
+result matches the observation in visualization of comparison
+experiments. However, our model still get the best score both
+in PA and FWIoU. Therefore, we can confidently claim that
+our model is capable carrying out semantic segmentation task
+of cataract surgical scenarios over domain gap.X. F URTHER EXPLORATION
+In comparison task, we prove that the proposed domain
+adaptation model for cataract surgical scenario semantic
+segmentation can have convincing performance. However,
+we also found that, there is still much space to improve. As
+discussed before, our model does not have clear segmentation
+of foreground categories, normally surgical tools. After ade-
+quate research and discussion, we conclude the two possible
+causes and provide solution respectively.
+a) Pixel level adversarial learning VS Feature level
+adversarial learning: Shown in visualization images, FCNs
+in the wild distinguish surgical tools than our model does.
+Difference between the two models is that our model applies
+adversarial learning on output pixel space, while FCNs in
+the wild applies on feature space such that the model focus
+more on the similarity between extracted features from two
+domain instead of output masks. Therefore, model in FCNs
+in the wild grasp more knowledge of surgical tools than
+our model does. Base on this idea, we try to combine both
+pixel level adversarial learning with feature level adversarial
+learning. Results show improvements than our original mod-
+els. Which could segment both foreground and background
+categories(Fig 10).Fig. 10. Improvement I
+Fig. 11. Improvement II
+b) Adversarial learning VS Cycle Consistency: The
+other reason might be the difficulty of training adversarial-
+base network. Adversarial-base networks are well known
+for hard to train. Therefore, we can not always find the
+ideal solution for our model. Solution could be replacing
+adversarial-base learning with cycle consistency learning.
+The methodology is that if our model can have proper se-
+mantic segmentation, then based on the segmentation mask,
+we can train a constructor to reconstruct the input image.
+Such method is easy to train and shows potential of properly
+distinguishing surgical tools(Fig 11).
+XI. C ONCLUSION
+In cataract surgery scenarios, semantic segmentation aids
+surgeons with better decision making and operation. How-
+ever, existence of domain gap(domain shift) leads to de-
+grading of semantic segmentation models. To solve this
+problem, a domain adaptation model is proposed. Spectrum
+analysis and FDA frequency domain randomization transfer
+style of images from target domain to images from source
+domain. Then, a semantic segmentation model with multi-
+view adversarial learning method is trained on the gener-
+ated input images and target images reducing the effect of
+domain shift. Comparison experiments are conducted and
+superior performance of proposed model is proved. Further
+exploration is also carried out, pointing out possible further
+improvement of the model.

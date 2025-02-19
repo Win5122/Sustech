@@ -1,0 +1,114 @@
+参考文献
+[1]Budd S, Robinson EC, Kainz B (2021) A 
+survey on active learning 
+and human-in-the-loop deep learning for 
+medical image analysis. 
+Med Image Anal 71:102062
+[2]Tang, Z., Duan, J., Sun, Y. et al. A combined 
+deformable model and medical transformer 
+algorithm for medical image 
+segmentation. Med Biol Eng Comput (2022). 
+https://doi.org/10.1007/s11517-022-02702-0
+[3]Du G, Cao X, Liang J et al (2020) Medical 
+image segmentation based on U-Net: a 
+review. J Imaging Sci Technol 64:20508
+[4]Liu L, Cheng J, Quan Q et al (2020) A 
+survey on U-shaped networks in medical 
+image segmentations. Neurocomputing 
+409:244–258
+[5] Hegde, R. B., Prasad, K., Hebbar, H., 
+& Brij Mohan, K. S. (2019). Feature 
+extraction using traditional image 
+processing and convolutional neural 
+network methods to classify white blood 
+cells: A study. Australasian Physical & 
+Engineering Sciences in Medicine, 42(2), 
+627-638. 
+[6] P. Malhotra, S. Gupta, and D. Koundal, 
+“Computer aideddiagnosis of pneumonia 
+from chest radiographs,” Journal of 
+Computational and Deoretical Nanoscience, 
+vol. 16, no. 10,pp. 4202–4213, 2019.
+[7]G. E. Hinton*, R. R. Salakhutdinov. 
+Reducing the Dimensionality of Data with 
+Neural Networks[J] Science 28 Jul 2006: Vol. 
+313, Issue 5786, pp. 504-507
+[8]G. Litjens, T. Kooi, B. E. Bejnordi et al., “A 
+survey on deep learning in medical image 
+analysis,” Medical Image Analysis, vol. 42, pp. 
+60–88, 2017.
+[9] A. Krizhevsky, I. Sutskever, and G. E. 
+Hinton, “Imagenet classification with deep 
+convolutional neural networks,” in 
+Proceedings of the Advances in neural 
+information processing systems, pp. 1097–
+1105, Long Beach, CA, USA, December 2012.作者，等：题目名称                                                                                （奇数）页码
+[键入文字][10] F. Chollet, “Xception: deep learning with 
+depthwise separable convolutions,” in 
+Proceedings of the IEEE conference on 
+computer vision and pattern recognition, pp. 
+1251–1258, Honolulu, HI, USA, July 2017.
+[11] F. N. Iandola, S. Han, M. W. Moskewicz, K. 
+Ashraf, W. J. Dally, and K. Keutzer, 
+“SqueezeNet: AlexNet-level accuracy with 
+50x fewer parameters and< 0.5 MB model 
+size,” 2016, https://arxiv.org/abs/1602.07360.
+[12]Priyanka Malhotra, Sheifali Gupta, 
+Deepika Koundal, Atef Zaguia, Wegayehu 
+Enbeyle, "Deep Neural Networks for Medical 
+Image Segmentation", Journal of Healthcare 
+Engineering, vol. 2022, Article ID 9580991, 15 
+pages, 2022. 
+https://doi.org/10.1155/2022/9580991
+[13] W. Liu, A. Rabinovich, and A. C. Berg, 
+“Parsenet: looking wider to see better,” 2015, 
+https://arxiv.org/abs/1506.04579.
+[14] Vaswani, A., Shazeer, N., Parmar, N., 
+Uszkoreit, J., Jones, L., Gomez, A. N., . . . 
+Polosukhin, I. (2017). Attention is all you 
+need. Ithaca: Cornell University Library, 
+arXiv.org. 
+[15] Dosovitskiy, A., Beyer, L., Kolesnikov, 
+A., Weissenborn, D., Zhai, X., 
+Unterthiner, T., . . . Houlsby, N. 
+(2021). An image is worth 16x16 words: 
+Transformers for image recognition at 
+scale. Ithaca: Cornell University Library, 
+arXiv.org. 
+[16] Sutskever, Ilya, Oriol Vinyals, and 
+Quoc V. Le. "Sequence to sequence 
+learning with neural networks." Advances 
+in neural information processing 
+systems 27 (2014): 3104-3112.
+[17]Dosovitskiy, A., Beyer, L., Kolesnikov, A., 
+Weissenborn, D., Zhai, X., Unterthiner, T., 
+Dehghani, M., Minderer, M., Heigold, G., 
+Gelly, S., Uszkoreit, J., & Houlsby, N. (2020). 
+An Image is Worth 16x16 Words: 
+Transformers for Image Recognition at Scale. 
+ArXiv, abs/2010.11929.
+[18]Mian Wu, Yinling Qian, Xiangyun Liao, 
+Qiong Wang, and Pheng-Ann Heng. Hepatic 
+vessel segmentation based on 3dswin-
+transformer with inductive biased multi-head 
+self-attention. arXiv preprint 
+arXiv:2111.03368, 2021.[19]Shamshad, F. , Khan, S. ,  Zamir, S. W. , 
+Khan, M. H. , Hayat, M. , & Khan, F. S. , et al. 
+(2022). Transformers in medical imaging: a 
+survey. arXiv e-prints.
+[20] Raghu M , Unterthiner T, Kornblith S , et 
+al. Do Vision Transformers See Like 
+Convolutional Neural Networks?[M]. 2021.
+[21] Lin, T., Wang, Y., Liu, X., & Qiu, X. 
+(2021). A survey of transformers. Ithaca: 
+Cornell University Library, arXiv.org. 
+[22] Sun, Z., Cao, S., Yang, Y., & Kitani, 
+K. (2021). Rethinking transformer-based 
+set prediction for object detection. Ithaca: 
+Cornell University Library, arXiv.org. 
+Wang Ru-yi, bone in 2003, none
+.
+Wang Ren-li，born in 2003, 
+none
+       
+（正面免冠）

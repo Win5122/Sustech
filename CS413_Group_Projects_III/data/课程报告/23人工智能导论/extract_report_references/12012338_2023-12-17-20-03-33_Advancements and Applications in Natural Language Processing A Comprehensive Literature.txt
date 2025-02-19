@@ -1,0 +1,118 @@
+REFERENCES
+[1] K. S. Jones, “Natural language processing: a historical review,” Current
+issues in computational linguistics: in honour of Don Walker , pp. 3–16,
+1994.
+[2] P. S. Jacobs, Ed., Text-Based Intelligent Systems: Current Research and
+Practice in Information Extraction and Retrieval . USA: L. Erlbaum
+Associates Inc., 1992.
+[3] C. J. Weinstein, “Overview of the 1994 arpa human language technology
+workshop,” in Human Language Technology: Proceedings of a Workshop
+held at Plainsboro, New Jersey, March 8-11, 1994 , 1994.
+[4] T. Mikolov, M. Karafi ´at, L. Burget, J. Cernock `y, and S. Khudanpur,
+“Recurrent neural network based language model.” in Interspeech , vol. 2,
+no. 3. Makuhari, 2010, pp. 1045–1048.
+[5] T. Mikolov, K. Chen, G. Corrado, and J. Dean, “Efficient estimation of
+word representations in vector space,” arXiv preprint arXiv:1301.3781 ,
+2013.
+[6] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez,
+Ł. Kaiser, and I. Polosukhin, “Attention is all you need,” Advances in
+neural information processing systems , vol. 30, 2017.
+[7] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, “Bert: Pre-training
+of deep bidirectional transformers for language understanding,” 2019.
+[8] A. Radford, K. Narasimhan, T. Salimans, I. Sutskever et al. , “Improving
+language understanding by generative pre-training,” 2018.
+[9] R. Sukthanker, S. Poria, E. Cambria, and R. Thirunavukarasu, “Anaphora
+and coreference resolution: A review,” Information Fusion , vol. 59, pp.
+139–162, 2020.
+[10] I. Porada, A. Olteanu, K. Suleman, A. Trischler, and J. C. K. Cheung,
+“Investigating failures to generalize for coreference resolution models,”
+arXiv preprint arXiv:2303.09092 , 2023.
+[11] A. Marasovi ´c, L. Born, J. Opitz, and A. Frank, “A mention-
+ranking model for abstract anaphora resolution,” arXiv preprint
+arXiv:1706.02256 , 2017.
+[12] A. Cattan, A. Eirew, G. Stanovsky, M. Joshi, and I. Dagan, “Realistic
+evaluation principles for cross-document coreference resolution,” arXiv
+preprint arXiv:2106.04192 , 2021.
+[13] S. Joty, G. Carenini, R. Ng, and G. Murray, “Discourse analysis and
+its applications,” in Proceedings of the 57th Annual Meeting of the
+Association for Computational Linguistics: Tutorial Abstracts , 2019, pp.
+12–17.
+[14] J. Li, M. Liu, B. Qin, and T. Liu, “A survey of discourse parsing,”
+Frontiers of Computer Science , vol. 16, no. 5, p. 165329, 2022.
+[15] L. Carlson, D. Marcu, and M. E. Okurowski, “Building a discourse-
+tagged corpus in the framework of rhetorical structure theory,” Current
+and new directions in discourse and dialogue , pp. 85–112, 2003.[16] S. Hou, S. Zhang, and C. Fei, “Rhetorical structure theory: A com-
+prehensive review of theory, parsing methods and applications,” Expert
+Systems with Applications , vol. 157, p. 113421, 2020.
+[17] R. Prasad, B. Webber, and A. Lee, “Discourse annotation in the pdtb:
+The next generation,” in Proceedings 14th Joint ACL-ISO Workshop on
+Interoperable Semantic Annotation , 2018, pp. 87–97.
+[18] H. Chen, X. Liu, D. Yin, and J. Tang, “A survey on dialogue systems:
+Recent advances and new frontiers,” Acm Sigkdd Explorations Newslet-
+ter, vol. 19, no. 2, pp. 25–35, 2017.
+[19] S. Kavyashree, R. Sumukha, R. Soujanya, and S. Tejaswini, “Survey
+on automatic text summarization using nlp and deep learning,” in 2023
+International Conference on Advances in Electronics, Communication,
+Computing and Intelligent Information Systems (ICAECIS) . IEEE,
+2023, pp. 523–527.
+[20] M. Allahyari, S. Pouriyeh, M. Assefi, S. Safaei, E. D. Trippe, J. B.
+Gutierrez, and K. Kochut, “Text summarization techniques: a brief
+survey,” arXiv preprint arXiv:1707.02268 , 2017.
+[21] O. Tas and F. Kiyani, “A survey automatic text summarization,” Pres-
+sAcademia Procedia , vol. 5, no. 1, pp. 205–213, 2007.
+[22] R. Nallapati, F. Zhai, and B. Zhou, “Summarunner: A recurrent neural
+network based sequence model for extractive summarization of docu-
+ments,” in Proceedings of the AAAI conference on artificial intelligence ,
+vol. 31, no. 1, 2017.
+[23] B. Min, H. Ross, E. Sulem, A. P. B. Veyseh, T. H. Nguyen, O. Sainz,
+E. Agirre, I. Heintz, and D. Roth, “Recent advances in natural language
+processing via large pre-trained language models: A survey,” ACM
+Computing Surveys , vol. 56, no. 2, pp. 1–40, 2023.
+[24] J. Goldstein, V . O. Mittal, J. G. Carbonell, and M. Kantrowitz, “Multi-
+document summarization by sentence extraction,” in NAACL-ANLP 2000
+workshop: automatic summarization , 2000.
+[25] Z. Cao, F. Wei, L. Dong, S. Li, and M. Zhou, “Ranking with recursive
+neural networks and its application to multi-document summarization,”
+inProceedings of the AAAI conference on artificial intelligence , vol. 29,
+no. 1, 2015.
+[26] J. Maynez, S. Narayan, B. Bohnet, and R. McDonald, “On faith-
+fulness and factuality in abstractive summarization,” arXiv preprint
+arXiv:2005.00661 , 2020.
+[27] T. Zhang, V . Kishore, F. Wu, K. Q. Weinberger, and Y . Artzi, “Bertscore:
+Evaluating text generation with bert,” arXiv preprint arXiv:1904.09675 ,
+2019.
+[28] J. Weizenbaum, “Eliza—a computer program for the study of natural
+language communication between man and machine,” Communications
+of the ACM , vol. 9, no. 1, pp. 36–45, 1966.
+[29] A. M. Turing, Computing machinery and intelligence . Springer, 2009.
+[30] M. McTear, Conversational ai: Dialogue systems, conversational agents,
+and chatbots . Springer Nature, 2022.
+[31] D. G. Bobrow, R. M. Kaplan, M. Kay, D. A. Norman, H. Thompson, and
+T. Winograd, “Gus, a frame-driven dialog system,” Artificial intelligence ,
+vol. 8, no. 2, pp. 155–173, 1977.
+[32] A. L. Gorin, G. Riccardi, and J. H. Wright, “How may i help you?”
+Speech communication , vol. 23, no. 1-2, pp. 113–127, 1997.
+[33] J. Cassell, “Embodied conversational agents: representation and intelli-
+gence in user interfaces,” AI magazine , vol. 22, no. 4, pp. 67–67, 2001.
+[34] J. S. Park, J. O’Brien, C. J. Cai, M. R. Morris, P. Liang, and M. S.
+Bernstein, “Generative agents: Interactive simulacra of human behavior,”
+inProceedings of the 36th Annual ACM Symposium on User Interface
+Software and Technology , 2023, pp. 1–22.
+[35] E. Sheng, J. Arnold, Z. Yu, K.-W. Chang, and N. Peng, “Revealing
+persona biases in dialogue systems,” arXiv preprint arXiv:2104.08728 ,
+2021.
+[36] P. Gupta, C.-S. Wu, W. Liu, and C. Xiong, “Dialfact: A benchmark for
+fact-checking in dialogue,” arXiv preprint arXiv:2110.08222 , 2021.
+[37] S. Zhang, D. Fu, Z. Zhang, B. Yu, and P. Cai, “Trafficgpt: Viewing, pro-
+cessing and interacting with traffic foundation models,” arXiv preprint
+arXiv:2309.06719 , 2023.
+[38] S. Yu, Y . Chen, and H. Zaidi, “Ava: A financial service chatbot based
+on deep bidirectional transformers,” Frontiers in Applied Mathematics
+and Statistics , vol. 7, p. 604842, 2021.
+[39] N. Gruver, M. Finzi, S. Qiu, and A. G. Wilson, “Large language models
+are zero-shot time series forecasters,” arXiv preprint arXiv:2310.07820 ,
+2023.
+[40] H. Xue, B. P. V outharoja, and F. D. Salim, “Leveraging language foun-
+dation models for human mobility forecasting,” in Proceedings of the
+30th International Conference on Advances in Geographic Information
+Systems , 2022, pp. 1–9.

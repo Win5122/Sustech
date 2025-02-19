@@ -1,0 +1,84 @@
+References
+1. Bourne, R.R., Flaxman, S.R., Braithwaite, T., Cicinelli, M.V., Das, A., Jonas, J.B.,
+Keeffe, J., Kempen, J.H., Leasher, J., Limburg, H., et al.: Magnitude, temporal
+trends, and projections of the global prevalence of blindness and distance and
+near vision impairment: a systematic review and meta-analysis. The Lancet Global
+Health 5(9), e888–e897 (2017)
+2. Cao, L., Li, H., Zhang, Y., Zhang, L., Xu, L.: Hierarchical method for cataract
+grading based on retinal images using improved haar wavelet. Information Fusion
+53, 196–208 (2020)Title Suppressed Due to Excessive Length 11
+3. Das, V., Dandapat, S., Bora, P.K.: Multi-scale deep feature fu-
+sion for automated classification of macular pathologies from oct im-
+ages. Biomedical Signal Processing and Control 54, 101605 (2019).
+https://doi.org/https://doi.org/10.1016/j.bspc.2019.101605
+4. Fang, L., Wang, C., Li, S., Rabbani, H., Chen, X., Liu, Z.: Attention to lesion:
+Lesion-aware convolutional neural network for retinal optical coherence tomogra-
+phy image classification. IEEE transactions on medical imaging 38(8), 1959–1970
+(2019)
+5. He, K., Zhang, X., Ren, S., Sun, J.: Spatial pyramid pooling in deep convolutional
+networks for visual recognition. PAMI 37(9), 1904–1916 (2015)
+6. He, Z., Zhang, X., Cao, Y., Liu, Z., Zhang, B., Wang, X.: Litenet: Lightweight
+neural network for detecting arrhythmias at resource-constrained mobile devices.
+Sensors 18(4), 1229 (2018)
+7. Howard, A.G., Zhu, M., Chen, B., Kalenichenko, D., Wang, W., Weyand, T., An-
+dreetto, M., Adam, H.: Mobilenets: Efficient convolutional neural networks for
+mobile vision applications. arXiv preprint arXiv:1704.04861 (2017)
+8. Iandola, F.N., Han, S., Moskewicz, M.W., Ashraf, K., Dally, W.J., Keutzer, K.:
+Squeezenet: Alexnet-level accuracy with 50x fewer parameters and¡ 0.5 mb model
+size. arXiv preprint arXiv:1602.07360 (2016)
+9. Jie, Hu, Li, Shen, Samuel, Albanie, Gang, Sun, Enhua, Wu: Squeeze-and-excitation
+networks. TPAMI (2019)
+10. Kermany, D.S., Goldbaum, M., Cai, W., Valentim, C.C., Liang, H., Baxter, S.L.,
+McKeown, A., Yang, G., Wu, X., Yan, F., et al.: Identifying medical diagnoses and
+treatable diseases by image-based deep learning. Cell 172(5), 1122–1131 (2018)
+11. Li, H., Lim, J.H., Liu, J., Mitchell, P., Tan, A.G., Wang, J.J., Wong, T.Y.:
+A computer-aided diagnosis system of nuclear cataract. IEEE Transactions on
+Biomedical Engineering 57(7), 1690–1698 (2010)
+12. Park, J., Woo, S., Lee, J.Y., Kweon, I.S.: Bam: Bottleneck attention module. arXiv
+preprint arXiv:1807.06514 (2018)
+13. Sandler, M., Howard, A., Zhu, M., Zhmoginov, A., Chen, L.C.: Mobilenetv2: In-
+verted residuals and linear bottlenecks. In: Proceedings of the IEEE conference on
+computer vision and pattern recognition. pp. 4510–4520 (2018)
+14. Tan, M., Le, Q.: Efficientnet: Rethinking model scaling for convolutional neural
+networks. In: International conference on machine learning. pp. 6105–6114. PMLR
+(2019)
+15. Tan, M., Le, Q.V.: Mixconv: Mixed depthwise convolutional kernels. arXiv preprint
+arXiv:1907.09595 (2019)
+16. Woo, S., Park, J., Lee, J.Y., So Kweon, I.: Cbam: Convolutional block attention
+module. In: ECCV. pp. 3–19 (2018)
+17. Xu, C., Zhu, X., He, W., Lu, Y., He, X., Shang, Z., Wu, J., Zhang, K., Zhang,
+Y., Rong, X., et al.: Fully deep learning for slit-lamp photo based nuclear cataract
+grading. In: International Conference on Medical Image Computing and Computer-
+Assisted Intervention. pp. 513–521. Springer (2019)
+18. Xu, X., Zhang, L., Li, J., Guan, Y., Zhang, L.: A hybrid global-local representation
+cnn model for automatic cataract grading. IEEE journal of biomedical and health
+informatics (2019)
+19. Xu, Y., Gao, X., Lin, S., Wong, D.W.K., Liu, J., Xu, D., Cheng, C.Y., Cheung,
+C.Y., Wong, T.Y.: Automatic grading of nuclear cataracts from slit-lamp lens im-
+ages using group sparsity regression. In: International Conference on Medical Image
+Computing and Computer-Assisted Intervention. pp. 468–475. Springer (2013)12 F. Author et al.
+20. Yang, F., Zhang, X., Zhu, Y.: Pdnet: a convolutional neural network has potential
+to be deployed on small intelligent devices for arrhythmia diagnosis. Computer
+Modeling in Engineering & Sciences 125(1), 365–382 (2020)
+21. Zhang, W., Li, H.: Lens opacity detection for serious posterior subcapsular
+cataract. Medical & biological engineering & computing 55(5), 769–779 (2017)
+22. Zhang, X., Zhou, X., Lin, M., Sun, J.: Shufflenet: An extremely efficient convolu-
+tional neural network for mobile devices. In: Proceedings of the IEEE conference
+on computer vision and pattern recognition. pp. 6848–6856 (2018)
+23. Zhang, X., Fang, J., Xiao, Z., Risa, H., Chen, W., Yuan, J., Liu, J.: Research on
+classification algorithms of nuclear cataract based on anterior segment coherence
+tomography image. Computer Science (2022). https://doi.org/10. 11896 / jsjkx.
+201100085
+24. Zhang, X., Hu, Y., Xiao, Z., Fang, J., Higashita, R., Liu, J.: Machine learning for
+cataract classification/grading on ophthalmic imaging modalities: a survey. Ma-
+chine Intelligence Research (2022). https://doi.org/http://doi.org/10.1007/s11633-
+022-1329-0
+25. Zhang, X., Xiao, Z., Higashita, R., Hu, Y., Chen, W., Yuan, J., Liu, J.: Adaptive
+feature squeeze network for nuclear cataract classification in as-oct image. Journal
+of Biomedical Informatics 128, 104037 (2022)
+26. Zhang, X., Xiao, Z., Li, X., Wu, X., Sun, H., Yuan, J., Higashita, R., Liu, J.: Mixed
+pyramid attention network for nuclear cataract classification based on anterior
+segment oct images. Health Information Science and Systems 10(1), 1–12 (2022)
+27. Zoph, B., Vasudevan, V., Shlens, J., Le, Q.V.: Learning transferable architectures
+for scalable image recognition. In: Proceedings of the IEEE conference on computer
+vision and pattern recognition. pp. 8697–8710 (2018)

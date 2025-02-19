@@ -1,0 +1,30 @@
+
+[1] SUNG H, FERLAY J, SIEGEL R L, et al. Global cancer statistics 2020: GLOBOCAN estimates of incidence and mortality worldwide 
+for 36 cancers in 185 countries[J]. CA Cancer J Clin, 2021, 71(3): 209-249. DOI: 10.3322/caac.21660. 
+[2] CHEN W Q, ZHENG R S, BAADE P D, et al. Cancer statistics in China, 2015[J]. CA Cancer J Clin, 2016, 66(2): 115-132. DOI: 10.3322/ 
+caac.21338. 
+[3]WANG F, YU Z G. Current status of breast cancer prevention in China[J].
+Chronic Dis Transl Med, 2015, 1(1): 2-8. DOI: 10.1016/j.cdtm.2015.02.003
+[4]周飞燕, 金林鹏 & 董军. 卷积神经网络研究综述. 计算机学报 40, 1229–1251 (2017).
+[5]郑光远, 刘峡壁 & 韩光辉. 医学影像计算机辅助检测与诊断系统综述. 软件学报 29, 1471–1514 (2018).
+[6] SECHOPOULOS I, TEUWEN J, MANN R. Artificial intelligence for breast cancer detection in mammography and digital breast tomosynthesis:state of the art[J/OL]. Semin Cancer Biol, 2021, 72: 214-225 [2023-03-23]. https://pubmed.ncbi.nlm.nih.gov/32531273/.DOI:10.1016/j.semcancer.
+2020.06.002
+[7]QIAO M Y, FANG Z, GUO Y, et al. Breast calcification detection based on multichannel radiofrequency signals via a unified deep learning framework. Expert Syst Appl,2021,168:114218.
+[8]王浩天, 于韬 & 徐姝. MRI影像组学在乳腺癌新辅助化疗中应用的研究进展. 中国临床医学影像杂志 34, 892–896 (2023).
+[9] Gómez MMY, Escalante HJ, Segura A, et al.Advances in artificial intelligence:IBERAMIA 2016[M].Springer International Publishing, 2016.Proceedings.
+[10]于鹤,赵稳兴.计算机辅助诊断技术在病理学中的应用进展[J].诊断病理学杂志,2018,25(03):223-226.
+[11]郭蕾,石峰,郑闪等.乳腺癌Ki-67计算机全自动分析可行性探讨[J].中华肿瘤防治杂志,2015,22(09):678-681.DOI:10.16073/j.cnki.cjcpt.2015.09.008.
+[12] Bini SA.Artificial Intelligence,machine Learning,deep learning, and cognitive computing: what do these terms mean and ho w will they impact health care?[J].J Arthroplasty,2018,33(8):2358-2361.
+[13] Greener JG,Kandathil SM, Moffat L,et al.A guide to machine learning for biologists[J]. Nat Rev Mol Cell Biol,2022,23(1):40-55.
+[14]卢峰,张开炯,吴立春等.机器学习对乳腺癌诊断应用现状研究进展[J].社区医学杂志,2023,21(24):1315-1322.DOI:10.19790/j.cnki.JCM.2023.24.11.
+[15] Rudin C.Stop explaining black box machine learning models for high stakes decisions and use interpretable models inst ead[J]. Nat Mach Intell,2019, 1(5):206-215.
+[16] Shah SM, Khan RA,Arif S,et al. Artificial intelligence for breast cancer analysis:trends & directions[J]. Comput Biol Med,20
+22,142:105221.
+[17] Liu Q,Dou Q, Yu L,et al. MS-net:multi-site network for improving prostate segmentation with heterogeneous MRI data|].I EEE Trans Med Imaging, 2020,39(9):2713-2724.
+[18]沈洁,刘雅静,莫淼等.人工智能辅助超声对中国女性乳腺病灶识别的有效性研究[J].中国癌症杂志,2023,33(11):1002-1008.DOI:10.19401/j.cnki.1007-3639.2023.11.005.
+
+
+
+
+
+

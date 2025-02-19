@@ -1,0 +1,1085 @@
+An Overview of the Application of Artificial Intelligence in Aging-related
+Healthcare
+BIAN Zhenghe
+SUSTech
+12311105@mail.sustech.edu.cnFENG Haibo
+SUSTech
+12010505@mail.sustech.edu.cn
+JIANG Haotian
+SUSTech
+12212510@mail.sustech.edu.cnQIN Liyang
+SUSTech
+12110932@mail.sustech.edu.cn
+YIN Ziyao
+SUSTech
+12011524@mail.sustech.edu.cnZHANG Jinze
+SUSTech
+12210920@mail.sustech.edu.cn
+Abstract
+With the rapid global development of artificial intelli-
+gence (AI), the field of gerontechnology has garnered signif-
+icant attention, emerging as a crucial focus for AI applica-
+tions. This review delves into how artificial intelligence ad-
+dresses the challenges posed by an aging society, with a spe-
+cific focus on the widespread applications in key areas such
+as robotics, speech recognition, knowledge graphs, and im-
+age detection. Challenges arising from an aging society,
+including reduced labor supply, increased elderly care bur-
+den, pressure on medical resources, and social isolation,
+necessitate innovative solutions, and the rise of artificial
+intelligence offers new possibilities for tackling these chal-
+lenges. In terms of application prospects, artificial intelli-
+gence demonstrates extensive potential in health monitor-
+ing and early warning, life care and assistance, education,
+and entertainment. These technologies not only enhance the
+quality of life for the elderly but also provide more intelli-
+gent and personalized services. In the evolution of artificial
+intelligence, the emergence of large-scale pre-trained mod-
+els has provided new perspectives for addressing traditional
+issues, making AI applications in gerontechnology more ro-
+bust and flexible.
+1. Introduction
+With the rapid advancement of technology, artificial in-
+telligence (AI) is spearheading a global revolution, pro-
+foundly transforming various aspects of our daily lives.
+Amidst this sweeping wave of innovation, the field ofgerontechnology has emerged as a focal point for AI ap-
+plications, showcasing tremendous potential. This review
+aims to delve into how artificial intelligence addresses the
+escalating challenges posed by an aging society, focusing
+on its extensive applications in key areas such as robotics,
+speech recognition, knowledge graphs, and image detec-
+tion.
+1.1. Background Introduction
+Population aging stands as a significant societal chal-
+lenge, exerting profound impacts on diverse sectors such as
+the economy, society, culture, healthcare, and elderly care.
+According to the United Nations projections, by 2020, the
+global population aged 60 and above will reach one billion,
+constituting 13.5 %of the total population. By 2050, this
+figure is expected to increase to 2.2 billion, representing
+21.5%of the global population. China, being one of the
+countries with the most severe aging population, reported,
+based on the results of the seventh national census, that the
+population aged 60 and above has reached 264 million, ac-
+counting for 18.7 %of the total population, with those aged
+65 and above making up 13.5 %. The scale, depth, and speed
+of aging in China pose significant pressures and challenges
+to socio-economic development and the well-being of the
+population.
+In the evolution of AI, traditional machine learning mod-
+els are transitioning to deep learning models, such as Con-
+volutional Neural Networks (CNNs [15]), Recurrent Neu-
+ral Networks (RNNs [27]), and Graph Neural Networks
+(GNNs [26]), achieving significant progress. However,
+challenges such as the dependency of deep learning mod-
+els on massive labeled data, the time-consuming nature of
+1data labeling, and the generalization difficulties of mod-
+els with limited data remain constraints. To address these
+challenges, researchers have proposed Pre-trained Models
+(PM) based on large-scale datasets, adopting a two-stage
+approach: during the pre-training phase, models acquire do-
+main knowledge from extensive unsupervised data, and in
+the fine-tuning phase, domain knowledge is transferred to
+specific tasks through minimal labeled data, enhancing the
+model’s generalization capability.
+The success of pre-trained models initially in Computer
+Vision (CV), where they learned visual knowledge from ex-
+tensive image data and achieved outstanding performance
+through fine-tuning on task-specific data, extended to Nat-
+ural Language Processing (NLP) with models like Trans-
+former. This rise of new models signifies a shift towards
+a paradigm where ”a large-scale pre-trained model is ap-
+plicable to multiple downstream tasks,” gradually replacing
+the traditional approach of ”task-specific models for spe-
+cific tasks.”
+In recent years, the emergence of Artificial Intelligence
+Generated Content (AIGC) has garnered widespread atten-
+tion. The rapid development of large-scale pre-trained mod-
+els like BERT [7], GPT-2 [23], and GPT-3 [2] has provided
+substantial support for the rapid advancement of AIGC
+technology. The scale of model parameters has swiftly
+grown from billions to tens of billions, and by continually
+expanding model parameters, researchers are exploring the
+potential for performance improvement.
+The development of the AI field has undergone a tran-
+sition from traditional machine learning models to deep
+learning models, marking a shift from relying on man-
+ually crafted features and statistical methods to the rise
+of large-scale pre-trained models. This evolution has not
+only achieved remarkable results in fields such as computer
+vision and natural language processing but also provided
+more robust and flexible tools for AI applications in geron-
+technology. In the following sections, we will delve into
+the specific applications of artificial intelligence in geron-
+technology, with a focus on robotics, speech recognition,
+knowledge graphs, and image detection, comprehensively
+understanding how these technologies become critical fac-
+tors in addressing the challenges of an aging society.
+1.2. Challenges of an Aging Society
+As the aging society becomes more prevalent, we face
+a series of unique and complex challenges that impact not
+only the elderly themselves but also the entire social struc-
+ture and public service systems. Key challenges include a
+reduction in labor supply, an increasing burden of elderly
+care, pressure on medical resources, and the rise of social
+isolation and loneliness. The rise of artificial intelligence
+presents new possibilities for addressing these challenges.
+In an aging society, the imbalance between a relativelysmaller young labor force and a larger elderly population
+may lead to a decline in productivity and socioeconomic in-
+stability. With the growing elderly population, the demand
+for pensions and healthcare escalates rapidly, imposing sig-
+nificant financial pressure on the social welfare system, ne-
+cessitating innovative financial models and health manage-
+ment strategies. The sharp increase in demand for medi-
+cal services places a strain on insufficient and unevenly dis-
+tributed medical resources, potentially affecting the health
+conditions of the elderly. As individuals age, some may ex-
+perience a shrinking social circle, leading to an increase in
+social isolation, posing a threat to mental health and overall
+quality of life.
+In this context, there is an urgent need for innovative so-
+lutions to better adapt to the new realities of an aging so-
+ciety. The rise of artificial intelligence provides new possi-
+bilities for addressing these challenges by introducing in-
+telligent and personalized services, offering the potential
+for positive changes in the health, social engagement, and
+daily lives of the elderly. The application prospects of arti-
+ficial intelligence technology in gerontechnology are broad,
+encompassing health monitoring and early warning, life
+care and assistance, as well as education and entertainment.
+These applications not only improve the quality of life for
+the elderly but also provide them with more intelligent and
+personalized services.
+1.3. The Rise of Artificial Intelligence and its
+Prospects
+Artificial intelligence is a comprehensive field that in-
+volves the research, development, and application of com-
+puter systems designed to simulate, extend, and expand hu-
+man intelligence. This discipline comprises various sub-
+fields, including machine learning, computer vision, natural
+language processing, knowledge representation and reason-
+ing, robotics, and more. It possesses capabilities such as
+perception, reasoning, learning, and decision-making. Arti-
+ficial intelligence technology has made significant progress
+in various application domains, providing robust support
+for enhancing the quality of life for the elderly, strengthen-
+ing autonomy, delaying cognitive decline, promoting social
+participation, and increasing overall happiness. These tech-
+nologies also offer more intelligent and personalized ser-
+vices for the elderly.
+The rise of artificial intelligence can be attributed to
+several key factors. Firstly, the improvement in computa-
+tional power plays a vital role. With the continuous de-
+velopment of computer hardware technology, the compu-
+tational capabilities of artificial intelligence models have
+significantly increased, enabling them to handle more com-
+plex data and tasks. Secondly, the accumulation of data is a
+crucial driver for the development of artificial intelligence.
+The widespread use of the internet and intelligent devices
+2has led to the accumulation of massive data, providing rich
+material for training artificial intelligence models. Addi-
+tionally, continuous advancements in algorithms are a key
+factor in the success of artificial intelligence. Researchers
+continually innovate new algorithms, improving the perfor-
+mance and robustness of artificial intelligence models.
+In the field of gerontechnology, artificial intelligence
+holds broad application prospects. In the realm of health
+monitoring and early warning, artificial intelligence utilizes
+technologies such as image detection and speech recogni-
+tion to monitor the health status of the elderly, promptly
+detecting potential health issues and providing correspond-
+ing warnings and advice. In life care and assistance, devices
+such as robots and voice assistants can offer intelligent life
+care and assistance services for the elderly, aiding them in
+accomplishing daily tasks and enhancing their quality of
+life. In the domains of education and entertainment, arti-
+ficial intelligence has already been applied to the education,
+gaming, and social activities of the elderly.
+Although the application of artificial intelligence in
+gerontechnology is still in its nascent stages, some prelim-
+inary achievements have been made. For example, in the
+field of health monitoring, artificial intelligence technology
+has been applied for fall detection, heart disease monitor-
+ing, and diabetes management in the elderly. In the realm
+of life care, artificial intelligence robots have been success-
+fully employed for companionship, rehabilitation, and meal
+delivery services for the elderly. As artificial intelligence
+technology continues to advance, its applications in geron-
+technology will become more widespread and profound,
+providing more convenient, secure, and comfortable sup-
+port for the lives of the elderly.
+2. Application of Speech Recognition Technol-
+ogy in Gerontology
+2.1. Overview of Speech Recognition
+2.1.1 Definition of Speech Recognition
+Speech recognition, also known as automatic speech recog-
+nition (ASR), computer speech recognition or speech to text
+(STT), refers to the computerized process of converting hu-
+man speech into corresponding text. In other words, it in-
+volves the automatic extraction of textual information from
+vocal sound signals. The fields encompassed by speech
+recognition technology include signal processing, pattern
+recognition, probability theory, information theory, vocal
+production, auditory perception, artificial intelligence, etc.
+2.1.2 History of Speech Recognition
+In the 1950s, the Bell Labs in the United States pioneered
+the development of the earliest electronic computer-based
+speech recognition system, Audrey. By tracking resonant
+Speech 
+DatabaseFeature
+Extraction
+Acoustic 
+Model 
+Training
+Acoustic 
+ModelPronunciation 
+dictionaryLanguage 
+ModelText 
+Database
+Feature
+ExtractionSpeech Decoding 
+and 
+Search AlgorithmsPreprocessLanguage 
+Model 
+Training
+Speech Input
+Text OutputFigure 1. The flow chart of methodologies of speech recognition.
+peaks in speech, Audrey could recognize ten English digits.
+From the 1950s to the 1990s, artificial neural networks were
+introduced to speech recognition. Linear Predictive Coding
+(LPC) and Dynamic Time Warping (DTW) also emerged
+successively, addressing issues of variable speech informa-
+tion length and enhancing the accuracy of speech recogni-
+tion.
+The most significant breakthrough in speech recognition
+technology came with the application of Hidden Markov
+Models (HMM). Starting with Baum’s introduction of rel-
+evant mathematical reasoning and further research by Ra-
+biner and others, in 1990, researchers, including Kaifu Lee
+at Carnegie Mellon University, developed the SPHINX sys-
+tem. This system, with the GMM-HMM (Gaussian Mixture
+Model-Hidden Markov Model) framework at its core, rep-
+resented the first high-performance, speaker-independent,
+large vocabulary, continuous speech recognition system in
+history.
+From the 21st century onward, with the rapid advance-
+ment of artificial intelligence and deep learning algorithms,
+hybrid recognition systems and end-to-end recognition sys-
+tems based on common networks such as Convolutional
+Neural Networks (CNN) and Recurrent Neural Networks
+(RNN) have achieved impressive recognition results and
+system stability. To date, speech recognition systems based
+on neural networks remain a research focal point for schol-
+ars globally. [11]
+2.1.3 Methodologies of Speech Recognition
+Speech recognition first processes the audio information,
+extracts features, and then undergoes acoustic model train-
+ing to establish an acoustic model. This acoustic model,
+along with a pronunciation dictionary and language model,
+collectively predicts and outputs text based on the input
+speech. [11] The whole process is shown in figure 1.
+32.2. The Application of Speech Recognition in
+Healthcare
+The application of speech recognition in healthcare pri-
+marily manifests in two aspects: intelligent voice input and
+diagnosis of specific medical conditions.
+2.2.1 The Application of Intelligent Voice Input in Hos-
+pitals
+The most direct application of speech recognition in hospi-
+tals involves the computerized entry and processing of voice
+content for archiving and identification purposes.
+For physicians, the application scenarios for hospital in-
+formation input are diverse, encompassing the input of out-
+patient medical records, reports from examinations such as
+ultrasound and X-rays, prescription formulation, and med-
+ical record entries. In traditional hospital settings, doc-
+tors typically complete reports by handwriting or typing.
+With the aid of speech recognition systems, physicians ar-
+ticulate reports verbally, effectively reducing workload, en-
+hancing efficiency, and significantly reducing operational
+costs in hospitals. In some countries like the United States,
+the usage of speech recognition input in clinical settings
+has surpassed 20%. [14] Companies like Nuance, Royal
+Philips Electronics, and Siemens Healthineers have intro-
+duced speech recognition systems developed specifically
+for medical systems, effectively reducing time and eco-
+nomic costs. In a smart speech recognition system applied
+at The Affiliated Hospital of Qingdao University [14], the
+system team constructed a medical domain language model
+tailored to hospital application scenarios. Employing a self-
+learning mechanism supported by distributed computing for
+high performance, it achieved commendable results. Feed-
+back from ward doctors indicated that recording electronic
+medical records through voice input improved efficiency
+by nearly threefold compared to keyboard input, effectively
+saving doctors’ time in writing medical records, enhancing
+their work efficiency, and allowing them more time to serve
+patients.
+For patients, speech recognition applications are ob-
+served in intelligent guidance and patient self-service sce-
+narios. For individuals with lower level of education,
+speech recognition effectively resolves issues related to typ-
+ing, providing more humane services to patients.
+In specific hospital scenarios such as pre-hospital emer-
+gency dispatching, speech recognition also plays a crucial
+role. According to a research conducted in Nanjing [3],
+in the actual acceptance and dispatching tasks of dispatch-
+ers, situations often arise where the caller cannot speak
+Mandarin, the address provided is unfamiliar or difficult to
+record, or the caller speaks too rapidly. These instances ne-
+cessitate dispatchers to repeatedly inquire and verify infor-
+mation, significantly diminishing their efficiency and pro-longing dispatching times. Integrating speech recognition
+into emergency dispatch systems enables voice input, di-
+alect recognition, and reversed dialect playback functional-
+ities. Faced with scenarios where the caller speaks a dialect,
+a foreign language, or speaks too rapidly, dispatchers can
+swiftly retrieve information using speech recognition sys-
+tems to enhance emergency response efficiency.
+2.2.2 Diagnosis of Specific Diseases Using Speech
+Recognition
+Speech recognition can also be applied in the diagnosis
+of specific diseases. Some neurological disorders possess
+characteristics of early-stage detection and diagnosis diffi-
+culties, yet subtle indications can manifest in language ex-
+pression. Utilizing speech recognition and machine learn-
+ing for early diagnosis and intervention can reduce the risk
+of contracting such diseases. The most common condi-
+tions include Alzheimer’s disease (AD) and Parkinson’s
+syndrome.
+Alzheimer’s disease (AD) is a progressively degenera-
+tive neurological condition with insidious onset. Clinically,
+it is characterized by comprehensive dementia symptoms
+such as memory impairment, aphasia, personality, and be-
+havioral changes. Language-related symptoms account for
+60-80% of total patients. Speech, as a biological marker,
+offers rapid, convenient, accurate, and non-invasive diagno-
+sis and clinical screening for AD compared to brain imag-
+ing, cognitive testing, and mini-mental state examination
+(MMSE). Speech recognition analysis uses acoustic fea-
+tures extracted from speech audio and Natural Language
+Processing (NLP) techniques to extract language features
+from written or spoken text, aiding in dementia classifi-
+cation. Efficient diagnosis of AD can be achieved using
+large language models. A study published in 2022 [1] re-
+vealed that text embeddings generated by GPT-3 can reli-
+ably detect Alzheimer’s disease. Furthermore, text embed-
+dings outperformed traditional acoustic-based methods and
+even competed with fine-tuned models, exhibiting signifi-
+cant prospects for early dementia diagnosis.
+Parkinson’s disease (PD), another common neurodegen-
+erative disorder, remains incurable in modern medicine.
+Unlike AD, early PD symptoms often manifest in resting
+tremors, muscular rigidity, bradykinesia, and later may in-
+clude memory decline. Research [5] has found that vo-
+cal cord damage, an early symptom, appears in about 90%
+of PD patients. Acoustic analysis mainly reveals high-
+amplitude perturbation, high fundamental frequency pertur-
+bation, low harmonic-to-noise ratio, and low fundamental
+frequency. Hence, early detection of PD can be accom-
+plished through extracting acoustic features from speech
+signals. Currently, domestic and international researchers
+primarily employ traditional feature extraction methods
+4combined with machine learning algorithms to achieve PD
+recognition. Max and others collected continuous vowel
+phonation ’a’ to form the first speech database in 2009,
+utilizing support vector machine classifiers for diagnosis,
+demonstrating that vowels suffice for PD detection. [30]
+Subsequently, different researchers developed tools such as
+artificial neural networks, AlexNet models, residual neural
+networks [10], etc., for early PD detection. In 2021, Zhang
+Tao and researchers published a method [28] based on time-
+frequency hybrid domain local statistics achieving an accu-
+racy of over 97%, providing a robust tool for early Parkin-
+son’s diagnosis.
+Moreover, speech detection methods are applicable to
+diseases such as stuttering in pediatric patients. [38] This
+involves constructing corpora and utilizing tools such as
+Hidden Markov Models (HMMs) and Support Vector Ma-
+chines (SVMs) for data processing and assessment. In re-
+cent years, with advancements in computing power and the
+development of deep learning technologies such as Auto-
+matic Speech Recognition (ASR) and Natural Language
+Processing (NLP), the accuracy of speech recognition diag-
+nosis for diseases presenting symptoms in speech has sig-
+nificantly increased, becoming an efficient and widely ap-
+plicable detection tool.
+2.3. Speech Recognition and Aging
+In the seventh national census, China’s population aged
+60 and above accounted for 18.7% of the total population,
+with those aged 65 and above representing 13.5%. By 2035,
+it is projected that China’s population aged 60 and above
+will surpass 400 million, accounting for over 30% of the
+total population, entering a stage of severe aging. Con-
+sequently, China faces significant challenges in population
+aging with limited medical resources. Improving medical
+visit efficiency and enhancing the medical experience for
+the elderly are urgent. With the development of artificial
+intelligence, the continuous improvement in speech recog-
+nition accuracy provides new possibilities for the healthcare
+system in an aging society.
+In hospital settings, considering the low Mandarin profi-
+ciency and lower educational levels among the elderly pop-
+ulation, speech recognition effectively establishes a com-
+munication channel between hospitals and patients, improv-
+ing medical visit efficiency. In emergency scenarios, speech
+recognition notably accelerates information retrieval, sav-
+ing time for rescuing patients.
+Regarding the diagnosis of specific diseases in the el-
+derly population, Alzheimer’s disease, Parkinson’s disease,
+and other neurodegenerative diseases are prevalent. The ap-
+plication of speech recognition and machine learning algo-
+rithms for early diagnosis of such diseases facilitates con-
+venient and accurate determination of affected individuals
+through text and speech analysis, enabling interventions.3. Application of Robots in Gerontology
+3.1. Overview of Robots in Gerontology
+In the highly regarded field of aging-friendly technology,
+the application of artificial intelligence robots in aging has
+garnered widespread research interest and societal attention.
+Intelligent robots demonstrate significant potential in ar-
+eas such as elderly care, medical services, and social com-
+panionship. By integrating advanced sensing technologies,
+natural language processing, and machine learning algo-
+rithms, AI robots can better understand and respond to the
+needs of the elderly, providing them with more personalized
+and comprehensive services.
+3.2. Home-assistant Robots
+With the aging of society, a significant issue arises as an
+increasing amount of household chores falls on the shoul-
+ders of one individual. This places a considerable burden on
+the caregiver, leading to heightened life stress and a higher
+likelihood of family disputes.
+Home assistance robots aim to enhance the convenience
+of domestic life. For those working diligently outside the
+home, these robots can carry out household tasks in the do-
+mestic environment when individuals are away. Equipped
+with an integrated software system, these robots include
+modeling, recognition, and operational skills, as well as
+software-based motion generation methods. [35]
+3.3. Health and Life Caring Robots
+With the increasing elderly population, the number of in-
+dividuals in need of healthcare continues to rise, and there
+is a growing population of bedridden elderly individuals re-
+quiring lifestyle care. To address this issue, it is necessary
+to develop robots for health and lifestyle care, primarily tar-
+geting the elderly who, due to declining physiological func-
+tions, are unable or find it inconvenient to perform certain
+tasks related to clothing, food, housing, and transportation.
+This aims to alleviate their physical strain and provide con-
+venience in their daily lives, allowing them to maintain their
+independence and quality of life.
+For instance, in 2017, Toyota introduced its first au-
+tonomous assistant, the Human Support Robot (HSR),
+which has been deployed in homes in the United States to
+assist individuals with disabilities in automating daily tasks
+such as opening doors or retrieving food and water from
+cabinets. It is also used in Japanese hospitals to aid in car-
+ing for the increasingly aging population in Japan. [17]
+3.4. Safety-caring Robots
+In China and Japan, a significant proportion of the el-
+derly prefer to age in place [18]. It can be anticipated that
+with the development of an aging society, there will be an
+increasing number of empty-nest elderly individuals, and
+5the safety issues associated with living alone become an ur-
+gent matter to address. Safety service robots are employed
+to create a secure home environment for the elderly, pro-
+viding early warnings of potential environmental risks and
+timely feedback on possible accidents to enhance risk pre-
+vention and management mechanisms.
+For instance, Cobalt Robotics has designed a robot
+specifically for indoor security patrol tasks. The company
+has developed a 1.5-meter-tall Cobalt robot equipped with
+a conical touch screen and LEDs. These robots come with
+integrated access control functions, allowing them to wire-
+lessly communicate with access card readers within autho-
+rized enclosed areas. While patrolling designated work ar-
+eas, they can use artificial intelligence systems to detect sus-
+picious intrusions, such as abnormal door openings and po-
+tential safety issues, seeking human assistance when neces-
+sary. These robots can also selectively scan documents, act
+as mobile broadcasting systems and alarms, and recharge
+when their battery levels are low.
+Puppy Bingo is another robot designed for home health
+scenarios. It can monitor, record, and manage users’ health
+indicators, including body temperature, blood pressure,
+blood oxygen, and fetal heart rate. A health management
+center facilitates the management of health indicators for
+all family members, enabling users to stay informed about
+their own and their family members’ health conditions in
+real-time. Additionally, Puppy Bingo features a smart med-
+ication box on top, allowing users to organize medications
+and set reminder times. In the unfortunate event of a fam-
+ily member falling, fainting, or experiencing other emer-
+gencies, Puppy Bingo can identify the situation promptly
+and remotely call family members, buying precious time
+for medical assistance. [17]
+3.5. Elderly Entertainment Robots
+Facing the super-aging society, the shortage of nursing
+care and social isolation of the older people have become
+major issues in many countries, especially during the pan-
+demic. Social isolation has been shown to increase the risk
+of death by about 0.3 and to hasten the progression of de-
+mentia. To organize recreational activities is, on the other
+hand, difficult for the facility staff to implement for a vari-
+ety of reasons. To alleviate the burden of the staff, robots
+could be introduced in the recreation, which is called robot
+assisted recreation(RAR) [13].
+For instance, given that interaction with animals heal hu-
+man mind and showed positive effects for elder peoples’
+health, but elder peoples are afraid of negative effects of
+animals such as allergy, infection, bite, and scratch. Sci-
+entists made animal type robots as examples of artificial
+emotional creatures. The animal type robots have physi-
+cal bodies and behave actively while generating goals and
+motivations by themselves. They interact with human be-ings physically. When elder people engage physically with
+an animal type robot, it stimulates their affection. When we
+applied this kind of robot in the nursing home, the result is
+promising: The robots improved the moods of the elderly
+and brought vitality to their lives. Moreover, nursing staff’s
+mental poverty decreased because the elderly people spent
+their time by themselves with the robots. [12] [33]
+3.6. Elderly Self-realization Robots
+Self-Realization Robots for Elderly Service robots are
+employed to assist the elderly in re-education and reem-
+ployment activities, providing them with multidimensional
+learning and employment growth opportunities and help-
+ing them rediscover their value by leveraging their abilities,
+skills, and experiences.
+These robots can support the elderly in various ways. (a)
+Education and Skills Training, service robots can offer ed-
+ucation and training courses, aiding the elderly in acquiring
+new skills or updating existing ones to adapt to the ever-
+changing demands of the job market. (b) Employment Re-
+sources and Information, they can provide access to em-
+ployment resources, occupational information, and job op-
+portunities, helping the elderly understand and engage in
+suitable job positions or projects. (c) Personalized Support,
+these robots can offer personalized support based on the in-
+terests, abilities, and needs of the elderly, assisting them
+in finding reemployment opportunities or activities that suit
+them. (d) Social Interaction and Psychological Support,
+they can provide social interaction and psychological sup-
+port, reducing elder peoples’ sense of loneliness and en-
+couraging them to actively participate in the community and
+work environment [17].
+The application of such robots provides more opportuni-
+ties and resources for the elderly, enabling them to reinte-
+grate into society, unleash their potential, and contribute to
+society. This is conducive to enhancing the sense of self-
+efficacy [34].
+For instance, Elli.Q, a social companion robot, uses
+human-like body language, voice and other dimensions to
+interact more comfortably and naturally with users. Elli.Q
+can also use artificial intelligence technology to actively
+learn users’ hobbies, behaviors, and personalities, and rec-
+ommend appropriate activities for users based on their char-
+acteristics. Elli.Q can also help older adults who are not
+sensitive to new technologies use social media and teach
+them to play simple online games and monitor their physi-
+cal health and home environment.
+64. Application of Knowledge Graphs in Geron-
+tology
+4.1. Overview of Knowledge Graph
+Knowledge Graph, proposed by Google in 2012, is a
+novel way of describing information, utilizing the concept
+of semantic networks to establish explicit models of re-
+lationships between knowledge elements. It encompasses
+knowledge definitions, instance data, as well as standards,
+technologies, and tools required for constructing, manag-
+ing, and applying, forming a comprehensive ecosystem.
+Among these, the most crucial techniques involve knowl-
+edge extraction, knowledge embedding, and knowledge rea-
+soning.
+Knowledge extraction in a knowledge graph refers to the
+automatic retrieval of information from various texts and
+data sources, converting it into structured representations
+of knowledge to enrich the content of the knowledge graph.
+These techniques aim to identify, extract, and represent enti-
+ties, relationships, and attributes from unstructured or semi-
+structured data.
+Knowledge embedding in knowledge graphs is a tech-
+nique that maps entities and relationships into a low-
+dimensional continuous vector space. This method is em-
+ployed to represent and learn the entities, relationships, and
+their semantic associations within a knowledge graph. The
+goal of this technique is to transform symbolic information
+in the graph into continuous vector representations, facili-
+tating processing and inference by machine learning mod-
+els.
+Knowledge reasoning is a crucial function of knowl-
+edge graphs, inferring unknown information based on graph
+facts. Methods encompass logical rule-based reasoning,
+distributed representation learning, and neural networks.
+Logical rule-based reasoning derives highly precise in-
+ferences using symbolic and simple rules, divided into
+first-order predicate logic and description logic. Statistical
+reasoning employs machine learning to extract rules from
+graphs, categorized as inductive logic programming and as-
+sociation rule mining. On the other hand, graph-based rea-
+soning leverages graph structures as features, ensuring effi-
+ciency and interpretability.
+Distributed representation learning inference maps en-
+tities and relationships into vector spaces through projec-
+tion, involving tensor decomposition, distance models, se-
+mantic matching, and multi-source information. Tensor de-
+composition represents graphs as tensors, computing scores
+through decomposition for inference. Distance models infer
+latent relationships via offsets. Semantic matching mod-
+els address the semantic diversity of entities and relation-
+ships. Multi-source information synthesizes various data to
+enhance model performance.
+Neural network inference tackles reasoning tasksthrough feature capture and nonlinear transformations. This
+includes convolutional neural networks for image process-
+ing, recurrent neural networks for sequential data, and re-
+inforcement learning for sequential decision-making prob-
+lems. These methods address the lack of interpretability
+in models or provide limited interpretability, enabling more
+comprehensive and efficient knowledge reasoning.
+4.2. Application of Knowledge Graphs
+The application of knowledge graphs in the field of
+gerontology is often associated with expert systems. An
+expert system is a computer system based on artificial intel-
+ligence that aims to simulate the knowledge and decision-
+making processes of domain experts, particularly in the
+realm of healthcare. These systems utilize stored rules
+and information within a knowledge base, employing a
+reasoning engine to conduct inference and provide diag-
+nostic suggestions or treatment plans for medical practi-
+tioners. Their functioning involves knowledge acquisition,
+reasoning mechanisms, and learning for improvement. In
+healthcare, expert systems assist in diagnosing illnesses
+and proposing treatment strategies, offering potential value
+in aiding decision-making and handling complex scenar-
+ios. However, while these systems can deliver professional-
+grade advice and solutions, their limitations lie in chal-
+lenges related to knowledge acquisition and representation,
+as well as potential constraints and limitations in handling
+uncertainties when facing novel situations.
+Expert systems rely on structured knowledge within
+their repositories for reasoning and decision-making, while
+knowledge graphs offer a powerful means of representing
+and integrating diverse knowledge sources into a unified
+structure. In healthcare applications, this symbiosis be-
+comes evident as expert systems utilize the rich knowledge
+representations provided by knowledge graphs to enhance
+their reasoning capabilities. Knowledge graphs contribute
+by consolidating medical information from various sources,
+enabling expert systems to access comprehensive and inter-
+connected medical knowledge for more informed decision-
+making. Additionally, the continuous updating and enrich-
+ment of knowledge graphs facilitate the evolution of ex-
+pert systems by incorporating the latest medical findings
+and insights. This collaboration between expert systems
+and knowledge graphs significantly enhances the depth and
+breadth of medical expertise available for diagnosis, treat-
+ment planning, and healthcare decision support.
+4.2.1 Auxiliary Diagnosis
+Diagnosis plays an incredibly crucial role as the foundation
+of medical practice. Employing an appropriate knowledge
+graph to aid in diagnosis can significantly enhance the effi-
+ciency of doctors and drastically reduce the rate of misdiag-
+7nosis.
+Diagnosis, in essence, involves combining knowledge
+and experience to assess new existing conditions. A single
+doctor can only rely on their own experiences for judgment.
+However, a knowledge graph integrates a vast amount of
+knowledge and real clinical cases into its system, enabling
+diagnoses to incorporate a broader spectrum of medical ex-
+periences, thereby improving diagnostic accuracy and effi-
+ciency. In the process of auxiliary diagnosis, a more reli-
+able approach involves using the knowledge graph to pro-
+vide multiple possible diagnostic outcomes, thus minimiz-
+ing the occurrence of missed diagnoses or misdiagnoses.
+The knowledge graph augments the connections between
+different pieces of information, rendering the entire diag-
+nostic process more interpretable. Incorporating reinforce-
+ment learning methods continuously updates the knowl-
+edge graph, enhancing its performance in auxiliary diagno-
+sis. Zhang et al . [37] introduced weighted averages into
+the knowledge graph, enhancing diagnostic reliability by
+weighting the degree of sharing among various traditional
+Chinese medical treatment methods.
+Though further advancements in knowledge graphs are
+required to achieve more refined diagnoses, they prove par-
+ticularly effective in the realm of assisting traditional Chi-
+nese medicine diagnoses. For instance, clinical doctors
+in non-nephrology departments lacking knowledge about
+chronic kidney disease (CKD) might seldom recognize ab-
+normal kidney function data, leading to delayed CKD man-
+agement. Doctors can access longitudinal records; how-
+ever, without appropriate attention or sufficient knowledge
+advantage, this valuable information remains buried in the
+data, resulting in wastage. Additionally, due to heavy work-
+loads and limited time, extensive long-term clinical data is
+unsuitable for comprehensive review by clinical doctors. In-
+troducing an interpretable artificial intelligence knowledge
+graph can effectively integrate various information, aiding
+doctors in specific diagnosis of medical conditions. Shang
+et al. [25] established an electronic medical record-oriented
+knowledge graph, utilizing semantic reasoning and graphi-
+cal explanations of significant findings to assist clinical doc-
+tors in identifying crucial clinical information often over-
+looked in practice.
+4.2.2 Personalized Recommendations
+Elderly individuals, as a vulnerable group in society, have
+greater medical needs. Due to physical reasons, even when
+facing the same medical condition, different elderly indi-
+viduals may exhibit varying symptoms. This necessitates a
+sufficient level of personalization in medical care.
+Knowledge graphs are now capable of providing person-
+alized recommendations in various aspects, including med-
+ication suggestions, daily exercise, and dietary plans, tomaintain the user’s physical well-being. By establishing a
+profile for each patient and understanding their past treat-
+ments and personal habits, recommendations become more
+humanized and rational. Knowledge graph AI based on ma-
+chine learning, reinforcement learning, and similar methods
+can achieve personalization through continuous fine-tuning.
+For instance, in the case of diabetes, a knowledge graph can
+provide personalized health management advice based on
+the patient’s blood sugar control, dietary habits, exercise
+routines, and other relevant information. This advice en-
+compasses medication treatment plans, dietary suggestions,
+exercise routines, aiding patients in better disease manage-
+ment and reducing the risk of complications.
+The entity extraction algorithm based on BiLSTM-CRF
+proposed by Wang et al. [32] and the Traditional Chi-
+nese Medicine (TCM) medical recommendation model us-
+ing KNN can better analyze contextual statements, under-
+stand user needs, and validate recommendations using clin-
+ical data from TCM. This validation process renders the rec-
+ommendations more reasonable and aligned with the user’s
+requirements.
+4.2.3 Intelligent Forecasting
+Intelligent medical forecasting holds significant potential
+for development and application. Leveraging various learn-
+ing methods such as neural networks reinforces predictions
+related to diseases, clinical outcomes, and even cancer mor-
+tality rates. Its applications in clinical practice are exten-
+sive. For instance, by analyzing patients’ clinical data and
+medical images, intelligent medical forecasting aids in pre-
+dicting potential complications, enabling early intervention
+and treatment to prevent the worsening of conditions. More-
+over, it can forecast the development trends of chronic dis-
+eases, assisting patients and doctors in devising more scien-
+tific treatment plans to improve treatment outcomes.
+In the realm of cancer, intelligent medical forecasting
+plays a pivotal role. By analyzing patients’ genetic informa-
+tion, clinical data, and pathological characteristics, it helps
+doctors more accurately predict cancer development trends
+and metastasis risks, offering crucial references for person-
+alized treatment plans. OpenAI, for example, developed
+an AI model for predicting potential kidney damage, en-
+abling patients to anticipate kidney-related diseases earlier
+for timely treatment. Chu et al. [4] created a knowledge-
+aware multi-center clinical dataset applicable for models
+predicting various clinical outcomes, integrating learning
+models into knowledge graphs to facilitate clinical outcome
+forecasting across diverse clinical environments in multiple
+centers.
+Elderly individuals, as a distinct group, often experi-
+ence multiple chronic diseases, frequent visits to multiple
+specialists, and the use of multiple medications, leading
+8to a higher susceptibility to adverse drug reactions. Due
+to differences in the professional levels of medical person-
+nel across various healthcare institutions, expecting most
+doctors to rely solely on their professional knowledge for
+PIM (Potentially Inappropriate Medication) judgment when
+prescribing medications is not practical. By incorporating
+more drug and patient information into knowledge graphs,
+labeling this information, and calculating the influence of
+conditional nodes on risk factors, the prediction of potential
+inappropriate medication behaviors can be anticipated. [19]
+5. Application of Image Detection Technology
+and IoT
+With the increasingly significant global trend of aging
+populations, the health status of the elderly has become a
+focal point of societal concern [22]. Artificial intelligence
+has provided unprecedented opportunities for technologi-
+cal innovation in the field of elderly health. Advances in
+technologies such as image processing, machine learning,
+and deep learning offer robust support for achieving real-
+time monitoring, precise diagnosis, and personalized treat-
+ment. The continuous optimization of intelligent algorithms
+makes health management for the elderly population more
+feasible. This section aims to delve into the comprehensive
+review of computer vision and image processing technolo-
+gies in several major directions of artificial intelligence for
+aging applications, including health monitoring and identi-
+fication, fall detection, medical diagnosis, and assistance in
+daily life.
+5.1. Health Monitoring and Recognition
+The rapid development of wearable and mobile devices
+has facilitated the application of Internet of Things (IoT)
+technology in the healthcare sector [39] [6]. Real-time
+monitoring of human activities, especially the Activities of
+Daily Living (ADL) of the elderly, is a significant concern
+in smart healthcare. The use of wearable and mobile sen-
+sors can significantly enhance medical rehabilitation and el-
+derly care. Therefore, Human Activity Recognition (HAR)
+in ubiquitous computing environments has become a hot
+topic to better understand people’s daily behaviors and in-
+teractions with their living environments, widely researched
+in the domain of Healthcare Internet of Things (IoHT) [29].
+HAR can be considered as an artificial intelligence technol-
+ogy that automatically analyzes and identifies human activ-
+ities and behavior patterns through the observation of data
+from wearable devices.
+HAR typically involves three levels: motion recognition,
+action recognition, and activity recognition, corresponding
+to low-level, mid-level, and high-level vision. Researchers
+continually explore solutions to HAR problems through ma-
+chine learning and deep learning methods. Currently, re-
+search is mainly focused on two directions: methods basedon environmental sensors and those based on wearable sen-
+sors. Environmental sensor-based methods typically use
+monitoring cameras, sound, temperature, and other sensors
+to capture context signals related to the environment, appli-
+cable in scenarios such as smart homes and rehabilitation
+centers. In contrast, methods based on wearable sensors are
+more convenient, as they do not require users to wear mul-
+tiple devices, making them more socially acceptable.
+A complete HAR system consists of three essential com-
+ponents: video frame segmentation, action representation,
+and the learning process. However, HAR still faces chal-
+lenges such as lighting variations, changes in perspectives,
+and occlusions, requiring the construction of comprehen-
+sive, robust, and flexible HAR systems under various con-
+ditions and environments. Additionally, dataset limitations
+are a critical issue, as many studies rely on self-recorded
+data, lacking large benchmark datasets for testing novel ap-
+plications. Therefore, in the evolution of HAR, it is es-
+sential to continue addressing these challenges to achieve
+broader applicability and reliability.
+5.2. Fall detection
+Fall Detection Technology and Applications
+Globally, falls among the elderly pose a significant pub-
+lic health concern. Needless to say, injuries resulting from
+falls among the elderly not only have numerous conse-
+quences for their families but also impact the healthcare
+system and society at large [31].
+The development of fall detection technology provides
+the possibility for real-time monitoring and emergency re-
+sponse, becoming increasingly crucial in addressing the
+health challenges faced by the elderly. This section will
+focus on introducing fall detection technology and its ap-
+plications in computer vision and real-time feedback. The
+application of computer vision technology in fall detection
+involves various aspects:
+Video Analysis and Image Recognition: Computer vi-
+sion technology, through the analysis of video streams, can
+real-time monitor users’ postures, movements, and behav-
+iors. This is crucial for detecting fall events, abnormal pos-
+tures, or unusual activities. Leveraging image recognition
+algorithms, the system can identify specific human body
+forms, postures, or movements, allowing it to assess the
+risk of falls. Deep learning technology has significantly im-
+proved the accuracy of image recognition in this context.
+3D Spatial Perception Technology: Utilizing depth
+cameras such as Microsoft Kinect, the system can acquire
+precise location and posture information of users in three-
+dimensional space. This provides more detailed and com-
+prehensive data for fall detection, aiding in accurately deter-
+mining the user’s status. Additionally, 3D perception tech-
+nologies like LiDAR (Light Detection and Ranging) are in-
+troduced to provide high-resolution depth information. Li-
+9DAR can generate precise 3D maps in various environmen-
+tal conditions, offering more reliable data for fall detection.
+Real-Time Feedback and Emergency Response:
+Based on the results of fall detection, the system can trig-
+ger alerts, issuing warnings to users through sound, light,
+or vibration. The design of alert systems needs to consider
+reliability and timeliness to ensure users receive timely re-
+minders when a fall occurs. Moreover, when the system
+detects a fall event, it can automatically trigger the call
+for emergency services, such as summoning an ambulance
+or notifying emergency contacts. Applications integrating
+emergency services can swiftly provide assistance in criti-
+cal situations, minimizing the injuries caused by falls.
+The application and integration of these computer vision
+technologies enable fall detection systems to comprehen-
+sively and accurately monitor user behavior, providing real-
+time feedback and emergency responses, effectively reduc-
+ing the risks associated with falls.
+In the early stages of fall detection research, sensors were
+commonly used as detection media, as shown in the studies
+by Li et al. 2009 [16], which explored the fusion of gyro-
+scope and accelerometer data for fall and non-fall classifi-
+cation. However, vision-based sensors (such as surveillance
+cameras) and environmental sensors have become attractive
+alternatives. Rougier et al. [24] proposed a shape-matching
+technique that tracked the contour of a person through video
+sequences. They quantified the deformation of the human
+body shape from the contour using shape analysis meth-
+ods. Finally, a Gaussian mixture model was used to clas-
+sify falls from normal activities. Following surveillance
+cameras, depth cameras also gained widespread attention in
+this field. The earliest application of Time-of-Flight (ToF)
+depth cameras was by Diraco et al. [8]. They proposed a
+novel vision sensor-based method that did not require land-
+marks, calibration patterns, or user intervention. However,
+ToF cameras are expensive and have low image resolution.
+Subsequently, Rougier et al. [24]used the Kinect depth cam-
+era for the first time in 2011. They extracted two features
+from depth information: body center height and body ve-
+locity. They applied threshold-based algorithms to detect
+falls, achieving an overall success rate of 98.7
+Regarding fusion technologies based on visual sensors,
+some studies have adopted traditional machine learning or
+deep learning methods to enhance the accuracy of fall de-
+tection. The methods used can be roughly categorized into
+two types: 1. 2D CNN (Convolutional Neural Network)
+technology and 2. Deep Reinforcement Learning (DRL).
+Espinosa et al. (2019) [9] proposed an approach based on
+the fusion of multiple visual sensors, studying it using pub-
+licly available datasets. They trained a classifier based on
+2D CNN for identifying and classifying fall events in daily
+life activities. This method, by integrating information from
+different sensors, improved sensitivity and accuracy in de-tecting falls. Another approach is Reinforcement Learning
+(RL), an evolving branch of machine learning that is gaining
+popularity in fall detection. Deep Reinforcement Learning
+(DRL), combining the advantages of deep learning and re-
+inforcement learning, has shown promise in fall prevention
+(Namba and Yamada, 2018a [20], [b] [21] and fall detec-
+tion by Yang, 2018 [36]). Namba and Yamada [20] pro-
+posed a method for preventing fall risks in elderly people
+living independently with the assistance of robots. They
+collected images and videos with accident location informa-
+tion. However, most traditional machine learning and deep
+learning methods face challenges when the operating envi-
+ronment changes. This is because their data-driven nature
+makes them powerful in learning in the same environment
+where they were trained.
+Traditional machine learning methods have achieved cer-
+tain results in fall detection and activity recognition, espe-
+cially in applications with wearable sensors, where their re-
+sults are significantly better than threshold-based methods.
+However, with the rise of deep learning, especially in the
+field involving visual sensors and sensor fusion, deep learn-
+ing methods are gradually becoming state-of-the-art tech-
+nology. Deep learning, by simulating artificial neural net-
+works, better captures the complex relationships in data, im-
+proving performance in fall detection and activity recogni-
+tion tasks.
+As an emerging research direction in fall detection, Deep
+Reinforcement Learning combines the advantages of deep
+learning and reinforcement learning. It draws inspiration
+from the concepts of human psychological neuroscience,
+enabling the system to adapt and optimize decisions in
+a constantly changing environment. Deep Reinforcement
+Learning, while providing high adaptability, does not sacri-
+fice accuracy and robustness, offering a promising alterna-
+tive for fall detection in this field.
+A significant challenge is the scarcity of real fall data.
+Currently, there is no convincing publicly available dataset
+providing sufficient real fall data as a gold standard. Most
+datasets are primarily based on simulated data rather than
+observations from the real lives of elderly people. This
+makes models trained on data collected from young and
+healthy subjects controversial when applied to the elderly.
+To better adapt to real-world scenarios, there is an urgent
+need to create benchmark datasets containing data from
+multiple sensors to ensure that models can accurately iden-
+tify fall events in more realistic environments.
+6. Challenges and Future Outlook
+This paper presents a comprehensive overview of artifi-
+cial intelligence (AI) applications in medical aging and its
+current development status. The applications can be cate-
+gorized into three main aspects:
+Recognition Systems Based on CNN, RNN, and Com-
+10mon Networks: These systems preprocess language infor-
+mation and undergo training to enable intelligent question-
+and-answer interactions related to medical care. This sig-
+nificantly enhances diagnostic efficiency, reduces doctors’
+time spent on writing medical records, improves overall
+doctor efficiency, allowing them to dedicate more time to
+patient care.
+Utilizing AI Knowledge Graph Information Descrip-
+tion: AI knowledge graphs define specific knowledge ele-
+ments as entity classes and establish interrelations between
+different entities through relationship classes. Knowledge
+reasoning is achieved through methods such as tensor de-
+composition, semantic matching, and neural networks. The
+incorporation of deep learning, three-dimensional space
+perception technology using depth cameras, and computer
+vision enhances health monitoring and fall detection for
+the elderly. This integration provides timely feedback and
+emergency responses, effectively minimizing the risk of
+falls.
+Artificial Intelligence Technology for Enhancing In-
+telligent Robots: AI contributes to the development of var-
+ious types of robots—such as home assistance robots, life
+care robots, and safety service robots—to deliver compre-
+hensive care for the elderly.
+Challenges of Artificial Intelligence Technology in
+Health Monitoring and Fall Detection In the realm of
+health monitoring and recognition, the development of
+computer vision and mobile devices has propelled the ap-
+plication of Internet of Things (IoT) technology in health-
+care. The advancement of fall detection technology, in par-
+ticular, has opened up possibilities for real-time monitoring
+and emergency response for the elderly. The application of
+computer vision technology in video analysis, image recog-
+nition, and 3D spatial perception enhances the comprehen-
+siveness and accuracy of fall detection systems. Simultane-
+ously, the design of real-time feedback and emergency re-
+sponse improves the reliability of the system. However, the
+scarcity of authentic fall data remains a challenge, necessi-
+tating the establishment of benchmark datasets containing
+multiple sensor data to ensure the accurate identification of
+fall events in more realistic environments.
+This paper explores the multifaceted role of AI in ad-
+dressing medical aging, spanning from intelligent interac-
+tions to health monitoring and robot-assisted care, under-
+scoring its potential in enhancing elderly care services.
+However, numerous challenges persist in the applica-
+tion of artificial intelligence (AI) in medical aging. Im-
+perfect model training often leads to some functions failing
+to achieve anticipated goals, resulting in instances of both
+missed and incorrect judgments. Moreover, the scarcity of
+precise and reliable data poses a significant hurdle, espe-
+cially when measuring elderly-specific data that cannot be
+feasibly derived from artificial experiments but must be ac-quired from real-life scenarios, presenting added complexi-
+ties.
+Privacy and data security represent pivotal concerns.
+The widespread integration of AI technology in the medi-
+cal realm involves an increasing volume of personal health
+data. Safeguarding this private data has emerged as an ur-
+gent issue necessitating resolution. Additionally, address-
+ing technology accessibility and ethical concerns requires
+deeper contemplation and resolution throughout the devel-
+opmental process.
+Therefore, optimizing the model structure and enhanc-
+ing its accuracy stand as fundamental methods to propel AI
+applications in medical aging. Collaborating with hospitals,
+clinics, or other elderly service institutions facilitates the ac-
+quisition of more accurate data for model training and vali-
+dation. Addressing data privacy entails establishing more
+comprehensive regulations and regulatory mechanisms to
+uphold users’ legitimate rights and privacy.
+Ensuring technology accessibility involves catering to
+users of varying ages and abilities, ensuring inclusivity and
+user-friendliness for all. Ethical considerations encompass
+the fairness and justice of technology and its long-term soci-
+etal impact, necessitating interdisciplinary research and ex-
+tensive deliberation for appropriate resolution.
+7. Conclusion
+In conclusion, artificial intelligence demonstrates im-
+mense potential and extensive exploration opportunities
+within the domain of medical aging. Beyond the aforemen-
+tioned four aspects, numerous other areas harbor significant
+potential for further development. Through persistent tech-
+nological innovation, ethical considerations, and enhanced
+user experiences, we anticipate witnessing scientific and
+technological advancements that tangibly enhance the lives
+of older individuals in the coming years.
+Simultaneously, collective efforts across all sectors of
+society are imperative to establish a healthier and more user-
+friendly science and technology ecosystem. This will en-
+able artificial intelligence in aging to genuinely emerge as a
+pivotal force propelling social progress. With collaboration
+and innovation, we hold the confidence to craft a superior
+and more intelligent future for the elderly.
+In this ongoing process, it’s crucial to fortify interdisci-
+plinary collaborations, integrating medical, scientific, tech-
+nological, sociological, and other resources. By collectively
+advancing the field of aging, we aim to offer more compre-
+hensive and compassionate care and services to the elderly,
+further enriching their lives.

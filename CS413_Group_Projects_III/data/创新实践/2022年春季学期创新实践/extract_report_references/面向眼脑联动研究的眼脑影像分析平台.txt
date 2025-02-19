@@ -1,0 +1,25 @@
+References
+[1] Z. Zhang, H. Zhang, and Z. Pei, “Adaptive equalization algorithm
+for image based on histogram,” in 2014 International Conference on
+Mechatronics, Electronic, Industrial and Control Engineering (MEIC-
+14). Atlantis Press, 2014, pp. 1298–1301.
+[2] X. Bai, F. Zhou, and B. Xue, “Image enhancement using multi scale
+image features extracted by top-hat transform,” Optics & Laser Tech-
+nology , vol. 44, no. 2, pp. 328–336, 2012.
+[3] S.-C. Huang, F.-C. Cheng, and Y .-S. Chiu, “Efﬁcient contrast enhance-
+ment using adaptive gamma correction with weighting distribution,”
+IEEE transactions on image processing , vol. 22, no. 3, pp. 1032–1041,
+2012.
+[4] H. Zhang, C. Wu, Z. Zhang, Y . Zhu, H. Lin, Z. Zhang, Y . Sun, T. He,
+J. Mueller, R. Manmatha et al. , “Resnest: Split-attention networks,”
+arXiv preprint arXiv:2004.08955 , 2020.
+[5] Y . Ma, H. Hao, J. Xie, H. Fu, J. Zhang, J. Yang, Z. Wang, J. Liu,
+Y . Zheng, and Y . Zhao, “Rose: a retinal oct-angiography vessel seg-
+mentation dataset and new model,” IEEE transactions on medical
+imaging , vol. 40, no. 3, pp. 928–939, 2020.
+[6] J.-H. Ri, G. Tian, Y . Liu, W.-h. Xu, and J.-g. Lou, “Extreme learning
+machine with hybrid cost function of g-mean and probability for
+imbalance learning,” International Journal of Machine Learning and
+Cybernetics , vol. 11, no. 9, pp. 2007–2020, 2020.
+[7] Y . Gong, “Spectrally regularized surfaces,” Ph.D. dissertation, ETH
+Zurich, 2015.

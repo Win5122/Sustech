@@ -1,0 +1,283 @@
+2022.06.09
+赵宇航  (Zhao Y uhang) 1 191071 1
+徐格蕾  (Xu GeLei) 1 1911138
+郑博方  (Zheng Bofang) 12012918
+Figure 0. Histograms of China aging and cataract estimationCataract Intelligent Screening and
+Diagnosis System 
+ 
+Part 1 - Research Background  
+1.1 Overview of Cataract  
+ Cataract is one of the global leading diseases which causes visual impairment and blindness. According to 
+World Health Organization (WHO), it is estimate d that around 2.2 billion people suffer from visual impairment,  
+and approximately 33% of that is related to cataract. Especially in developing countries, catarac t accounts for 
+50% or more of blindness of all ophthalmic diseases.
+ Clinically , cataracts can be categorized into nuclear cataract (NC), cortical cataract (CC), and posterior  
+subcapsular cataract (PSC), depending on the location of opacity . Aging and genetics are two of the most  
+important factors causing  the cataract. The prevalence of cataract in the population aged 40 years and older has 
+reached 11.8% to 18.8%. With the trends of aging in population in China, the estimated number of cataract  
+patient continued to rise.
+1.2 Clinical Diagnosis and Classification  Figure 1. Comparison of three ophthalmic imaging modalities
+Figure 2. Lens Opacities Classification System III Two of popular ophthalmic imaging methods used for catarasct diagnosis so far are slit lamp image and AS-
+OCT image. The silt lamp camera is a high-intensity light source instrument typically used to examine the 
+anterior and posterior segment structure of human eye. AS-OCT is a new modality of anterior segment optical  
+coherence tomography image, it is able to capture the nucleus, cortical, and post subcapsular area clearly .
+ The widely adopted cataract classification system is lens opacities classification system (LOCS). It provides  
+representative slit lamp and retroillumination images of different cataract severity levels. The severity level is 
+graded on a decimal scale by spacing intervals regularly .
+Part 2 - Previous Work  
+2.1 Diagnosis System  
+ Our general goal is to develop a light-weighted, real time cataract screening and diagnosis system. The system  
+consist of cataract segmentation and cataract classification. In the segmentation part, the system receives an AS-
+OCT image as input, extract the lens from the original image, then sends the cortical and nucleus image to 
+classify . In the classification part, we use two different networks to classify the cortical and nucleus cataract. The 
+final result is graded into either normal, mild, or severe.Figure 3. Schematic of the cataract diagnosis system
+Figure 4. The entire diagnosis system
+ Besides, we also implem ented segmentation on slit-lamp modality , to allow criteria conversions in cataract  
+diagnosis. Our system is also implementation with fair scalability , to allow flexible extensio ns to whether  
+glaucoma or corneal analysis in the future.
+2.2 Segmentation  
+ In the last presentation, the segmentation has included:
+1. A research into traditional methods and mechanics of image processing
+2. A combined algorithm with Canny and Otsu's threshold segmentation for slit-lamp image
+2.3 Classification  
+2.3.1 Cortical Cataract Classification  
+ In the last presentation, combined with the pathological features of cortical cataracts, we decided to use self 
+attention for diagnosis. Referring to the literature, we decided to use a block self-attention method as shown, but 
+it still has a high space-time complexity and we need to modify the model to reduce the complexity .
+2.3.2 Nuclear Cataract Classification   
+Figure 5. Left:Applying Canny on AS-OCT image. Right:Applying Otsu's threshold on AS-OCT image.
+Figure 6. An demonstration of AS-OCT pixel distuibution and its af fect In the last presentation, we decide to choose CA as the attention method to help solve our classification  
+problem according to the experiment results, in which CA always show the best performance.
+ Then we try to improve the method to be more fitted to our problem. We preserve the main structure of CA 
+because we want to take its advantages, so we pay attention to the pooling method and change it to a new 
+pooling meth od: Local Importance-based Pooling . But the results are not as good as we think. We also think of 
+the reason and do some explanation.
+Part 3 - Current Work  
+3.1 Segmentation  
+3.1.1 Segmentation on AS-OCT images  
+ The ultimate objective of segmentation is to extract parts of interest from both slit-lamp and AS-OCT images.  
+By now we have succeeded with the former using gradient-based approaches. Intuitively , we want to utilize the 
+very same method on AS-OCT modality . However , the direct application of the algorithms gave vague and 
+messy edges(shown as follow) and did not produce the expected results. We drew 3 facts based on the 
+characteristics of AS-OCT , trying to explain why gradient-based method may fail.
+1. In raw AS-OCT images, pixels do not gather together as surface. Rather , regions are "formed" by countless  
+discrete dots. These dots may result from absorpt ion of X-ray by human tissues. The dots in different regions  
+process different brightness and density . The gradient value around these dots are generally high since the 
+dots appear discrete. Thus gradient-based segmentation methods such as canny is likely to fail on those  
+images.
+2. For the same reason, the algorithms that are based  on thresholding are likely to fail, too. This is because in the 
+AS-OCT image the low-gray-value pixels are mixed up with the high-gray-values almost everywhere, making  Figure 7. Flowchart of the segmentation procedure
+Table 0. comparation of the advantages and disadvantages of the three algorithms
+Algorithms Advantages Disadvantages Pics
+Thresholding Easy to achieve Affected by discreteness
+Gradient-based Clear edges Affected by discreteness
+it hard to find an ef fective threshold to separate the foreground from the background.
+3. The problem seems to be the discreteness of pixels leading to the discontinuity of edges. Hough  
+transformation is a meth od that can join the disconnected straight or oral-shaped edges. Howev er no such 
+shapes can be successfully detected in our input image, thus attempts to directly utilize Hough  transform  
+failed.
+    With above observa tions, we can conclude that the key problem is that the edges appea rs as "density  
+difference" rather than "gray-value dif ference"(which is the occasion in slit-lamp modality). Thereby , we need an  
+approach to measure the density in an image, or in a more straight forward way, find a segmentation approach  
+that takes the factor of pixel distribution into account.
+ To achieve this, we explored into region-based segmentation approaches: region growing. The method begins  
+with a start point called "seed", recursively check whether the pixels around it is alike, if so, then classify them  
+into one group. The algorithm can omit the discreteness of AS-OCT image and group out the cortical as well as 
+nucleus areas regardless of the noises within them.
+ To make the final mask for segmentation appear as a whole surface, we also added blurring and dilation to the 
+algorithm, aiming at improving the segmentation results.
+3.1.2 Edge detection methods: Comparison and solution  
+ By this far we have completed the segmentation of both modalities. Table 0 compares the advantages and 
+disadvantages of the three algorithms mainly used.Algorithms Advantages Disadvantages Pics
+Region-based Works on AS-OCT Grainy and vague edges
+Figure 8. ResNet with local scaling self-attention module in all layers To conclude , in general tasks of image segme ntation, the characteristics of the input image should be 
+examined first, only then can one better decide which algorithms to apply .
+ 
+3.2 Classification  
+3.2.1 Cortical Cataract Classification  
+ For cortical cataract classification part, we first decided to use the classical network ResNet18 backbone, and 
+then added modules to optimize cortical cataract classification.
+ We introduced a networ k Halonet proposed by Google in 2021 [1] in the last report, which focused on 
+chunking the images and then performing self-attention separately , so that the network can focus more on local  
+features while making the model less complex and computationally intensive.
+ Its structure is shown in figure 8. We add a local scaling self-attention module in the middle of each two 
+blocks of ResNet16. However , after experimen ts, this is still very computationally intensive and can only 
+support expe riments with batch=8 at most, and it is difficult to drive larger networks and parameters by our lab 
+servers.
+There are two ideas to solve this problem:  
+modify the layers of self-attention to reduce the complexity of each layer;  
+reduce the number of self-attention layers. In the following, we will design two networks for each of these  
+two ideas.
+For the first idea, we found a paper that can effectively reduce the complexity of self-attention [2]. It uses two 
+linear layers (called external-attention layer) instead of self-attention, which can greatly reduce the 
+complexity of the model while achieving similar complexity as self-attention. Referring to this paper , we 
+replace the local scaling self-attention module with the external attention module, as shown in Fig 9.Figure 9. ResNet with external-attention modeule in all layers
+Figure 10. ResNet with local scaling self-attention module in last layers
+Table 1. AS-OCT cortical cataract dataset
+ Normal Mild Sever e
+Training 590 1219 964
+Testing 284 313 356
+Total 874 1532 1320
+For idea 2, we need to know which layer contributes the most to the final result. Referring to the literature, we  
+know that convolution tends to activate relatively low-level features at low levels; as the  convolution layers  
+become deeper , the activated features become more advanced and contribute more and more to the 
+classification results. For this result, we choose to first insert the self-attention layer on the last four layers of 
+ResNet, as shown in Fig 10.
+ In the experi mental part, we choose the cortical cataract dataset as shown in Table 1. During the experiments,  
+the software  environment we use is Ubuntu OS, the hardware system is an Nvidia Titan GPU (10GB), and the 
+optimizer is a stochastic gradient descent optimizer with a simulated annealing strategy . We set the learning rate 
+to 1 and the batch size to 8.Table 2. Experiment result of cortical cataract calssification
+ Accuracy Precision Recall F1 Params
+ResrNet18 83.66 80.32 81.09 83.21 11.17M
+SENet18 82.22 80.65 81.50 83.22 11.26M
+SA (All Layer) 85.63 85.78 86.22 84.67 28.26M
+SA (Last Layer) 84.25 85.27 84.25 86.01 15.50M
+Local Scaling SA (All Layer) 86.88 86.21 85.10 85.29 17.42M
+Local Scaling SA (Last Layer) 86.13 85.92 85.39 85.33 13.23M
+External Attention (All Layer) 84.99 85.82 84.21 85.45 14.25M
+External Attention (Last Layer) 85.44 85.35 85.44 85.23 12.14M
+Table 3. V ariation of the architecture of cortical cataract classification
+ Batch Learning Rate Layer Multi Head Halo Size Accuracy Recall
+A 8 0.01 14, 16 8 2 86.88 86.21
+A 6 0.01 14, 16 8 2 86.25 85.69
+A 32 0.01 14, 16 8 2 85.57 85.61
+B 16 0.005 14, 16 8 2 86.10 85.50
+B 16 0.02 2, 4 8 2 85.47 85.89
+C 16 0.01 8, 10 8 2 83.78 82.22
+C 16 0.01 14, 16 8 2 84.44 83.89
+D 16 0.01 14, 16 4 2 85.24 84.25
+D 16 0.01 14, 16 16 2 86.12 84.99
+E 16 0.01 14, 16 8 1 85.00 85.15
+E 16 0.01 14, 16 8 4 86.63 86.00 We first tested the difference between the self-att ention of the above three methods in inserting all layers and 
+the attention of only the last layer , and also tested the accuracy of ResNet18 backbone and SENet18 backbone  
+for comparis on. The experimental results are shown in table 2. It can be seen that the local scaling  self-attention  
+with all layers inserted achieves the highest accuracy and precision, and the local scaling self-attention with only 
+the last layer inserted achieves the highest recall and F1 score, while its accuracy and precision are very close to 
+the former . Considering that the model complexity of the latter is significantly smaller than that of the former , 
+we decided to use the local scaling self-attention with only the last layer inserted for further experiments.
+ The variations on the architecture of the model are shown in Table 3. We tested the results of the model under  
+different batch, learn rate, layers inserted by attention, multiple heads of attention, and halo size of local scaling  
+attention. It can be seen in group F that the model can finally achieve an accuracy of 88.21% and a recall of 
+87.89% . Batch Learning Rate Layer Multi Head Halo Size Accuracy Recall
+F 8 0.01 14, 16 8 2 88.21 87.89
+Figure 1 1. Visualization using CAM using ResNet and ResNet+Self-Attention
+Figure 12. CA improvement To verify that the interpretability of the network with the addition of the self-attention layer is stronger than 
+that of ResNet, we visualized ResNet itself and the ResNet with the addition of the self-attention layer . The 
+results show  that ResNet+self-attention activat es the pathological strip region more significantly . For the 
+diagnosis of mild cataract, the pathological ResNet itself cannot effectively identify the patholo gical regions,  
+while ResNe t+self attent ion can focus on the bars in the upper part of the image, which further validates that the 
+attention module helps to improve the interpretability of the model.
+3.2.2 Nuclear Cataract Classification  
+ In the previous work, after confirming the use of CA for cataract classification, we aim to make some  
+improvements. W e left the basic framework unchanged since we wanted to preserve the strength of the CA itself.  
+For the pooling approach, some improvements can be made in our classification problems, as shown in figure  
+12.
+ Last time, we discovered  a pooling method in [3], local importance-based pooling, to replace average pooling  
+in the original method. Local importance-based  pooling can adaptively update an importance graph to select  
+features that are more important to the results as the results of the downsampling.  
+ Figure 13. Nuclear of Lens
+Table 4. Nuclear Cataract Dataset
+ Normal Mild Sever e
+Training 2132 1985 1434 However , test accuracy did not improve greatly in the experiment. After analysing the reason,  we hope to 
+make some continuous improvements in pooling,  therefore we further analyze the advantages and disadvantages  
+of dif ferent pooling methods for our problem.  
+Advantages of some Pooling methods in our Experiment
+ Firstly we compared the advantages of these pooling method. For average pooling, it is just the representative  
+of the average of pooling  region pixels, in the last semester , our work is to use machine learning to classify the 
+image, we carried on the correlation analysis, finding that the correlation between the characteristic pixel  
+average and the classification results is the biggest, thus we think the average pooling is very important and 
+Indispensable. For maximum pooling, we mainly look at its brighter region to judge the classification of this 
+image, and maximum pooling is the eigenvalue of its brightest region, so it is also related to our classification  
+task. The advantage of LIP lies in its adaptive ability to obtain the most important feature for the result.
+Disadvantages of some Pooling methods in our Experiment
+ For disadvantages, we use figure 13, a typical figure that we need to classify as an example. It has several  
+obvious features: because the nuclear part is oval, we filled the four corners with black, and some light spots  
+may appear in the picture due to excessive light intensity or excessive light source.  
+ 
+ These will be some certain impacts on the pooling method mentioned above. For example, the black part will 
+have an impact on average pooling, making its eigenvalue lower . Bright spots also affect maximum pooling very 
+much, making it too large; In the case of LIP, there is nothing interpretable about it in our problem , which makes  
+it weakness.  
+Take advantages W eaken disadvantages
+ So we want to take adva ntage of the strengths of these pooled approaches and make up for their weaknesses.  
+First, we consider average pooling to be indispensable for the reasons already mentioned. So, we tried to 
+combine the pooling approach. For example, combine average pooling with maximum pooling. In this way, the 
+effect of black areas on average pooling is partially offset by maximum pooling, and the effect of bright spots on 
+maximum pooling is partially of fset by average pooling, which helps in both ways.  
+ Of course, the reason is the same for combining average pooling with local importance pooling. We can also 
+combine pooling of local importance with pooling of maximum value, allow them to cancel out first, and then 
+combine the results with pooling of average value, hoping to get better results.  
+ In the process of combination, it is inevitable to consider the problem of proportion. In our exper iment, only 
+three propor tions were initially considered: 1:1, 2:1 and 1:2, respectively representing the average ratio, the high 
+proportion of average pooling, and the small proportion of average pooling.   Normal Mild Sever e
+Testing 963 1104 301
+Total 3095 3089 1735
+Table 5. T est Result of nuclear cataract classification
+ACC RESNET18 RESNET34 RESNET50
+CA + A vg 85.60 85.92 85.48
+CA + Max 83.22 84.65 84.32
+CA + LIP 85.80 85.64 85.93
+CA + 1/2A vg + 1/2Max 85.25 86.27 85.75
+CA + 1/2A vg + 1/2LIP 86.93 86.69 86.38
+CA + 1/2A vg + 1/4Max + 1/4LIP 86.65 87.26 86.79
+CA + 2/3A vg + 1/3Max 85.73 86.41 86.65
+CA + 2/3A vg + 1/3LIP 87.25 86.98 87.59
+CA + 2/3A vg + 1/6Max + 1/6LIP 87.32 87.34 87.02
+CA + 1/3A vg + 2/3Max 85.20 86.32 86.24
+CA + 1/3A vg + 2/3LIP 86.88 86.96 86.75
+CA + 1/3A vg + 1/3Max + 1/3LIP 86.64 86.83 86.86
+Table 6 Result of Dif ferent Parameters of nuclear cataract classification
+Learning
+RateBatch
+SizeAccuracy
+(RESNET18)Accuracy
+(RESNET34)Accuracy
+(RESNET18)
+0.001 16 87.88 88.21 88.32 The AS-OCT  nuclear cataract dataset is shown in table 4. The total image number of the dataset  is 7919. In 
+the training process, stochastic gradient descent iis used as the optimizer , the learning rate is 0.001 and the cosine  
+annealing is used as the learning rate strategy . The software and hardware environment we used is Ubuntu  
+operating system and a Nvidia T itan GPU (10GB).
+Testing r esult
+ Table 5 shows the testing  result of the experiment, the experiment used ResNet18, ResNet34, RESNET50 as 
+backbones. Four groups were given: single pooling method, 1:1 matching combination, 2:1 matching  
+combination and 1:2 matching combination. The test results indicate that, after the pooling method  is combined,  
+the results of the combination of each matching method are improved to some extent compared with the single  
+pooling method. Among them, the 2:1 matching method with a higher proportion of average pooling stands out 
+and obtains the best results, which further proves the importance of average pooling. Therefore, we also plan to 
+use this algorithm in the deployment of the system.  
+In order to get better accuracy , we also carried out the work of adjusting parameters. Table 6 shows the final 
+results: more than 88.8% accuracy can be obtained finally .Learning
+RateBatch
+SizeAccuracy
+(RESNET18)Accuracy
+(RESNET34)Accuracy
+(RESNET18)
+0.01 16 86.93 87.67 87.44
+0.001 32 87.32 87.34 87.59
+0.01 32 87.05 87.47 86.94
+0.001 64 87.22 87.16 87.38
+0.01 64 87.13 87.25 87.52
+Figure 14. confusion matrix We analysize  the confusion matrix of our best result, as shown in figure 14. We discover that this model has a 
+good classifi cation effect on normal images, but there is still a large space of improvement in the classification  
+of mild and severe cataracts, which we aim to make a breakthrough in this direction in the future.  
+ 
+3.3 System  
+ For the final system interface, we have designed and implemented the main interface and we can enter the 
+cataract system from the main interface through buttons. In the cataract system, we have basically completed the 
+appearance, and add interfaces and buttons for the concrete functions. The screenshot of our syste m is shown in 
+figure 15, figure 16.
+Figure 15. Main Interface
+Figure 16. Cataract Interface
+ The algorithm part we are responsible for has been completed, and the algorithm and existing interface will be 
+handed over to another group for model deployment, so as to finally realize our system.  
+Part4 - Conclusion and Future Plans  
+In the group groject this semester , the achievements we made is as shown below:
+Achieved ：
+Accomplished the segmentation of the Slit-Lamp and AS-OCT images;
+Accomplished the classification of the AS-OCT nuclear and cortical region;
+Accomplished the main interface.
+What's more, we also list some future plans to help us perfect our work in the future.
+Plans ：
+Try to use deep learning for segmentation ；
+Optimize the network model to improve classification accuracy and reduce model complexity ；
+Improve the system Interface.

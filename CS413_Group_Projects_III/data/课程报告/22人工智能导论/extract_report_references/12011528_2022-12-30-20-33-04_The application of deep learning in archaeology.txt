@@ -1,0 +1,42 @@
+References
+[1] L. M. Pawlowicz and C. E. Downum, “Applications of deep learning to decorated ceramic typology
+and classification: A case study using tusayan white ware from northeast arizona,” Journal of
+Archaeological Science , vol. 130, p. 105375, 2021.
+[2] B. Kazimi, F. Thiemann, K. Malek, and M. Sester, “Archaeological object detection in airborne
+laser scanning data using convolutional neural networks,” 03 2018.
+[3] A. Guyot, M. Lennon, and L. Hubert-Moy, “Objective comparison of relief visualization techniques
+with deep cnn for archaeology,” Journal of archaeological science, reports , vol. 38, pp. 103027–,
+2021.
+[4] M. F. Meyer-Heß, I. Pfeffer, and C. Juergens, “Application of convolutional neural networks on
+digital terrain models for analyzing spatial relations in archaeology,” Remote. Sens. , vol. 14, no. 11,
+p. 2535, 2022.
+[5] A. Bonhage, M. Eltaher, T. Raab, M. Breuß, A. Raab, and A. Schneider, “A modified mask
+region-based convolutional neural network approach for the automated detection of archaeological
+sites on high-resolution light detection and ranging-derived digital elevation models in the north
+german lowland,” Archaeological prospection , vol. 28, no. 2, pp. 177–186, 2021.
+[6] A. M. Hilal, M. A. Alohali, F. N. Al-Wesabi, N. Nemri, H. J. Alyamani, and D. Gupta, “Enhancing
+quality of experience in mobile edge computing using deep learning based data offloading and
+cyberattack detection technique,” Cluster Computing , pp. 1–12, 2021.
+[7] K. Browne, “Who (or what) is an ai artist?,” Leonardo , vol. 55, no. 2, pp. 130–134, 2022.
+9[8] X. Wu, Y. Niu, S. Gao, Z. Zhao, B. Xu, R. Ma, H. Liu, and Y. Zhang, “Identification of antiox-
+idants in edible oil by two-dimensional correlation spectroscopy combined with deep learning,”
+LWT , vol. 162, p. 113436, 2022.
+[9] K. Karterouli and Y. Batsaki, “AI and cultural heritage image collections: Opportunities and
+challenges,” in Electronic Visualisation and the Arts, EVA 2021, London, UK, July 5-9, 2021
+(J. Weinel, J. P. Bowen, A. Borda, and G. Diprose, eds.), Workshops in Computing, BCS, 2021.
+[10] S. H. Bickler, “Machine learning arrives in archaeology,” Advances in Archaeological Practice ,
+vol. 9, no. 2, p. 186–191, 2021.
+[11] C. Heitman, W. Martin, and S. Plog, “Innovation through large-scale integration of legacy records:
+Assessing the “value added” in cultural heritage resources,” J. Comput. Cult. Herit. , vol. 10, jul
+2017.
+[12] M. Fiorucci, M. Khoroshiltseva, M. Pontil, A. Traviglia, A. D. Bue, and S. James, “Machine
+learning for cultural heritage: A survey,” Pattern Recognit. Lett. , vol. 133, pp. 102–108, 2020.
+[13] R. Abitbol, I. Shimshoni, and J. Ben-Dov, “Machine learning based assembly of fragments of
+ancient papyrus,” vol. 14, jul 2021.
+[14] M. L. Gualandi, G. Gattiglia, and F. Anichini, “An open system for collection and automatic
+recognition of pottery through neural network algorithms,” Heritage , vol. 4, no. 1, pp. 140–159,
+2021.
+[15] P. Hunter, “Molecular archaeology and machine learning,” EMBO reports , vol. 23, 2022.
+[16] B. Jones and S. Bickler, “High resolution lidar data for landscape archaeology in new zealand,”
+Archaeology in New Zealand , vol. 60, pp. 35–44, 09 2017.
+10

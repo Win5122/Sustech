@@ -1,0 +1,54 @@
+REFERENCES
+ [1]Fingler J, Readhead C, Schwartz DM, Fraser SE. Phase-contrast OCT
+ imaging of transverse flows in the mouse retina and choroid. Investig
+ Ophthalmol Vis Sci. 2008;49(11):5055-5059.
+ [2]Koustenis A, Harris A, Gross J, Januleviciene I, Shah A, Siesky
+ B. Optical coherence tomography angiography: an overview of the
+ technology and an assessment of applications for clinical research. Br J
+ Ophthalmol. 2017 Jan;101(1): 16-20
+ [3]Jia Y, Morrison JC, Tokayer J, et al. Quantitative OCT angiography
+ of optic nerve head blood flow. Biomed Opt Express. 2012;3(12):3127
+3137.
+ [4]DeTone, D., Malisiewicz, T., Rabinovich, A. (2018). Superpoint:
+ Self-supervised interest point detection and description. In Proceedings
+ of the IEEE conference on computer vision and pattern recognition
+ workshops (pp. 224-236).
+ [5]Sarlin, P. E., DeTone, D., Malisiewicz, T., Rabinovich, A. (2020).
+ Superglue: Learning feature matching with graph neural networks.
+ In Proceedings of the IEEE/CVF conference on computer vision and
+ pattern recognition (pp. 4938-4947).
+ [6]Fatma El-Zahraa Ahmed El-Gamal, Mohammed Elmogy, Ahmed
+ Atwan, Current trends in medical image registration and fusion,
+ Egyptian Informatics Journal, Volume 17, Issue 1, 2016, Pages 99-124,
+ ISSN 1110-8665.
+ [7]”Fundus Photography Overview”. www.opsweb.org. Ophthalmic
+ Photographers’ Society. Retrieved 2015-09-17.
+ [8]Zhu, J. Y., Park, T., Isola, P., Efros, A. A. (2017). Unpaired image
+to-image translation using cycle-consistent adversarial networks. In
+ Proceedings of the IEEE international conference on computer vision
+ (pp. 2223-2232).
+ [9]Arar, M., Ginger, Y., Danon, D., Bermano, A. H., Cohen
+Or, D. (2020). Unsupervised multi-modal image registration via
+ geometry preserving image-to-image translation. In Proceedings of the
+ IEEE/CVF conference on computer vision and pattern recognition (pp.
+ 13410-13419).
+ [10]Jaderberg, M., Simonyan, K., Zisserman, A. (2015). Spatial
+ transformer networks. Advances in neural information processing
+ systems, 28, 2017-2025.
+ [11]Ronneberger, O., Fischer, P., Brox, T. (2015, October). U
+net: Convolutional networks for biomedical image segmentation. In
+ International Conference on Medical image computing and computer
+assisted intervention (pp. 234-241). Springer, Cham.
+ [12]Mingchao Li, Yerui Chen, Keren Xie, Songtao Yuan, Qiang
+ Chen, December 23, 2019, ”OCTA-500”, IEEE Dataport, doi:
+ https://dx.doi.org/10.1109/TMI.2020.2992244.
+ [13]J. Chen, L. Wang, X. Li, and Y. Fang, “Arbicon-net: Arbitrary
+ continuous geometric transformation networks for image registration,”
+ in Advances in Neural Infor- mation Processing Systems, H. Wallach,
+ H. Larochelle, A. Beygelzimer, F. d’Alch e-Buc, E. Fox, and R.
+ Garnett, Eds., vol. 32. Curran Associates, Inc., 2019.
+ [14]Nie, L., Lin, C., Liao, K., Liu, S., Zhao, Y. (2021). Depth-Aware
+ Multi-Grid Deep Homography Estimation with Contextual Correlation.
+ arXiv preprint arXiv:2107.02524.
+ [15]Lowe, D. G. (2004). Distinctive image features from scale-invariant
+ keypoints. International journal of computer vision, 60(2), 91-110.

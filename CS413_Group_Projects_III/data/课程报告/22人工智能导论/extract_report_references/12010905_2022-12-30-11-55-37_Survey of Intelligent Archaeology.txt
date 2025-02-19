@@ -1,0 +1,65 @@
+REFERENCES
+[1] A BITBOL , R., S HIMSHONI , I., AND BEN-DOV, J. Machine learning
+based assembly of fragments of ancient papyrus. J. Comput. Cult. Herit.
+14, 3 (jul 2021).
+[2] A NICHINI , F., D ERSHOWITZ , N., D UBBINI , N., G ATTIGLIA , G.,
+ITKIN , B., AND WOLF, L. The automatic recognition of ceramics from
+only one photo: The archaide app. Journal of Archaeological Science:
+Reports 36 (2021), 102788.
+[3] A NICHINI , F., AND GATTIGLIA , G. Big archaeological data. the
+archaide project approach.
+[4] B ERLIN , A., E TTLINGER , E., H EDINGER , B., H OFFMANN , B., K EN-
+RICK , P., P UCCI , G., R OTH-RUBI, K., S CHNEIDER , G., S CHNURBEIN ,
+S., W ELLS , C., AND ZABEHLICKY -SCHEFFENEGGER , S. Conspectus
+formarum terrae sigillatae italico modo confectae. American Journal of
+Archaeology 96 (01 1992), 190.
+[5] B ICKLER , S. H. Machine learning arrives in archaeology. Advances in
+Archaeological Practice 9 , 2 (2021), 186–191.
+[6] D AVIS , D. S., D INAPOLI , R. J., AND DOUGLASS , K. Integrating
+point process models, evolutionary ecology and traditional knowledge
+improves landscape archaeology—a case from southwest madagascar.
+Geosciences 10 , 8 (2020).
+[7] D ELLEPIANE , M., C ALLIERI , M., B ANTERLE , F., A RENGA , D., Z A-
+LLOCCO , M., AND SCOPIGNO , R. From paper to web: Automatic
+generation of a web-accessible 3d repository of pottery types. In GCH
+(2017).
+[8] D OUGLASS , K., Q UINTANA MORALES , E., M ANAHIRA , G., F ENO-
+MANANA , F., S AMBA , R., L AHINIRIKO , F., C HRISOSTOME , Z., V AV-
+ISOA , V., S OAFIAVY , P., J USTOME , R., L EONCE , H., H UBERTINE ,
+L., P IERRE , B., T AHIRISOA , C., C OLOMB , C., L OVANIRINA , F.,
+ANDRIANKAJA , V., AND ROBISON , R. Toward a just and inclusive
+environmental archaeology of southwest madagascar. Journal of Social
+Archaeology 19 (07 2019), 146960531986207.
+[9] D RAP, P., S CARADOZZI , D., G AMBOGI , P., AND GAUCH , F. Underwa-
+ter photogrammetry for archaeology- the venus project framework. In
+GRAPP (2018).
+[10] G UALANDI , M. L., G ATTIGLIA , G., AND ANICHINI , F. An open
+system for collection and automatic recognition of pottery through neural
+network algorithms. Heritage 4 , 1 (2021), 140–159.
+[11] G UYOT , A., H UBERT -MOY, L., AND LORHO , T. Detecting neolithic
+burial mounds from lidar-derived elevation data using a multi-scale
+approach and machine learning techniques. Remote Sensing 10 , 2 (2018).
+[12] H U, X., AND YUAN, Y. Deep-learning-based classification for dtm
+extraction from als point cloud. Remote sensing (Basel, Switzerland)
+8, 9 (2016), 730–730.
+[13] K ARTEROULI , K., AND BATSAKI , Y. Ai and cultural heritage image
+collections: Opportunities and challenges.
+[14] K AZIMI , B., T HIEMANN , F., M ALEK , K., S ESTER , M., AND
+KHOSHELHAM , K. Deep learning for archaeological object detection
+in airborne laser scanning data.
+[15] L YONS , M. Ceramic fabric classification of petrographic thin sections
+with deep learning. Journal of Computer Applications in Archaeology
+4(09 2021), 188.
+[16] M ICHAEL HEINZELMANN , M ARIANNE BERGMANN , J.-Y. E.
+P. B. Ceramalex - ancient pottery in alexandria and its chora.
+https://archaeologie.phil-fak.uni-koeln.de/en/research/research-projects/
+finished/ceramalex-ancient-pottery-in-alexandria-and-its-chora, 2022.
+[17] P AWLOWICZ , L. M., AND DOWNUM , C. E. Applications of deep learn-
+ing to decorated ceramic typology and classification: A case study using
+tusayan white ware from northeast arizona. Journal of archaeological
+science 130 (2021), 105375–.
+[18] R OTHER , C., K OLMOGOROV , V., AND BLAKE , A. Grabcut: Interactive
+foreground extraction using iterated graph cuts. ACM Trans. Graph. 23
+(08 2004), 309–314.
+[19] S ERVICE , A. D. Roman amphorae: A digital resource. https://
+archaeologydataservice.ac.uk/archives/view/amphora ahrb 2005/, 2022.

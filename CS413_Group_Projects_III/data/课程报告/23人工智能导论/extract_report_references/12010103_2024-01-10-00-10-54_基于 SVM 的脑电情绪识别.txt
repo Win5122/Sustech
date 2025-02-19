@@ -1,0 +1,15 @@
+参考文献 ：
+Chen, J., Wang, X., Huang, C., et al. (2023). A Large Finer -grained Affective Computing EEG 
+Dataset. Scientific Data, 10,  740. 
+Darwin, C. (1872). The Expression of the Emotions in Man and Animals.  London: Murray.  
+Ekman, P., & Oster, H. (1979). Facial expressions of emotion. Annual Review of Psychology, 
+30, 527–554. 
+Malezieux, M., Klein, A. S., & Gogolla, N. (2023). Neural circuits for emotion. Annual Review 
+of Neuroscience.  
+Ogasawara, E., Martinez, L. C., De Oliveira, D., Zimbrão, G., Pappa, G. L., & Mattoso, M. 
+(2010). Adaptive Normalization: A Novel Data Normalization Approach for Non -Stationary 
+Time Series. In International Joint Conference on Neural Networks (IJCNN)  (pp. 1 -8). 
+Russell, J. A. (1980). A circumplex model of affect. Journal of Personality and Social 
+Psychology, 39 (6), 1161–1178.  
+ 
+ 

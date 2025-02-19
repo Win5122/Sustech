@@ -1,0 +1,60 @@
+参考文献
+[1] Ines R and Nawres K. Detection of intracranial aneurysm in 
+angiographic images using fuzzy approaches [J]. International 
+Image Processing, Applications and Systems Conference, 
+2014:1-6.
+[2] Chen Y, Navarro L, Wang Y, Courbebaisse G. Segmentation of 
+the thrombus of giant intracranial aneurysms from CT 
+angiography scans with lattice Boltzmann method [J]. Med Image 
+Anal,2014,18(1):1-8. 
+[3] Rahmany I, Nemmala MEA, Khlifa N, Megdiche H. Automatic 
+detection of intracranial aneurysm using LBP and Fourier 
+descriptor in angiographic images [J]. International journal of 
+computer assisted radiology and surgery,2019,14(8):1353-1364.
+[4] Stember JN, Chang P, Stember DM, et al. Convolutional Neural 
+Networks for the Detection and Measurement of Cerebral 
+Aneurysms on Magnetic Resonance Angiography [J]. J Digital 
+Imaging,2019,32(5):808-815. 
+[5] Tim J, Franjo P, Boštjan L and Žiga Š. Aneurysm detection in 
+3D cerebral angiograms based on intra-vascular distance mapping 
+and convolutional neural networks [J]. 2017 IEEE 14th 
+International Symposium on Biomedical Imaging (ISBI 2017), 
+2017:612-615.
+[6] Zeng Y, Liu X, Xiao N, et al. Automatic Diagnosis Based on 
+Spatial Information Fusion Feature for Intracranial Aneurysm 
+[J]. IEEE Trans Med Imaging,2020,39(5):1448-1458. 
+[7] Jin H, Geng J, Yin Y, et al. Fully automated intracranial 
+aneurysm detection and segmentation from digital subtraction 
+angiography series using an end-to-end spatiotemporal deep 
+neural network [J]. J Neurointerv Surg,2020,12(10):1023-1027. 
+[8] Gu Z L, Wu Y. Recent progress in the detection and prediction 
+of intracranial aneurysm by artificial intelligence [J]. Imaging 
+Research and Medical Application,202,6(20):7-9. (in Chinese)
+古展亮,吴英宁.人工智能在颅内动脉瘤检测及预测中的新进展[J].影像研究
+与医学应用,2022,6(20):7-9.
+[9] Diao Y, Zhao O, Kothapalli P, Monteleone P, Bajaj C. Deep 
+Predictive Learning of Carotid Stenosis Severity 
+[J]. arXiv.org, 2021.  
+[10] Mizushima H, Kobayashi N, Yoshiharu S, et al. Aneurysm of 
+the distal anterior inferior cerebellar artery at the medial branch: 
+a case report and review of the literature [J]. Surg 
+Neurol,1999,52(2):137-142. 
+[11] Ahmed N, Ashfaq A, Imran SB. Analysis of the Effect of Atherosclerosis with the Changes of Hematocrit: A Computational 
+Study on the Hemodynamics of Carotid Artery 
+[J]. arXiv.org,2021. 
+[12] Joo B, Ahn SS, Yoon PH, et al. A deep learning algorithm may 
+automate intracranial aneurysm detection on MR angiography 
+with high diagnostic performance [J].Eur 
+Radiol,2020,30(11):5785-5793. 
+[13] Sichtermann T, Faron A, Sijben R, Teichert N, Freiherr J, 
+Wiesmann M. Deep Learning-Based Detection of Intracranial 
+Aneurysms in 3D TOF-MRA [J].AJNR.American journal of 
+neuroradiology,2019,40(1):25-32. 
+[14] Dai X, Huang L, Qian Y, et al. Deep learning for automated 
+cerebral aneurysm detection on computed tomography images 
+[J].International journal of computer assisted radiology and 
+surgery,2020,15(4):715-723. 
+[15] Bo Z, Qiao H, Tian C, et al. Toward human intervention-free 
+clinical diagnosis of intracranial aneurysm via deep neural network 
+[J].Patterns (New York, N.Y.),2021,2(2):100197. 
+ 

@@ -1,0 +1,63 @@
+参考文献
+[1] Zhang J P, Li L, Zhu Y. Research progress in behavioral decision making methods 
+of unmanned vehicles based on reinforcement learning[J]. Electronics Technology, 
+2021, 34(05):66-71. (in Chinese)
+张佳鹏,李琳,朱叶.基于强化学习的无人驾驶车辆行为决策方法研究进展[J].电子科技
+,2021,34(05):66-71.
+[2] Huang Z Q, Qv Z W, Zhang J, Zhang Y X, Tian R. End-to-end unmanned 
+decision-making based on deep reinforcement learning[J]. Acta Electronica Sinica, 
+2020,48(09):1711-1719.（in Chinese)
+黄志清,曲志伟,张吉,张严心,田锐.基于深度强化学习的端到端无人驾驶决策[J].电子学
+报,2020,48(09):1711-1719.
+[3] Liu, Q., Li, X., Yuan, S. and Li, Z., 2021, September. Decision-making technology 
+for autonomous vehicles: Learning-based methods, applications and future outlook. 
+In 2021 IEEE International Intelligent Transportation Systems Conference (ITSC) 
+(pp. 30-37). IEEE.
+[4] W. Schwarting, J. Alonso-Mora and D. Rus, "Planning and decision-making for 
+autonomous vehicles" in Annual Review of Control Robotics and Autonomous Systems, 
+2018.[5] Li, L., Ota, K. and Dong, M., 2018. Humanlike driving: Empirical decision-making 
+system for autonomous vehicles. IEEE Transactions on Vehicular Technology, 67(8), 
+pp.6814-6823.
+[6] Gallardo, N., Gamez, N., Rad, P. and Jamshidi, M., 2017, June. Autonomous 
+decision making for a driver-less car. In 2017 12th System of Systems Engineering 
+Conference (SoSE) (pp. 1-6). IEEE.
+[7] Schwarting, W., Alonso-Mora, J. and Rus, D., 2018. Planning and decision-making 
+for autonomous vehicles. Annual Review of Control, Robotics, and Autonomous Systems, 
+1, pp.187-210.
+[8] Li, G., Yang, Y., Zhang, T., Qu, X., Cao, D., Cheng, B. and Li, K., 2021. Risk 
+assessment based collision avoidance decision-making for autonomous vehicles in 
+multi-scenarios. Transportation research part C: emerging technologies, 122, 
+p.102820.
+[9] Nie, J., Zhang, J., Ding, W., Wan, X., Chen, X. and Ran, B., 2016. Decentralized 
+cooperative lane-changing decision-making for connected autonomous vehicles. IEEE 
+access, 4, pp.9413-9420.
+[10] Li, G., Yang, Y., Li, S., Qu, X., Lyu, N. and Li, S.E., 2022. Decision making 
+of autonomous vehicles in lane change scenarios: Deep reinforcement learning 
+approaches with risk awareness. Transportation research part C: emerging 
+technologies, 134, p.103452.
+[11] Hubmann, C., Becker, M., Althoff, D., Lenz, D. and Stiller, C., 2017, June. 
+Decision making for autonomous driving considering interaction and uncertain 
+prediction of surrounding vehicles. In 2017 IEEE Intelligent Vehicles Symposium (IV) 
+(pp. 1671-1678). IEEE.
+[12]  E. Yurtsever, J. Lambert, A. Carballo and K. Takeda, "A survey of autonomous 
+driving: Common practices and emerging technologies", IEEE Access, vol. 8, pp. 
+58443-58469, 2020.
+[13]  W. Schwarting, J. Alonso-Mora and D. Rus, "Planning and decision-making for 
+autonomous vehicles" in Annual Review of Control Robotics and Autonomous Systems, 
+2018.[14]  D. Isele, "Interactive Decision Making for Autonomous Vehicles in Dense 
+Traffic", 2019 IEEE Intelligent Transportation Systems Conference (ITSC), pp. 
+3981-3986, 2019.
+[15]  C. Vallon, Z. Ercan, A. Carvalho and F. Borrelli, "A machine learning approach 
+for personalized autonomous lane change initiation and control", 2017 IEEE 
+Intelligent Vehicles Symposium (IV), pp. 1590-1595, 2017.
+[16]  R. Tami, B. Soualmi, A. Doufene, J. Ibanez and J. Dauwels, "Machine learning 
+method to ensure robust decision-making of AV s", 2019 IEEE Intelligent 
+Transportation Systems Conference (ITSC), pp. 1217-1222, 2019.
+[17]  F. Codevilla, M. Müller, A. López, V. Koltun and A. Dosovitskiy, "End-to-End 
+Driving Via Conditional Imitation Learning", 2018 IEEE International Conference 
+on Robotics and Automation (ICRA), pp. 4693-4700, 2018.
+[18] Mnih V，Kavukcuoglu K，Silver D，et al．Human － level control through deep 
+reinforcement learning［J]. Nature，2015, 518( 7540) : 529 － 533．
+[19] S. Aradi, "Survey of Deep Reinforcement Learning for Motion Planning of 
+Autonomous Vehicles" IEEE Transactions on Intelligent Transportation Systems, vol. 
+23, no. 2, pp. 740-759, Feb. 2022

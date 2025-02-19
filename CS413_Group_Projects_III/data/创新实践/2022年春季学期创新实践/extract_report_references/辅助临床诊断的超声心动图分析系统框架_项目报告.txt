@@ -1,0 +1,136 @@
+References
+[1] Eirikur Agustsson and Radu Timofte. “Ntire 2017
+challenge on single image super-resolution: Dataset
+and study”. In: Proceedings of the IEEE conference
+on computer vision and pattern recognition work-
+shops . 2017, pp. 126–135.
+[2] Maryam Alsharqi et al. “Artificial intelligence and
+echocardiography”. In: Echo research and practice
+5.4 (2018), R115–R125.
+[3] Gregg Belous, Andrew Busch, and David Rowlands.
+“Segmentation of the left ventricle from ultrasound
+using random forest with active shape model”. In:
+2013 1st International Conference on Artificial In-
+telligence, Modelling and Simulation . IEEE. 2013,
+pp. 315–319.
+[4] Olivier Bernard et al. “Standardized evaluation sys-
+tem for left ventricular segmentation algorithms in 3D
+echocardiography”. In: IEEE transactions on medical
+imaging 35.4 (2015), pp. 967–977.
+[5] Maxime Cannesson et al. “A novel two-dimensional
+echocardiographic image analysis system using artifi-
+cial intelligence-learned pattern recognition for rapid
+automated ejection fraction”. In: Journal of the Amer-
+ican College of Cardiology 49.2 (2007), pp. 217–226.
+[6] Frederick C Cobey. “Intelligent algorithms in peri-
+operative echocardiography: a new era”. In: Journal
+of the American Society of Echocardiography 30.10
+(2017), A26–A27.
+[7] Frederick C Cobey et al. “The emperor has no
+clothes: recognizing the limits of current echocardio-
+graphic technology in perioperative quantification of
+mitral regurgitation”. In: Journal of Cardiothoracic
+and Vascular Anesthesia 31.5 (2017), pp. 1692–1694.
+[8] Bo Dai et al. “Towards diverse and natural image
+descriptions via a conditional gan”. In: Proceedings
+of the IEEE international conference on computer
+vision . 2017, pp. 2970–2979.
+[9] Carsten Eickhoff et al. “Overview of ImageCLEF-
+caption 2017–image caption prediction and concept
+detection for biomedical images”. In: CLEF 2017
+working Notes 1866.Workin (2017).
+[10] Sadid A Hasan et al. Overview of imageclef 2018
+medical domain visual question answering task . Tech.
+rep. 10-14 September 2018, 2018.
+[11] Jelliffe Jeganathan et al. “Artificial intelligence in mi-
+tral valve analysis”. In: Annals of cardiac anaesthesia
+20.2 (2017), p. 129.
+[12] Baoyu Jing, Pengtao Xie, and Eric Xing. “On the
+automatic generation of medical imaging reports”. In:
+arXiv preprint arXiv:1711.08195 (2017).
+[13] Justin Johnson, Alexandre Alahi, and Li Fei-Fei.
+“Perceptual losses for real-time style transfer and
+super-resolution”. In: European conference on com-
+puter vision . Springer. 2016, pp. 694–711.
+[14] Christian Knackstedt et al. “Fully automated versus
+standard tracking of left ventricular ejection fraction
+and longitudinal strain: the FAST-EFs multicenterstudy”. In: Journal of the American College of Car-
+diology 66.13 (2015), pp. 1456–1466.
+[15] Franck Levy et al. “Performance of new auto-
+mated transthoracic three-dimensional echocardio-
+graphic software for left ventricular volumes and
+function assessment in routine clinical practice: Com-
+parison with 3 Tesla cardiac magnetic resonance”. In:
+Archives of cardiovascular diseases 110.11 (2017),
+pp. 580–589.
+[16] Yuan Li et al. “Hybrid retrieval-generation reinforced
+agent for medical image report generation”. In: Ad-
+vances in neural information processing systems 31
+(2018).
+[17] Hanie Moghaddasi and Saeed Nourian. “Automatic
+assessment of mitral regurgitation severity based on
+extensive textural features on 2D echocardiography
+videos”. In: Computers in biology and medicine 73
+(2016), pp. 47–55.
+[18] David Ouyang et al. “Video-based AI for beat-to-beat
+assessment of cardiac function”. In: Nature 580.7802
+(2020), pp. 252–256.
+[19] Ryan Poplin et al. “Prediction of cardiovascular risk
+factors from retinal fundus photographs via deep
+learning”. In: Nature Biomedical Engineering 2.3
+(2018), pp. 158–164.
+[20] Edgard A Prihadi et al. “Feasibility, accuracy, and
+reproducibility of aortic annular and root sizing for
+transcatheter aortic valve replacement using novel
+automated three-dimensional echocardiographic soft-
+ware: comparison with multi–detector row computed
+tomography”. In: Journal of the American Society of
+Echocardiography 31.4 (2018), pp. 505–514.
+[21] Sandro Queir ´os et al. “Fully automatic 3-D-TEE
+segmentation for the planning of transcatheter aor-
+tic valve implantation”. In: IEEE Transactions on
+Biomedical Engineering 64.8 (2016), pp. 1711–1720.
+[22] Sandro Queir ´os et al. “Validation of a novel soft-
+ware tool for automatic aortic annular sizing in
+three-dimensional transesophageal echocardiographic
+images”. In: Journal of the American Society of
+Echocardiography 31.4 (2018), pp. 515–525.
+[23] Hind W Rahmouni et al. “Clinical utility of auto-
+mated assessment of left ventricular ejection frac-
+tion using artificial intelligence–assisted border de-
+tection”. In: American heart journal 155.3 (2008),
+pp. 562–570.
+[24] Hoo-Chang Shin et al. “Learning to read chest x-rays:
+Recurrent neural cascade model for automated image
+annotation”. In: Proceedings of the IEEE conference
+on computer vision and pattern recognition . 2016,
+pp. 2497–2506.
+[25] Richard V Stebbing et al. “Data-driven shape parame-
+terization for segmentation of the right ventricle from
+3D+ t echocardiography”. In: Medical image analysis
+21.1 (2015), pp. 29–39.
+[26] Radu Timofte et al. “Ntire 2017 challenge on sin-
+gle image super-resolution: Methods and results”.
+In:Proceedings of the IEEE conference on com-puter vision and pattern recognition workshops . 2017,
+pp. 114–125.
+[27] Du Tran et al. “A closer look at spatiotemporal con-
+volutions for action recognition”. In: Proceedings of
+the IEEE conference on Computer Vision and Pattern
+Recognition . 2018, pp. 6450–6459.
+[28] Du Tran et al. “Learning spatiotemporal features with
+3d convolutional networks”. In: Proceedings of the
+IEEE international conference on computer vision .
+2015, pp. 4489–4497.
+[29] Wendy Tsang et al. “Transthoracic 3D echocardio-
+graphic left heart chamber quantification using an
+automated adaptive analytics algorithm”. In: JACC:
+Cardiovascular Imaging 9.7 (2016), pp. 769–782.
+[30] Xintao Wang et al. “Real-esrgan: Training real-world
+blind super-resolution with pure synthetic data”. In:
+Proceedings of the IEEE/CVF International Confer-
+ence on Computer Vision . 2021, pp. 1905–1914.
+[31] Xintao Wang et al. “Recovering realistic texture
+in image super-resolution by deep spatial feature
+transform”. In: Proceedings of the IEEE conference
+on computer vision and pattern recognition . 2018,
+pp. 606–615.

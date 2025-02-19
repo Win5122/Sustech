@@ -1,0 +1,434 @@
+DMINet: A lightweight dual-mixed
+channel-independent network for cataract
+recognition
+Yu Chen1, Xiao Wu1, Qiuyang Yang1, Yuhang Zhao1, Xiaoqing Zhang1, Yuan
+Jin3, Risa Higashita1,2, and Jiang Liu1,4
+1Research Institute of Trustworthy Autonomous Systems and Department of
+Computer Science and Engineering, Southern University of Science and Technology,
+Shenzhen 518055, China
+2TOMEY Corporation, Nagoya 4510051, Japan
+3Zhongshan Ophthalmic Center, Sun Yat-sen University, Guangzhou 510060, China
+4Guangdong Provincial Key Laboratory of Brain-inspired Intelligent Computation,
+Southern University of Science and Technology, Shenzhen 518055, China
+Abstract. Cataracts are the leading causes for visual impairment glob-
+ally, attracting attention from society. Over the years, researchers have
+developed many convolutional neural networks (CNNs) to recognize sever-
+ity levels of cataract based on different ophthalmic image types. However,
+most existing works focused on improving the cataract recognition per-
+formance while ignoring deployment limitations on resource-constrained
+medical devices. To this problem, this paper proposes a novel dual-mixed
+channel-independent convolution (DMIConv), which takes advantages of
+the multiscale convolution kernel sizes in a depthwise convolutional layer
+and depthwise dilation convolutional layer. Moreover, we use the DMI-
+Conv as a drop-in replacement of the depthwise convolution to design a
+lightweight dual-mixed channel-independent network (DMINet) to recog-
+nize severity levels of cataract. To verify the effectiveness of our DMINet,
+extensive experiments are conducted on a clinical anterior segment op-
+tical coherence tomography (AS-OCT) dataset of nuclear cataract (NC)
+and a public OCT dataset. The results show that our proposed DMINet
+keeps a better tradeoff between the model complexity and the classi-
+fication performance than state-of-the-art methods, e.g., DMINet out-
+performs MixNet by 3.34% of accuracy while reduced by 4.87% in
+parameters.
+Keywords: cataract ·DMIConv ·classification ·convolution ·lightweight.
+1 Introduction
+Cataract is the first cause of blindness and the main cause of visual impairment
+in the world. With the global ageing population, the number of cataract patients
+will grow rapidly because the cataract is also an age-related ocular disease.
+Cataract patients can improve their vision and life quality with early intervention2 F. Author et al.
+and cataract surgery, which are two main methods to reduce the burden on
+society [1].
+Over the years, scholars have developed a lot of advanced machine learning
+methods for automatic cataract screening and recognition based on different oph-
+thalmic images [24], aiming at to detect cataract as soon as possible and improve
+the efficiency and precision of clinicians in clinical cataract diagnosis. For exam-
+ple, Li et al. [11] proposed a slit lamp image-based nuclear cataract (NC) grading
+framework, which is a combination of the lens detection, feature extraction, and
+grading. Xu et al. [19] used the bag-of-features (BOF) method to extract fea-
+tures for improving the grading results of NC based on slit images. Zhang et
+al. [21] used Watershed and Markov random fields (MRF) methods for poste-
+rior subcapsular cataract (PSC) detection based on anterior retro-illumination
+images.
+With the advent of deep learning techniques, deep neural networks have
+widely been utilized to recognize the severity levels of cataract. [17] uses faster
+R-CNN to classify the severity levels of NC based on slit lamp images in a
+end-to-end manner. Zhang et al. [25] developed an adaptive feature squeeze
+network (AFSNet) to classify severity levels of NC based on anterior segment
+optical coherence tomography (AS-OCT) images. Xu et al. [18] proposed a hy-
+brid global-local representation convolutional neural network (CNN) for fundus
+image-based cataract screening. Most deep learning-based cataract classification
+works mainly focused on the improvements of cataract classification and rare
+works aimed at developing lightweight networks for automatic cataract classi-
+fication, which is easy to be deployed on resource-constrained medical devices
+and mobile devices.
+In recent years, researchers have spent much effort on designing lightweight
+and efficient convolutional neural network (CNN) architectures for computer
+vision tasks. SqueezeNet [8] is the first research to focus on lightweight CNN ar-
+chitecture design. Following SqueezeNet, various advanced lightweight CNNs are
+presented to tackle different learning tasks [20, 15, 13] based on efficient convo-
+lution methods. Depthwise convolution method is a widely method to construct
+efficient CNNs, such as MobileNets [7, 13], ShuffleNets [22], NASNet [27], and
+EfficientNet [14]. Unlike the standard convolution method, the depthwise con-
+volution (DW-Conv) applies a convolution kernel to each channel separately,
+reducing the computational burden by a factor of C (C denotes the number
+of channels). MixNet [15] proposed a mixed depthwise convolution (MixConv)
+method to prompt the DW-Conv, which adopts multiscale convolution kernel
+sizes in a depthwise convolutional layer by splitting channels into several groups
+and applying different kernel sizes to each group of channels. However, MixConv
+uses large convolution kernel size, increasing computational cost and parameters.
+In order to achieve a good balance between the performance and the com-
+plexity of model, this paper develops a novel dual-mixed channel-independent
+convolution (DMIConv) method, which exploits the advantages of multiscale ker-
+nel sizes in a depthwise convolutional layer and depthwise dilation convolutional
+layer sequentially by partitioning channels into multiple groups according to theTitle Suppressed Due to Excessive Length 3
+number of different convolution kernel sizes. Furthermore, we treat the DMIConv
+as a simple drop-in replacement of the vanilla depthwise convolution method and
+then construct an effective yet lightweight dual-mixed channel-independent net-
+work (DMINet) to recognize severity levels of cataract. We conduct experiments
+on a clinical AS-OCT dataset of NC. Results show that DMINet better balances
+the model complexity and the classification performance through comparisons
+to other advanced lightweight CNNs. To further validate the effectiveness of our
+DMINet, a publicly available OCT is also adopted, and experimental results
+show that our DMINet achieves competitive performance compared with strong
+baselines and published methods.
+Output Tensor
+...
+Input Tensor
+Output Tensor
+...
+1x1
+3x3 (1)
+3x3
+2x2 (2)
+5x5
+3x3 (3)
+Input Tensor
+Output Tensor
+3x3
+5x5
+kxk
+Input Tensor
+kxk
+Depthwise convolution
+Output Tensor
+...
+Input Tensor
+Output Tensor
+...
+1x1
+3x3 (1)
+3x3
+2x2 (2)
+5x5
+3x3 (3)
+Input Tensor
+Output Tensor
+3x3
+5x5
+kxk
+Input Tensor
+kxk MixConv
+Output Tensor
+...
+Input Tensor
+Output Tensor
+...
+1x1
+3x3 (1)
+3x3
+2x2 (2)
+5x5
+3x3 (3)
+Input Tensor
+Output Tensor
+3x3
+5x5
+kxk
+Input Tensor
+kxk Our proposed DMIConv
+Fig. 1. Dual-mixed channel-independent convolution (DMIConv): Unlike depthwise
+convolution sets the same convolution kernel size for channels and MixConv applies
+different convolution kernel sizes to channels by group strategy, our DMIConv not only
+use mixed convolution kernel sizes but also exploits advantages of depthwise convolu-
+tion and depthwise dilated convolution.
+2 Method
+As previously introduced, the key motivation for devising the dual-mixed channel-
+independent convolution (DMIConv) method is to improve both NC classifica-
+tion results and efficiency. In this section, we will first introduce DMIConv in
+detail.
+2.1 Dual-mixed channel-independent convolution
+This section first revisits the original depthwise convolution method, as shown in
+Fig. 1(a). Given any input feature map DH×DW×Mand generates the output
+feature map DH×DW×Nwhere DH,DW, M, and N represents the spatial
+height, spatial width, the number of input channels, and the number of output
+channels (Specifically, N is equal to M). In the depthwise convolution method,4 F. Author et al.
+we apply a filer with convolution kernel size K×Kto each channel separately,
+which can be formulated as follows:
+Gk,l,n=X
+i,j,mKi,j,m,n ∗Fk+i−1,l+j−1,m (1)
+The original depthwise convolution only uses the same convolution kernel
+size for all channels, e.g., the commonly-used 3 ×3 convolution kernel. It over-
+looks that multiscale convolution kernel sizes that can boost the classification
+performance. To alleviate this shortcoming of depthwise convolution, Tan et al.
+designed a variant of depthwise convolution method, termed MixConv. As shown
+in Fig. 1(b), MixConv divides channels into multiple groups based on the num-
+ber of different convolution kernel sizes and then applies each convolution kernel
+size to each group. One shortcoming of MixConv is that it uses large convolution
+kernel sizes, which increases the computational cost.
+To overcome the shortcoming of MixConv, this paper designs a dual-mixed
+channel-independent convolution method, as shown in Fig. 1(c), which is a com-
+bination of three efficient convolution methods: multiscale convolution kernel
+sizes, depthwise convolution (DW-Conv), and depthwise dilated convolution
+(DW-D-Conv). Like MixConv, we first adopt the group strategy to partition
+the channels into multiple groups according to different convolution kernel sizes.
+Specifically, input feature maps are partitioned into zgroups: < D H×DW×
+m1, DH×DW×m2, ..., D H×DW×mz>, where m1+m2+...+mz=M.
+In each convolution kernel size group, we use a DW-D-Conv and a DW-Conv
+to continuously capture long-range and local patterns from input feature maps.
+Previous works have demonstrated that dilated convolution method can increase
+the receptive field size with smaller convolution kernel sizes through comparisons
+to regular convolution and pointwise convolution (Conv1 ×1) method. Hence,
+this paper uses a depthwise dilated convolution to build the long-range rela-
+tionships among feature representations in a feature map. It is followed by a
+depthwise convolution, which is used to construct local relationships among fea-
+ture representations in a feature map. Moreover, our proposed DMIConv can be
+taken as a simple alternative to depthwise convolution for designing lightweight
+CNN architectures.
+Furthermore, this paper also designs three variants of DMIConv (DW-D-
+Conv+DW-Conv): DW-D-Conv+DW-Conv+Conv1 ×1, DW-Conv+Conv1 ×1 ,
+and DW-D-Conv+Conv1 ×1 to test which affects the performance of our DMI-
+Conv. Conv1 ×1, also named pointwise convolution method, which is a widely-
+used method to construct lightweight CNNs [6, 13].
+2.2 Network architecture
+Fig 2 presents a general architecture of our DMINet based on the proposed
+DMIConv, which adopts the same network depth as MobileNetV1 used to en-
+sure performance comparison fairness. In the DMINet, we first use the same
+stem as MixNet adopts, followed by a series of dual-mixed channel-independentTitle Suppressed Due to Excessive Length 5
+3x3 (1), 2x2 (2), 3x3 (2)3x3 (1)Stem
+112x112x16224x224x3
+56x56x24
+56x56x24
+28x28x40
+3x3 (1), 2x2 (2), 3x3 (2), 4x4 (2), 3x3 (3)
+3x3 (1), 2x2 (2), 3x3 (2), 4x4 (2)
+1x1, 3x3, 3x3, 3x31x1
+3x3 (1)
+1x1
+1x1, 3x3, 3x3
+3x3 (1), 2x2 (2)
+1x1, 3x3
+3x3 (1), 2x2 (2)
+1x1, 3x328x28x40
+3x3 (1), 2x2 (2)
+1x1, 3x3
+3x3 (1), 2x2 (2), 3x3 (2)
+1x1, 3x3, 3x3
+3x3 (1), 2x2 (2)
+1x1, 3x3
+3x3 (1), 2x2 (2)
+1x1, 3x3
+3x3 (1), 2x2 (2), 3x3 (2)
+1x1, 3x3, 3x3
+3x3 (1), 2x2 (2), 3x3 (2)
+1x1, 3x3, 3x3
+3x3 (1), 2x2 (2), 3x3 (2)
+1x1, 3x3, 3x3
+1x1, 3x3, 3x3, 3x3, 5x5
+3x3 (1), 2x2 (2), 3x3 (2), 4x4 (2)
+1x1, 3x3, 3x3, 3x328x28x40
+28x28x40
+14x14x80
+14x14x80
+14x14x80
+14x14x120
+14x14x120
+7x7x120
+7x7x200
+7x7x200
+7x7x200
+Depthwise dilated convolution Depthwise convolution
+Fig. 2. A framework of the dual-mixed channel-independent network (DMINet), which
+is built on the proposed DMIConv.
+convolutional layers, a global average pooling (GAP) layer, and a classifier layer.
+This paper uses the commonly-used softmax and cross entropy loss functions as
+the classifier and loss, respectively.
+3 Metrics and experiment setting
+3.1 Metrics
+Following previous works on cataract classification tasks [23, 2], this paper uses
+four commonly-adopted evaluation measures to assess the classification perfor-
+mance of methods: accuracy (ACC), sensitivity (Sen), precision (PR), and F1
+measure. ACC and F1 are usually utilized to evaluate the overall performance
+of a method. Sen is a very significant indicator for clinical disease diagnosis. The
+following equations can obtain these four evaluation measures:
+ACC =TP+TN
+TP+FN+TN+FP(2)
+Sen=TP
+TP+FP(3)
+PR=TP
+TP+FN(4)
+F1 =2×Sen×PR
+Sen+PR(5)
+where TP, FP, TN and FN denote the numbers of true positives, false positives,
+true negatives and false negatives, respectively.
+3.2 Dataset
+This paper uses two ophthalmic image dataset and one fundus image dataset to
+demonstrate the performance of the DMINet: a clinical AS-OCT dataset of NC
+and a public OCT dataset [10].6 F. Author et al.
+AS-OCT dataset. It is a clinical dataset of NC, which is collected by CASIA2
+device (TOMEY Company, Japan). The dataset contains 534 participants: 422
+right eyes and 440 left eyes, and the total number of AS-OCT images (as shown
+in Fig 3 is 16,201. It contains three severity levels of NC: normal, mild, and
+severe, and we split it into three disjoint datasets based on the participant level:
+training, validation, and testing. Table 1 lists three severity level distributions
+of NC for disjoint datasets.
+(a) AS-OCT
+ (b) Normal
+ (c) Mild
+ (d) Severe
+Fig. 3. Three severity levels of nuclear cataract (NC) based on AS-OCT images (a).
+Normal (b) without opacity; Mild NC (c) with slight opacity but is asymptomatic;
+Severe NC (d) with opacity and is symptomatic.
+Table 1. Detailed nuclear cataract level distributions on the AS-OCT dataset
+Dataset Normal Mild Severe total
+Training 1004 2872 5518 9394
+Validation set 345 1306 1740 3391
+Testing 254 664 2498 3416
+Total 1603 4842 9756 16021
+UCSD dataset. It is a publicly available OCT of age related macular degen-
+eration (AMD) and diabetic macular edema (DME), which is collected from
+Medical Center Ophthalmology Associates, the Shanghai First People’s Hospi-
+tal, Shiley Eye Institute of the University of California San Diego, the California
+Retinal Research Foundation, and Beijing Tongren Eye Center. The training set
+contains 83,484 OCT images from 4,686 patients: 37,205 images of choroidal neo-
+vascularization (CNV), 11,348 images of diabetic macular edema (DME), 8,617
+images of drusen, and 51,140 images of healthy. The testing dataset contains
+1000 images and each class has the number of OCT images. In this paper, we
+follow the same training dataset splitting strategy in[25, 26].Title Suppressed Due to Excessive Length 7
+Glaucoma dataset. It is a fundas image dataset of glaucoma, which is collected
+from Beijing Tongren Hospital. The dataset contains 4,854 fundus images: 3,143
+images of normal people and 1711 images of patient. The distributions are shown
+in Table 2.
+Table 2. Detailed glaucoma distributions on the dataset
+Dataset Normal patient total
+Training 1885 1026 2911
+Validation set 629 342 971
+Testing 629 343 972
+Total 3143 1711 4854
+3.3 Experimental setting
+We use Pytorch, python, scikit-learn, and OpenCV software packages to our
+proposed DMINet and comparable deep neural networks. This paper uses the
+stochastic gradient descent (SGD) method to optimize the learnable weights of
+deep neural networks with the default settings. The training epochs and batch
+size are set for 150 and 64 correspondingly. We set the initial learning rate
+for 0.0025, which is decreased by a factor of 5 every 25 epochs. This paper
+sets the final learning rate at 0.0001 when training epochs are more than 130.
+This paper follows the common data augmentation strategies to preprocess the
+training images (such as cropping and flipping), and resizes the images of two
+datasets into 224 ×224. All experiments are run on a server with one NVIDIA
+TITAN GPU, 10 GB DDR memory, and the operating system is Ubuntu.
+4 Result analysis and discussion
+4.1 Performance comparison on the AS-OCT dataset
+This paper first compares DMINet with commonly-used CNNs and lightweight
+CNNs, as shown in Table 3. It can be seen that our DMINet achieves the best
+performance of NC recognition on four evaluation measures: 90.46% of accuracy,
+90.98% of F1, 90.46% of precision, and 92.76% of sensitivity, respectively. For
+instance, with less or comparable parameters and flops (millions) than MixNet
+and SqueezeNet, it significantly improves 3.34% and3.22% gains of accu-
+racy. Fig. 4(a) lists the relationships between parameters and accuracy, and
+our DMINet achieves a better trade-off between the NC classification perfor-
+mance and memory requirement than other comparable CNNs. Fig. 4(b) shows
+the relationships between flops and accuracy; DMINet requires fewer flops than
+other CNNs except for ShuffleNet while obtaining the best NC classification per-
+formance. In general, the classification results demonstrate that our proposed8 F. Author et al.
+(a)
+ (b)
+Fig. 4. (a) Relationship between the performance of DMINet and the total number
+parameters (Millions), compared to state-of-the-art CNNs; (b) Relationship between
+the performance of DMINet and the total number flops (Millions), compared to state-
+of-the-art CNNs.
+DMINet keeps a better trade-off between the classification performance and the
+complexity through comparisons to other CNNs, which is feasible to be deployed
+on medical devices.
+Table 3. Performance comparison of DMINet, advanced CNNs, and lightweight CNNs
+on the AS-OCT dataset
+Model Accuracy F1 PR Sen Parms (M) Flops (M)
+ResNet18 87.39 88.09 87.39 89.90 11.1 1818
+ResNet34 89.52 90.03 89.52 91.60 21.3 3671
+VGG19 90.02 90.59 90.02 92.67 14.8 1615
+MobileNetV1 90.02 90.41 90.02 91.12 3.21 577.8
+MobileNetV2 86.33 87.29 86.33 90.65 3.50 314.2
+ShuffleNet 89.46 90.04 89.46 91.95 1.88 145.9
+MixNet 87.12 87.95 87.12 90.69 2.62 232.0
+SqueezeNet 87.24 88.03 87.24 90.22 1.25 823.4
+DMINet 90.46 90.98 90.46 92.76 2.50 221
+4.2 Performance comparison on the UCSD dataset
+Table 4 lists the classification results of DMINet, original CNNs, state-of-the-
+art attention CNNs, and published works on the UCSD dataset. It can be ob-
+served that our DMINet achieved the best classification results of AMD and
+DME by using OCT images among machine learning methods and deep learn-
+ing methods. Compared with HOG-SVM, DMINet achieved 25.50% increase
+in accuracy and 46.88% increase in sensitivity, respectively. Moreover, Our
+DMINet obtains slight improvements through comparisons to state-of-the-art
+attention CNNs. Overall, the classification results in Table 4 also demonstrateTitle Suppressed Due to Excessive Length 9
+that DMINet achieves a better tradeoff between the model complexity and the
+classification performance than machine learning methods and deep learning
+methods.
+Table 4. Performance comparison of the DMINet and state-of-the-art methods on
+UCSD dataset
+Method ACC Sen F1
+LBP-SVM [3] 71.33 48.27 64.04
+HOG-SVM [4] 78.90 66.20 –
+MDFF [3] 93.93 91.76 91.46
+VGG16 [3] 91.50 91.50 91.50
+ResNet34 [10] 80.50 78.30 –
+Inception [4] 90.30 90.00 –
+LACNN [4] 90.20 88.10 –
+LACNN-Inception [4] 93.00 91.60 –
+SENet [9] 94.16 90.00 91.49
+SPANet [5] 94.11 89.83 91.32
+BAM [12] 94.89 91.95 92.69
+CBAM [16] 94.20 89.74 91.30
+MPANet [26] 96.74 95.12 95.39
+DMINet 96.86 95.15 95.45
+4.3 Performance comparison on the Glaucoma dataset
+Table 5 lists the classification results of DMINet, MobileV2 and three kind of
+variants of DMINet. It can be observed that our DMINet achieved the best classi-
+fication results of AMD and DME by using OCT images among machine learn-
+ing methods and deep learning methods. Compared with MobileV2, DMINet
+achieved 1.34% increase in accuracy. And the DMINet achieves a better trade-
+off between the model complexity and the classification performance.
+Table 5. Performance comparison of DMINet, MobileV2, and three variants on the
+glaucoma dataset
+Convolution method ACC Parms (M) Flops (M)
+DW-D-Conv+DW-Conv+Conv1 ×1 90.22 3.84 457.0
+DW-Conv+Conv1 ×1 90.53 3.95 467.8
+DW-D-Conv+Conv1 ×1 91.35 3.77 446.2
+DW-D-Conv+DW-Conv (DMIConv) 94.34 2.50 220.7
+MovileV2 93.00 2.23 313.010 F. Author et al.
+4.4 Ablation study
+To further examine the effectiveness of our DMIConv, Table 6 lists the classi-
+fication performance of DMIConv and its three variant based on MobliNetV1
+architecture. We can see that compared with the other three variants, our pro-
+posed DMIConv achieves higher accuracy while requiring fewer parameters and
+flops. The key difference between our method and other comparable convolu-
+tion methods is that the other three comparable convolution methods adopt the
+pointwise convolution method (Conv1 ×1), which uses the fully-connected way to
+build connections among channels but also increases feature map redundancies.
+It is the main reason why DMIConv gets better performance than its variants.
+Table 6. Performance comparison of DMIConv and its variants on the AS-OCT dataset
+Convolution method ACC Parms (M) Flops (M)
+DW-D-Conv+DW-Conv+Conv1 ×1 88.62 3.84 457.0
+DW-Conv+Conv1 ×1 88.73 3.95 467.8
+DW-D-Conv+Conv1 ×1 89.60 3.77 446.2
+DW-D-Conv+DW-Conv (DMIConv) 90.46 2.50 220.7
+5 Conclusion and future work
+This paper proposes an efficient dual-mixed channel-independent convolution
+(DMIConv), which takes advantages of different convolution kernel sizes, depth-
+wise dilated convolution, and depthwise convolution. We construct a lightweight
+dual-mixed channel-independent network (DMINet) based on the DMIConv
+method to recognize the severity levels of nuclear cataract. Experimental re-
+sults on an AS-OCT dataset show that our proposed DMINet obtains signifi-
+cantly better classification results and efficiency than state-of-the-art lightweight
+CNNs. Moreover, the results of another public OCT dataset demonstrate the ef-
+fectiveness of our method. In the future, we plan to deploy our DMINet on an
+actual medical device to further test its performance.

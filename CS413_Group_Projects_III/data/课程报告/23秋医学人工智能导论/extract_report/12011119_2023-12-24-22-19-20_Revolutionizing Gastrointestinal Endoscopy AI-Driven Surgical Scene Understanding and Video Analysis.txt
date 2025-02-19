@@ -1,0 +1,461 @@
+Revolutionizing Gastrointestinal
+Endoscopy: AI-Driven Surgical Scene
+Understanding and Video Analysis
+QIU YANG1, ZHU ZHUO2
+1Southern University of Science and Technology, School of Medicine (e-mail: 12111246@mail.sustech.edu.cn)
+2Southern University of Science and Technology, Department of Biomedical Engineering (e-mail: 12011119@mail.sustech.edu.cn)
+This work is the final survey about AI surgical scene understanding in MED331, 2023 Fall.
+ABSTRACT Gastrointestinal endoscopy, a critical diagnostic and therapeutic tool in gastroenterology,
+has been revolutionized by the integration of artificial intelligence (AI). This paper explores AI’s role
+in enhancing the accuracy and efficiency of surgical video analysis in gastrointestinal procedures, with a
+focus on semantic segmentation and understanding complex surgical scenes. We discuss the advancements
+achieved through innovative AI models, which have notably improved the segmentation of small or subtle
+objects within surgical environments. Despite these advancements, the field faces ongoing challenges,
+including managing variable lighting conditions, motion artifacts, and the necessity for extensive, accurately
+annotated datasets. The paper also examines potential future developments in surgical AI, such as more
+sophisticated algorithms, improved data management, and the evolution of autonomous surgical robots.
+Ethical, regulatory, and global accessibility considerations of these technologies are also addressed. This
+study highlights the significant impact of AI in gastrointestinal endoscopy, providing insights into its current
+applications and future possibilities in enhancing surgical practices and patient care.
+INDEX TERMS Gastrointestinal endoscopy, artificial intelligence, scene segmentation, surgical video
+analysis, deep learning algorithms.
+I. INTRODUCTION
+Gastrointestinal endoscopy is an essential procedure in mod-
+ern gastroenterology, offering vital insights into the diagnosis
+and treatment of various digestive disorders. The advent
+of artificial intelligence (AI) has ushered in a new era in
+this field, enhancing not only the precision of diagnostic
+techniques but also the efficacy of therapeutic interventions.
+This paper aims to elucidate the transformative role of AI
+in gastrointestinal endoscopy, particularly in the realm of
+surgical video analysis.
+Recently, AI has become a prominent force in medical
+imaging, greatly enhancing the precision of semantic seg-
+mentation and the analysis of intricate surgical scenarios.
+These developments are crucial for more effective identifica-
+tion and treatment of gastrointestinal conditions. This paper
+provides a straightforward introduction to this technique and
+discusses the construction of a scene segmentation model
+using advanced AI methods, highlighting their impact on the
+field of gastrointestinal endoscopy.
+Moreover, this paper delves into the future prospects of AI
+in gastrointestinal endoscopy, discussing the potential for ad-
+vancements in algorithmic development, data management,
+and the creation of autonomous surgical systems. We alsoconsider the ethical and regulatory implications of incorpo-
+rating AI into clinical practice, as well as the importance
+of making these advanced technologies accessible globally.
+Through this exploration, we aim to provide a comprehensive
+overview of the current state and future potential of AI
+in transforming gastrointestinal endoscopy and enhancing
+patient care in gastroenterology.
+II. GASTROINTESTINAL ENDOSCOPY: SOPHISTICATED
+IMAGING TECHNIQUES
+A. OVERVIEW AND MARKET TRENDS IN
+GASTROINTESTINAL ENDOSCOPY
+Gastrointestinal endoscopy is an advanced imaging technol-
+ogy extensively employed for the diagnosis and treatment of
+digestive system disorders, plays a precise and indispensable
+role in clinical practice. In the United States alone, there were
+approximately 15 to 20 million endoscopic examinations
+conducted in 2016. According to statistical data, the market
+size of this field reached $30.38 billion by 2022 and is
+projected to grow further to $32.62 billion in 2023 with a
+compound annual growth rate of 7.59%. It is speculated that
+by 2030, the market size will soar to an estimated $54.56
+billion [1].
+VOLUME 1, 2023 1Gastrointestinal endoscopy primarily comprises two com-
+ponents: endoscopy and intraoperative imaging systems. En-
+doscopy functions as a detection instrument that integrates
+image sensors, optical lenses, light sources, and mechanical
+devices. The intraoperative imaging system performs tar-
+geted image processing based on the specific characteristics
+of different surgeries to meet clinical diagnosis and treatment
+requirements. Gastrointestinal endoscopy enables direct ob-
+servation of mucosal conditions in the esophagus, stomach,
+duodenum, colon, and other digestive ducts while detecting
+abnormal changes such as ulcers, inflammation, hemorrhage,
+and tumors. Furthermore, it allows for biopsy or surgical
+interventions such as polyp removal and stent placement
+through endoscopic procedures [2]. Compared to traditional
+surgical methods, this technique generally offers advantages
+including reduced trauma levels, faster recovery times, and
+enhanced safety measures. However, in most conventional
+interventional endoscopy procedures, the anatomical targets
+and positions of surgical tools cannot be observed within
+the field of vision. Thus, surgeons anticipate obtaining clear
+and intuitive visualizations of intraoperative images along
+with accurate real-time localization capabilities for areas
+of interest and surgical instruments; thus highlighting the
+significance of developing advanced endoscopic navigation
+systems.
+The top ten topic areas in GI endoscopy were identified
+by the editorial board of the American Society of Gastroin-
+testinal Endoscopy through an extensive literature search
+encompassing high-impact medical and gastroenterological
+journals published in 2022. Remarkably, AI emerged as the
+foremost area on this esteemed list. AI is being involved
+in the clinical practice of gastrointestinal endoscopy tech-
+nology at an alarming rate, and helping to improve a se-
+ries of endoscopy content such as lesion detection, disease
+classification, and real-time decision support. The field of
+gastrointestinal endoscopy technology has witnessed signif-
+icant advancements in the integration of AI. Researchers
+have successfully utilized real-time AI to accurately predict
+clinical recurrence in patients with ulcerative colitis, while
+also developing deep learning tools capable of precisely
+describing the location and severity of this disease. Two
+meta-analytical studies demonstrate that assisted polyp de-
+tection using AI significantly enhances diagnostic accuracy
+and improves lesion detection effectiveness [3].
+B. CHALLENGES IN TRADITIONAL ENDOSCOPIC
+PROCEDURES
+Despite the numerous advantages of minimally invasive en-
+doscopic surgery compared to traditional open surgery, such
+as significantly shorter hospital stays and recovery periods,
+smaller incisions and scars, lower complication and trauma
+risks, reduced pain and discomfort, and potentially lower
+healthcare costs, it also faces several inherent challenges.
+Firstly, in terms of perception at the surgical site, due to the
+lack of depth perception and the complex topology and pho-
+tometric characteristics of tissues, there may be blind spotsand significant visual changes during the surgical process, in-
+creasing the complexity of gastrointestinal examination and
+diagnosis [4]. Therefore, important lesions may be missed or
+misdiagnosed, and certain tissue areas may be overlooked.
+Secondly, regarding the operation of endoscopes and surgi-
+cal tools, minimally invasive surgery requires precise naviga-
+tion within deformed and narrow anatomical spaces, coupled
+with the issue of disparate axes between the hand and eye [5].
+This not only demands a high level of expertise but also re-
+quires exceptional dexterity in handling surgical instruments.
+In addressing these challenges, the application of artificial
+intelligence technology offers a new perspective and solution.
+By enabling AI to understand surgical videos, AI not only
+has the potential to overcome existing limitations and address
+issues of surgical scene perception and operation but may
+also lead the future development of surgical procedures.
+With the rapid development of artificial intelligence, par-
+ticularly in the field of computer vision, over the past decade,
+the next generation of interventional capabilities is likely
+to be built upon AI modules that can extract information
+from rich surgical records and provide computer-assisted
+interventions (CAI) during and after surgery.
+III. ARTIFICIAL INTELLIGENCE IN SURGICAL VIDEO
+COMPREHENSION
+All these advanced medical technology concepts are built
+upon a crucial premise: achieving a deep understanding of
+semantic information in surgical scenes through artificial
+intelligence algorithms to effectively address challenges in
+surgery. Computer vision, as an important branch of artificial
+intelligence, focuses on enabling computers and systems to
+extract, analyze, and comprehend complex information from
+digital images or videos. This comprehensive understanding
+of visual data allows for the automation and enhancement of
+various tasks that traditionally require human vision. In the
+context of gastrointestinal endoscopy and minimally invasive
+surgery, computer vision algorithms play a pivotal role in
+computer assist intervention.
+A. COMPUTER VISION
+Over the past two decades, computer vision technology has
+experienced rapid development, which enables the aritifical
+intelligence algorithm to fully understand the world by vi-
+sion.
+Initially, the field of computer vision relied on hand-crafted
+features [6] and support vector machines (SVM) [7] for
+image classification. With the advent of the deep learning
+era, convolutional neural networks (such as AlexNet [8] and
+ResNet [9]) made significant strides in algorithms. Recently,
+algorithms based on Transformer models (such as ViT [10]
+and Swin Transformer [11]) have brought about a new rev-
+olution (Figure 1), excelling in various tasks on various
+datasets (such as ImageNet, COCO [12]) including image
+classification, object detection, and semantic segmentation,
+sometimes even surpassing human performance in certain
+aspects.
+2 VOLUME 1, 2023FIGURE 1. The development of vision related algorithm. (a): Illustration of hand-crafted feature extraction using algorithms such as SIFT (Scale-Invariant Feature
+Transform). This process identifies and describes key points in the image, which are then utilized for image classification through a Support Vector Machine (SVM).
+(b): Depiction of a Convolutional Neural Network (CNN) architecture, demonstrating the self-learning layers that automatically detect and learn features from input
+images to solve computer vision tasks. (c): Representation of the Vision Transformer (ViT) model, showcasing the application of attention mechanisms to image
+processing, which has elevated the capabilities of computer vision algorithms.
+In the realm of video understanding, computer vision has
+also made remarkable advancements in related tasks through
+innovative improvements to traditional deep learning algo-
+rithms, such as the adoption of two-stream networks [13]
+or three-dimensional video networks [14]. The development
+of these technologies not only provides powerful tools for
+analyzing surgical videos but also opens up new possibilitiesfor future medical applications.
+B. SURGICAL VISION
+In the field of surgical video analysis, a key task for artificial
+intelligence is to deeply understand the surgical scene both
+in terms of time and space. In the time dimension, AI needs
+to identify the specific meaning of each moment in the
+VOLUME 1, 2023 3surgical process. This understanding can unfold at different
+levels, ranging from recognizing the overall type of surgery
+to distinguishing specific actions performed by the surgeon
+within a certain time frame, further to analyzing specific
+activities within a few frames of video, and ultimately parsing
+the specific actions taking place within a single frame. In
+the spatial dimension, AI must interpret the content within
+a single frame of the surgical video in detail. This includes
+understanding from a broader perspective down to precise
+recognition at different levels: first identifying the organs
+and surgical instruments present in a single frame, then
+determining the specific locations of these organs and in-
+struments, followed by semantic segmentation of the organs
+and surgical instruments, and finally achieving finer instance
+segmentation of the organs and instruments [15] (Figure 2).
+For various surgical scene tasks, there are now many
+publicly available datasets for AI to learn from, such as those
+for tool segmentation (EndoVis2018 [16], CholecSeg8k
+[17], RoboTool [18]), organ segmentation (Dresden Surgical
+Anatomy Dataset [19], SurgAI3.8K [20]), tool-tissue action
+detection (CholecT50 [21], SARAS-MESAD2021, PSI-A V A
+[23]), and skill assessment and workflow recognition (JIG-
+SAWS [24], HeiCO [25], MISAW [26]).
+Through this kind of video understanding, artificial intelli-
+gence provides strong support for more precise and efficient
+surgical assistance. This not only enhances the quality of
+decision-making during surgery but also lays the foundation
+for the development of future automated surgical technolo-
+gies.
+C. STSWIN IN SEGMENTATION TASK
+In our final course project, we developed an artificial intel-
+ligence model for understanding surgical videos, based on
+the STswin Transformer [27]. This model innovatively em-
+ploys the Swin Transformer across both spatial and temporal
+dimensions, marking a significant advancement over tradi-
+tional models that rely on CNN-LSTM aggregation mod-
+ules. The STswin Transformer’s unique space-time window
+shift mechanism enables efficient processing of spatial and
+temporal information, leading to a more detailed pixel-level
+analysis (Figure 3). This methodology effectively tackles
+common issues in surgical video analysis, such as indistinct
+decision boundaries and class imbalances. Additionally, the
+model’s adaptable structure makes it suitable for a variety
+of network configurations and applicable in scenarios where
+understanding temporal aspects is crucial.
+In our project, we implemented Dice loss for scene seg-
+mentation using CholecSeg8k dataset. The model demon-
+strates a certain level of understanding of the surgical en-
+vironment. However, there remains significant room for im-
+provement. It struggles with segmenting certain elements,
+particularly small and thin objects like graspers, as well as
+connective tissue, which tends to be less distinct compared to
+other types of tissue.IV. AI IN SURGICAL VISION: DOWNSTREAM TASKS
+The realm of modern endoscopic surgery is witnessing a rev-
+olutionary transformation through the integration of cutting-
+edge technologies. These advancements, primarily driven
+by artificial intelligence (AI) and robotics, are redefining
+the landscape of minimally invasive procedures. With the
+realm that artificial intelligence fully understand the surgical
+scene by vision related algorithms, the implementation of
+the systems is not just an innovation but a necessity in the
+contemporary surgical setting. This section delves into the
+pivotal developments and applications of these technologies,
+including computer-assisted detection and diagnosis, endo-
+scopic mapping, the emergence of fully automatic surgical
+robots, surgical training, and automatic generation of elec-
+tronic medical records (Figure 4).Each of these components
+represents a significant stride in the journey towards more
+accurate, efficient, and patient-centric surgical care.
+A. COMPUTER-ASSISTED DETECTION & DIAGNOSIS
+In endoscopy, computer-aided detection (CADe) and
+computer-aided diagnosis (CADx) solutions are primarily
+employed for the identification and classification of abnormal
+tissue regions. Through learning and training, computers can
+automatically recognize abnormal tissues and provide diag-
+nostic assistance. Early CAD methods relied on manually
+designed features, whereas modern deep learning techniques
+leverage the intrinsic features inherent in the data itself for
+learning, without assuming specific appearances or texture
+patterns of diseases a priority. This enables a more accu-
+rate and robust classification of abnormal tissues. CADe
+and CADx systems have been successfully implemented
+in various upper gastrointestinal endoscopic examinations,
+significantly enhancing lesion detection rates and diagnostic
+accuracy, particularly for colorectal tumors. Studies utilizing
+state-of-the-art convolutional neural networks (CNNs) based
+on NBI technology have demonstrated that CADx methods
+can effectively differentiate between five different types of
+colorectal lesions with a precision detection rate exceeding
+95% for colorectal polyps [28].
+B. ENDOSCOPIC MAPPING, ANATOMICAL STRUCTURE
+RECOGNITION AND NAVIGATION
+Conventional endoscopy simultaneous localization and map-
+ping (SLAM) approaches rely on complex photogrammetry
+pipelines to infer the geometry and endoscopic displacement
+of the gastrointestinal tract while capturing a series of en-
+doscopic images. However, due to the intricate topological
+characteristics of the gastrointestinal tract and Clinical emer-
+gencies, such as hemorrhage, detecting and tracking visual
+features pose challenges in endoscopy [29]. The incorpora-
+tion of artificial intelligence has instigated a transformative
+shift in various aspects of endoscopic navigation: Firstly,
+CNN-based SLAM techniques enable direct estimation of
+depth maps from a single monocular view, thereby obviat-
+ing the necessity for visual feature tracking. In comparison
+to conventional approaches, these methods exhibit precise
+4 VOLUME 1, 2023FIGURE 2. Framework for the analysis of endoscopic videos. Temporal (a) and spatial (b) annotations at different resolutions are used to model tasks at increasingly
+finer details [15].
+FIGURE 3. This diagram of the STswin architecture: STswin employs a shifting window mechanism across both spatial and temporal dimensions for feature
+extraction. The model processes a sequence of four consecutive frames, effectively capturing and analyzing features from adjacent frames within the series [27].
+mapping and positioning outcomes on extended colonoscopy
+sequences, showcasing their efficacy in delivering accurate
+results [30]. Secondly, Artificial intelligence technology fa-
+cilitates precise recognition of anatomical structures during
+endoscopic navigation, providing enhanced assistance. The
+goal of anatomical structure recognition is to identify differ-
+ent segments of the digestive tract as well as key structuresor landmarks. Studies have demonstrated that traditional
+convolutional neural network (CNN) architectures achieve
+classification accuracy rates exceeding 85% for these struc-
+tures [31]. Moreover, artificial intelligence can be leveraged
+to develop innovative robotic platforms and paradigms such
+as magnetic endoscopes, which offer improved navigation
+support.
+VOLUME 1, 2023 5FIGURE 4. The infographic presenting the downstream tasks facilitated by advancements in surgical scene understanding. It illustrates the integration of computer-
+assisted technologies in various aspects of endoscopic surgery, including detection and diagnosis, endoscopic mapping, navigation, anatomical structure recognition,
+and the operation of full-automatic surgical robots. Additional applications highlighted include the use of AI for surgical training and skill assessment, as well as the
+automatic generation of electronic medical records, demonstrating the comprehensive impact of surgical video comprehension on enhancing and streamlining
+gastrointestinal endoscopy procedures.
+C. FULL-AUTOMATIC SURGICAL ROBOTS
+Automatic surgical robots are robotic systems capable of
+performing surgeries without human intervention, with a
+primary focus on autonomy and intelligence. Autonomy
+research emphasizes the independent decision-making and
+operational abilities of robots during surgery, encompass-
+ing path planning, tissue recognition, and execution. Intelli-
+gence research centers around the perception and cognitive
+capabilities of robots, including image processing, speech
+recognition, and machine learning. Currently, certain studies
+have achieved autonomous decision-making and operational
+abilities in areas such as path planning and tissue recog-
+nition. Moreover, advancements in robot intelligence have
+been made through technologies like image processing and
+machine learning applications. Automatic surgical robots
+possess immense potential to enhance surgical procedures
+through further research aimed at attaining higher levels of
+autonomy and intelligence.
+D. SURGICAL TRAINING AND SKILL ASSESSMENT
+The assessment of surgical skills is employed to evaluate the
+professional proficiency of surgeons during specific surgical
+tasks. Currently, automated evaluation employing temporal
+neural networks is the predominant method for surgical
+skill assessment. These networks have been trained on theJIGSAWS dataset to differentiate between three levels of
+physician expertise while identifying surgical gestures and
+assessing skill scores in robot-assisted urology with an accu-
+racy exceeding 95%. However, their effectiveness and impact
+are limited by the absence of real clinical data. Additionally,
+a three-stage temporal neural network approach has been
+developed for laparoscopic cholecystectomy achieving an
+average classification accuracy of approximately 85% on a
+proprietary cholecystectomy dataset for distinguishing be-
+tween proficient and inadequate surgical skills. Neverthe-
+less, extensive clinical datasets are necessary to validate this
+method’s reliability.
+E. AUTOMATICALLY GENERATE ELECTRONIC
+MEDICAL RECORDS
+By harnessing advanced technologies such as machine learn-
+ing and image processing, the automatic recording and anal-
+ysis of surgical procedures can be achieved through video
+data acquired from endoscopic surgery. These records en-
+compass both functional and structural information about
+the patient’s anatomy, accompanied by a comprehensive log
+documenting events, activities, and procedures throughout
+the surgical intervention. These comprehensive records can
+furnish clinicians with meticulous information, facilitating
+more precise diagnosis and treatment decisions.
+6 VOLUME 1, 2023V. FUTURE OF SURGICAL AI
+A. LIMITATIONS AND CHALLENGES
+Video is the most common data type in surgical phase
+recognition. The current technological limitations hinder the
+implementation of endoscopic video traceability, which ef-
+fectively safeguards patient privacy and provides extensive
+research opportunities for academic groups. However, irregu-
+lar scenes present a significant challenge to endoscopic video
+applications. Frames captured at the same stage may exhibit
+substantial variations due to these irregular scenes. Sudden
+movements of the endoscopic camera during procedures can
+result in displacement and dislocation. Moreover, changes
+in lighting conditions, blood, artifacts resulting from lens
+cleaning processes, and other factors can adversely impact
+image quality.
+The acquisition of surgical video comprehension heavily
+relies on the availability of large-scale annotated datasets.
+Despite notable advancements in machine learning tech-
+niques within gastrointestinal endoscopy, challenges persist
+due to limited representative data labels and inconsistent
+data quality. The performance of a proposed model trained
+using a restricted dataset may be significantly affected when
+applied to test datasets from unfamiliar medical sources.
+Endoscopic images exhibit inherent heterogeneity, and their
+high dimensionality and volume can substantially impact the
+efficacy of computer vision systems [32]. In certain cases,
+there might be an insufficient number of training samples
+in the dataset to effectively train deeper or wider networks.
+Although EndoVis, Cholec80, and JIGSAWS are currently
+recognized as widely used public datasets, there remains a
+need for larger and accurately labeled datasets to be estab-
+lished.
+With the increasing use of artificial intelligence in health-
+care, ensuring the protection and confidentiality of patient
+data has become a pressing concern. It is essential to establish
+clear definitions of responsibility and legal liability for AI
+systems used in medical diagnosis, treatment, and prediction.
+Currently, there are gaps in laws and regulations pertaining to
+AI assistance and automation, necessitating comprehensive
+consideration and an appropriate solution.
+B. FUTURE DEVELOPMENT
+The future of surgical artificial intelligence is poised to
+be marked by significant advancements that will transform
+the landscape of surgery and healthcare. Key developments
+will focus on enhancing the precision and efficiency of AI
+algorithms, particularly in the realm of computer vision for
+more accurate analysis of surgical videos. There will be a
+push towards creating larger, diverse, and accurately labeled
+datasets to improve the training and effectiveness of AI
+systems.
+Robotics will play an increasingly pivotal role, with de-
+velopments in autonomous surgical robots that integrate ad-
+vanced AI for more precise and less invasive procedures.
+Ethical and regulatory frameworks will also evolve, address-ing the responsibilities and liabilities associated with AI in
+surgery and ensuring patient data privacy and security.
+Additionally, AI’s role in surgical education and training
+will expand, utilizing technologies like virtual and aug-
+mented reality for immersive and realistic training experi-
+ences. Lastly, efforts will be made to ensure global accessi-
+bility of these advancements, making cutting-edge surgical
+AI tools available in diverse healthcare settings, thereby
+democratizing high-quality surgical care.
+VI. DISCUSSION AND CONCLUSION
+The exploration and integration of artificial intelligence
+in surgical applications, particularly in gastrointestinal en-
+doscopy, have opened new frontiers in medical technology.
+The incorporation of AI has shown immense potential in
+enhancing the accuracy and efficiency of surgical procedures.
+One of the key aspects of this integration is the improve-
+ment in semantic segmentation and the ability to understand
+complex surgical scenes. Innovative AI models improved the
+segmentation of subtle or small objects, such as surgical
+instruments and various tissue types. Despite these advance-
+ments, broader challenges persist in the AI domain. These
+include coping with variable lighting conditions, motion
+artifacts in video data, and the pressing need for extensive,
+precisely annotated datasets. These hurdles highlight the
+ongoing journey of AI development in accurately interpreting
+complex surgical environments.
+Looking ahead, the development of surgical AI promises
+advancements in algorithmic sophistication, data manage-
+ment, and enhanced computer vision systems. The evolu-
+tion of autonomous surgical robots and the establishment of
+comprehensive regulatory and ethical frameworks are critical
+areas of focus. Additionally, AI’s expanding role in surgical
+training and the push for global accessibility underscore the
+transformative impact of these technologies.
+In conclusion, the integration of AI in surgical applications
+marks a pivotal shift in healthcare, offering unprecedented
+precision and efficiency in surgical procedures. The future
+holds promising advancements that are likely to revolutionize
+surgical practices. However, this progress must be balanced
+with ethical considerations, continuous learning, and adap-
+tation to new challenges and discoveries. As the field of
+surgical AI continues to evolve, it will undoubtedly play a
+crucial role in shaping the future of surgery and patient care.
