@@ -1,0 +1,27 @@
+参考文献
+[1] König IR, Fuchs O, Hansen G, et al. What is precision medicine? Eur Respir J 2017; 50: 1700391
+[2] Pinho JRR. Precision Medicine. Einstein (Sao Paulo). 2017 Jan-Mar;15(1):VII-X. 
+[3] National Research Council. 2011. Toward Precision Medicine: Building a Knowledge Network for Biomedical Research and a New Taxonomy of Disease. Washington, DC: The National Academies Press.
+[4] Wullich, B., Taubert, H., Goebell, P.J. et al. Individualisierte Präzisionsmedizin. Urologie 62, 879–888 (2023). 
+[5] Kar, A., Subash, A. & Rao, V. U. S. Reactive Artificial Intelligence Using Big Data in the Era of Precision Medicine. JAMA Surg 155, 671(2020)
+[6] Loftus, T. J., Upchurch, G. R., Jr. & Bihorac, A. Reactive Artificial Intelligence Using Big Data in the Era of Precision Medicine-Reply. JAMA Surg 155, 671-672(2020)
+[7] Minopoulou, I. et al. Imaging in inflammatory arthritis: progress towards precision medicine. Nat Rev Rheumatol 19, 650-665(2023)
+[8] Li, J. et al. Towards precision medicine based on a continuous deep learning optimization and ensemble approach. NPJ Digit Med 6, 18(2023)
+[9] Adir, O. et al. Integrating Artificial Intelligence and Nanotechnology for Precision Cancer Medicine. Adv Mater 32, e1901989(2020)
+[10] Moor, M. et al. Foundation models for generalist medical artificial intelligence. Nature 616, 259-265(2023)
+[11] Velmovitsky P E, Bevilacqua T, Alencar P, et al. Convergence of Precision Medicine and Public Health into Precision Public Health: Toward a Big Data Perspective[J]. Frontiers in Public Health, 2021, 9:561873.
+[12]	Khoury, M.J., Holt, K.E. The impact of genomics on precision public health: beyond the pandemic. Genome Med 13, 67 (2021)   
+[13] Dialogue with Li Lanjuan: artificial intelligence will "catch all" of the epidemic, making medical care more accurate.
+[2020-11-23] https://mr.baidu.com/r/1buATPGhVUk?f=cp&u=3beb367137d62259 (in chinese)
+对话李兰娟：人工智能将疫情“一网打尽”，让医疗更精准
+[14] Topol, E. J. High-performance medicine: the convergence of human and artificial intelligence. Nat Med 25, 44-56 (2019).
+[15] Rajpurkar, P., Chen, E., Banerjee, O. et al. AI in health and medicine. Nat Med 28, 31–38 (2022). 
+[16] Eric J. Topol,As artificial intelligence goes multimodal, medical applications multiply.Science381,eadk6139(2023).
+[17]"Doctor of the Century" Eric Topol Talks with AI Master Wu Enda AI + Medical https://cloud.tencent.com/developer/news/625604 (in chinese)
+“世纪医生”Eric Topol与AI大师吴恩达对话AI＋医疗
+[18] Price, W. N., 2nd & Cohen, I. G. Privacy in the age of medical big data. Nat Med 25, 37-43 (2019).
+[19] Young, A. T., Amara, D., Bhattacharya, A. & Wei, M. L. Patient and general public attitudes towards clinical artificial intelligence: a mixed methods systematic review. Lancet Digit Health 3, e599-e611 (2021).
+[20] Denny, J. C. & Collins, F. S. Precision medicine in 2030-seven ways to transform healthcare. Cell 184, 1415-1419 (2021).
+[21] Yip, M. et al. Artificial intelligence meets medical robotics. Science 381, 141-146, (2023).
+[22] Acosta, J. N., Falcone, G. J., Rajpurkar, P. & Topol, E. J. Multimodal biomedical AI. Nat Med 28, 1773-1784 (2022).
+

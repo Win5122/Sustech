@@ -1,0 +1,66 @@
+参考文献
+[1] 计算机软件及计算机应用 ;自动化技术 10.26990/d.cnki.gsltc.2022.000574  
+[2] 财经智库 2023,8(01),5 -36+135-136 DOI:10.20032/j.cnki.cn10 -1359/f.2023.01.006  
+[3] 财经智库 2023,8(01),5 -36+135-136 DOI:10.20032/j.cnki.cn10 -1359/f.2023.01.006  
+[4] 自动化与仪器仪表 2023,(10),205 -208+213 DOI:10.14016/j.cnki.1001 -9227.2023.10.205  
+[5]教育理论与教育管理 ;计算机软件及计算机应用 ;自动化技术 10.27684/d.cnki.gxndx.2021.003001  
+[6] Clarizia, F., Colace, F., Lombardi, M., Pascale, F., & Santaniello, D. (2018). Chatbots 
+applications in education: A systematic review. Computers & Education, 1 -20.  
+[7] Okonkwo, C. A., & Ade -Ibijola, A. (2020). Role of AI chatbots in education: systematic 
+literature review. International Journal of Educational Technology in Higher Education, 17, 
+1-18.  
+[8] Pérez-Macías, J. M., Jiménez -Crespo, M. Á., & Rodríguez -García, A. M. (2020). Interacting 
+with educational chatbots: A systematic review. Education and Information Technologies, 25, 
+3607–3626. 
+[9] Winkler, R., & Söllner, M. (2020). Are We There Yet? - A Systematic Literature Review on 
+Chatbots in Education. Frontiers in Education, 5, 1 -15.  
+[10] Adamopoulou, E., & Moussiades, L. (2020). The impact of educational chatbot on student 
+learning experience. Education and Information Technologies, 25, 3819 –3834.  
+[11]Sarraju, A., Bruemmer, D., Van Iterson, E., Cho, L., Rodriguez, F., & Laffin, L. (2023). 
+Appropriateness of Cardiovascular Disease Prevention Recommendations Obtained From a Popular 
+Online Chat -Based Artificial Intelligence Model. JAMA : The Journal of the American Medical 
+Association , 329(10), 842 –844.  [12] Kassab, J., Burke, C. A., Macaron, C., El Dahdah, J., Kerbage, A., El Helou, M. C., & 
+Rouphael, C. (2023). S424 Accuracy of a Popular Online Chat -Based Artificial Intelligence 
+Model in Providing Recommendations on Colorectal Cancer Screening and Polyps: A Patient vs 
+Physician -Centered Approach. The American Journal of Gastroenterology , 118(10S), S311 –S312. 
+[13]van der Schyff, E. L., Ridout, B., Amon, K. L., Forsyth, R., Campbell, A. J., Cert, G., 
+& Campbell, A. J. (2023). Providing Self -Led Mental Health Support Through an Artificial 
+Intelligence -Powered Chat Bot (Leora) to Meet the Demand of Mental Health Car e. Journal of 
+Medical Internet Research , 25, e46448 –e46448.  
+[14]Edyko, K., Petryla, P., Ostafin, K., Minkner, M., Bieńkowski, B., Feja, K., Suwa ła, Z., 
+Rektor, N., Łuczak, E., & Marchewka, U. (2023). Utilizing Artificial Intelligence Tools Using 
+the GPT Chatbot in Medicine - A Review of Flaws, Advantages, and Limitations. Journal of 
+Education, Health and Sport , 46(1), 122 –133.  
+[15]Cuthbert, R., & Simpson, A. I. (2023). Artificial intelligence in orthopaedics: can Chat 
+Generative Pre -trained Transformer (ChatGPT) pass Section 1 of the Fellowship of the Royal 
+College of Surgeons (Trauma & Orthopaedics) examination? Postgraduate Medical Journal , 
+99(1176), 1110 –1114. 
+[16]王文诺. 试谈智能客服机器人替代人工客服的可能性 [J]. 中国盐业 , 2023, (15): 40 -42. 
+[17]头 豹 研 究 院 .2021年 中 国 电 商 智 能 客 服 行 业 概 览 [EB/OL].(2021 -10-22)[2022 -03-
+10].https://www.leadleo.com/report/details?id=6172509776bf667cf5ab34c0.  
+[18]马晓亮, 刘英, 杜德泉, 张国新. 电信运营商 AI客服平台技术研究与应用分析 [J]. 电信科学 , 2023, 
+39 (09): 141 -152. 
+[19]史志鹏. 智能客服：既要智能，又要友好 [N]. 人民日报海外版 , 2023-05-22 (005).  
+[20]王姝. 智能化客户服务系统在电信业中的应用 [J]. 电子技术 , 2021, 50 (09): 226 -229. 
+[21] 蔡鼎. 比尔·盖茨再谈 AI：个人助理带来颠覆，搜索引擎将消失 [N]. 每日经济新闻 , 2023-05-30 
+(005). 
+[22] 洪恒飞, 张雨葳, 江耘. AI助理上岗  辅助法官 30分钟完成十案联审 [N]. 科技日报 , 2021-10-08 
+(005).   
+[23] G. Dahl, D. Yu, L. Deng and A. Acero, “Context -dependent Pretrained Deep Neural Networks 
+for Large -vocabulary Speech Recognition,” IEEE Transactions on Audio, Speech, and Language 
+Processing, vol. 20, no. 1, pp. 30 -42, 2012.  
+[24] J. K. Chorowski, D. Bahdanau, D. Serdyuk, K. Cho, and Y. Bengio, “Attention -based Models 
+for Speech Recognition,” in Advances in neural information processing systems, 2015, pp. 577 -
+585. 
+[25] "Apple, Google, and Amazon May Have Violated Your Privacy by Reviewing Digital Assistant 
+Commands". Fortune. 5 August 2019. Retrieved 13 May 2020.  
+[26]游丽江. 人工智能聊天机器人的影响分析及对策建议 ——以ChatGPT 为例[J]. 网络安全技术与应用 , 
+2023, (12): 128 -130. 
+[27]蒋俏蕾, 陈宗海, 张雅迪. 可供性视角下的人工智能生成内容 [J]. 青年记者 , 2023, (20): 84 -86. 
+[28]张婷婷. ChatGPT应用的法律问题及应对策略 [J]. 法制博览 , 2023, (28): 49 -51.  
+[29]张晓辉, 孙菁苓. 对虚拟AI言说：用户对聊天机器人的情感联系探析 ——以软件Replika 为例[J]. 
+现代传播 (中国传媒大学学报 ), 2023, 45 (09): 124 -133. 
+[30]张跃胜, 金文俊. ChatGPT 的关键技术、应用场景及未来展望 [J]. 信息技术与管理应用 , 2023, 2 
+(05): 64 -74. 
+[31]本刊讯. 人工智能聊天机器人是否会被批准为医疗设备 [J]. 数据分析与知识发现 , 2023, 7 (09): 11. 
+ 

@@ -1,0 +1,124 @@
+参考文献
+[1] Lecun, Y., Bottou, L., Bengio, Y., & 
+Haffner, P. (1998). Gradient -based learning 
+applied to document recognition. 
+Proceedings of the IEEE, 86(11), 2278–2324. 
+https://doi.org/10.1109/5.726791  
+[2] Krizhevsky, A., Sutskever, I., & Hinton, 
+G. E. (2017). ImageNet classification with 
+deep convolutional neural networks. 
+Communications of the ACM, 60(6), 84 –90. 
+https://doi.org/10.1145/3065386  
+[3] Girshick, R., Donahue, J., Darrell, T., 
+& Malik, J. (2014). Rich feature 
+hierarchies for accurate object detection 
+and semantic segmentation 
+(arXiv:1311.2524). arXiv. 
+http://arxiv.org/abs/1311.2524  
+Computer Science   计算机科学  Vol.x,  No.y, Month.2020                                                     (6)  
+[4] Long, J., Shelhamer, E., & Darrell, T. 
+(2015). Fully Convolutional Networks for 
+Semantic Segmentation (arXiv:1411.4038). 
+arXiv. http://arxiv.org/abs/1411.4038  
+[5] Ronneberger, O., Fischer, P., & Brox, 
+T. (2015). U -Net: Convolutional Networks 
+for Biomedical Image Segmentation 
+(arXiv:1505.04597). arXiv. 
+http://arxiv.org/abs/1505.04597  
+[6] Badrinarayanan, V., Kendall, A., & 
+Cipolla, R. (2016). SegNet: A Deep 
+Convolutional Encoder -Decoder Architecture 
+for Image Segmentation (arXiv:1511.00561). 
+arXiv. http://arxiv.org/abs/1511.00561  
+[7] Chen, L. -C., Papandreou, G., Kokkinos, 
+I., Murphy, K., & Yuille, A. L. (2016). 
+Semantic Image Segmentation with Deep 
+Convolutional Nets and Fully Connected CRFs 
+(arXiv:1412.7062). arXiv. 
+http://arxiv.org/abs/1412.7062  
+[8] He, K., Gkioxari, G., Dollár, P., & 
+Girshick, R. (2018). Mask R -CNN 
+(arXiv:1703.06870). arXiv. 
+http://arxiv.org/abs/1703.06870  
+[9] Chen, L. -C., Papandreou, G., Kokkinos, 
+I., Murphy, K., & Yuille, A. L. (2017). 
+DeepLab: Semantic Image Segmentation with 
+Deep Convolutional Nets, Atrous Convolution, 
+and Fully Connected CRFs (arXiv:1606.00915). 
+arXiv. http://arxiv.org/abs/1606.00915  
+[10] Chen, L. -C., Papandreou, G., Schroff, 
+F., & Adam, H. (2017). Rethinking Atrous 
+Convolution for Semantic Image Segmentation 
+(arXiv:1706.05587). arXiv. 
+http://arxiv.org/abs/1706.05587  
+[11] Yamaguchi, H., Hashimoto, Y., Sugihara, 
+G., Miyata, J., Murai, T., Takahashi, H., 
+Honda, M., Hishimoto, A., & Yamashita, Y. 
+(2021). Three -Dimensional Convolutional 
+Autoencoder Extracts Features of Structural 
+Brain Images With a “Diagnostic Label -Free” 
+Approach: Application to Schizophrenia 
+Datasets. Frontiers in Neuroscience, 15, 
+652987. 
+https://doi.org/10.3389/fnins.2021.652987  [12] Wang, S., Li, C., Wang, R., Liu, Z., 
+Wang, M., Tan, H., Wu, Y., Liu, X., Sun, H., 
+Yang, R., Liu, X., Chen, J., Zhou, H., Ben 
+Ayed, I., & Zheng, H. (2021). Annotation -
+efficient deep learning for automatic 
+medical image segmentation. Nature 
+Communications, 1 2(1), 5915. 
+https://doi.org/10.1038/s41467 -021-26216-9 
+[13] Zoetmulder, R., Gavves, E., Caan, M., 
+& Marquering, H. (2022). Domain - and task -
+specific transfer learning for medical 
+segmentation tasks. Computer Methods and 
+Programs in Biomedicine, 214, 106539. 
+https://doi.org/10.1016/j.cmpb.2021.106539  
+[14] Peng, L., Liang, H., Luo, G., Li, T., 
+& Sun, J. (2022). Rethinking Transfer 
+Learning for Medical Image Classification 
+(arXiv:2106.05152). arXiv. 
+http://arxiv.org/abs/2106.05152  
+[15] Wei, Q., Yu, L., Li, X., Shao, W., Xie, 
+C., Xing, L., & Zhou, Y. (2023). 
+Consistency -guided Meta -Learning for 
+Bootstrapping Semi -Supervised Medical 
+Image Segmentation (arXiv:2307.11604). 
+arXiv. http://arxiv.org/abs/2307.11604  
+[16] Jeong, J. J., Tariq, A., Adejumo, T., 
+Trivedi, H., Gichoya, J. W., & Banerjee, I. 
+(2022). Systematic Review of Generative 
+Adversarial Networks (GANs) for Medical 
+Image Classification and Segmentation. 
+Journal of Digital Imaging, 35(2), 137 –152. 
+https://doi.org/10.1007/s10278 -021-00556-w 
+[17] Xun, S., Li, D., Zhu, H., Chen, M., 
+Wang, J., Li, J., Chen, M., Wu, B., Zhang, 
+H., Chai, X., Jiang, Z., Zhang, Y., & Huang, 
+P. (2022). Generative adversarial networks 
+in medical image segmentation: A review. 
+Computers in Biology and Medicine, 140, 
+105063. 
+https://doi.org/10.1016/j.compbiomed.2021.
+105063 少标签情况下的医疗图像分割综述                            （5） 
+ 
+Ziyue y u，born in shanxi 
+province, undergraduate  student, 
+His/Her main research interests 
+include soft robotics  and 
+turbulent .  
+ 
+Tuo Zhou ，born in Hunan  
+province, undergraduate student, 
+His main research interests 
+include soft robotics  and fluid 
+mechanics  . 
+ 
+Yuhan Luo ，born in Sichuan 
+province , undergraduate student. 
+Her main research interests 
+include reinforcement learning 
+and combination optimization . 
+        
+         
+ 

@@ -1,0 +1,36 @@
+参考文献
+AL-KADI MI, REAZ MB, ALI MAM: Evolution of Electroencephalogram Signal Analysis Techniques during Anesthesia. Sensors 2013; 13:6605–35.
+EAGLEMAN S, DROVER D: Calculations of consciousness: Electroencephalography analyses to determine anesthetic depth. Curr Opin Anaesthesiol 2018; 31:431–8
+VESELIS RA, REINSEL R, SOMMER S, CARLON G: Use of neural network analysis to classify electroencephalographic patterns against depth of midazolam sedation in intensive care unit patients. J Clin Monit 1991; 7:259–67
+BENZY VK, JASMIN EA, KOSHY RC, AMAL F, INDIRADEVI KP: Relative Wave Energy based Adaptive Neuro-Fuzzy Inference System model for the Estimation of Depth of Anaesthesia. J Integr Neurosci 2018; 17:69–82
+EMSAEILPOUR M, MOHAMMADI ARA: Analyzing the EEG Signals in Order to Estimate the Depth of Anesthesia Using Wavelet and Fuzzy Neural Networks. Int J Interact Multimed Artif Intell 2016; 4:12–5
+GHANATBARI M, MEHRIDEHNAVI AR, RABBANI H, MAHOORI AR, MEHRJOO M: A comparative study of the output correlations between wavelet transform, neural and neuro fuzzy networks and BIS index for depth of anesthesia. IEEE Symp Ind Electron Appl 2010:655–9 doi:10.1109/ISIEA.2010.5679383
+ALLEN R, SMITH D: Neuro-fuzzy closed-loop control of depth of anaesthesia. Artif Intell Med 2001; 21:185–91.
+HATIB F, JIAN Z, BUDDI S, LEE C, SETTELS J, SIBERT K, RINEHART J, CANNESSON M: Machine-learning Algorithm to Predict Hypotension Based on High-fidelity Arterial Pressure Waveform Analysis. Anesthesiology 2018; 129:663–74
+SADRAWI M, FAN S, ABBOD M, JEN K, SHIEH J: Computational Depth of Anesthesia via Multiple Vital Signs Based on Artificial Neural Networks. Biomed Res Int 2015; 2015
+DUMONT G, ANSERMINO J: Closed-loop control of anesthesia: A primer for anesthesiologists. Anesth Analg 2013; 117:1130–8
+GREENE BR, MAHON P, MCNAMARA B, Boylan GB, Shorten G: Automated Estimation of Sedation depth from the EEG. 29th Annu Int Conf IEEE Eng Med Biol Soc 2007:3188–91 doi:10.1109/IEMBS.2007.4353007
+HUANG JR, FAN SZ, ABBOD MF, JEN KK, WU JF, SHIEH JS: Application of Multivariate Empirical Mode Decomposition and Sample Entropy in EEG Signals via Artificial Neural Networks for Interpreting Depth of Anesthesia. Entropy 2013; 15:3325–39
+JIANG G, FAN SZ, ABBOD MF, HUANG H, LAN J, TSAI F, CHANG H, YANG Y, CHUANG F, CHIU Y, JEN K, WU J, SHIEH J: Sample entropy analysis of EEG signals via artificial neural networks to model patients’ consciousness level based on anesthesiologists experience. Biomed Res Int 2015; 2015
+LIU Q, CHEN Y, FAN SZ, ABBOD MF, SHIEH J: EEG Signals Analysis Using Multiscale Entropy for Depth of Anesthesia Monitoring during Surgery through Artificial Neural Networks. Comput Math Methods Med 2015; 2015
+MANSOOR BAIG M, GHOLAMHOSSEINI H, HARRISON M: Fuzzy logic based anaesthesia monitoring systems for the detection of absolute hypovolaemia. Comput Biol Med 2013; 43:683–92
+MIRZA M, GHOLAMHOSSEINI H, HARRISON MJ: A fuzzy logic-based system for anaesthesia monitoring. Conf Proc IEEE Eng Med Biol Soc 2010; 2010:3974–7
+Application of Multivariate Empirical Mode Decomposition and Sample Entropy in EEG Signals via Artificial Neural Networks for Interpreting Depth of Anesthesia
+GHANATBARI M, MEHRIDEHNAVI AR, RABBANI H, MAHOORI AR, MEHRJOO M: A comparative study of the output correlations between wavelet transform, neural and neuro fuzzy networks and BIS index for depth of anesthesia. IEEE Symp Ind Electron Appl 2010:655–9 doi:10.1109/ISIEA.2010.5679383
+NAIRBG,PETERSON G N,NERADILEK M B,etal.Reducing wastage of inhalation anesthetics using real-time decision support to notify of excessive fresh gas flow[J].Anesthesiology,2013,118(4):874-884.DOI:10.1097/ALN.0b013e3182829de0.
+MATAVAC,PANKIV E, RAISBECK S,et al. A convolutional neural network for realtime classification, identification, and labelling of vocal cord and tracheal using laryngoscopy and bronchoscopy video[J].J Med Syst,2020,44(2):44.DOI:10.1007/s10916-019-1481-4. 
+RENY,LOFTUSTJ,DATTAS,etal.Performance of a machine learning algorithm using electronic health record data to predict postoperative complications and report on a mobile platform[J/OL].JAMA Netw Open,2022,5(5): e2211973[2022-10-17]
+WAX DB,MCCORMICK PJ,JOSEPH T T,etal.An automated critical event screening and notification system to facilitate preanesthesia record review[J].Anesth Analg,2018,126(2):606-610.DOI:10.1213/ANE.0000000000002141. 
+R.M. O, E.K. A, C.S. M, H.B. DS: Towards an automated multimodal clinical decision support system at the post anesthesia care unit. Comput Biol Med 2018; 101:15–21
+LIN C S, LI Y C, MOK M S, et al. Neural network modeling to predict the hypnotic effect of propofol bolus induction [J]. Proc AMIA Symp, 2002: 450-3. 
+LIN C S, CHIU J S, HSIEH M H, et al. 2008. Predicting hypotensive episodes during spinal anesthesia with the application of artificial neural networks. Comput Methods Programs Biomed [J], 92: 193-197.
+LIN C S, CHANG C C, CHIU J S, et al. 2011. Application of an artificial neural network to predict postinduction hypotension during general anesthesia. Med Decis Making [J], 31: 308-314.
+BERKENSTADT H, BEN-MENACHEM E, HERMAN A, et al. 2012. An evaluation of the Integrated Pulmonary Index (IPI) for the detection of respiratory events in sedated patients undergoing colonoscopy. J Clin Monit Comput [J], 26: 177-181.
+HATIB F, JIAN Z, BUDDI S, et al. 2018. Machine-learning Algorithm to Predict Hypotension Based on High-fidelity Arterial Pressure Waveform Analysis. Anesthesiology [J], 129: 663-674.
+DESAUTELS T, CALVERT J, HOFFMAN J, et al. 2016. Prediction of Sepsis in the Intensive Care Unit With Minimal Electronic Health Record Data: A Machine Learning Approach. JMIR Med Inform [J], 4: e28.
+SHIMABUKURO D W, BARTON C W, FELDMAN M D, et al. 2017. Effect of a machine learning-based severe sepsis prediction algorithm on patient survival and hospital length of stay: a randomised clinical trial. BMJ Open Respir Res [J], 4: e000234.
+GONZALEZ-CAVA J M, ARNAY R, MéNDEZ PéREZ J A, et al. A Machine Learning Based System for Analgesic Drug Delivery[C]//International Joint Conference SOCO’17-CISIS’17-ICEUTE’17 León, Spain, September 6–8, 2017, Proceeding. Cham:Springer International Publishing,2018:461-470.
+BEN-ISRAEL N, KLIGER M, ZUCKERMAN G, et al. 2013. Monitoring the nociception level: a multi-parameter approach. J Clin Monit Comput [J], 27: 659-668.
+GRAM M, ERLENWEIN J, PETZKE F, et al. 2017. Prediction of postoperative opioid analgesia using clinical-experimental parameters and electroencephalography. European Journal of Pain [J], 21: 264-277.
+OLESEN A E, GRONLUND D, GRAM M, et al. 2018. Prediction of opioid dose in cancer pain patients using genetic profiling: not yet an option with support vector machine learning. BMC Res Notes [J], 11: 78.
+

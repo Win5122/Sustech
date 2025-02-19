@@ -1,0 +1,59 @@
+参考文献
+[1]	TING D S W, CARIN L, DZAU V, et al. Digital technology and COVID-19 [J]. Nat Med, 2020, 26(4): 459-61.
+[2]	STREHLE E M, SHABDE N. One hundred years of telemedicine: does this new technology have a place in paediatrics? [J]. Arch Dis Child, 2006, 91(12): 956-9.
+[3]	A health telematics policy - in support of WHO's Health-for-all strategy for global health development. [R]. the WHO Group Consultation on Health Telematics, 1997.
+[4]	BAIG A H B, JENKINS P, LAMARRE E, MCCARTHY B. The COVID-19 recovery will be digital: a plan for the first 90 days. McKinsey Digital [J]. 2020.
+[5]	Fu Zhenglian. Telemedicine [M]. People's Military Medical Press, 2005.
+傅征 连. 远程医学 [M]. 人民军医出版社, 2005.
+[6]	Bao Yurong, Jiang Linlin. Review and prospect of telemedicine development in China [J]. China Digital Medicine, 2019: 4.
+鲍玉荣，姜琳琳. 我国远程医疗发展的回顾与展望 [J]. 中国数字医学, 2019: 4.
+[7]	Case Western Reserve University HoloLens MR Telemedicine teaching shows positive results, 81% of students feedback positive learning experience [Z]. Yingwei Nweon.2022
+广东客. 凯斯西储大学HoloLens MR远程医疗教学展示积极成效，81％学生反馈积极学习体验 [Z]. 映维网Nweon. 2022
+[8]	INSPIRA[EB/OL]. 2022.https://members.mdlive.com/inspira/landing_home
+[9]	Yang Yuanyuan, Shao Jin. Research progress of telemedicine in chronic disease health management [J]. Chinese Journal of Chronic Medicine, 2023, 24(01): 42-4+8. (in Chinese)
+杨媛媛, 邵进. 远程医疗应用于慢性病健康管理的研究进展 [J]. 慢性病学杂志, 2023, 24(01): 42-4+8.
+[10]	TIAN M, ZHANG J, LUO R, et al. mHealth Interventions for Health System Strengthening in China: A Systematic Review [J]. JMIR Mhealth Uhealth, 2017, 5(3): e32.
+[11]	WEINSTOCK R S, TERESI J A, GOLAND R, et al. Glycemic control and health disparities in older ethnically diverse underserved adults with diabetes: five-year results from the Informatics for Diabetes Education and Telemedicine (IDEATel) study [J]. Diabetes Care, 2011, 34(2): 274-9.
+[12]	Gong Weijia, Yao Jun, Lian Yuanyuan, et al. Application effect of remote blood glucose management system in community management of type 2 diabetes mellitus [J]. Chinese Journal of General Medicine, 2018, 21(04): 465-70.
+巩维佳, 姚军, 连元元, et al. 远程血糖管理系统在社区2型糖尿病管理中的应用效果研究 [J]. 中国全科医学, 2018, 21(04): 465-70.
+[13]	Liu Y. Advantages of telemedicine system in the management of diabetic foot patients [D]; University of Jinan, 2019.
+刘岩. 基于远程医疗体系管理糖尿病足患者的优势研究 [D]; 济南大学, 2019.
+[14]	Liu Guoqing, Wang Yue, Han Jingyi, et al. Application of mobile health technology in the management of patients with mental disorders [J]. Chinese Journal of Nursing, 2022, 57(11): 1324-9.
+刘国庆, 王月, 韩婧怡, et al. 移动健康技术在精神障碍患者管理中的应用进展 [J]. 中华护理杂志, 2022, 57(11): 1324-9.
+[15]	ANTHES E. Mental health: There’s an app for that [J]. Nature, 2016, 532(7597): 20-3.
+[16]	Zhao Yu, Li Zheng. Research progress of telemedicine application in patients with bipolar disorder [J]. Chinese Journal of Nursing, 2018, 53(07): 872-7.
+赵禹, 李峥. 远程医疗在双相情感障碍患者中的应用研究进展 [J]. 中华护理杂志, 2018, 53(07): 872-7.
+[17]	KRZYSTANEK M, BORKOWSKI M, SKAŁACKA K, et al. A telemedicine platform to improve clinical parameters in paranoid schizophrenia patients: Results of a one-year randomized study [J]. Schizophrenia Research, 2019, 204: 389-96.
+[18]	MOORE D, AYERS S, DREY N. A Thematic Analysis of Stigma and Disclosure for Perinatal Depression on an Online Forum [J]. JMIR Ment Health, 2016, 3(2): e18.
+[19]	DE VOOGD E L, WIERS R W, SALEMINK E. Online visual search attentional bias modification for adolescents with heightened anxiety and depressive symptoms: A randomized controlled trial [J]. Behav Res Ther, 2017, 92: 57-67.
+[20]	SCHULZE L N, STENTZEL U, LEIPERT J, et al. Improving Medication Adherence With Telemedicine for Adults With Severe Mental Illness [J]. Psychiatr Serv, 2019, 70(3): 225-8.
+[21]	Zhou Yuan, Wang Ninghua. Overview of rehabilitation robot [J]. Chinese Journal of Rehabilitation Medicine, 2015, 30(04): 400-3. (in Chinese)
+周媛, 王宁华. 康复机器人概述 [J]. 中国康复医学杂志, 2015, 30(04): 400-3.
+[22]	KREBS H I, VOLPE B T, WILLIAMS D, et al. Robot-aided neurorehabilitation: a robot for wrist rehabilitation [J]. IEEE Trans Neural Syst Rehabil Eng, 2007, 15(3): 327-35.
+[23]	GIJBELS D, LAMERS I, KERKHOFS L, et al. The Armeo Spring as training tool to improve upper limb functionality in multiple sclerosis: a pilot study [J]. Journal of NeuroEngineering and Rehabilitation, 2011, 8: 5 - 
+[24]	MATSUMOTO H, UEKI M, UEHARA K, et al. Comparison of Healthcare Workers Transferring Patients Using Either Conventional Or Robotic Wheelchairs: Kinematic, Electromyographic, and Electrocardiographic Analyses [J]. Journal of Healthcare Engineering, 2016, 2016.
+[25]	Tian Wei, ZHANG Qi, LI Zuchang, et al. Clinical application of 5G remote-controlled orthopedic robotic surgery in one station for multiple locations [J]. Journal of Orthopaedic Clinical and Research, 2019, 4(06): 349-54.
+田伟, 张琦, 李祖昌, et al. 一站对多地5G远程控制骨科机器人手术的临床应用 [J]. 骨科临床与研究杂志, 2019, 4(06): 349-54.
+[26]	eng Quan, Yang Fengzhu. Research on the civil legal risk of telemedicine [J]. China Health Legal System, 2023, 31(02): 38-43. (in Chinese)
+滕泉, 杨逢柱. 远程医疗民事法律风险问题研究 [J]. 中国卫生法制, 2023, 31(02): 38-43.
+[27]	Sun Qianqian, Zhou Shoujun. Current situation, problems and development countermeasures of telemedicine in China [J]. Journal of Nanjing Medical University (Social Sciences Edition), 2022, 22(01): 25-30. (in Chinese)
+孙倩倩, 周守君. 我国远程医疗的现状、问题及发展对策 [J]. 南京医科大学学报(社会科学版), 2022, 22(01): 25-30.
+
+
+
+Yinan Wang, born in 2002, undergraduate, the National “Climbing” Program of “The mechanism of protein aggregation in neurodegenerative diseases was analyzed by high-throughput CRISPR screening”. Her main research interests include neurodegenerative disease and CRISPR .
+
+
+Bingzhe Hu, born in 2002, undergraduate,  the National  “Climbing” Program of “Endothelial cell MORF4L1-mediated histone crotonylation stabilizes arterial poriculusStudy on the mechanism of sclerotic plaques”. Her main research interests focus on Atherosclerosis of the arteries.
+
+
+
+
+
+
+
+
+
+
+
+

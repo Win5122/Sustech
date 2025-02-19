@@ -1,0 +1,26 @@
+
+参考文献
+
+[1] Katoch, S., Chauhan, S. S., & Kumar, V. (2020). A review on genetic algorithm: past, present, and future. Multimedia Tools and Applications. https://doi.org/10.1007/s11042-020-10139-6
+[2] 唐文艳, 顾元宪. (2002). 遗传算法在结构优化中的研究进展. 力学进展, 32(1): 26-40. doi: 10.6052/1000-0992-2002-1-J2000-084
+[3] FENG Shuai, LIU Xiaoming. (2021). A survey of research on demand responsive transit and its route optimization
+[4] ZENG Shui-Ling, SONG Luan-Jiao, XU Wei-Hong. (2005). Neural Network Structure Optimization Based on Genetic Algorithm. journal6, 26(3): 118-120
+[5] 刘艳梅．遗传算法在旋律创作中的应用研究[D]．河南师范大学,2014
+[6] L. Jiang and W. Zhou, "Application of Interactive Genetic Algorithm in Fractal Art Pattern Design System," 2023 International Conference on Network, Multimedia and Information Technology (NMITCON), Bengaluru, India, 2023, pp. 1-5, doi: 10.1109/NMITCON58196.2023.10276254.
+[7] D. Sun, "Interactive Genetic Algorithm in Fractal Art Teaching and Pattern Design," 2023 International Conference on Distributed Computing and Electrical Circuits and Electronics (ICDCECE), Ballar, India, 2023, pp. 1-6, doi: 10.1109/ICDCECE57866.2023.10150452.
+[8] K. Tang, P. Yang and X. Yao, "Negatively Correlated Search," in IEEE Journal on Selected Areas in Communications, vol. 34, no. 3, pp. 542-550, March 2016, doi: 10.1109/JSAC.2016.2525458.
+[9] P. N. Suganthan et al., “Problem definitions and evaluation criteria for the CEC 2005 special session on real-parameter optimization,” Nanyang Technological University (NTU), Singapore, Tech. Rep., May 30, 2005.
+[10] Fazhan Zhang, Yichao He, Haibin Ouyang, Wenben Li, A fast and efficient discrete evolutionary algorithm for the uncapacitated facility location problem, Expert Systems with Applications, Volume 213, Part B, 2023, 118978, ISSN 0957-4174, https://doi.org/10.1016/j.eswa.2022.118978. (https://www.sciencedirect.com/science/article/pii/S0957417422019960)
+[11] Y. Xu, Q. Wang and J. Hu, "An Improved Discrete Particle Swarm Optimization Based on Cooperative Swarms," 2008 IEEE/WIC/ACM International Conference on Web Intelligence and Intelligent Agent Technology, Sydney, NSW, Australia, 2008, pp. 79-82, doi: 10.1109/WIIAT.2008.103.
+[12] V. L. Huang, A. K. Qin, P. N. Suganthan and M. F. Tasgetiren, "Multi-objective optimization based on self-adaptive differential evolution algorithm," 2007 IEEE Congress on Evolutionary Computation, Singapore, 2007, pp. 3601-3608, doi: 10.1109/CEC.2007.4424939.
+[13] A fast and efficient discrete evolutionary algorithm for the uncapacitated facility location problem, March 2023, Expert Systems with Applications 213(6):118978, DOI:10.1016/j.eswa.2022.118978
+[14] J. Kennedy, “Particle swarm optimization,” in Encyclopedia of Machine Learning. New York, NY, USA: Springer, 2010, pp. 760–766.
+[15] R. Storn and K. Price, “Differential evolution—A simple and efficient heuristic for global optimization over continuous spaces,” J. Global Optim., vol. 11, no. 4, pp. 341–359, 1997.
+[16] R. Martí, M. Laguna, and F. Glover, “Principles of scatter search,” Eur. J. Oper. Res., vol. 169, no. 2, pp. 359–372, 2006.
+[17] C. García-Martínez, M. Lozano, F. Herrera, D. Molina, and A. M. Sánchez, “Global and local real-coded genetic algorithms based on parent-centric crossover operators,” Eur. J. Oper. Res., vol. 185, no. 3, pp. 1088–1113, 2008.
+[18] J. J. Liang, A. K. Qin, P. N. Suganthan, and S. Baskar, “Comprehensive learning particle swarm optimizer for global optimization of multimodal functions,” IEEE Trans. Evol. Comput., vol. 10, no. 3, pp. 281–295, Jun. 2006.
+[19] N. Hansen and A. Ostermeier, “Completely derandomized self-adaptation in evolution strategies,” Evol. Comput., vol. 9, no. 2, pp. 159–195, 2001.
+[20] A. K. Qin, V. L. Huang, and P. N. Suganthan, “Differential evolution algorithm with strategy adaptation for global numerical optimization,” IEEE Trans. Evol. Comput., vol. 13, no. 2, pp. 398–417, Apr. 2009.
+[21] A. Corana, M. Marchesi, C. Martini, and S. Ridella, “Minimizing multimodal functions of continuous variables with the ‘simulated annealing’ algorithm Corrigenda for this article is available here,” ACM Trans. Math. Softw., vol. 13, no. 3, pp. 262–280, 1987.
+[22] R. Chelouah and P. Siarry, “Tabu search applied to global optimization,” Eur. J. Oper. Res., vol. 123, no. 2, pp. 256–270, 2000.
+[23] H.-G. Beyer and H.-P. Schwefel, “Evolution strategies—A comprehensive introduction,” Nat. Comput., vol. 1, no. 1, pp. 3–52, 2002.

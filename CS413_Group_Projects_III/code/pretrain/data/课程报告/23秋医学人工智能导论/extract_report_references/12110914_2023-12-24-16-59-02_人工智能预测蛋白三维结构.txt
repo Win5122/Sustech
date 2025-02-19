@@ -1,0 +1,23 @@
+参考文献【
+[1] Mads J, Ingemar A. Accurate prediction of protein assembly structure by combining AlphaFold and symmetrical docking [J]. Nature Communications, 2023, 14 (1).
+[2] JaeWon L, JongHyun W, Seonggwang J, et al. DeepFold: Enhancing Protein Structure Prediction through Optimized Loss Functions, Improved Template Features, and Re-optimized Energy   Function [J]. Bioinformatics (Oxford, England), 2023.
+[3] John J, Demis H. The Protein Structure Prediction Revolution and Its Implications for Medicine: 2023 Albert Lasker Basic Medical Research Award [J]. JAMA, 2023, 330 (15).
+[4] Zhenling P, Wenkai W, Hong W, et al. Improved protein structure prediction with trRosettaX2, AlphaFold2, and optimized MSAs in CASP15 [J]. Proteins, 2023, 91 (12), 1704-1711.
+[5] Toshiyuki O. Improving protein structure prediction with extended sequence similarity searches and deep-learning-based refinement in CASP15 [J]. Proteins, 2023, 91 (12), 1712-1723.
+[6] 杨璐, 董洪伟. 基于自注意力机制和GAN的蛋白质二级结构预测 [J]. 中国科技论文在线精品论文, 2023, 16 (02), 148-159.
+
+[7] 池燕飞, 李春, 冯旭东. 机器学习在蛋白质功能预测领域的研究进展 [J]. 生物工程学报, 2023, 39 (06), 2141-2157. DOI:10.13345/j.cjb.221002.
+[8] 孟巧珍, 郭菲. “可折叠性”在酶智能设计改造中的应用研究——以AlphaFold2为例 [J]. 合成生物学, 2023, 4 (03), 571-589.
+[9] J T L. Protein structure prediction has reached the single-structure frontier [J]. Nature methods, 2023, 20 (2), 170-173.
+[10] Neera B, M J T. AlphaFold2 protein structure prediction: Implications for drug discovery [J]. Current opinion in structural biology, 2023, 78, 102526-102526.
+[11] Babu N C, Aleem S, L G H, et al. Combining small angle X-ray scattering (SAXS) with protein structure predictions to characterize conformations in solution [J]. Methods in enzymology, 2023, 678, 351-376.
+[12] Mihaly V, Sameer V. The impact of AlphaFold Protein Structure Database on the fields of life sciences [J]. Proteomics, 2022, 23 (17), e2200128-e2200128.
+[13] 俞陶然. 人工智能会让结构生物学家“失业”？[N]. 解放日报, 2022-11-16 (005). DOI:10.28410/n.cnki.njfrb.2022.004588.
+[14] Chen Z. AlphaFold2 protein structure prediction based on computer vision [C]// Eliwise Academy. Proceedings of the 2nd International Conference on Biological Engineering and Medical Science (part5). Northeast University;, 2022: 10. DOI:10.26914/c.cnkihy.2022.090478.
+[15] 徐锐. 人工智能预测几乎所有已知蛋白质结构[N]. 中国科学报, 2022-08-01 (002). DOI:10.28514/n.cnki.nkxsb.2022.001834.
+[16] 张强锋, 徐魁. 人工智能预测蛋白质结构 [J]. 中国科学基金, 2022, 36 (02), 348-349. DOI:10.16262/j.cnki.1000-8217.2022.02.059.
+[17] 杨朋硕. 基于微生物组大数据预测蛋白质结构和功能的方法与应用研究[D]. 华中科技大学, 2022. DOI:10.27157/d.cnki.ghzku.2022.000945.
+[18] 张佳欣. 阿尔法折叠革命何去何从？[N]. 科技日报, 2022-04-21 (004). DOI:10.28502/n.cnki.nkjrb.2022.002055.
+[19] Anastassis P, K T S. AI revolutions in biology: The joys and perils of AlphaFold [J]. EMBO reports, 2021, 22 (11), e54046-e54046.
+[20] 刘迪一, 凯德·梅斯. 人工智能预测蛋白质结构 [J]. 世界科学, 2021, (09), 4-6+2.
+——————————————————————————————————

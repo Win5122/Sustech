@@ -1,0 +1,66 @@
+References:
+[1] He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep 
+residual learning for image recognition. In Proceedings of 
+the IEEE conference on computer vision and pattern 
+recognition (pp. 770-778).
+[2] Simonyan, K., & Zisserman, A. (2014). Very deep 
+convolutional networks for large-scale image 
+recognition. arXiv preprint arXiv:1409.1556.
+[3]http://ufldl.stanford.edu/tutorial/supervised/Convolutio
+nalNeuralNetwork/
+[4] Bogacz, B and Mara, H. 2020. Period Classification of 
+3D Cuneiform Tablets with Geometric Neural Networks. 
+In: 17th International Conference on Frontiers in 
+Handwriting Recognition (ICFHR), 2020. IEEE, pp.246–
+251.
+[5] Caron, M, Bojanowski, P, Joulin, A and Douze, M. 
+2018. Deep Clustering for Unsupervised Learning of 
+Visual Features. In: Ferrari, V, Hebert, M, Sminchisescu, C and Weiss, Y (eds.). Computer Vision – ECCV 2018. 
+Cham: Springer, pp. 139–156. 
+[6] Caspari, G and Crespo, P. 2019. Convolutional Neural 
+Networks for Archaeological Site Detection – Finding 
+“Princely” Tombs. Journal of Archaeological Science, 110: 
+104998. 
+[7] Cau, M-A, Day, PM, Baxter, MJ, Papageorgiou, I, 
+Iliopoulos, I and Montana, G. 2004. Exploring automatic 
+grouping procedures in ceramic petrology. Journal of 
+Archaeological Science, 31(9): 1325–1338. 
+[8] Cheng, G and Guo, W. 2017. Rock images 
+classification by using deep convolution neural network. 
+Journal of Physics: Conference Series, 887: 012089.
+[9] Chetouani, A, Debroutelle, T, Treuillet, S, Exbrayat, M 
+andJesset, S. 2018. Classification of Ceramic Shards Based 
+on Convolutional Neural Network. In: 2018 25th IEEE 
+International Conference on Image Processing (ICIP). 
+IEEE, pp. 1038–1042. 
+[10] LeCun, Y, Boser, B, Denker, JS, Henderson, D, 
+Howard, RE, Hubbard, W and Jackel, LD. 1989. 
+Backpropagation Applied to Handwritten Zip Code 
+Recognition. Neural Computation, 1(4): 541–551. 
+[11] LeCun, Y, Bengio, Y and Hinton, G. 2015. Deep 
+learning. Nature, 521(7553): 436–444. 
+[12] Pawlowicz, LM and Downum, CE. 2021. 
+Applications of Deep Learning to Decorated Ceramic 
+Typology and Classification: A Case Study using Tusayan 
+White Ware from Northeast Arizona. Journal of 
+Archaeological Science, 130: 105375. 
+[13] Pires de Lima, R, Bonar, A, Coronado, DD, Marfurt, 
+K andNicholson, C. 2019a. Deep convolutional neural 
+networks as a geological image classification tool. The 
+Sedimentary Record, 17(2): 4–9. 
+[14] Whitbread, I. 1989. A proposal for the systematic 
+description of thin sections towards the study of ancient 
+ceramic technology. In: Maniatis, Y (ed.). Archaeometry, 
+Proceedings of the 25thInternational Symposium. 
+Amsterdam: Elsevier, pp. 127–138.
+[15] Wright, H and Gattiglia, G. 2018. ArchAIDE: 
+Archaeological Automatic Interpretation and 
+Documentation of cEramics. In: Workshop on Cultural 
+Informatics co-located with the EUROMED International 
+Conference on Digital Heritage 2018 (EUROMED 2018). 
+Nicosia, Cyprus: Zenodo. 
+[16] Yosinski, J, Clune, J, Bengio, Y and Lipson, H. 2014. 
+How Transferable Are Features in Deep Neural Networks? 
+In: Proceedings of the 27th International Conference on 
+Neural Information Processing Systems – Volume 2. 
+NIPS’14. Montreal, Canada: MIT Press, pp. 3320–3328.

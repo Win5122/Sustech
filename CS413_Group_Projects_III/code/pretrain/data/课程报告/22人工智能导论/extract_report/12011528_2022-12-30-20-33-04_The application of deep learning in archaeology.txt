@@ -1,0 +1,241 @@
+The application of deep learning in archaeology
+12011528 Yiyan Zhang
+12011526 Xun Sun
+December 30, 2022
+Abstract
+The long history of human civilization has resulted in a magnificent culture. In or-
+der to study the living customs and cultural rituals of previous generations, scholars
+have explored human sites and studied the antiquities left behind by ancient humans,
+and other important ways to know the way of life of previous generations and under-
+stand the culture and customs of that era. However, with the passage of time, many
+artifacts are weathered and it is difficult for scholars to analyze and compare them in
+bulk directly and quickly. In contrast, machine learning assists scholars to analyze an-
+tiquities, which seems more efficient and accurate in comparison, and mature machine
+learning models will become a powerful tool in archaeology to facilitate the archaeological
+work. In addition, analyzing and refining the characteristics of artifacts with the help
+of machine learning will help experts to discover the information carried by artifacts,
+perfect the history, and even identify artifacts that cannot be identified by relying on
+expert knowledge now[1]. And zooming in on our perspective, in addition to helping
+with artifact analysis and identification, deep learning can also assist with archaeolog-
+ical excavation work and the study of sites. For example, by analyzing map data, can
+help excavate archaeological sites, find sites, and reconstruct the historical landscape of
+sites. In general, the widespread use of deep learning in archaeology today has brought
+a new revolution in the field of archaeology, and this paper will briefly discuss the initial
+applications of deep learning models in archaeology.
+Key words: Archaeology; Deep learning; Heritage Restoration; Site Detection; Site
+Reconstruction
+1 Introduction
+1.1 Analysis of the difficulties encountered in archaeology
+As people become more and more interested in the study of history, archaeological work is also in
+full swing.However, the deeper the archaeological work and related research, the more difficulties the
+researchers encountered.
+1Although historical researchers have a wide range of knowledge and rich experience, few of them can
+master all aspects of archaeological knowledge.What a pity it is when new antiquities are unearthed
+and no one is able to identify them.Many unearthed cultural relics cannot remain unchanged for a
+long time. If there is no correct interpretation and identification by experts and scholars within a
+certain period of time, the difficulty of this rare cultural treasure will disappear, and we will lose an
+opportunity to understand the ancient culture.
+In addition, another important issue for researchers to consider when conducting archaeology is
+to determine how to excavate ancient sites.After an ancient site is discovered, researchers survey the
+surrounding terrain and discuss how to plan for excavation and development of the site. People want
+to do archaeological research with as little damage as possible.This is a difficult thing to do. It has
+been a long time since the ancient ruins were built until they were discovered today. The present
+topography has deviated from the time when they were built, and any careless excavation may cause
+irreparable damage to the ancient relics.How to do archaeological work on the premise of protecting
+the ancient relics and sites as much as possible is a thorny problem that archaeologists must face.
+1.2 The development of deep learning in archaeology
+Archaeology is a new and challenging field for deep learning.Deep learning first appeared in the 1940s.
+Some archaeologists have applied deep learning to archaeological work not long after the advent of
+deep learning technology.
+In 2014, a research team from China Remote Sensing Earth Institute spent three years in Xinjiang
+to conduct archaeological work on the ancient Great Wall in Xinjiang. Using remote sensing and deep
+learning techniques to obtain weak information about ancient sites, researchers have ”restored” the
+ancient Great Wall in Xinjiang, changing the long-held understanding that there is no Great Wall in
+Xinjiang, and inspiring the archaeological community.
+In recent years, researchers from four institutions, including Pennsylvania State University in the
+United States and the University of Sydney in Australia, have published research showing the potential
+of deep learning algorithms for discovering ancient human remains. The results show that by using
+a deep learning algorithm, researchers have found several 3 000-5 000 years ago Native American
+survival relics - Shell Ring, the discovery of this relic will help to further understand the social and
+economic structure of Native Americans(Fig.1). It is worth mentioning that using deep learning to
+detect historic sites will not have a destructive effect on historic sites. It can accurately explore the
+historic site without causing spatial structural damage.
+2Figure 1: Shell Ring
+2 Applications of deep learning models to archaeological pro-
+cesses
+During the process of archaeological excavation, image information is necessary for the experts. There-
+fore, there are a lot of CNN’s applications in archaeological processes. And now they can be divided
+into two categories. One is doing the detection and analysis tasks when the people are excavating a
+site, and the other is finding the potential sites by analyzing the high-precision scanning pictures, like
+satellite pictures. In the following sections, I’ll discuss each of these two types of applications of CNN
+in archaeology.
+2.1 CNN in internal structure scanning
+Before excavations begin at an archaeological site, archaeologists need to explore the site’s internal
+structure and make a plan according to the analysis result. In past years, people have used visualization
+techniques with airborne laser scanning (ALS) technology to explore the internal structure[2]. However,
+the representation of the characteristics of archaeological structures (e.g. size, shape, orientation,
+landscape context, topographic position) varies greatly among VTs, and the experts can’t get very
+comprehensive information, which may influence the identification and characterization decisions[3].
+But then The use of CNN enables a new breakthrough in exploratory imaging tasks. CNN can deal
+with complex images by dealing input data with several convolution layers and pooling layers. And
+after CNN processing, archaeologists can get a more accurate and comprehensive scan of the interior
+of the site (Fig.2).
+3Figure 2: an example model of CNN. Data source: [3]
+By applying different kernel filters to input images, the filters can intensify or weaken certain
+structures (edge information) in the training images[4]. Therefore, Using CNN can clear the details in
+scanning data and effectively remove noise interference in raw data, which means archaeologists can get
+information from the images more easily. With more comprehensive and clear scans, archaeologists can
+determine the location of artifacts at a site in advance. And prepare in advance during the excavation
+process, which can reduce the possibility of cultural relics being damaged during the excavation process.
+2.2 CNN in spatial relation analysis for a group of sites
+In archaeology, some experts will want to understand historical contexts and landscapes. For example,
+to explore where are farms or settlements located, where is agricultural land located, where are the
+deceased buried, and how is the unsettled environment used. Up to now, only in some cases, researchers
+could verify that burial mounds were located near and directly related to pathways[4]. The difficulty
+is to find proof of whether routes were already used when nearby burial mounds were built. In general,
+pathways are difficult to date.
+And CNN can’t solve the problems directly, but it can help the experts in spatial relations between
+the sites. Give the trained CNN model an aerial view, and view all sites in the image as a point. And
+then make a circle for every point, and it means there are relics discovered in this range of circles. And
+then combining the information of relics, like the year of manufacture, the model can tell you which
+sites may be in the same generation and which sites can be a cluster. Although the result of CNN
+output is not explainable, experts can refer to the model’s spatial relations in the analysis process.
+The experts can easily remove some wrong sites from their research and combine and analyze different
+sites’ information.
+42.3 CNN in the automated detection of archaeological sites[5]
+CNN’s powerful image feature processing ability can be used to detect archaeological sites by processing
+high-precision satellite images. The research (Bonhage et al., 2021) on detecting RCH sites shows the
+possibility of finding sites by satellite pictures. And Relict charcoal hearths (RCHs) are anthropogenic
+geomorphic features with an average diameter of 12 m found in many forests of Central Europe and
+in the eastern USA wherever pre-coal iron production took place or other industries demanded the
+production of charcoal1. They use the augmented image data to train a CNN model and get the result
+on the test set (part of result, Fig.3)
+Figure 3: RCH detection by CNN. Data resource: [5]
+In figure 3, the yellow rectangles are the position of RCHs given by the CNN model and the white
+points are the real RCHs. And we can see the result has high accuracy in figure 3, which is part of
+the test result.
+According to Bonhage’s report, the final result has high recall and high precision. It means the
+model has great accuracy and the result is reliable. Although the research just verified the ability of
+CNN in searching for potential RCHs, all archaeological sites are similar to RCH for CNN. We just
+need to use different characteristics to train different models to automate detecting archaeological sites
+with different characteristics. Moreover, we can finally gather the data and train a multiple-objects
+detection CNN model. Then we can efficiently detect the potential archaeological sites and excavate
+them.
+3 Simulation of antiquities identification by deep learning model
+3.1 Transfer learning on automatic recognition and classification of stone
+image
+Transfer learning is a machine learning method. It uses the similarity between data, tasks, or models to
+apply the learned or trained models in the old fields to the new fields.Rock and jade are very important
+1definition comes from www.sciencedirect.com/science/article/abs/pii/S034181622030446X
+5parts of archaeological work, and they can provide important information to researchers.But how to
+identify and classify a large number of jade or ore is a difficult problem for archaeologists.If we apply
+in-depth learning to jade identification, it may be possible to solve this problem.
+Figure 4: Inception-v3
+[6]
+Researchers use Google convolutional neural network Inception-v3 module. As a pre training model,
+the original dataset contains 1.2 million images, divided into more than 1000 Categories.Inception v3
+model can extract effective information from images.First, input and process a rock image in the
+feature extraction model, and the feature extraction model is the convolution layer and pooling layer
+in the Inception v3 model; The convolution layer and pooling layer in the model are used to calculate
+the image characteristics of the rock image.The structure system of the whole network starts from the
+input end. First, three roll up layers are set to connect one pooling layer; Set 2 more roll up layers,
+connect 1 pooling layer, and finally connect 11 hybrid layers.
+The rock image samples used in the experiment are collected by different means such as photos,
+rock database and network search. Granite, phyllite and breccia are mainly selected for testing,
+identification and analysis. The rock type is mainly composed of three kinds of images: laboratory
+rock specimen, on-site rock specimen and on-site large scale rock. In general, granite images are mostly
+of granular texture, phyllite images show phyllitic structure, and breccia images show porphyritic
+structure.
+In general, from the classification and recognition results, there are two images of granite with
+poor classification effect, one image of breccia with poor classification effect, and phyllite with good
+classification effect. The reason for poor classification effect may be that the training set is limited,
+and there are few or no rock images similar to the test set, leading to the failure to extract the rock
+features in the image.
+Based on Inception-v3’s rock image depth learning migration model, the effective recognition of
+granite, phyllite and breccia is realized, and the recognition probability can reach more than 0.8, and
+some results can even reach more than 0.95; The model extracts features by searching image pixels
+without manual operation, which reduces the influence of subjective factors. Moreover, the training
+process has low requirements on the size, imaging distance and light intensity of rock images. In
+addition, by adding the cut rock image to the training set for re training, it shows that continuous
+6learning of rich training sets is an important factor affecting the model recognition ability.
+3.2 Deep learning in authentication of ancient paintings
+Traditional Chinese painting is not only a creative form of ancient painting art, but also a form of
+expression of traditional Chinese culture. The identification of traditional Chinese painting is conducive
+to the appreciation and protection of traditional Chinese culture.But there are two problems[7].The
+first is that in the Internet era, digital traditional Chinese painting has become popular due to its
+advantages of easy preservation, fast retrieval, etc. However, in the authenticity verification task,
+experts cannot quickly locate the category of painters when facing the unsigned digital traditional
+Chinese painting images of different styles, which affects the efficiency of verification.
+The second is that with the development of the times, the form of painting forgery is no longer just
+the traditional methods of imitation, copying, and painting. The use of a new generation of information
+technology to imitate the artist’s style makes it difficult to identify the authenticity of the generated
+paintings. However, the traditional identification methods, which mainly rely on expert experience,
+are subjective and vulnerable to interference, affecting the identification accuracy. Therefore, in the
+identification of digital traditional Chinese painting, an objective and quantifiable reference index is
+particularly necessary.
+In the authenticity identification task, experts cannot quickly locate the artist category in the face of
+unsigned digital traditional Chinese painting images of different styles, which affects the identification
+efficiency. Therefore, the researchers used the traditional Chinese painting painters only classification
+algorithm based on multi branch attention mechanism network.
+First, the image is divided into blocks, and the image contrast is calculated to remove the code
+blocks with low contrast, that is, less feature information; Secondly, according to the characteristics
+of traditional Chinese painting, it uses multi-dimensional features such as strokes, textures, colors,
+etc. to intelligently classify painters, and uses edge detection, local binary mode, and color moment
+calculation to completely pre generate features[8].Then, a multi branch attention mechanism network
+is designed to achieve the fusion of pre generated stroke features, texture features and color features to
+achieve accurate classification. Finally, the proposed algorithm is proved to be effective by parameter
+setting experiments and comparison experiments.
+4 The comparison between intelligent archaeology and tradi-
+tional archaeology
+Compared with traditional archaeology, intelligent archaeology uses deep learning technology. And
+deep learning can comprehensively analyze the hidden information under the complex data compared
+with the people. In traditional archaeology, the experts’ ability is limited and they can’t conclude
+and analyze the data of all aspects. So some potential information always can’t be found and some
+7conclusions may not be as correct as they think. However, the addition of deep learning models
+allows for more sophisticated curation by subject experts who would be relieved of the burden of rote
+processing[9]. And In the intelligent archaeology generation, experts can use more powerful tools to
+do the research. For example, multi-label classification, multi-task classification, unsupervised image
+clustering, and explainability.
+The replacement of traditional archaeological methods by intelligent archaeology is also an in-
+evitable change brought about by the changes in The Times. In the digital generation, more and more
+detection technologies are created so that archaeologists also have more methods to excavate the sites
+and do some research. However, the tendency also means a more large number of data collected and
+analyzed. Traditional archaeology doesn’t have the ability to deal with this order of magnitude of
+data. Therefore, as new detection techniques are applied, new analysis methods, like using CNN, have
+to follow.
+Although deep learning models are so powerful and convenient, traditional archaeological methods
+are still necessary. As nowadays the combination of archaeology and deep learning is not perfect, the
+models are often limited by the small datasets of archaeology[10]. And 90 percent of archaeology’s
+datasets can be seen as small datasets for the deep learning model[11]. What’s more, the output of
+the model is always unexplainable, and the experts can’t know how the model calculates the result.
+Therefore, we still need to use traditional archaeological methods to check out the validity of the results.
+And the work of excavating the history behind cultural relics cannot be performed by computers, and
+experts still need to analyze and summarize it. At present, the application of intelligent archaeology to
+learning models is still in the stage of a simple application. Most contributions are in the development
+of visual or textual features which form the input to the model as a pre-processing step[12]. And few
+works have used advanced models of clustering and classification.
+5 Future insights in intelligent archaeology
+In conclusion, deep learning has gone into the field of archaeology and plays an important role. This
+transformation is shifting both academic and cultural resource management inquiry. Many of its
+applications are evolutionary, greatly improving the types, scale, and complexity of analytic tools that
+archaeologists already use.
+With the deep learning model, the experts can remodel some defective cultural relics, like ancient
+papyrus[13], and get more accurate structure information by combining advanced detection technolo-
+gies and deep learning model, like sites’ structure analysis[4]. And according to our survey, we think
+intelligent archaeology still has a long path to explore. As I mentioned above, the use of deep learning
+models in intelligent archaeology is still in its infancy. And if it can use some more advanced models
+and methods, this field will get a technological revolution again. And some problems that existed in
+the application, like the accuracy of auto identification caused by low data[14], will be solved. More-
+over, I think intelligent archaeology will generate more subjects that analyze historical information
+8from different perspectives utilizing the ability of deep learning models. And now there are some new
+research subjects, for example, Molecular Archaeology[15].
+And in the future, intelligent archaeologists need to try to use deep learning models more flexibly.
+And utilizing some models to explore the potential that draws upon an ever-improving and ever-
+expanding library of data, which can deal with a big problem in intelligent archaeology that lacks
+sufficient datasets. The revolution will be in integrating these outcomes into both academic and
+cultural resource management frameworks, which is a significant challenge given that archaeologists
+will have to become competent in managing this much richer and more diverse information[16]. And
+the experts in this field also need to actively explore the work pattern. The deep learning models are
+generated by the statistics so that some rare cultural relics can’t be identified and analyzed correctly
+by the model. Therefore, the experts need to explore how to arrange the work of experts and models
+in the workflow to minimize the amount of experts’ work and not miss rare cultural relics.

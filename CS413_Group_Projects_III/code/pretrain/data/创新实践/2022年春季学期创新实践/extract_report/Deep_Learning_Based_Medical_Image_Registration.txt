@@ -1,0 +1,291 @@
+SUSTech ReportPages 1–5
+2022
+Deep Learning Based Medical Image Registration
+Shuwen Dong, Qiushi Nie, Fenglin Wei
+Innovation Project
+Department of Computer Science and Engineering
+June 8 2022
+Keywords: Medical Image, Image Registration, Multi-mode
+ABSTRACT
+There are many imaging modes in ophthalmology, but it is difficult
+for doctors to make effective use of complementary information among
+different modes to make an effective diagnosis. Multi-modal image
+registration is an effective solution to fuse images of different modes
+together. Therefore, this project intends to use the strong feature extraction
+ability of deep learning to realize multi-modal image registration based on
+learning, mainly using common hidden spatial information of images or
+combining segmentation to carry out multi-modal image registration.
+1 INTRODUCTION
+Doctors sometimes use different detection methods to diagnostic the
+same pathological area. In the diagnosis of ophthalmic diseases, doctors
+can use FA (Fluorescein Angiography), Color Fundus, and OCTA
+(Optical Coherence Tomography Angiography). Several images of the
+same pathological area are often analyzed together, this can help doctors
+have a better diagnosis. However, because different images have a
+relative position, it is an inconvenience to diagnose using multi-modal
+images. Therefore, image registration is essential for a proper and more
+convenient diagnosis.
+However, registering two multi-modal images directly is more difficult
+than registering two images in the same mode. Therefore, we consider
+transferring the image into another mode, then register these two images.
+2 BACKGROUND
+2.1 Multi-modal medical image in ophthalmic diseases
+2.1.1 Color Fundus Fundus photography documents the retina, the
+neurosensory tissue in our eyes which translates the optical images we
+see into the electrical impulses our brain understands. The retina can
+be photographed directly as the pupil is used as both an entrance and
+exit for the fundus camera’s illuminating and imaging light rays. Fundus
+photography can be performed with colored filters, or with specialized
+dyes including fluorescein and indocyanine green.[7](Fig.1)
+2.1.2 OCTA Optical coherence tomography angiography (OCT-
+A) has emerged as a non-invasive technique for imaging the
+microvasculature of the retina and the choroid. The first clinical studies
+using this innovative technology were published in 2014.[1]
+OCT-A technology uses laser light reflectance of the surface of moving
+red blood cells to accurately depict vessels through different segmented
+areas of the eye, thus eliminating the need for intravascular dyes.[2]
+One asset of OCT-based approach is that it provides a quantitative
+analysis of the retinal vessels (in addition to the qualitative analysis
+done on standard angiography). Moreover, and contrary to the ”2-D”
+conventional angiograms, OCT-A technology provides ”3-D” imaging
+information of the macula and visualizes peripapillary capillaries thatsupply the retinal nerve fiber layer.[3](Fig.2)
+Fig.1 Color Fundus Fig.2 OCTA
+2.2 Image Registration
+Image registration is defined as the process of mapping the input images
+with the help of reference image. The intent of image registration is to
+align images with respect to each other. The input for this process is
+two images: the original image is known as the reference image while
+the image that will be aligned with the reference image is known as
+the sensed image. The ultimate goal of the registration process is to
+align the corresponding features in some sensed images with respect to a
+reference.[6]
+3 RELATED WORK
+There are many classical methods for multi-mode image registration
+based on a predefined similarity measure.[8] They extract predefined
+features from multi-mode pictures and try to minimize it according to
+similarity measure to figure out some most similar parts of the two images
+which are used to do registration. This method have highly explanatory,
+since they are based on edges or points which are sensible to human.
+However, it is not easy to define a good feature extraction as well as
+a good similarity measure by a human. This is also the problem for
+intensity-based measures.
+To solve the problems mentioned before, deep regression models are
+raised. Because deep regression models learn parameters by themselves,
+we do not need to define feature extractions and similarity measures.
+They can find a good one if we train them well. Apart from the
+designing of measures, deep regression networks can also do complex
+image reprocessing that can provide more information for the registration
+network to ease its work. For example, the color on multi-mode images
+is always different, then the registration network can only use structure
+information. However, Deep Learning is not the final solution for image
+registration. Because Deep Learning generate feature automatically,
+people can not understand what is going on inside this black box and
+adjust model.
+A template made for University of Birmingham by Harry Cooke. 1Shuwen Dong, Qiushi Nie, Fenglin Wei
+So we come up with an idea of combining Deep Learning and
+traditional features. In such way, we can get feature extraction
+automatically with high explanatory.
+3.1 Superpoint and SuperGlue
+We are not the first to rise the idea that combine. SuperPoint[4] is a
+deep learning based feature extraction and feature descriptor generation.
+Superglue[5] is a deep learning based feature matching. We used these
+two methods to match the feature. We find it some features matching
+results deviate a lot from the ground truth. This may be caused by
+multiple-modes. Fig.3 shows the result of feature extraction and feature
+matching using SuperPoint and Superglue.
+Fig.3 Use SuperPoint and Superglue to match features
+Since mode may effect the accuracy of image registration, we can
+transform images’ mode by neural network, which can convert 2 images
+from 2 modes to 1 mode. Using single-mode image, registration network
+can have more information, such as color, to determine the affine
+transformation between 2 images.
+3.2 Adversarial generative network
+GAN (Adversarial generative network)[9] is a famous neural network
+which is often used in mode transformation. There are two parts in GAN,
+first is Generator and the other is Discriminator. To transform our image
+(e.g from CF to OCTA), we use Generator to transform CF to OCTA
+mode and use Discriminator to discriminate the real OCTA and fake
+OCTA. After the accuracy of Discriminator is high enough, we fix the
+Discriminator and upgrade Generator until Discriminator can not tell the
+different between real and fake image. CycleGAN is a promoted version
+of GAN, which can generate more similar pictures. In this way, we can
+train a Generator to transform modes which can even cheat people’s eyes.
+Fig.4 real CF and fake OCTA
+Fig.5 real OCTA and fake CF
+We combine CycleGAN and SuperPoint + SuperGlue together and get
+result below. This result shows that modal transformation plus imageregistration dose work.
+Fig.6 Use SuperPoint + SuperGlue on OCTA and fake OCTA
+3.3 Unet
+Unet[11] is originally put forward to do medical segmentation. It use
+skip connection to combine feature in shallow networks and deep
+networks together to supplement missing information, which achieves
+good performance in segmentation area. We use OCTA500[12] to train
+Unet and find good performance on testing our IMED dataset.
+Fig.7 CF, fake OCTA (convert from CF by CycleGAN),
+vessel fake OCTA (predict by trained Unet on fake OCTA)
+OCTA, vessel OCTA (predict by trained Unet on OCTA)
+3.4 Candidates for Registration Network
+We also find another way of registration by Deep Learning without
+feature points and feature descriptors.
+Among papers of registration, we finally find a network called
+Arbicon-Net [13]. Arbicon-Net is a deep nerual network that predicts
+dense and smooth (which is proved in their paper) displacement field. It
+has three main components:
+(1) Feature Extractor: It gets the input two images and extracts the
+feature of them with CNN. Then, the two feature maps will be sent into
+a 4D correlation estimator, generating a 4D correlation tensor.
+(2) Transformation Descriptor Encoder: The 4D correlation tensor is
+sent into a 4D convolution block and produces transformation descriptor
+d.
+(3) Displacement Field Predictor: To predict the transformed point,
+source points are concatenated with the transformation descriptor dand
+sent into a shared weight MLP. The output is the offset of the points.
+Since Arbicon-Net extracts feature from the whole images, which is
+suitable for our research, so we plan to test and combine it to our network
+in the following phase of work.
+We first use the model provided by the author, which is trained on
+the pf-pascal and a synthetic dataset. The PF-Pascal dataset is a dataset
+for image semantic correspondence. The synthetic dataset consists of
+man-made image pairs by warping a normal image by random generated
+transformation parameters (affine and deformable are both supported).
+However, the code is in old style so we encountered so many exception
+and it costs us so long to run it successfully.
+2Shuwen Dong, Qiushi Nie, Fenglin Wei
+Fig.8 PF-Pascal dataset’s source, target, and merge image
+Fig.9 CF-OCTA checkboard result
+The result on PF-Pascal seems great as the main object (in Fig.8,
+the two planes) is always aligned successfully. However, when CF and
+OCTA image pairs are sent to the model, the result becomes worse. For
+most of the case, only the macular is successfully aligned, together with a
+small part of vessel. We think this is because the model treat the macular
+as the main object of the image pairs and it don’t cares about the vessels.
+We also tried the OCTA and fake OCTA image pairs generated by our
+CycleGAN which look a little bit better.
+Fig.10 OCTA-fake OCTA’s origin and result difference image
+(left: origin, right: result)
+Finally, we use the vessel image pair segmented by UNet as input to
+see the result. The result seems even better as it abandons the macular.
+Fig.11 vessel’s origin and result difference image
+(left: origin, right: result)
+We then train the network using our dataset with CF and OCTA image
+pairs. The performance becomes more precise than before. This proves
+the availability of ArbiconNet.
+Fig.12 newly trained network performance compared to provided model
+4 OUR METHOD
+4.1 Network Architecture
+Fig.13 structure with combining encoders of edge extraction
+and registration together
+Our network architecture is as shown in Fig.13, we first use pre-trained
+moddal transformer to convert image real CF to image fake OCTA, so
+that the target image has the same modal as the reference image. then we
+extract features of the image pairs, and put them into both Segmentation
+Network and Registration Network, and we finally compute the loss to
+restrict those two networks.
+Fig.14 deep view of our registration network
+In our registration network, we extract the features of the image pairs
+FAand F B, each channel fij∈Rcin the feature Fi∈Rh×w×cholds
+the local semantic information. We use normalized cosine similarity to
+measure the similarity between two channels. For each channel fA
+ijin
+FA, we compute the similarity with each channel fB
+klinFB, and then we
+get a 4D correlation tensor C∈Rh×w×h×w, where each element cijkl
+is computed by normalized cosine similarity:
+cijkl=< fA
+ij, fB
+kl>
+||fA
+ij||2||fB
+kl||2(1)
+3Shuwen Dong, Qiushi Nie, Fenglin Wei
+4.2 Loss Functions
+4.2.1 Segmentation Loss
+DiceLoss = 1−2(|X| ∩ |Y|)
+|X|+|Y|(2)
+Dice loss in equation 2 measures the overlap between two point sets.
+CrossEntropy =−X
+p(x)log(q(x)) (3)
+Cross-entropy in equatio n1 measures the difference between two
+probability distributions for a given random variable or set of events.
+4.2.2 Registration Loss Chamfer Distance is a method used to
+measure distance between point set, it is usually used in 3D point cloud.
+First, we count distance to nearest point for every pixel in target image,
+get dist. Then, we multiply source image on dist and calculate the sum.
+The loss value varies on different position between source and target
+regardless of their overlap, and it can measure distance according to all
+points, instead of few.
+ChamferDistance (T, I) =1
+|T|P
+t⊆TdI(t) (4)
+However, we find out that this Loss function will lead transform matrix
+to 0 or shift image out of window. This problem is because the loss is
+done by nonoverlapping points. So if transform matrix shrink the vessel
+to a point or rotate it out of window to reduce the number of point of
+vessel, the loss will definitely drop. However, this is not what we want.
+To solve this problem, we also apply Reverse-Hing Loss.
+target source loss
+vessel(1) non-ves(0) loss(1)
+vessel(1) vessel(1) no loss(0)
+non-ves(0) non-ves(0) no loss(0)
+non-ves(0) vessel(1) no loss(0)
+reverseHing = max {0, target −source } (5)
+Using reverseHing loss, the maximum loss is the sum of target (though
+there is no vessel on the other image). Even if there is a little overlap, the
+loss will reduce. In this way, source image is encourage to stay in window
+and overlap as much vessel as possible.
+The overall loss function is
+Loss =DiceLoss
++CrossEntropy
++reverseHing
++ChamferDistance(6)5 EXPERIENCE RESULTS
+Fig.15 test results of our network
+We also choose two other famous model to compare with us. SIFT[15]
+is a traditional model used for image registration, SuperPoint[4] +
+SuperGlue[5] is a model based on deep learning for image registration.
+They are both based on feature points and feature descriptors. We trained
+and test them on same CF-OCTA dataset from IMED. There are 13
+pictures in total.
+Fig.16 multi-modal image registration baselines
+Our Model SIFT SuperPoint + SuperGlue
+MSE 0.119 – –
+RMSE 0.344 – –
+Fail(13 in all) 0 13 13
+First, we tried multimoding images. SIFT and SuperPoint+SuperGlue
+failed on all of them since they can not find feature points between
+different mods. However, our model can handle them since we have a
+mod transformation on CF to fake OCTA.
+4Shuwen Dong, Qiushi Nie, Fenglin Wei
+Fig.17 single-modal image registration baselines
+Our Model SIFT SuperPoint + SuperGlue
+MSE 0.119 0.138 0.090
+RMSE 0.344 0.371 0.300
+Fail(13 in all) 0 12 3
+Second, we test these three models on OCTA and fake OCTA (convert
+by CycleGAN). This time, SIFT still fail on 12 out of 13 pictures,
+this is caused by detail difference between fake mod and real mod,
+which shows that traditional human designed feature extraction does not
+work well on different mods, even if they looks very similar. However,
+SuperPoint+SuperGlue fail only on one picture and reaches a slightly
+better performance than us. This proves that automatic feature extraction
+is better on precision but it still have the problem of finding feature points.
+Though our model performs a little worse than SuperPoint+SuperGlue,
+we can run on any pictures successfully due to our feature based
+registration without with relatively good performance.
+6 RESEARCH PROCESS
+We have outlined our research plan into 3 phases. Each phase commits to
+an action for a specific objective.
+6.1 Phase I (2022.02-2022.03)
+In this phase, we learn the basic concept of modal conversion and image
+registration, also the feature and the structure of them. We also study the
+work of the existed image registration method based on deep learning.
+6.2 Phase II (2022.03-2022.05)
+In this phase, we focus on run the exist registration method on our
+datasets, and find the defects of the method when running on medical
+6.3 Phase III (2022.05-2022.06)
+In this phase, we will test our modified model on our dataset, then fine
+tune the model. We will also using some tricks to improve our modified
+model.
+7 CONCLUSION
+We think we are on a great road of image registration and we strongly
+believe that it will lead us to a paper. In the future, we will work hard to
+achieve the plans we made.

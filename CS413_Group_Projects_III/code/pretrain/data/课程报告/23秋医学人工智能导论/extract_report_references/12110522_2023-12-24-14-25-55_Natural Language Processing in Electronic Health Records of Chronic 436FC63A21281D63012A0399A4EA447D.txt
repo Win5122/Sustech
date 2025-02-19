@@ -1,0 +1,455 @@
+ REFERENCES
+ [1]
+ [2]
+ [3]
+ [4]
+ [5]
+ [6]
+ [7]
+ [8]
+ WHO."SDGTarget 3.4 Non-communicable diseases and
+ mental health."
+ https://www.who.int/data/gho/data/themes/topics/sdg-target
+3_4-noncommunicable-diseases-and-mental-health. (accessed.
+ S. Mendis, S. Davis, and B. Norrving, "Organizational update:
+ the world health organization global status report on
+ noncommunicable diseases 2014; one more landmark step in
+ the combat against stroke and vascular disease," (in eng),
+ Stroke, vol. 46, no. 5, pp. e121-e122, 2015, doi:
+ 10.1161/STROKEAHA.115.008097.
+ M. R.Cowie et al., "Electronic health records to facilitate
+ clinical research," Clinical Research in Cardiology, vol. 106,
+ pp. 1-9, 2017.
+ R. Miotto, L. Li, B. A. Kidd, and J. T. Dudley, "Deep Patient:
+ An Unsupervised Representation to Predict the Future of
+ Patients from the Electronic Health Records," (in eng),
+ Scientific Reports, vol. 6, p. 26094, 2016, doi:
+ 10.1038/srep26094.
+ C. Ye et al., "Prediction of Incident Hypertension Within the
+ Next Year: Prospective Study Using Statewide Electronic
+ Health Records and Machine Learning," (in eng), Journal of
+ Medical Internet Research, vol. 20, no. 1, p. e22, 2018, doi:
+ 10.2196/jmir.9268.
+ B. A. Goldstein, A. M. Navar, M. J. Pencina, and J. P. A.
+ Ioannidis, "Opportunities and challenges in developing risk
+ prediction models with electronic health records data: a
+ systematic review," (in eng), J Am Med Inform Assoc, vol. 24,
+ no. 1, pp. 198-208, 2017, doi: 10.1093/jamia/ocw042.
+ J. Liang et al., "Adoption of electronic health records (EHRs)
+ in China during the past 10 years: consecutive survey data
+ analysis and comparison of Sino-American challenges and
+ experiences," Journal of medical Internet research, vol. 23, no.
+ 2, p. e24813, 2021.
+ A. J. Hodgkins, J. Mullan, D. J. Mayne, C. S. Boyages, and A.
+ Bonney, "Australian general practitioners' attitudes to the
+ extraction of research data from electronic health records,"
+ Australian journal of general practice, vol. 49, no. 3, pp. 145
+150, 2020.
+ [9]
+ [10]
+ [11]
+ [12]
+ [13]
+ [14]
+ [15]
+ [16]
+ [17]
+ [18]
+ [19]
+ [20]
+ [21]
+ [22]
+ [23]
+ [24]
+ K. A. Cairns et al., "Building on antimicrobial stewardship
+ programs through integration with electronic medical records:
+ the Australian experience," Infectious diseases and therapy, vol.
+ 10, pp. 61-73, 2021.
+ K. Jensen et al., "Analysis of free text in electronic health
+ records for identification of cancer patient trajectories," (in eng),
+ Scientific Reports, vol. 7, p. 46226, 2017, doi:
+ 10.1038/srep46226.
+ H. Consultant, "Why unstructured data holds the key to
+ intelligent healthcare systems [Internet]. Atlanta (GA): HIT
+ Consultant; 2015. cited at 2019 Jan 15," ed, 2015.
+ W.-Q. Wei, P. L. Teixeira, H. Mo, R. M. Cronin, J. L. Warner,
+ and J. C. Denny, "Combining billing codes, clinical notes, and
+ medications from electronic health records provides superior
+ phenotyping performance," (in eng), J Am Med Inform Assoc,
+ vol. 23, no. e1, pp. e20-e27, 2016, doi: 10.1093/jamia/ocv130.
+ J. Waring, C. Lindvall, and R. Umeton, "Automated machine
+ learning: Review of the state-of-the-art and opportunities for
+ healthcare," Artificial intelligence in medicine, vol. 104, p.
+ 101822, 2020.
+ N. Afzal et al., "Natural language processing of clinical notes
+ for identification of critical limb ischemia," (in eng), Int J Med
+ Inform, vol. 111, pp. 83-89, 2018, doi:
+ 10.1016/j.ijmedinf.2017.12.024.
+ Y. Juhn and H. Liu, "Artificial intelligence approaches using
+ natural language processing to advance EHR-based clinical
+ research," (in eng), J Allergy Clin Immunol, vol. 145, no. 2, pp.
+ 463-469, 2020, doi: 10.1016/j.jaci.2019.12.897.
+ J. B. Edgcomb and B. Zima, "Machine Learning, Natural
+ Language Processing, and the Electronic Health Record:
+ Innovations in Mental Health Services Research," (in eng),
+ Psychiatr Serv, vol. 70, no. 4, pp. 346-349, 2019, doi:
+ 10.1176/appi.ps.201800401.
+ S. Sheikhalishahi, R. Miotto, J. T. Dudley, A. Lavelli, F.
+ Rinaldi, and V. Osmani, "Natural Language Processing of
+ Clinical Notes on Chronic Diseases: Systematic Review," JMIR
+ MedInform, vol. 7, no. 2, p. e12239, Apr 27 2019, doi:
+ 10.2196/12239.
+ G. T. Berge, O.-C. Granmo, T. O. Tveit, A. L. Ruthjersen, and
+ J. Sharma, "Combining unsupervised, supervised and rule
+based learning: the case of detecting patient allergies in
+ electronic health records," (in eng), BMC Med Inform Decis
+ Mak, vol. 23, no. 1, p. 188, 2023, doi: 10.1186/s12911-023
+02271-8.
+ S. Sheikhalishahi, R. Miotto, J. T. Dudley, A. Lavelli, F.
+ Rinaldi, and V. Osmani, "Natural Language Processing of
+ Clinical Notes on Chronic Diseases: Systematic Review," (in
+ eng), JMIR Med Inform, vol. 7, no. 2, p. e12239, 2019, doi:
+ 10.2196/12239.
+ E. Hossain et al., "Natural Language Processing in Electronic
+ Health Records in relation to healthcare decision-making: A
+ systematic review," (in eng), Comput Biol Med, vol. 155, p.
+ 106649, 2023, doi: 10.1016/j.compbiomed.2023.106649.
+ T. Joachims, "Text categorization with Support Vector
+ Machines: Learning with many relevant features," in Machine
+ Learning: ECML-98, Berlin, Heidelberg, C. Nédellec and C.
+ Rouveirol, Eds., 1998// 1998: Springer Berlin Heidelberg, pp.
+ 137-142.
+ S. Dumais, J. Platt, D. Heckerman, and M. Sahami, "Inductive
+ learning algorithms and representations for text categorization,"
+ in Proceedings of the seventh international conference on
+ Information and knowledge management, 1998, pp. 148-155.
+ R. J. Carroll, A. E. Eyler, and J. C. Denny, "Naïve Electronic
+ Health Record phenotype identification for Rheumatoid
+ arthritis," (in eng), AMIA Annu Symp Proc, vol. 2011, pp. 189
+196, 2011. [Online]. Available:
+ https://pubmed.ncbi.nlm.nih.gov/22195070.
+ W.-Q. Wei, C. Tao, G. Jiang, and C. G. Chute, "A high
+ throughput semantic concept frequency based approach for
+ patient identification: a case study using type 2 diabetes
+ VOLUME XX, 2017
+ 7
+mellitus clinical notes," (in eng), AMIA Annu Symp Proc, vol.
+ 2010, pp. 857-861, 2010. [Online]. Available:
+ https://pubmed.ncbi.nlm.nih.gov/21347100.
+ [25]
+ [26]
+ [27]
+ [28]
+ [29]
+ [30]
+ [31]
+ [32]
+ [33]
+ [34]
+ [35]
+ [36]
+ [37]
+ [38]
+ [39]
+ [40]
+ [41]
+ [42]
+ J. Huang, J. J. Lu, and C. X. Ling, "Comparing naive bayes,
+ decision trees, and SVM with AUC and, accuracy," (in English),
+ Third Ieee International Conference on Data Mining,
+ Proceedings, pp. 553-556, 2003. [Online]. Available: <Go to
+ ISI>://WOS:000188999400080.
+ Y. Luo, P. Szolovits, A. S. Dighe, and J. M. Baron, "Using
+ Machine Learning to Predict Laboratory Test Results," (in
+ English), Am J Clin Pathol, vol. 145, no. 6, pp. 778-788, Jun
+ 2016, doi: 10.1093/Ajcp/Aqw064.
+ Y. Luo, P. Szolovits, A. S. Dighe, and J. M. Baron, "3D-MICE:
+ integration of cross-sectional and longitudinal imputation for
+ multi-analyte longitudinal clinical data," (in English), J Am
+ MedInform Assn, vol. 25, no. 6, pp. 645-653, Jun 2018, doi:
+ 10.1093/jamia/ocx133.
+ M. Torii et al., "Risk factor detection for heart disease by
+ applying text analytics in electronic medical records," (in eng),
+ J Biomed Inform, vol. 58 Suppl, no. Suppl, pp. S164-S170,
+ 2015, doi: 10.1016/j.jbi.2015.08.011.
+ J. Jonnagaddala, S.-T. Liaw, P. Ray, M. Kumar, H.-J. Dai, and
+ C.-Y. Hsu, "Identification and Progression of Heart Disease
+ Risk Factors in Diabetic Patients from Longitudinal Electronic
+ Health Records," (in eng), Biomed Res Int, vol. 2015, p.
+ 636371, 2015, doi: 10.1155/2015/636371.
+ H. S. Chase, L. R. Mitrani, G. G. Lu, and D. J. Fulgieri, "Early
+ recognition of multiple sclerosis using natural language
+ processing of the electronic health record," (in eng), BMC Med
+ Inform Decis Mak, vol. 17, no. 1, p. 24, 2017, doi:
+ 10.1186/s12911-017-0418-4.
+ R. L. Figueroa and C. A. Flores, "Extracting Information from
+ Electronic Medical Records to Identify the Obesity Status of a
+ Patient Based on Comorbidities and Bodyweight Measures,"
+ (in eng), J Med Syst, vol. 40, no. 8, p. 191, 2016, doi:
+ 10.1007/s10916-016-0548-8.
+ S. N. Kasthurirathne et al., "Toward better public health
+ reporting using existing off the shelf approaches: The value of
+ medical dictionaries in automated cancer detection using
+ plaintext medical data," (in eng), J Biomed Inform, vol. 69, pp.
+ 160-176, 2017, doi: 10.1016/j.jbi.2017.04.008.
+ Y. Luo, Y. Xin, E. Hochberg, R. Joshi, O. Uzuner, and P.
+ Szolovits, "Subgraph augmented non-negative tensor
+ factorization (SANTF) for modeling clinical narrative text," (in
+ eng), J Am Med Inform Assoc, vol. 22, no. 5, pp. 1009-1019,
+ 2015, doi: 10.1093/jamia/ocv016.
+ A. Torfi, R. A. Shirvani, Y. Keneshloo, N. Tavaf, and E. A.
+ Fox, "Natural language processing advancements by deep
+ learning: A survey," arXiv preprint arXiv:2003.01200, 2020.
+ B. Pang, L. Lee, and S. Vaithyanathan, "Thumbs up? Sentiment
+ classification using machine learning techniques," arXiv
+ preprint cs/0205070, 2002.
+ S. Sun and M. Iyyer, "Revisiting simple neural probabilistic
+ language models," arXiv preprint arXiv:2104.03474, 2021.
+ A. Krizhevsky, I. Sutskever, and G. E. Hinton, "Imagenet
+ classification with deep convolutional neural networks,"
+ Advances in neural information processing systems, vol. 25,
+ 2012.
+ Y. Kim, "Convolutional neural networks for sentence
+ classification," arXiv preprint arXiv:1408.5882, 2014.
+ M. Li et al., "Automated ICD-9 coding via a deep learning
+ approach," IEEE/ACM transactions on computational biology
+ and bioinformatics, vol. 16, no. 4, pp. 1193-1202, 2018.
+ A. Kormilitzin, N. Vaci, Q. Liu, and A. Nevado-Holgado,
+ "Med7: A transferable clinical natural language processing
+ model for electronic health records," Artificial Intelligence in
+ Medicine, vol. 118, p. 102086, 2021.
+ S. Hochreiter and J. Schmidhuber, "Long short-term memory,"
+ Neural computation, vol. 9, no. 8, pp. 1735-1780, 1997.
+ X. Li, M. Cui, J. Li, R. Bai, Z. Lu, and U. Aickelin, "A hybrid
+ medical text classification framework: Integrating attentive rule
+ construction and neural network," Neurocomputing, vol. 443,
+ pp. 345-355, 2021.
+ [43]
+ [44]
+ [45]
+ [46]
+ [47]
+ [48]
+ [49]
+ [50]
+ [51]
+ [52]
+ [53]
+ [54]
+ [55]
+ [56]
+ A. Vaswani et al., "Attention Is All You Need," (in English),
+ Adv Neur In, vol. 30, 2017. [Online]. Available: <Go to
+ ISI>://WOS:000452649406008.
+ D. Kici, G. Malik, M. Cevik, D. Parikh, and A. Basar, "A
+ BERT-based transfer learning approach to text classification on
+ software requirements specifications," in Canadian Conference
+ on AI, 2021, vol. 1, p. 042077.
+ A. Mulyar and B. T. McInnes, "MT-Clinical BERT: Scaling
+ Clinical Information Extraction with Multitask Learning," p.
+ arXiv:2004.10220doi: 10.48550/arXiv.2004.10220.
+ S. A. Phillips and M. Guazzi, "The vasculature in
+ cardiovascular diseases: will the vasculature tell us what the
+ future holds?," (in eng), Prog Cardiovasc Dis, vol. 57, no. 5, pp.
+ 407-408, 2015, doi: 10.1016/j.pcad.2014.12.004.
+ J. H. Garvin et al., "Automating Quality Measures for Heart
+ Failure Using Natural Language Processing: A Descriptive
+ Study in the Department of Veterans Affairs," (in eng), JMIR
+ MedInform, vol. 6, no. 1, p. e5, 2018, doi:
+ 10.2196/medinform.9150.
+ G. Karystianis, A. Dehghan, A. Kovacevic, J. A. Keane, and G.
+ Nenadic, "Using local lexicalized rules to identify heart disease
+ risk factors in clinical notes," (in eng), J Biomed Inform, vol. 58
+ Suppl, no. Suppl, pp. S183-S188, 2015, doi:
+ 10.1016/j.jbi.2015.06.013.
+ Y. Kim et al., "Extraction of left ventricular ejection fraction
+ information from various types of clinical reports," (in eng), J
+ Biomed Inform, vol. 67, pp. 42-48, 2017, doi:
+ 10.1016/j.jbi.2017.01.017.
+ R. J. Byrd, S. R. Steinhubl, J. Sun, S. Ebadollahi, and W. F.
+ Stewart, "Automatic identification of heart failure diagnostic
+ criteria, using text analysis of clinical notes from electronic
+ health records," (in eng), Int J Med Inform, vol. 83, no. 12, pp.
+ 983-992, 2014, doi: 10.1016/j.ijmedinf.2012.12.005.
+ H. Yang and J. M. Garibaldi, "A hybrid model for automatic
+ identification of risk factors for heart disease," (in eng), J
+ Biomed Inform, vol. 58 Suppl, no. Suppl, pp. S171-S182, 2015,
+ doi: 10.1016/j.jbi.2015.09.006.
+ C. Nath, M. S. Albaghdadi, and S. R. Jonnalagadda, "A Natural
+ Language Processing Tool for Large-Scale Data Extraction
+ from Echocardiography Reports," (in eng), PLoS One, vol. 11,
+ no. 4, p. e0153749, 2016, doi: 10.1371/journal.pone.0153749.
+ A. T. Hirsch et al., "ACC/AHA 2005 guidelines for the
+ management of patients with peripheral arterial disease (lower
+ extremity, renal, mesenteric, and abdominal aortic): executive
+ summary a collaborative report from the American Association
+ for Vascular Surgery/Society for Vascular Surgery, Society for
+ Cardiovascular Angiography and Interventions, Society for
+ Vascular Medicine and Biology, Society of Interventional
+ Radiology, and the ACC/AHA Task Force on Practice
+ Guidelines (Writing Committee to Develop Guidelines for the
+ Management of Patients With Peripheral Arterial Disease)
+ endorsed by the American Association of Cardiovascular and
+ Pulmonary Rehabilitation; National Heart, Lung, and Blood
+ Institute; Society for Vascular Nursing; TransAtlantic Inter
+Society Consensus; and Vascular Disease Foundation," (in eng),
+ J AmColl Cardiol, vol. 47, no. 6, pp. 1239-1312, 2006.
+ [Online]. Available:
+ https://pubmed.ncbi.nlm.nih.gov/16545667.
+ A. K. Malakar, D. Choudhury, B. Halder, P. Paul, A. Uddin,
+ and S. Chakraborty, "A review on coronary artery disease, its
+ risk factors, and therapeutics," (in eng), J Cell Physiol, vol. 234,
+ no. 10, pp. 16812-16823, 2019, doi: 10.1002/jcp.28350.
+ N. J. Leeper, A. Bauer-Mehren, S. V. Iyer, P. Lependu, C.
+ Olson, and N. H. Shah, "Practice-based evidence: profiling the
+ safety of cilostazol by text-mining of clinical notes," (in eng),
+ PLoS One, vol. 8, no. 5, p. e63499, 2013, doi:
+ 10.1371/journal.pone.0063499.
+ N. Afzal et al., "Mining peripheral arterial disease cases from
+ narrative clinical notes using natural language processing," (in
+ VOLUME XX, 2017
+ 8
+eng), J Vasc Surg, vol. 65, no. 6, pp. 1753-1761, 2017, doi:
+ 10.1016/j.jvs.2016.11.031.
+ [57]
+ [58]
+ [59]
+ [60]
+ [61]
+ [62]
+ [63]
+ [64]
+ [65]
+ [66]
+ [67]
+ [68]
+ [69]
+ [70]
+ [71]
+ [72]
+ [73]
+ K. Buchan, M. Filannino, and Ö. Uzuner, "Automatic
+ prediction of coronary artery disease from clinical narratives,"
+ (in eng), J Biomed Inform, vol. 72, pp. 23-32, 2017, doi:
+ 10.1016/j.jbi.2017.06.019.
+ J. Jonnagaddala, S.-T. Liaw, P. Ray, M. Kumar, N.-W. Chang,
+ and H.-J. Dai, "Coronary artery disease risk assessment from
+ unstructured electronic health records using text mining," (in
+ eng), J Biomed Inform, vol. 58 Suppl, no. Suppl, pp. S203
+S210, 2015, doi: 10.1016/j.jbi.2015.08.003.
+ C. K. Chow et al., "Prevalence, awareness, treatment, and
+ control of hypertension in rural and urban communities in high-,
+ middle-, and low-income countries," (in eng), JAMA, vol. 310,
+ no. 9, pp. 959-968, 2013, doi: 10.1001/jama.2013.184182.
+ P. L. Teixeira et al., "Evaluating electronic health record data
+ sources and algorithmic approaches to identify hypertensive
+ individuals," (in eng), J Am Med Inform Assoc, vol. 24, no. 1,
+ pp. 162-171, 2017, doi: 10.1093/jamia/ocw071.
+ K. H. Hohmanet al., "Development of a Hypertension
+ Electronic Phenotype for Chronic Disease Surveillance in
+ Electronic Health Records: Key Analytic Decisions and Their
+ Effects," (in eng), Prev Chronic Dis, vol. 20, p. E80, 2023, doi:
+ 10.5888/pcd20.230026.
+ E. A. Martin, A. G. D'Souza, S. Lee, C. Doktorchik, C. A.
+ Eastwood, and H. Quan, "Hypertension identification using
+ inpatient clinical notes from electronic medical records: an
+ explainable, data-driven algorithm study," (in eng), CMAJ
+ Open, vol. 11, no. 1, pp. E131-E139, 2023, doi:
+ 10.9778/cmajo.20210170.
+ R. Wang, Z. Li, S. Liu, and D. Zhang, "Global, regional, and
+ national burden of 10 digestive diseases in 204 countries and
+ territories from 1990 to 2019," (in eng), Front Public Health,
+ vol. 11, p. 1061453, 2023, doi: 10.3389/fpubh.2023.1061453.
+ A. F. Peery et al., "Burden and Cost of Gastrointestinal, Liver,
+ and Pancreatic Diseases in the United States: Update 2021," (in
+ eng), Gastroenterology, vol. 162, no. 2, pp. 621-644, 2022, doi:
+ 10.1053/j.gastro.2021.10.017.
+ C. V. Schneider et al., "Large-scale identification of
+ undiagnosed hepatic steatosis using natural language
+ processing," (in eng), EClinicalMedicine, vol. 62, p. 102149,
+ 2023, doi: 10.1016/j.eclinm.2023.102149.
+ T. Arshad, P. Golabi, L. Henry, and Z. M. Younossi,
+ "Epidemiology of Non-alcoholic Fatty Liver Disease in North
+ America," (in eng), Curr Pharm Des, vol. 26, no. 10, pp. 993
+997, 2020, doi: 10.2174/1381612826666200303114934.
+ N. H. I. Service, "National health screening statistical
+ yearbook," Seoul: National Health Insurance Service, 2014.
+ G. Song et al., "Natural Language Processing for Information
+ Extraction of Gastric Diseases and Its Application in Large
+Scale Clinical Research," (in eng), Journal of Clinical Medicine,
+ vol. 11, no. 11, 2022, doi: 10.3390/jcm11112967.
+ A. Soroush et al., "Natural Language Processing Can Automate
+ Extraction of Barrett's Esophagus Endoscopy Quality Metrics,"
+ (in eng), medRxiv, 2023, doi: 10.1101/2023.07.11.23292529.
+ M. Harbord et al., "The First European Evidence-based
+ Consensus on Extra-intestinal Manifestations in Inflammatory
+ Bowel Disease," (in eng), J Crohns Colitis, vol. 10, no. 3, pp.
+ 239-254, 2016, doi: 10.1093/ecco-jcc/jjv213.
+ S. Jansson, M. Malham, A. Paerregaard, C. Jakobsen, and V.
+ Wewer, "Extraintestinal Manifestations Are Associated With
+ Disease Severity in Pediatric Onset Inflammatory Bowel
+ Disease," (in eng), J Pediatr Gastroenterol Nutr, vol. 71, no. 1,
+ pp. 40-45, 2020, doi: 10.1097/MPG.0000000000002707.
+ A. N. Ananthakrishnan et al., "Improving case definition of
+ Crohn's disease and ulcerative colitis in electronic medical
+ records using natural language processing: a novel informatics
+ approach," (in eng), Inflamm Bowel Dis, vol. 19, no. 7, pp.
+ 1411-1420, 2013, doi: 10.1097/MIB.0b013e31828133fd.
+ R. W. Stidham et al., "Identifying the Presence, Activity, and
+ Status of Extraintestinal Manifestations of Inflammatory Bowel
+ Disease Using Natural Language Processing of Clinical Notes,"
+ (in eng), Inflamm Bowel Dis, vol. 29, no. 4, pp. 503-510, 2023,
+ doi: 10.1093/ibd/izac109.
+ [74]
+ [75]
+ [76]
+ [77]
+ [78]
+ [79]
+ [80]
+ [81]
+ [82]
+ F. Gomollón et al., "Clinical characteristics and prognostic
+ factors for Crohn's disease relapses using natural language
+ processing and machine learning: a pilot study," (in eng), Eur J
+ Gastroenterol Hepatol, vol. 34, no. 4, pp. 389-397, 2022, doi:
+ 10.1097/MEG.0000000000002317.
+ W. Chen, Y. Huang, B. Boyle, and S. Lin, "The utility of
+ including pathology reports in improving the computational
+ identification of patients," (in eng), J Pathol Inform, vol. 7, p.
+ 46, 2016. [Online]. Available:
+ https://pubmed.ncbi.nlm.nih.gov/27994938.
+ Y. Zhou, S. Yu, and W. Zhang, "NOD-like Receptor Signaling
+ Pathway in Gastrointestinal Inflammatory Diseases and
+ Cancers," International Journal of Molecular Sciences, vol. 24,
+ no. 19, p. 14511, 2023. [Online]. Available:
+ https://www.mdpi.com/1422-0067/24/19/14511.
+ C. Soguero-Ruiz et al., "Support Vector Feature Selection for
+ Early Detection of Anastomosis Leakage From Bag-of-Words
+ in Electronic Health Records," (in eng), IEEE J Biomed Health
+ Inform, vol. 20, no. 5, pp. 1404-1415, 2016, doi:
+ 10.1109/JBHI.2014.2361688.
+ J. C. Denny et al., "Extracting timing and status descriptors for
+ colonoscopy testing from electronic medical records," (in eng),
+ J AmMedInformAssoc, vol. 17, no. 4, pp. 383-388, 2010, doi:
+ 10.1136/jamia.2010.004804.
+ D. L. Mowery et al., "Determining Onset for Familial Breast
+ and Colorectal Cancer from Family History Comments in the
+ Electronic Health Record," (in eng), AMIA Jt Summits Transl
+ Sci Proc, vol. 2019, pp. 173-181, 2019. [Online]. Available:
+ https://pubmed.ncbi.nlm.nih.gov/31258969.
+ D. Amarapurkar et al., "Prevalence of non-alcoholic fatty liver
+ disease: population based study," (in eng), Ann Hepatol, vol. 6,
+ no. 3, pp. 161-163, 2007. [Online]. Available:
+ https://pubmed.ncbi.nlm.nih.gov/17786142.
+ T. T. Van Vleck et al., "Augmented intelligence with natural
+ language processing applied to electronic health records for
+ identifying patients with non-alcoholic fatty liver disease at risk
+ for disease progression," (in eng), International Journal of
+ Medical Informatics, vol. 129, pp. 334-341, 2019, doi:
+ 10.1016/j.ijmedinf.2019.06.028.
+ S. Latif, R. Rana, S. Khalifa, R. Jurdak, J. Qadir, and B.
+ Schuller, "Survey of Deep Representation Learning for Speech
+ Emotion Recognition," (in English), Ieee T Affect Comput, vol.
+ 14, no. 2, pp. 1634-1654, Apr-Jun 2023, doi:
+ 10.1109/Taffc.2021.3114365.

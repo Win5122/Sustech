@@ -1,0 +1,161 @@
+References
+[1] Felix Agbavor and Hualou Liang. Predicting dementia from
+spontaneous speech using large language models. PLOS dig-
+ital health , 1(12):e0000168–e0000168, 2022. 4
+11[2] Tom Brown, Benjamin Mann, Nick Ryder, Melanie Sub-
+biah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakan-
+tan, Pranav Shyam, Girish Sastry, Amanda Askell, et al. Lan-
+guage models are few-shot learners. Advances in neural in-
+formation processing systems , 33:1877–1901, 2020. 2
+[3] DIAO Chenglong. Application of speech recognition tech-
+nology in pre-hospital emergency. Wuxian Hulian Keji ,
+19(14):80–83, 2022. 4
+[4] J Chu, J Chen, X Chen, et al. Knowledge-aware multi-center
+clinical dataset adaptation: problem, method, and applica-
+tion. Journal of Biomedical Informatics , 2021. 8
+[5] Khashayar Dashtipour, Ali Tafreshi, Jessica Lee, and
+Brianna Crawley. Speech disorders in parkinson’s dis-
+ease: pathophysiology, medical management and surgi-
+cal approaches. Neurodegenerative disease management ,
+8(5):337–348, 2018. 4
+[6] Rahul C Deo. Machine learning in medicine. Circulation ,
+132(20):1920–1930, 2015. 9
+[7] Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina
+Toutanova. Bert: Pre-training of deep bidirectional
+transformers for language understanding. arXiv preprint
+arXiv:1810.04805 , 2018. 2
+[8] Giovanni Diraco, Alessandro Leone, and Pietro Siciliano.
+An active vision system for fall detection and posture recog-
+nition in elderly healthcare. In 2010 Design, Automation &
+Test in Europe Conference & Exhibition (DATE 2010) , pages
+1536–1541. IEEE, 2010. 10
+[9] Ricardo Espinosa, Hiram Ponce, Sebasti ´an Guti ´errez, Lour-
+des Mart ´ınez-Villase ˜nor, Jorge Brieva, and Ernesto Moya-
+Albor. A vision-based approach for fall detection using mul-
+tiple cameras and convolutional neural networks: A case
+study using the up-fall detection dataset. Computers in bi-
+ology and medicine , 115:103520, 2019. 10
+[10] HUANG Fang-liang, XU Huan-qing, SHEN Tong-ping, JIN
+Li, and YU Lei. Research on parkinson’ s disease recogni-
+tion based on residual neural network and voice diagnosis.
+Shandong qing gong ye xue yuan xue bao. Zi ran ke xue ban ,
+36(1):36–43, 2022. 5
+[11] MA Han, TANG Rou-Bing, ZHANG Yi, and ZHANG Qiao-
+Ling. Survey on speech recognition. Computer Systems Ap-
+plications , 31(1):1–10, 2022. 3
+[12] D. C. Herath, L. Martin, S. Doolan, and J. B. Grant. Robots
+and aged care: A case study assessing implementation of
+service robots in an aged care home. In 2023 32nd IEEE
+International Conference on Robot and Human Interactive
+Communication (RO-MAN) , pages 1641–1647, 2023. 6
+[13] S. Itai, T. Nariai, and H. Kojima. Development of robot-
+assisted recreation system based on assessment of opera-
+tional issues in aged care facilities. In 2022 12th Inter-
+national Congress on Advanced Applied Informatics (IIAI-
+AAI) , pages 25–28, 2022. 6
+[14] LI Jinmiao, LI Peng, LIU Qingjin, CHEN Junwei, and XIN
+Haiyan. Research and practice of intelligent speech recog-
+nition technology in clinical application. Chinese Journal of
+Health Informatics and Management , 16(2):218–221, 2019.
+4[15] Nal Kalchbrenner, Edward Grefenstette, and Phil Blunsom.
+A convolutional neural network for modelling sentences.
+arXiv preprint arXiv:1404.2188 , 2014. 1
+[16] Qiang Li, John A Stankovic, Mark A Hanson, Adam T Barth,
+John Lach, and Gang Zhou. Accurate, fast fall detection us-
+ing gyroscopes and accelerometer-derived posture informa-
+tion. In 2009 Sixth International Workshop on Wearable and
+Implantable Body Sensor Networks , pages 138–143. IEEE,
+2009. 10
+[17] Shuhai Li and Yuqi Liu. How can smart service robot help
+the elderly aging in place: Application, prospect and pref-
+erence. In 2022 IEEE International Conference on Internet
+of Things and Intelligence Systems (IoTaIS) , pages 395–401,
+2022. 5, 6
+[18] Shuhai Li and Yuqi Liu. How can smart service robot help
+the elderly aging in place: Application, prospect and pref-
+erence. In 2022 IEEE International Conference on Internet
+of Things and Intelligence Systems (IoTaIS) , pages 395–401,
+2022. 5
+[19] G Lin, F Teng, Q Hu, Z Jin, T Xu, and H Zhang. Knowledge
+graph-based prediction of potentially inappropriate medica-
+tion. Sichuan Da Xue Xue Bao Yi Xue Ban , 2023. 9
+[20] Takaaki Namba and Yoji Yamada. Fall risk reduction for the
+elderly by using mobile robots based on deep reinforcement
+learning. J. Robotics Netw. Artif. Life , 4(4):265–269, 2018.
+10
+[21] Takaaki Namba and Yoji Yamada. Risks of deep rein-
+forcement learning applied to fall prevention assist by au-
+tonomous mobile robots in the hospital. Big Data and Cog-
+nitive Computing , 2(2):13, 2018. 10
+[22] Martin Prince, Renata Bryce, Emiliano Albanese, Anders
+Wimo, Wagner Ribeiro, and Cleusa P Ferri. The global
+prevalence of dementia: a systematic review and metaanaly-
+sis.Alzheimer’s & dementia , 9(1):63–75, 2013. 9
+[23] Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario
+Amodei, Ilya Sutskever, et al. Language models are unsu-
+pervised multitask learners. OpenAI blog , 1(8):9, 2019. 2
+[24] Caroline Rougier, Jean Meunier, Alain St-Arnaud, and
+Jacqueline Rousseau. Robust video surveillance for fall
+detection based on human shape deformation. IEEE
+Transactions on circuits and systems for video Technology ,
+21(5):611–622, 2011. 10
+[25] Y Shang, Y Tian, M Zhou, et al. Ehr-oriented knowledge
+graph system: toward efficient utilization of non-used infor-
+mation buried in routine clinical practice. IEEE Journal of
+Biomedical and Health Informatics , 2021. 8
+[26] Richard Socher, Alex Perelygin, Jean Wu, Jason Chuang,
+Christopher D Manning, Andrew Y Ng, and Christopher
+Potts. Recursive deep models for semantic compositional-
+ity over a sentiment treebank. In Proceedings of the 2013
+conference on empirical methods in natural language pro-
+cessing , pages 1631–1642, 2013. 1
+[27] Ilya Sutskever, Oriol Vinyals, and Quoc V Le. Sequence to
+sequence learning with neural networks. Advances in neural
+information processing systems , 27, 2014. 1
+[28] ZHANG Tao, JIANG Peipei, ZHANG Yajuan, and CAO
+Yuyang. Parkinson’s disease diagnosis based on local statis-
+12tics of speech signal in time-frequency domain. Journal of
+Biomedical Engineering , 38(1):21–29, 2 2021. 5
+[29] Eric J Topol. High-performance medicine: the conver-
+gence of human and artificial intelligence. Nature medicine ,
+25(1):44–56, 2019. 9
+[30] Athanasios Tsanas, Max A. Little, Patrick E. McSharry, and
+Lorraine O. Ramig. Accurate telemonitoring of parkin-
+son’s disease progression by noninvasive speech tests. IEEE
+Transactions on Biomedical Engineering , 57(4):884–893,
+2010. 5
+[31] Xueyi Wang, Joshua Ellul, and George Azzopardi. Elderly
+fall detection systems: A literature survey. Frontiers in
+Robotics and AI , 7:71, 2020. 9
+[32] Y Wang. A novel chinese traditional medicine prescription
+recommendation system based on knowledge graph. Journal
+of Physics: Conference Series , 2020. 8
+[33] R. Wilson, I. Keane, and R. Jones. Affective responses of
+older adults to the anthropomorphic genieconnect compan-
+ion robot during lockdown of the covid19 pandemic. In 2022
+17th ACM/IEEE International Conference on Human-Robot
+Interaction (HRI) , pages 1095–1099, 2022. 6
+[34] Jing Xu. Application of robots in the treatment and care
+of alzheimer’s patients. Journal of Nursing Management ,
+18(1):56–59, 2018. 6
+[35] Kimitoshi Yamazaki, Ryohei Ueda, Shunichi Nozawa, Mit-
+suharu Kojima, Kei Okada, Kiyoshi Matsumoto, Masaru
+Ishikawa, Isao Shimoyama, and Masayuki Inaba. Home-
+assistant robot for an aging society. Proceedings of the IEEE ,
+100(8):2429–2441, 2012. 5
+[36] Guanqun Yang. A study on autonomous motion planning
+of mobile robot by use of deep reinforcement learning for
+fall prevention in hospita. Japan: JUACEP Indenpedent Re-
+search Report Nagoya University , 2018. 10
+[37] D Zhang, Q Jia, S Yang, et al. Traditional chinese medicine
+automated diagnosis based on knowledge graph reasoning.
+Computers, Materials & Continua , 2022. 8
+[38] Cheng Zhen, Jiang Zuo, Pan Wenlin, and Ma Mengxing. Re-
+search on recognition of children’s stuttering type based on
+res net model. Journal of Yunnan University of Nationali-
+ties(Natural Sciences Edition) , 31(2):221–226, 2022. 5
+[39] Xiaokang Zhou, Wei Liang, I Kevin, Kai Wang, Hao Wang,
+Laurence T Yang, and Qun Jin. Deep-learning-enhanced
+human activity recognition for internet of healthcare things.
+IEEE Internet of Things Journal , 7(7):6429–6438, 2020. 9
+13

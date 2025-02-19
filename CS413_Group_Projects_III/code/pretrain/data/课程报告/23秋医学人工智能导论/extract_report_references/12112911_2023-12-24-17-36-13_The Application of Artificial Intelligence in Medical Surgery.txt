@@ -1,0 +1,62 @@
+Reference ：
+Advincula, A. P. (2006). Surgical techniques: robot -assisted laparoscopic hysterectomy 
+with the da Vinci surgical system. Int J Med Robot , 2(4), 305 -311. 
+https://doi.org/10.1002/rcs.111   
+<Artificial Intelligence and Robotics.pdf>.  
+Bargar, W. L. (2007). Robots in orthopaedic surgery: past, present, and future. Clin 
+Orthop Relat Res , 463, 31-36.  
+Bodenstedt, S., Wagner, M., Müller -Stich, B. P., Weitz, J., & Speidel, S. (2020). 
+Artificial Intelligence -Assisted Surgery: Potential and Challenges. Visc Med , 
+36(6), 450 -455. https://doi.org/10.1159/000511351   
+Chen, J. H., & Asch, S. M. (2017). Machine Learning and Prediction in Medicine - 
+Beyond the Peak of Inflated Expectations. N Engl J Med , 376(26), 2507 -2509. 
+https://doi.org/10.1056/NEJMp1702071   
+Cobianchi, L., Verde, J. M., Loftus, T. J., Piccolo, D., Dal Mas, F., Mascagni, P., Garcia 
+Vazquez, A., Ansaloni, L., Marseglia, G. R., Massaro, M., Gallix, B., Padoy, N., 
+Peter, A., & Kaafarani, H. M. (2022). Artificial Intelligence and Surgery: Ethical 
+Dilemmas and Open Issues. J Am Coll Surg , 235(2), 268 -275. 
+https://doi.org/10.1097/xcs.0000000000000242   
+Collins, J. W., Marcus, H. J., Ghazi, A., Sridhar, A., Hashimoto, D., Hager, G., Arezzo, 
+A., Jannin, P., Maier -Hein, L., Marz, K., Valdastri, P., Mori, K., Elson, D., 
+Giannarou, S., Slack, M., Hares, L., Beaulieu, Y ., Levy, J., Laplante, G., . . . 
+Stoyanov , D. (2022). Ethical implications of AI in robotic surgical training: A 
+Delphi consensus statement. Eur Urol Focus , 8(2), 613 -622. 
+https://doi.org/10.1016/j.euf.2021.04.006   
+Goldberg, J. M., & Falcone, T. (2003). Laparoscopic microsurgical tubal anastomosis 
+with and without robotic assistance. Hum Reprod , 18(1), 145 -147. 
+https://doi.org/10.1093/humrep/deg011   
+Gucer, F., Misirlioglu, S., Ceydeli, N., & Taskiran, C. (2018). Robot -assisted 
+laparoscopic transperitoneal infrarenal lymphadenectomy in patients with locally advanced cervical cancer by single docking: Do we need a backup 
+procedure? J Robot Surg , 12(1), 49 -58. https://doi.org/10.1007/s11701 -017-
+0685 -1  
+Hashimoto, D. A., Rosman, G., Rus, D., & Meireles, O. R. (2018). Artificial 
+Intelligence in Surgery: Promises and Perils. Ann Surg , 268(1), 70 -76. 
+https://doi.org/10.1097/sla.0000000000002693   
+Lang, J. E., Mannava, S., Floyd, A. J., Goddard, M. S., Smith, B. P., Mofidi, A., Seyler, 
+T. M., & Jinnah, R. H. (2011). Robotic systems in orthopaedic surgery. J Bone 
+Joint Surg Br , 93(10), 1296 -1299. https://doi.org/10.1302/0301 -
+620x.93b10.27418   
+Liang, Y ., Li, S., Yan, C., Li, M., & Jiang, C. (2021). Explaining the black -box model: 
+A survey of local interpretation methods for deep neural networks. 
+Neurocomputing , 419, 168 -182. https://doi.org/10.1016/j.neucom.2020.08.011   
+Mäenpää, M., Nieminen, K., Tomás, E., Luukkaala, T., & Mäenpää, J. U. (2015). 
+Implementing robotic surgery to gynecologic oncology: the first 300 operations 
+performed at a tertiary hospital. Acta Obstet Gynecol Scand , 94(5), 482 -488. 
+https://doi.org/10.1111/aogs.12620   
+Medical Image Computing and Computer -Assisted Intervention – MICCAI 2016 . 
+(2016). https://doi.org/10.1007/978 -3-319-46720 -7  
+Moglia, A., Georgiou, K., Georgiou, E., Satava, R. M., & Cuschieri, A. (2021). A 
+systematic review on artificial intelligence in robot -assisted surgery. 
+International Journal of Surgery , 95. 
+https://doi.org/10.1016/j.ijsu.2021.106151   
+Moustris, G. P., Hiridis, S. C., Deliparaschos, K. M., & Konstantinidis, K. M. (2011). 
+Evolution of autonomous and semi -autonomous robotic surgical systems: a 
+review of the literature. Int J Med Robot , 7(4), 375 -392. 
+https://doi.org/10.1002/rcs.408   
+Ryu, B., Kim, N., Heo, E., Yoo, S., Lee, K., Hwang, H., Kim, J. W., Kim, Y., Lee, J., & 
+Jung, S. Y . (2017). Impact of an Electronic Health Record -Integrated Personal 
+Health Record on Patient Participation in Health Care: Development and Randomized Controlled Trial of MyHealthKeeper. J Med Internet Res , 19(12), 
+e401. https://doi.org/10.2196/jmir.8867   
+Yu, K. H., Beam, A. L., & Kohane, I. S. (2018). Artificial intelligence in healthcare. 
+Nat Biomed Eng , 2(10), 719 -731. https://doi.org/10.1038/s41551 -018-0305 -z  
+ 

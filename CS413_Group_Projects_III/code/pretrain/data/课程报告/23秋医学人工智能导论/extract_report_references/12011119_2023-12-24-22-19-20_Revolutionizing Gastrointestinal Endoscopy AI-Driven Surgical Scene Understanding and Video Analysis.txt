@@ -1,0 +1,102 @@
+REFERENCES
+[1] Mariam Faizullabhoy , Shishanka Wangnoo, “Endoscopy Market - By
+Product (Endoscopes, Visualization Systems, Endoscopic Ultrasound, Insuf-
+flator), By Application (Arthroscopy, Laparoscopy, GI Endoscopy, Obstet-
+rics/Gynecology, ENT Endoscopy, Pulmonary Endoscopy), By End-use &
+Forecast, 2023 – 2032”, Aug 2023.
+[2] Luo, X., Mori, K., & Peters, T. M. (2018). Advanced Endoscopic Naviga-
+tion: Surgical Big Data, Methodology, and Applications. Annual review of
+biomedical engineering, 20, 221–251.
+[3] Mulki, R., Qayed, E., Yang, D., Chua, T. Y ., Singh, A., Yu, J. X., Bartel,
+M. J., Tadros, M. S., Villa, E. C., & Lightdale, J. R. (2023). The 2022
+top 10 list of endoscopy topics in medical publishing: an annual review
+by the American Society for Gastrointestinal Endoscopy Editorial Board.
+Gastrointestinal endoscopy, 98(6).
+VOLUME 1, 2023 7[4] Bogdanova,R.,Boulanger,P. &Zheng,B.Depth perception of surgeons in
+minimally invasive surgery. Surg. Innov. 23, 515–524 (2016).
+[5] Martin, J. W. et al. Enabling the future of colonoscopy with intelligent and
+autonomous magneticmanipulation.Nat.Mach.Intell.2,595–606(2020).
+[6] Lindeberg, Tony. "Scale invariant feature transform." (2012): 10491.
+[7] Hearst M A, Dumais S T, Osuna E, et al. Support vector machines[J]. IEEE
+Intelligent Systems and their applications, 1998, 13(4): 18-28.
+[8] Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E. Hinton. "Imagenet clas-
+sification with deep convolutional neural networks." Advances in neural
+information processing systems 25 (2012).
+[9] He K, Zhang X, Ren S, et al. Deep residual learning for image recogni-
+tion[C]//Proceedings of the IEEE conference on computer vision and pattern
+recognition. 2016: 770-778.
+[10] Dosovitskiy, A., Beyer, L., Kolesnikov, A., Weissenborn, D., Zhai, X., Un-
+terthiner, T. & Houlsby, N. (2020). An image is worth 16x16 words: Trans-
+formers for image recognition at scale. arXiv preprint arXiv:2010.11929.
+[11] Liu Z, Lin Y , Cao Y , et al. Swin transformer: Hierarchical vision trans-
+former using shifted windows. Proceedings of the IEEE/CVF international
+conference on computer vision. 2021: 10012-10022.
+[12] Lin T Y , Maire M, Belongie S, et al. Microsoft coco: Common objects
+in context[C]//Computer Vision–ECCV 2014: 13th European Conference,
+Zurich, Switzerland, September 6-12, 2014, Proceedings, Part V 13. Springer
+International Publishing, 2014: 740-755.
+[13] Simonyan K, Zisserman A. Two-stream convolutional networks for action
+recognition in videos[J]. Advances in neural information processing systems,
+2014, 27.
+[14] Carreira J, Zisserman A. Quo vadis, action recognition? a new model and
+the kinetics dataset[C]//proceedings of the IEEE Conference on Computer
+Vision and Pattern Recognition. 2017: 6299-6308.
+[15] Mascagni, P., Alapatt, D., Sestini, L., Altieri, M. S., Madani, A., Watanabe,
+Y . & Hashimoto, D. A. (2022). Computer vision in surgery: from potential to
+clinical value. npj Digital Medicine, 5(1), 163.
+[16] Allan, M., Kondo, S., Bodenstedt, S., Leger, S., Kadkhodamohammadi, R.,
+Luengo, I. & Speidel, S. (2020). 2018 robotic scene segmentation challenge.
+arXiv preprint arXiv:2001.11190.
+[17] Hong, W. Y ., Kao, C. L., Kuo, Y . H., Wang, J. R., Chang, W. L., & Shih,
+C. S. (2020). Cholecseg8k: a semantic segmentation dataset for laparoscopic
+cholecystectomy based on cholec80. arXiv preprint arXiv:2012.12453.
+[18] Garcia-Peraza-Herrera, L. C., Fidon, L., D’Ettorre, C., Stoyanov, D.,
+Vercauteren, T., & Ourselin, S. (2021). Image compositing for segmentation
+of surgical tools without manual annotations. IEEE transactions on medical
+imaging, 40(5), 1450-1460.
+[19] Carstens, M., Rinner, F. M., Bodenstedt, S., Jenke, A. C., Weitz, J., Distler,
+M. & Kolbinger, F. R. (2023). The Dresden Surgical Anatomy Dataset
+for abdominal organ segmentation in surgical data science. Scientific Data,
+10(1), 3.
+[20] Zadeh S M, François T, Comptour A, et al. SurgAI3. 8K: A Labeled
+Dataset of Gynecologic Organs in Laparoscopy with Application to Au-
+tomatic Augmented Reality Surgical Guidance[J]. Journal of Minimally
+Invasive Gynecology, 2023, 30(5): 397-405.
+[21] Nwoye, C. I., Yu, T., Gonzalez, C., Seeliger, B., Mascagni, P., Mutter, D.
+& Padoy, N. (2022). Rendezvous: Attention mechanisms for the recognition
+of surgical action triplets in endoscopic videos. Medical Image Analysis, 78,
+102433.
+[22] D. Ebehard and E. V oges, “Digital single sideband detection for inter-
+ferometric sensors,” presented at the 2ndInt. Conf. Optical Fiber Sensors,
+Stuttgart, Germany, Jan. 2-5, 1984.
+[23] Valderrama, N., Ruiz Puentes, P., Hernández, I., Ayobi, N., Verlyck, M.,
+Santander, J. & Arbeláez, P. (2022, September). Towards holistic surgical
+scene understanding. In International conference on medical image comput-
+ing and computer-assisted intervention (pp. 442-452).
+[24] Gao, Y ., Vedula, S. S., Reiley, C. E., Ahmidi, N., Varadarajan, B., Lin, H.
+C., & Hager, G. D. (2014, September). Jhu-isi gesture and skill assessment
+working set (jigsaws): A surgical activity dataset for human motion model-
+ing. In MICCAI workshop: M2cai (V ol. 3, No. 3).
+[25] Maier-Hein, L., Wagner, M., Ross, T., Reinke, A., Bodenstedt, S., Full, P.
+M. & Müller-Stich, B. P. (2021). Heidelberg colorectal data set for surgical
+data science in the sensor operating room. Scientific data, 8(1), 101.
+[26] Huaulmé, A., Sarikaya, D., Le Mut, K., Despinoy, F., Long, Y ., Dou,
+Q. & Jannin, P. (2021). Micro-surgical anastomose workflow recognition
+challenge report. Computer Methods and Programs in Biomedicine, 212,
+106452.[27] Jin, Y ., Yu, Y ., Chen, C., Zhao, Z., Heng, P. A., & Stoyanov, D. (2022).
+Exploring intra-and inter-video relation for surgical semantic scene segmen-
+tation. IEEE Transactions on Medical Imaging, 41(11), 2991-3002.
+[28] Chadebecq, F., Lovat, L. B., & Stoyanov, D. (2023). Artificial intelligence
+and automation in endoscopy and surgery. Nature reviews. Gastroenterology
+& hepatology, 20(3), 171–182.
+[29] Demir, Kubilay Can; Schieber, Hannah; Roth, Daniel; Maier, Andreas;
+Yang, Seung Hee (2022). Surgical Phase Recognition: A Review and Evalu-
+ation of Current Approaches. TechRxiv. Preprint.
+[30] Ma, R. et al. RNNSLAM: reconstructing the 3D colon to visualize missing
+regions during a colonoscopy. Med. Image Anal. 72, 102100 (2021).
+[31] Mahmoud, N. et al. Live tracking and dense reconstruction for handheld
+monocular endoscopy. IEEE Trans. Med. Imaging 38, 79–89 (2019)
+[32] Bayoudh, K., Knani, R., Hamdaoui, F. et al. A survey on deep multimodal
+learning for computer vision: advances, trends, applications, and datasets. Vis
+Comput 38, 2939–2970 (2022).
+8 VOLUME 1, 2023

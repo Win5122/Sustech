@@ -1,0 +1,69 @@
+参考文献
+
+[1] Ke Min. Research on Integrated positioning Strategy of intelligent vehicle based on multi-sensor information [D]. Jilin University,2019. (in Chinese)
+柯敏. 基于多传感信息的智能汽车组合定位策略研究[D].吉林大学,2019.
+[2] ZHAO Zixuan. Research on multi-sensing drivable area detection algorithm for urban intelligent vehicles [D]. University of Electronic Science and Technology of China,2020. (in Chinese)
+赵子轩. 城市智能汽车多传感可行驶区域检测算法研究[D].电子科技大学,2020.
+[3]Ernst Dieter Dickmanns;;Volker Graefe.Dynamic monocular machine vision[J].Machine Vision and Applications,1988(4).
+[4] Sun Liang, Wu Jingyuan, Liang Cuilan et al. Collaborative communication method of intelligent vehicle for Group perception [J]. Radio Engineering,202,52(01):28-32. (in Chinese)
+孙亮,吴静媛,梁翠兰等.面向群体感知的智能汽车协同通信方法[J].无线电工程,2022,52(01):28-32.
+[5] Sun Qifeng, Duan Min, Zhang Bohan. Under the low adhesion road vehicle lateral control study [J]. Journal of practical technology, 2023 (21) : 13 25 to 29. DOI: 10.16638 / j.carol carroll nki. 1671-7988.2023.021.006. (in Chinese)
+孙岐峰,段敏,张博涵.低附着路面下的车辆横向控制研究[J].汽车实用技术,2023,48(21):25-29.DOI:10.16638/j.cnki.1671-7988.2023.021.006.
+[6] LI Yongfu, Wang Xingquan, Huang Longwang et al. Adaptive vehicle queue based on the strategy of combination spacing of vertical control [J/OL]. China journal of highway: 1-14 [2023-12-04]. (in Chinese)
+李永福,王兴全,黄龙旺等.基于组合间距策略的自适应车辆队列纵向控制[J/OL].中国公路学报:1-14[2023-12-04].
+[7]SHLADOVER S E. Connected and automated vehicle system: introduction and overview[J]. Journal of Intelligent Transportion System,2018,22(3): 190-200.
+[8] QI X J,WANG Y H,SU Q Y The development status and trend of highway intelligent traffic monitoring system[J].Heilongjiang Transportation Science and Technology,2009,32(04):138-139. (in Chinese) 
+齐晓洁,王艳奂,苏清源. 公路智能交通监控系统的发展现状及趋势[J].黑龙江交通科技,2009,32(04):138-139.
+[9] WANG W,YAO MH. Intelligent traffic monitoring system based on computer vision[J].Journal of Zhejiang University of Technology,2010,38(05):574-579. (in Chinese)
+王为,姚明海. 基于计算机视觉的智能交通监控系统[J].浙江工业大学学报,2010,38(05):574-579.
+[10] ZHU X Q,CHEN J H,ZHANG W L,HUANG K H,QIU R Z. Design of wireless intelligent traffic monitoring system[J].Electronic Technology Application,2015,41(03):68-71. (in Chinese)
+朱向庆,陈俊洪,张伟亮,黄括辉,邱日錞. 无线智能交通监控系统设计[J].电子技术应用,2015,41(03):68-71.
+[11] NAIF AL MUDAWI;ASIFA MEHMOOD QURESHI;MAHA ABDELHAQ.
+[12] Jiabin Zhang;Erming Su;Chengyu Li;Shuxing Xu;Wei Tang;Leo N.Y. Cao;Ding Li;Zhong Lin Wang. Enhancing Artifact Protection in Smart Transportation Monitoring Systems via a Porous Structural Triboelectric Nanogenerator [J]. MDPI,2023,12(14).d Classification via YOLOv8 and Deep Belief Network over Aerial Image Sequences [J]. MDPI,2023,15(19).
+[13] Naveed Quadri Noorulhasan;Alqahtani Hamed;Khan Riaz Ullah;Almakdi Sultan;Alshehri Mohammed;Abdul Rasheed Mohammed Aref. An Intelligent Traffic Surveillance System Using Integrated Wireless Sensor Network and Improved Phase Timing Optimization [J]. MDPI,2022,22(9).
+[14] Wang Ruiyang. Development status of intelligent transportation [J]. China Science and Technology Investment,2018(36):225. DOI:10.3969/j.issn.1673-5811.2018.36.200. (in Chinese)
+王睿阳. 智能交通发展现状[J]. 中国科技投资,2018(36):225. DOI:10.3969/j.issn.1673-5811.2018.36.200.
+[15] Liu Xiaoming, He Zhonghe. Technology development status and trend of urban Intelligent transportation system [J]. Automatization Expo,2015, (01):58-60. (in Chinese)
+刘小明,何忠贺.城市智能交通系统技术发展现状及趋势[J].自 动化博览,2015，(01):58-60.
+[16] Zhang Yi, Yao Danya, Li Li, et al. Transportation Systems Engineering and Information,2021,21(5):40-51. DOI:10.16097/j.cnki.1009-6744.2021.05.005. (in Chinese)
+张毅,姚丹亚,李力,等. 智能车路协同系统关键技术与应用[J]. 交通运输系统工程与信息,2021,21(5):40-51. DOI:10.16097/j.cnki.1009-6744.2021.05.005.
+[17] Zhai Junda; Lu Guangquan; Chen Facheng. Analysis of the influence of automatic driving level on the stability time of driving behavior [J/OL]. Journal of Beijing university of aeronautics and astronautics, 1-9 [2023-11-21] (in Chinese) 
+翟俊达;鲁光泉;陈发城. 自动驾驶水平对驾驶行为稳定时间的影响分析 [J/OL]. 北京航空航天大学学报, 1-9[2023-11-21] 
+[18] YAO Yao. Challenges and Responses to the theory of Negligent crime in the Era of Artificial Intelligence: A case study of traffic accident caused by autonomous vehicles [J]. Zhejiang social sciences, 2022, (12) : 59-67 + 157. DOI: 10.14167 / j.z JSS. 2022.12.002. (in Chinese)
+姚瑶. 人工智能时代过失犯理论的挑战与应对——以自动驾驶汽车交通肇事为例 [J]. 浙江社会科学, 2022, (12): 59-67+157. DOI:10.14167/j.zjss.2022.12.002
+[19] Wang Qi. Research on Traffic Accident Tort Liability of driverless Vehicles under the Background of Artificial Intelligence Technology Development [J]. Legal Review, 2022, (23): 26-28. (in Chinese)
+王琦. 人工智能技术发展背景下关于无人驾驶汽车交通事故侵权责任研究 [J]. 法制博览, 2022, (23): 26-28.
+[20] Wang Yunze; Li Yingjie; Modeling and Analysis of Transportation Practitioners' Acceptance of Automated Driving [J]. Journal of Transportation Engineering and Information, 2023, 21 (02): 42-54. (in Chinese) DOI:10.19961/j.cnki.1672-4747.2022.06.024. (in Chinese)
+王云泽;李英杰;唐立. 交通运输从业者对自动驾驶接受度建模与分析 [J]. 交通运输工程与信息学报, 2023, 21 (02): 42-54. DOI:10.19961/j.cnki.1672-4747.2022.06.024
+[21] Cheng Zekun. Based on the traffic condition and communication resources intelligent path planning strategy research [D]. University of electronic science and technology, 2022. The DOI: 10.27005 /, dc nki. Gdzku. 2022.000595. (in Chinese)
+成泽坤. 基于交通状态与通信资源的行车路径智能规划策略研究[D]. 电子科技大学, 2022. DOI:10.27005/d.cnki.gdzku.2022.000595
+[22] Lin Qiang. Optimal route planning and design method for Intelligent Transportation Systems [J]. Science and Technology Innovation and Application, 2023, 13 (16): 122-125. DOI:10.19981/j.CN23-1581/G3.2023.16.029. (in Chinese)
+林强. 面向智能交通系统的最优路线规划设计方法 [J]. 科技创新与应用, 2023, 13 (16): 122-125. DOI:10.19981/j.CN23-1581/G3.2023.16.029
+[23] Zhou Min. Intelligent Parking System of integrated Transportation hub with multi-technology integration [J]. Railway Computer Applications, 2021, 30 (09): 27-30. (in Chinese)
+周敏. 多技术融合的综合交通枢纽智能停车系统 [J]. 铁路计算机应用, 2021, 30 (09): 27-30.
+[24] Liu Chengshan. Application and challenge of wireless Sensor Networks in smart city [J]. Science and Technology Innovation and Application,2023,13(35):181-184.DOI:10.19981/j.CN23-1581/G3.2023.35.046. (in Chinese)
+刘成山.智能城市中无线传感器网络的应用与挑战[J].科技创新与应用,2023,13(35):181-184.DOI:10.19981/j.CN23-1581/G3.2023.35.046.
+[25] Sun Yuenan. Application of Intelligent Transportation System in Road design [J]. Heilongjiang Science,2023,14(22):141-143. (in Chinese)
+孙跃男.智能交通系统在道路设计中的应用[J].黑龙江科学,2023,14(22):141-143.
+[26] Meng Aiqin. Research on Logistics Distribution route Planning based on Intelligent Transportation System [J]. China Shipping Weekly,2023(46):55-57. (in Chinese)
+孟爱琴.基于智能交通系统的物流配送路径规划研究[J].中国航务周刊,2023(46):55-57.
+[27] YAO Liu. Application of Artificial Intelligence in Traffic Engineering [J]. Electronic Technology,2023,52(10):74-75. (in Chinese)
+姚柳.人工智能在交通工程中的应用[J].电子技术,2023,52(10):74-75.
+[28] The Ministry of Transport, "Push Forward the Intelligent Transportation Development Action Plan (2017-2020)" [EB/OL].2017-01-22/2018-10-20. (in Chinese)
+通运输部《推. 进智慧交通发展行动计划（2017—2020 年）》 [EB/OL].2017-01-22/2018-10-20. 
+[29] Ministry of Transport.2017 Statistical Bulletin on Development of Transport Industry [EB/OL]. 2018-03-30/2018-10-20. (in Chinese)
+交通运输部.2017 年交通运输行业发展统计公报[EB/OL].2018- 03-30 /2018-10-20.
+[30] China Report.com. Analysis Report on the operating status and development opportunities of China's intelligent transportation Industry from 2017 to 2022 [EB/OL].2017-05-25/2018-10-20. (in Chinese)
+中国报告网. 2017-2022 年中国智能交通产业运营现状及发展 机会分析报告[EB/OL].2017-05-25/2018-10-20
+[31] Wu Dongsheng. Discussion on commercialization value of vehicle-road Collaboration [J]. Intelligent Connected Vehicle,2022(3):58-61. (in Chinese)
+吴冬升. 车路协同商业化价值探讨[J]. 智能网联汽车,2022(3):58-61.
+[32] Zhang Jin. Key technologies and applications of intelligent charging piles for new energy vehicles [J]. Science and Technology Innovation Review,2022,19(11):74-76. (in Chinese) DOI:10.16660/j.cnki.1674-098X.2203-5640-6209. (in Chinese)
+张瑾.新能源汽车智能充电桩关键技术与应用[J]. 科技创新导报,2022,19(11):74-76. DOI:10.16660/j.cnki.1674-098X.2203-5640-6209.
+[33] Wang Tingting. Intelligent transportation, Smart city [J]. Science and Fortune,2018(22):261. (in Chinese) DOI:10.3969/j.issn.1671-2226.2018.22.263. (in Chinese)
+王婷婷. 智能交通，智慧城市[J]. 科学与财富,2018(22):261. DOI:10.3969/j.issn.1671-2226.2018.22.263.
+[34] Nan. Improved WSNs Trust Evaluation Model Based on Bayes [J]. Journal of Sensing Technology,201 (in Chinese)
+楠.基于贝叶斯的改进WSNs信任评估模型[J].传感技术学报,201
+
+
+
+

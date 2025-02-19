@@ -1,0 +1,237 @@
+参考文献
+[1] Tan Yigitcanlar, Marcus Foth, and Md Kamruzzaman. Towards
+ post-anthropocentric cities: Reconceptualizing smart cities to evade
+ urban ecocide. Journal of Urban Technology, 26(2):147–152, 2019.
+ [2] Tan Yigitcanlar, Hoon Han, Md Kamruzzaman, Giuseppe Ioppolo,
+ and Jamile Sabatini-Marques. The making of smart cities: Are
+ songdo, masdar, amsterdam, san francisco and brisbane the best we
+ could build? Land use policy, 88:104187, 2019.
+ [3] Tan Yigitcanlar and Md Kamruzzaman. Smart cities and mobility:
+ Does the smartness of australian cities lead to sustainable commut
+ing patterns? In Smart Cities and Innovative Urban Technologies,
+ pages 21–46. Routledge, 2020.
+ [4] Sumathi Balakrishnan, Hemalata Vasudavan, and Raja Kumar
+ Murugesan. Smart home technologies: A preliminary review. In
+ Proceedings of the 6th International Conference on Information
+ Technology: IoT and Smart City, pages 120–127, 2018.
+ [5] Areum Hong, Changi Nam, and Seongcheol Kim. What will be the
+ possible barriers to consumers’adoption of smart home services?
+ Telecommunications Policy, 44(2):101867, 2020.
+ [6] Sang-Ho Lee, Tan Yigitcanlar, Jung-Hoon Han, and Youn-Taik
+ Leem. Ubiquitous urban infrastructure: Infrastructure planning and
+ development in korea. Innovation, 10(2-3):282–292, 2008.
+ [7] Mobark Q Aldossari and Anna Sidorova. Consumer acceptance of
+ internet of things (iot): Smart home context. Journal of Computer
+ Information Systems, 60(6):507–517, 2020.
+ [8] Wenda Li, Tan Yigitcanlar, Isil Erol, and Aaron Liu. Motivations,
+ barriers and risks of smart home adoption: From systematic liter
+ature review to conceptual framework. Energy Research & Social
+ Science, 80:102211, 2021.
+ [9] Luke Butler, Tan Yigitcanlar, and Alexander Paz. Barriers and
+ risks of mobility-as-a-service (maas) adoption in cities: A systematic
+ review of the literature. Cities, 109:103036, 2021.
+ [10] Andres Sanchez-Comas, Kåre Synnes, and Josef Hallberg. Hardware
+ for recognition of human activities: A review of smart home and aal
+ related technologies. Sensors, 20(15):4227, 2020.
+ [11] Claire McIlvennie, Angela Sanguinetti, and Marco Pritoni. Of
+ impacts, agents, and functions: An interdisciplinary meta-review of
+ smart home energy management systems research. Energy Research
+ & Social Science, 68:101555, 2020.
+ [12] Samad Sepasgozar, Reyhaneh Karimi, Leila Farahzadi, Farimah
+ Moezzi, Sara Shirowzhan, Sanee M. Ebrahimzadeh, Felix Hui, and
+ Lu Aye. A systematic content review of artificial intelligence and
+ the internet of things applications in smart home. Applied Sciences,
+ 10(9):3074, 2020.
+ 8
+[13] A Hasan Sapci and H Aylin Sapci. Innovative assisted living
+ tools, remote monitoring technologies, artificial intelligence-driven
+ solutions, and robotic systems for aging societies: systematic review.
+ JMIR aging, 2(2):e15429, 2019.
+ [14] Anas Abou Allaban, Maozhen Wang, and Taşkın Padır. A system
+atic review of robotics research in support of in-home care for older
+ adults. Information, 11(2):75, 2020.
+ [15] Kholoud Maswadi, Norjihan Binti Abdul Ghani, and Suraya Binti
+ Hamid. Systematic literature review of smart home monitoring
+ technologies based on iot for the elderly. IEEE Access, 8:92244
+92261, 2020.
+ [16] Khairunisa Sharif and Bastian Tenbergen. Smart home voice assis
+tants: a literature survey of user privacy and security vulnerabilities.
+ Complex Systems Informatics and Modeling Quarterly, (24):15–30,
+ 2020.
+ [17] Davit Marikyan, Savvas Papagiannidis, and Eleftherios Alamanos.
+ A systematic review of the smart home literature: A user perspec
+tive. Technological Forecasting and Social Change, 138:139–154,
+ 2019.
+ [18] FK Aldrich. Inside the smart home, 2003.
+ [19] Rosslin John Robles and Tai-hoon Kim. Applications, systems and
+ methods in smart home technology: A. Int. Journal of Advanced
+ Science And Technology, 15:37–48, 2010.
+ [20] Liyanage C. De Silva, Chamin Morikawa, and Iskandar M. Pe
+tra. State of the art of smart homes. Engineering Applications
+ of Artificial Intelligence, 25(7):1313–1321, 2012. Advanced issues
+ in Artificial Intelligence and Pattern Recognition for Intelligent
+ Surveillance System in Smart Home Environment.
+ [21] Nazmiye Balta-Ozkan, Rosemary Davidson, Martha Bicket, and
+ Lorraine Whitmarsh. Social barriers to the adoption of smart homes.
+ Energy Policy, 63:363–374, 2013.
+ [22] Christian Reinisch, MarioJ Kofler, Félix Iglesias, and Wolfgang
+ Kastner. Thinkhome energy efficiency in future smart homes.
+ EURASIP Journal on Embedded Systems, 2011:1–18, 2011.
+ [23] Ameena Saad al sumaiti, Mohammed Hassan Ahmed, and
+ Magdy MA Salama. Smart home activities: A literature review.
+ Electric Power Components and Systems, 42(3-4):294–305, 2014.
+ [24] Vaishnavi S Gunge and Pratibha S Yalagi. Smart home automation:
+ a literature review. International Journal of Computer Applications,
+ 975(8887-8891), 2016.
+ [25] Christopher W Ajan, S Shahnawaz Ahmed, Hussien B Ahmad,
+ Faridah Taha, and Abdullah Asuhaimi B Mohd Zin. On the policy
+ of photovoltaic and diesel generation mix for an off-grid site: East
+ malaysian perspectives. Solar Energy, 74(6):453–467, 2003.
+ [26] Thinagaran Perumal, Soumya Kanti Datta, and Christian Bonnet.
+ Iot device management framework for smart home scenarios. In 2015
+ IEEE 4th global conference on consumer electronics (GCCE), pages
+ 54–55. IEEE, 2015.
+ [27] Bin Zhou, Wentao Li, Ka Wing Chan, Yijia Cao, Yonghong Kuang,
+ Xi Liu, and Xiong Wang. Smart home energy management systems:
+ Concept, configurations, and scheduling strategies. Renewable and
+ Sustainable Energy Reviews, 61:30–40, 2016.
+ [28] Lili Liu, Eleni Stroulia, Ioanis Nikolaidis, Antonio Miguel-Cruz, and
+ Adriana Rios Rincon. Smart homes and home health monitoring
+ technologies for older adults: A systematic review. International
+ Journal of Medical Informatics, 91:44–59, 2016.
+ [29] Chris Karlof and David Wagner. Secure routing in wireless sensor
+ networks: Attacks and countermeasures. Ad hoc networks, 1(2
+3):293–315, 2003.
+ [30] Yih-Chun Hu, Adrian Perrig, and David B Johnson. Wormhole
+ attacks in wireless networks. IEEE journal on selected areas in
+ communications, 24(2):370–380, 2006.
+ [31] Nils J Nilsson. Principles of artificial intelligence. Springer Science
+ & Business Media, 1982.
+ [32] Samad Sepasgozar, Reyhaneh Karimi, Leila Farahzadi, Farimah
+ Moezzi, Sara Shirowzhan, Sanee M. Ebrahimzadeh, Felix Hui, and
+ Lu Aye. A systematic content review of artificial intelligence and
+ the internet of things applications in smart home. Applied Sciences,
+ 10(9):3074, 2020.
+ [33] Marc Ringel, Roufaida Laidi, and Djamel Djenouri. Multiple
+ benefits through smart home energy management solutions—a
+ simulation-based case study of a single-family-house in algeria and
+ germany. Energies, 12(8):1537, 2019.
+ [34] Liyanage C De Silva, Chamin Morikawa, and Iskandar M Petra.
+ State of the art of smart homes. Engineering Applications of
+ Artificial Intelligence, 25(7):1313–1321, 2012.
+ [35] Ayesha Sohail. Genetic algorithms in the fields of artificial intelli
+gence and data sciences. Annals of Data Science, 10(4):1007–1018,
+ 2023.
+ [36] Vlado Stankovski and Jernej Trnkoczy. Application of decision trees
+ to smart homes. In Designing smart homes: the role of artificial
+ intelligence, pages 132–145. Springer, 2006.
+ [37] Xin Hong, Chenhui Yang, and Chunming Rong. Smart home
+ security monitor system. In 2016 15th International Symposium on
+ Parallel and Distributed Computing (ISPDC), pages 247–251. IEEE,
+ 2016.
+ [38] Virginia Pilloni, Alessandro Floris, Alessio Meloni, and Luigi Atzori.
+ Smart home energy management including renewable sources: A
+ qoe-driven approach. IEEE Transactions on Smart Grid, 9(3):2006
+2018, 2018.
+ [39] Dae-Man Han and Jae-Hyun Lim. Design and implementation of
+ smart home energy management systems based on zigbee. IEEE
+ Transactions on Consumer Electronics, 56(3):1417–1425, 2010.
+ [40] Progress Mtshali and Freedom Khubisa. A smart home appliance
+ control system for physically disabled people. In 2019 Conference
+ on Information Communications Technology and Society (ICTAS),
+ pages 1–5, 2019.
+ [41] Wenjuan Liu. Design of human-computer interaction display ter
+minal system for intelligent home products based on colour vision
+ analysis.
+ International Journal of Product Development, 27(1
+2):111–125, 2023.
+ [42] AVLNSujith, Guna Sekhar Sajja, V Mahalakshmi, Shibili Nuhmani,
+ and B Prasanalakshmi. Systematic review of smart health moni
+toring using deep learning and artificial intelligence. Neuroscience
+ Informatics, 2(3):100028, 2022.
+ 9
+[43] Rosslin John Robles and Tai-hoon Kim. Applications, systems and
+ methods in smart home technology: A. Int. Journal of Advanced
+ Science And Technology, 15:37–48, 2010.
+ [44] Stanislav Mamonov and Raquel Benbunan-Fich. Unlocking the
+ smart home: exploring key factors affecting the smart lock adoption
+ intention. Information Technology & People, 34(2):835–861, 2021.
+ [45] Abdallah Kassem, Sami El Murr, Georges Jamous, Elie Saad, and
+ Marybelle Geagea. A smart lock system using wi-fi security. In 2016
+ 3rd International Conference on Advances in Computational Tools
+ for Engineering Applications (ACTEA), pages 222–225. IEEE, 2016.
+ [46] Diamond Celestine Aluri. Smart lock systems: An overview. Inter
+national Journal of Computer Applications, 177(37):40–43, 2020.
+ [47] George Demiris and Brian K Hensel. Technologies for an aging
+ society: a systematic review of“smart home”applications. Yearbook
+ of medical informatics, 17(01):33–40, 2008.
+ [48] NM Barnes, NH Edwards, DAD Rose, and P Garner. Lifestyle
+ monitoring-technology for supported independence. Computing &
+ Control Engineering Journal, 9(4):169–174, 1998.
+ [49] Jamie Bennett, Osvaldas Rokas, and Liming Chen. Healthcare in
+ the smart home: A study of past, present and future. Sustainability,
+ 9(5):840, 2017.
+ [50] Ferdinand David Schoeman. Privacy and social freedom. Cambridge
+ university press, 1992.
+ [51] Ruth Gavison. Privacy and the limits of law. The Yale law journal,
+ 89(3):421–471, 1980.
+ [52] J Brodkin. Isps lied to congress to spread confusion about encrypted
+ dns, mozilla says.
+ In Ars Technica.(Nov. 4, 2019),[Online].
+ Available:
+ https://arstechnica.
+ com/tech-policy/2019/11/isps
+lied-to-congress-to-spread-confusion-aboutencrypted-dns-mozilla
+says/(visited on 04/08/2022), 2019.
+ [53] Nicole Lindsey. Smart devices leaking data to tech giants raises new
+ iot privacy issues, 2019.
+ [54] K Hill. How a creep hacked a baby monitor to say lewd things to a
+ 2-year-old. Forbes. com, 2013.
+ [55] Michael Schiefer. Smart home definition and security threats.
+ In 2015 Ninth International Conference on IT Security Incident
+ Management IT Forensics, pages 114–118, 2015.
+ [56] Thomas T Hewett, Ronald Baecker, Stuart Card, Tom Carey, Jean
+ Gasen, Marilyn Mantei, Gary Perlman, Gary Strong, and William
+ Verplank. ACM SIGCHI curricula for human-computer interaction.
+ ACM, 1992.
+ [57] Xiaoyun Zhao, Chunlai Zhou, and Wenhui Huang. Smart home
+ power management system design based on human-computer inter
+action model. In Proceedings of 2013 3rd international conference on
+ computer science and network technology, pages 1247–1250. IEEE,
+ 2013.
+ [58] Fabio Paterno, Cristiano Mancini, and Silvia Meniconi. Concur
+tasktrees: A diagrammatic notation for specifying task models. In
+ Human-Computer Interaction INTERACT’97: IFIP TC13 Inter
+national Conference on Human-Computer Interaction, 14th–18th
+ July 1997, Sydney, Australia, pages 362–369. Springer, 1997.
+ [59] Bonnie John. Why goms? interactions, 2(4):80–89, 1995.
+ [60] Jamilah Yusof, K Hashim, and ZM Kasirun. A simpler approach to
+ hierarchical task analysis for user interface design. In the Workshop:
+ Inteligent Information Interface, i3 Spring Days, 1999.
+ [61] Fu Jiuqiang, Jiang Bing, and Yang Xin. Design and management
+ methods of smart home human-computer relationship. In 2016
+ 2nd International Conference on Cloud Computing and Internet of
+ Things (CCIOT), pages 148–151, 2016.
+ [62] Piotr Lech. The problem of sharing iot services within one smart
+ home infrastructure. Image Processing and Communications Chal
+lenges, 10(892):177–184, 2018.
+ [63] Angela Sanguinetti, Beth Karlin, Rebecca Ford, Kiernan Salmon,
+ and Kelsea Dombrovski. What’s energy management got to do
+ with it? exploring the role of energy management in the smart home
+ adoption process. Energy Efficiency, 11:1897–1911, 2018.
+ [64] Geoffrey Hinton, Nitish Srivastava, Alex Krizhevsky, Ilya Sutskever,
+ and Ruslan Salakhutdinov. Improving neural networks by pre
+venting co-adaptation of feature detectors.
+ arXiv preprint
+ arXiv:1207.0580, 2012.
+ [65] Massimo Negrotti. Understanding the artificial: on the future shape
+ of artificial intelligencel. Springer-Verlag Berlin Heidelberg, 1991.
+ [66] Julian Kinderlerer. Artificial Intelligence for a Better Future: An
+ Ecosystem Perspective on the Ethics of AI and Emerging Digital
+ Technologies. Springer, 2021.
+ [67] Christian Reinisch, MarioJ Kofler, Félix Iglesias, and Wolfgang
+ Kastner. Thinkhome energy efficiency in future smart homes.
+ EURASIP Journal on Embedded Systems, 2011:1–18, 2011.
+ [68] Yu-Chun Huang, Kuan-Ying Wu, and Yu-Tung Liu. Future home
+ design: an emotional communication channel approach to smart
+ space. Personal and Ubiquitous Computing, 17(6):1281–1293, 2013

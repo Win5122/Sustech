@@ -1,0 +1,11 @@
+参考文献
+ [1] Thomas Walter, Pascale Massin, Ali Erginay, Richard Ordonez, Clotilde Jeulin, Jean-Claude
+ Klein, Automatic detection of microaneurysms in color fundus images, Medical Image Analysis,
+ Volume 11, Issue 6, 2007, Pages 555-566, ISSN 1361-8415,
+ [2] Benjamin T. Carter, Steven G. Luke, Best practices in eye tracking research, International Journal
+ of Psychophysiology, Volume 155, 2020, Pages 49-62, ISSN 0167-8760
+ [3] lse, M., Tomczak, J.M., Welling, M. (2018). Attention-based Deep Multiple Instance Learning.
+ ICML.
+ [4] hua, J., Li, C., Ho, L.K.H. et al. A multi-regression framework to improve diagnostic ability of
+ optical coherence tomography retinal biomarkers to discriminate mild cognitive impairment and
+ Alzheimer’s disease. Alz Res Therapy 14, 41 (2022)

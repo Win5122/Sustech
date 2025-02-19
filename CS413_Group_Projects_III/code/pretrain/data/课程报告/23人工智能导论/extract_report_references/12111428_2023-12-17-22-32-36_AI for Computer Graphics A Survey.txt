@@ -1,0 +1,134 @@
+REFERENCES
+[1] C. Dong, C. C. Loy, K. He, and X. Tang, “Image super-
+resolution using deep convolutional networks,” 2015.
+[2] J. Yang, J. Wright, T. Huang, and Y . Ma, “Image super-
+resolution as sparse representation of raw image patches,” no. 1,
+pp. 1–8, 2008.
+[3] Z. Wang, J. Chen, and S. C. H. Hoi, “Deep learning for image
+super-resolution: A survey,” IEEE Transactions on Pattern
+Analysis and Machine Intelligence , vol. 43, no. 10, pp. 3365–
+3387, 2021.
+[4] C. Dong, C. C. Loy, and X. Tang, “Accelerating
+the super-resolution convolutional neural network,”
+CoRR , vol. abs/1608.00367, 2016. [Online]. Available:
+http://arxiv.org/abs/1608.00367
+[5] I. J. Goodfellow, J. Pouget-Abadie, M. Mirza, B. Xu, D. Warde-
+Farley, S. Ozair, A. Courville, and Y . Bengio, “Generative
+adversarial networks,” 2014.
+[6] N. Ahn, B. Kang, and K.-A. Sohn, “Efficient deep neural
+network for photo-realistic image super-resolution,” Pattern
+Recognition , vol. 127, p. 108649, 2022. [Online]. Available:
+https://www.sciencedirect.com/science/article/pii/S0031320322001303
+[7] J. Kim, J. K. Lee, and K. M. Lee, “Deeply-recursive convolu-
+tional network for image super-resolution,” in 2016 IEEE Con-
+ference on Computer Vision and Pattern Recognition (CVPR) ,
+2016, pp. 1637–1645.
+[8] L. Perez and J. Wang, “The effectiveness of data
+augmentation in image classification using deep learning,”
+CoRR , vol. abs/1712.04621, 2017. [Online]. Available:
+http://arxiv.org/abs/1712.04621
+[9] K. He, X. Zhang, S. Ren, and J. Sun, “Spatial pyramid pooling
+in deep convolutional networks for visual recognition,”
+CoRR , vol. abs/1406.4729, 2014. [Online]. Available:
+http://arxiv.org/abs/1406.4729
+[10] S. M. Viswanathan, “Ai chips: New semiconductor era,” vol. 7,
+pp. 14 687–14 692, 08 2020.
+[11] J. Hasselgren, J. Munkberg, M. Salvi, A. Patney, and A. Lefohn,
+“Neural temporal adaptive sampling and denoising,” Computer
+Graphics Forum , vol. 39, no. 2, p. 147–155, 2020.
+[12] B. Xu, J. Zhang, R. Wang, K. Xu, Y .-L. Yang, C. Li, and
+R. Tang, “Adversarial monte carlo denoising with conditioned
+auxiliary feature modulation,” ACM Transactions on Graphics ,
+vol. 38, no. 6, p. 1–12, 2019.[13] A. Kuznetsov, N. K. Kalantari, and R. Ramamoorthi,
+“Deep adaptive sampling for low sample count rendering,”
+Computer Graphics Forum , vol. 37, 2018. [Online]. Available:
+https://api.semanticscholar.org/CorpusID:49341310
+[14] A. Scardigli, L. Cavigelli, and L. K. M ¨uller, “Rl-based
+stateful neural adaptive sampling and denoising for real-time
+path tracing,” ArXiv , vol. abs/2310.03507, 2023. [Online].
+Available: https://api.semanticscholar.org/CorpusID:263671619
+[15] T. Viitanen, M. Koskela, K. Immonen, M. J. M ¨akitalo, P. O.
+J¨a¨askel ¨ainen, and J. H. Takala, “Sparse sampling for real-
+time ray tracing,” in VISIGRAPP , 2018. [Online]. Available:
+https://api.semanticscholar.org/CorpusID:45171909
+[16] S. Bako, T. V ogels, B. McWilliams, M. Meyer, J. Nov ´ak,
+A. Harvill, P. Sen, T. DeRose, and F. Rousselle,
+“Kernel-predicting convolutional networks for denoising
+monte carlo renderings,” ACM Transactions on Graphics
+(TOG) , vol. 36, pp. 1 – 14, 2017. [Online]. Available:
+https://api.semanticscholar.org/CorpusID:31004998
+[17] C. Schied, A. Kaplanyan, C. Wyman, A. Patney, C. R. A.
+Chaitanya, J. Burgess, S. Liu, C. Dachsbacher, A. E. Lefohn,
+and M. Salvi, “Spatiotemporal variance-guided filtering:
+Real-time reconstruction for path-traced global illumination,”
+Proceedings of High Performance Graphics , 2017. [Online].
+Available: https://api.semanticscholar.org/CorpusID:202716856
+[18] S. Malekmohammadi Faradounbeh and S. Kim, “Evaluation of
+artificial intelligence-based denoising methods for global illu-
+mination,” Journal of Information Processing Systems , vol. 17,
+pp. 737–753, 08 2021.
+[19] C. R. A. Chaitanya, A. Kaplanyan, C. Schied, M. Salvi,
+A. E. Lefohn, D. Nowrouzezahrai, and T. Aila, “Interactive
+reconstruction of monte carlo image sequences using a
+recurrent denoising autoencoder,” ACM Transactions on
+Graphics (TOG) , vol. 36, pp. 1 – 12, 2017. [Online].
+Available: https://api.semanticscholar.org/CorpusID:3350221
+[20] B. Costa and J. Jain, “Fuzzy deep stack of autoencoders for
+dealing with data uncertainty,” in 2019 IEEE International
+Conference on Fuzzy Systems (FUZZ-IEEE) , 2019, pp. 1–6.
+[21] A. Watson, “Deep learning techniques for super-resolution in
+video games,” CoRR , vol. abs/2012.09810, 2020. [Online].
+Available: https://arxiv.org/abs/2012.09810
+[22] L. Ma, Y . Liu, X. Zhang, Y . Ye, G. Yin, and B. Johnson,
+“Deep learning in remote sensing applications: A meta-analysis
+and review,” ISPRS Journal of Photogrammetry and Remote
+Sensing , vol. 152, pp. 166–177, 04 2019.
+[23] H. Kim, J. Kim, S. Won, and C. Lee, “Unsupervised deep learn-
+ing for super-resolution reconstruction of turbulence,” Journal
+of Fluid Mechanics , vol. 910, p. A29, 2021.
+[24] W. Xu, G. XU, Y . Wang, X. Sun, D. Lin, and Y . WU,
+“High quality remote sensing image super-resolution using deep
+memory connected network,” in IGARSS 2018 - 2018 IEEE In-
+ternational Geoscience and Remote Sensing Symposium , 2018,
+pp. 8889–8892.
+[25] Y . Liu, Y . Qiao, Y . Hao, F. Wang, and S. F. Rashid,
+“Single image super resolution techniques based on
+deep learning: Status, applications and future directions,”
+Journal of Image and Graphics , 2021. [Online]. Available:
+https://api.semanticscholar.org/CorpusID:239043521
+[26] S. M. Viswanathan, “Ai chips: New semiconductor era,” vol. 7,
+pp. 14 692–14 693, 08 2020.
+[27] M. Oussalah, “Ai explainability. a bridge between machine
+vision and natural language processing,” in Pattern Recognition.
+ICPR International Workshops and Challenges , A. Del Bimbo,
+R. Cucchiara, S. Sclaroff, G. M. Farinella, T. Mei, M. Bertini,H. J. Escalante, and R. Vezzani, Eds. Cham: Springer
+International Publishing, 2021, pp. 257–273.
+[28] J. J. Korbel, U. H. Siddiq, and R. Zarnekow, “Towards virtual
+3d asset price prediction based on machine learning,” Journal
+of Theoretical and Applied Electronic Commerce Research ,
+vol. 17, no. 3, pp. 924–948, 2022.
+[29] J. Ratican, J. Hutson, and A. Wright, “A proposed meta-reality
+immersive development pipeline: Generative ai models and
+extended reality (xr) content for the metaverse,” Journal of
+Intelligent Learning Systems and Applications , vol. 15, 2023.
+[30] A. R. C. Mamani, S. R. R. Polanco, and C. A. C. Ordonez,
+“Systematic review on photogrammetry, streaming, virtual and
+augmented reality for virtual tourism,” in HCI International
+2022–Late Breaking Papers: Interacting with eXtended Reality
+and Artificial Intelligence: 24th International Conference on
+Human-Computer Interaction, HCII 2022, Virtual Event, June
+26–July 1, 2022, Proceedings , vol. 13518. Springer Nature,
+2022, p. 46.
+[31] E. Touloupaki and T. Theodosiou, “Performance simulation
+integrated in parametric 3d modeling as a method for early
+stage design optimization—a review,” Energies , vol. 10, no. 5,
+p. 637, 2017.
+[32] B. Raitt and G. Minter, “Digital sculpture techniques,” Interac-
+tivity Magazine , vol. 4, no. 5, 2000.
+[33] T. Tasdizen, R. Whitaker, P. Burchard, and S. Osher, “Geometric
+surface processing via normal maps,” ACM Transactions on
+Graphics (TOG) , vol. 22, no. 4, pp. 1012–1033, 2003.
+[34] J. Wu, C. Dick, and R. Westermann, “A system for high-
+resolution topology optimization,” IEEE transactions on visual-
+ization and computer graphics , vol. 22, no. 3, pp. 1195–1208,
+2015.

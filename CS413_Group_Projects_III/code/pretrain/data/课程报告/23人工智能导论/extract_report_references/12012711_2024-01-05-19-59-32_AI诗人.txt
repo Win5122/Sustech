@@ -1,0 +1,7 @@
+11. 引用
+[1] Z. Zhang, H. Zhang, K. Chen, Y. Guo, J. Hua, Y. Wang, and M. Zhou, “Mengzi: Towards lightweight  
+yet ingenious pre-trained models for chinese,” 2021.
+[2] Xiaoyuan Yi, Ruoyu Li, Cheng Yang, Wenhao Li and Maosong Sun. 2020. MixPoet: Diverse Poetry  
+Generation via Learning Controllable Mixed Latent Space. In Proceedings of The Thirty-Fourth  
+AAAI Conference on Artificial Intelligence, New York, USA.
+ 

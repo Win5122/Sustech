@@ -1,0 +1,21 @@
+参考文献
+[1] S. Ren, K. He, R. Girshick, and J. Sun, "Faster 
+R-CNN: Towards real-time object detection with 
+region proposal networks," in IEEE Transactions on 
+Pattern Analysis and Machine Intelligence, vol. 39, 
+no. 6, pp. 1137-1149, June 2017.
+[2] K. Simonyan and A. Zisserman, "Very deep convolutional networks for large-scale image 
+recognition," in International Conference on 
+Learning Representations, 2015.
+[3] Z. Wu, S. Zhang, H. Lu, and X. Li, "Object 
+detection in remote sensing images with Faster R-
+CNN," in IEEE Geoscience and Remote Sensing 
+Letters, vol. 15, no. 10, pp. 1653-1657, Oct. 2018.
+[4] Zhao H, Shi J, Qi X, et al. Pyramid scene 
+parsing network[C]//Proceedings of the IEEE 
+conference on computer vision and pattern 
+recognition. 2017: 2881-2890.
+[5] He K, Zhang X, Ren S, et al. Deep residual 
+learning for image recognition[C]//Proceedings of 
+the IEEE conference on computer vision and pattern 
+recognition. 2016: 770-778.

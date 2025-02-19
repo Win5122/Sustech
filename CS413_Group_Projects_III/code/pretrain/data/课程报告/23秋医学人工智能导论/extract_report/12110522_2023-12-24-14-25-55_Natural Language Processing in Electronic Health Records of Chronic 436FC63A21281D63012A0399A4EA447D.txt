@@ -1,0 +1,607 @@
+Natural Language Processing (NLP) in
+ Electronic Health Records (EHR) of Chronic
+ Diseases in Relation to Healthcare Decision
+ Yujie Zhou1,2and Songyan Yu1,2
+ 1School of Medicine, Southern University of Science and Technology, Shenzhen 518055, China
+ 2Contribute equally
+ Corresponding author: Yujie Zhou (e-mail: 12110522@mail.sustech.edu.cn), Songyan Yu (e-mail: 12112023@mail.sustech.edu.cn).
+ ABSTRACT Electronic health records (EHR), as automated compilations of healthcare activities and
+ assessments, have garnered attention in healthcare, health prevention, and research. The potential for
+ extracting clinical insights from EHR relies on the advancements in natural language processing (NLP)
+ methods. Against the backdrop of a continuously increasing global incidence of chronic diseases,
+ approaches leveraging machine learning and deep learning to process EHR are enhancing the understanding
+ of patient clinical trajectories and predicting disease risks. This provides an opportunity for early prevention
+ and precision medicine for chronic diseases. This review summarizes machine learning and deep learning
+ models used for natural language processing in EHR, along with their applications in chronic
+ cardiovascular diseases and chronic digestive system diseases.
+ INDEX TERMSCardiovascular disease; Chronic disease; Deep learning; Digestive system disease;
+ Natural language processing; Machine learning.
+ I. 
+INTRODUCTION
+ Chronic diseases also called noncommunicable diseases
+ (NCDs) have been widely viewed as one of the main
+ challenges of healthcare. According to WHO, chronic
+ diseases kill 41 million people each year, equivalent to 74%
+ of all deaths globally [1]. Although great progress has been
+ made in discovering new treatments and prevention strategies
+ for chronic diseases, the risk from chronic diseases still exists,
+ which even evolves into a phenomenon of rising incidences
+ of chronic diseases [2]. Therefore, totally different and novel
+ approaches beyond clinical medicine itself should be carried
+ out to mitigate the negative impact of chronic disease on the
+ whole of society in the future.
+ Electronic health records (EHRs) are automated
+ collections of clinical data generated in the healthcare
+ activity and assessment [3]. The analysis based on EHR can
+ improve understanding of the patient’s clinical trajectory,
+ provide possibilities for better patient stratification and risk
+ prediction and inform clinical decision-making [4-6].
+ Considering that the long-term nature of chronic diseases can
+ provide a very large and continuous stream of data, the
+ reprocessing of EHR offers a potential direction for
+ ameliorating chronic diseases, including delaying or
+ preventing their onset.
+ Nowadays, EHRs have been increasingly popular and
+ significant in clinical diagnosis, management and even
+ research all over the world. For the United States, the
+ adoption of EHRs had increased from 9.4% in 2008 to 96%
+ in 2017 [7]. A similar trend has been seen in the health
+ services of China, Australia and European countries [8, 9].
+ With the wide adoption and application of EHR, the volume
+ of accumulated data in EHR including their modification has
+ been so enormous that humans can't interpret every detail in
+ the EHR. In addition, the noise, heterogeneity, random errors,
+ incompleteness and even systematic biases aroused by such a
+ large lumber of data lead to difficulty in integrating
+ processing and modeling [10]. As a result, computer-based
+ tools should be developed to mine, process and organize the
+ information behind the data.
+ The components of EHR can be divided into structured
+ data and unstructured data [11]. The structured EHR data is
+ composed of numerical or categorical sources including
+ laboratory values or prescriptions. On the contrary, clinical
+ documentation or notes and discharge summaries containing
+ free texts comprise the unstructured EHR data. For the
+ structured data, several efforts have been made to increase
+ the availability to it. For instance, a study showed a graphical
+ approach to quantify the number of clinical notes above the
+ structured data for rheumatoid arthritis and Alzheimer
+ 1
+ VOLUME XX, 2017
+disease [12]. In addition, a great deal of progress in treating
+ the unstructured free texts in the medical area has been
+ realized by machine learning (ML). For example, as an
+ emerging ML-integrated tool, autoML has been applied in
+ EHRanalysis [13]. All of these have provided a possibility to
+ handle EHR for clinical tasks, especially in chronic diseases.
+ However, one of the main challenges for medical information
+ studies is the unique language and clinical idioms used by
+ clinicians.
+ Natural language processing (NLP) is a subfield of
+ artificial
+ intelligence
+ (AI) techniques allowing the
+ interactions between computers and human languages [14]. It
+ has been used for clinical text mining, which bridges the gap
+ between clinical human language and computational systems
+ [15]. NLP consists of tasks that computationally use human
+ languages such as written or spoken language to detect the
+ underlying concepts, which meets the need to the extraction
+ of the wealthy information about patient clinical history
+ generally locked behind EHRs. Although the use of NLP in
+ the clinical domain obtains an increasing uptake with diverse
+ applications, few reviews have mainly focused on the EHR
+NLP applications on chronic diseases which are represented
+ by cardiovascular diseases and digestive system diseases. In
+ this review, several basic NLP algorithms and models based
+ on machine learning (ML) and deep learning (DL) and used
+ for EHR processing to extract information about healthcare
+ decisions will be concluded. Subsequently, the detailed cases
+ of two typical chronic diseases, cardiovascular diseases and
+ gastrointestinal diseases, will be discussed. In the end,
+ several challenges and future trends in this area.
+ II. 
+COMMONLYUSEDMODELSINNLPFOREHR
+BASED HEALTHCAREDESITION-MAKING
+ A. MLMODELS
+ Machine learning (ML) is a field of computer science that
+ empowers computer systems to progressively enhance
+ performance from data using statistical techniques, without
+ the need for explicit programming [16]. While early NLP
+ methods enabled computers to handle and analyze text data
+ written in human languages, the emergence of ML methods
+ has allowed NLP to extract and measure more complex
+ structures. Therefore, since 2015, there has been a growing
+ preference for machine learning methodologies over rule
+based approaches (Fig. 1) [17]. As a paradigm for analyzing
+ EHRs, ML has gained tremendous development and is
+ widely used to analyze EHR data in the last few years.
+ Generally, machine learning methods can be categorized into
+ supervised learning, semi-supervised, and unsupervised
+ learning. Supervised learning utilizes labeled data to train
+ algorithms for classification or accurate outcome prediction.
+ Semi-supervised learning is a learning problem that involves
+ a small number of labeled examples and a large number of
+ unlabeled examples. In contrast, unsupervised learning
+ utilizes unlabeled data for training by uncovering underlying
+ structures. According to the quantity of published articles, it
+ seems that algorithms pertaining to supervised learning have
+ garnered greater favor. Nevertheless, a recent novel approach
+ tackling NLP problems by combining unsupervised,
+ supervised, and rule-based learning has demonstrated its
+ potential for clinical NLP tasks. Within the research context,
+ this method exhibited notable interpretability as well as
+ superior performance [18].
+ FIGURE 1. Natural language processing rule-based methods versus
+ machine learning for chronic diseases.
+ 1) SUPERVISEDLEARNING
+ The most widely used supervised learning algorithms for
+ dealing with EHR is support vector machine (SVM),
+ followed by Naïve Bayes (NB) [19]. The prevalence of these
+ two algorithms could be attributed to their popularity,
+ relative simplicity, and lower demand for training data [19].
+ Moreover, logistic regression (LR), eXtreme Gradient
+ Boosting (XGBoost), AdaBoost, random forest (RF), linear
+ regression, gradient boosting (GB), and decision tree (DT)
+ models have also been employed in EHR [20].
+ SVM has powerful capabilities in linear or nonlinear
+ classification, regression, and even outlier detection tasks. It
+ can be used for text classification, handwriting identification
+ gene classification and so on. Clinical narratives exhibit
+ characteristics of high-dimensional feature spaces, a few
+ irrelevant features, and sparse instance vectors. SVM is
+ considered to have good performance in solving these
+ problems [21]. Therefore, the use of SVM is considered
+ effective and has gained wide recognition. Several studies
+ also have indicated that SVM outperforms Naïve Bayes,
+ Bayesian networks, decision trees, and rule-based systems in
+ text classification. Additionally, SVM active learning
+ techniques have shown the potential to reduce the required
+ sample size [22-24].
+ NB is a popular supervised machine learning algorithm
+ used for classification tasks such as text classification. It is
+ based on Bayes’ Theorem with an independent assumption
+ among predictors. NB doesn’t require the inference of a
+ dependency network. Moreover, they are convenient to apply
+ when dealing with high-dimensional features. NB
+ demonstrates the superiority of its algorithm when dealing
+ VOLUME XX, 2017
+ 2
+with large-scale data and effectively reduces the likelihood of
+ overfitting [25]. Even in the presence of missing values, NB
+ can learn and demonstrate less reliance on missing data
+ imputation [26, 27]. Currently, NB has been employed to
+ predict heart diseases in medical data, classify smoking status,
+ search EMR records to identify multiple sclerosis and
+ categorize obesity and cancer based on EMR records [10, 28
+32].
+ Regression methods have been extensively employed for
+ computational tasks over an extended period. They possess
+ the advantage of being straightforward and convenient for
+ model construction or adjustment, adjusting their parameters
+ to maximize the conditional likelihood of the data. Further,
+ regression models do not require a lot of effort in building or
+ tuning, and the feature statistics derived from these
+ regression models can be easily interpreted for meaningful
+ insights.
+ 2) UNSUPERVISED LEARNING
+ Due to the necessity for manual labeling in supervised
+ learning, which demands high human resources, sample
+ quantity, and quality, unsupervised learning, in contrast,
+ offers an annotation-free approach that alleviates the
+ burdensome labeling task, thereby enhancing the scalability
+ of research and alleviating the tedious labeling task.
+ Common unsupervised learning tasks include clustering and
+ density estimation. Luo et al. reported that they established a
+ model for clinical narrative texts using unsupervised learning.
+ By introducing a new architecture called subgraph
+ augmented non-negative tensor factorization (SANTF), they
+ classified lymphoma patients into three subtypes, achieving
+ an accuracy of 75% [33].
+ B. DLMODELS
+ The primary task of NLP is to provide an in-depth
+ representation of the text or the language, including feature
+ learning [34]. Conventional methods usually start with time
+consuming handcrafting of features via careful human
+ analysis of a specific application, and are followed by the
+ development of algorithms to extract and utilize instances of
+ those features. However, it has been proved that simple
+ representations of the language or the text coupled with large
+ amounts of data might work as well or better than more
+ complex representations based on the instance of the bag-of
+words (BoW) model [35]. Meanwhile, deep supervised
+ feature learning methods are highly data-driven and can be
+ used in more general efforts aimed at providing a robust data
+ representation [36]. This is because deep learning (DL) can
+ learn the features from unlabeled data to provide a low
+dimensional representation of a high-dimensional data space.
+ Then, DL takes the advantage in processing the vast amounts
+ of unlabeled data in NLP. As a result, deep learning has
+ become the precursor in NLP applications. Nowadays, the
+ clinical NLP has also been revolutionarily reshaped by DL
+ architectures. To be more specific, the novel DL models have
+ been applied in various clinical NLP tasks, including
+ classification, prediction, word embedding, medical text
+ summarization, language modeling, ICD-9 classification,
+ clinical notes analysis, mental health issue identification and
+ medical dialogue analysis [20]. Meanwhile, the frequently
+ used deep learning architectures to analyze EHR are
+ introduced as follows.
+ 1) CONVOLUTIONAL NEURAL NETWORKS
+ As a subclass of feed-forward neural networks,
+ convolutional neural networks (CNNs) are inspired by the
+ human visual cortex and based on the underlying
+ mathematical operation, convolution, to measure the
+ interoperability of its input functions [37]. In the cases of
+ NLP, the inputs of sentences or documents are represented as
+ matrices. In the training phase, most of the CNN structures
+ learn word or sentence representations in which each matrix
+ row is associated with a language element like a word or a
+ character [38].
+ In the clinical field, CNN has been widely utilized in NLP
+ tasks. For instance, Li et al. designed a deep learning system
+ (DeepLabeler) to automatically classify international
+ classification of diseases (ICD-9), which consists of CNN
+ and the document-to-vector (D2V) technique to search and
+ encode local and global features (Fig. 2). Specifically, this
+ model achieved its target through feature extraction and
+ multi-label classification. In addition, this architecture
+ effectively extracted global and local features from the
+ medical information mart for intensive care (MIMIC) dataset
+ without any useful information loss. In addition, the multi
+label classification step would utilize a fully connected neural
+ network (FCNN) to anticipate the likelihood of each ICD-9
+ code [39].
+ FIGURE 2. Thearchitecture of the DeepLabeler based on CNN
+ structure.
+ Also, several NLP solutions associated with CNN are not
+ widely available. The clinical name entity recognition (NER)
+ is one of examples. An NER model has been developed to
+ extract several medical entities like drug names, route of
+ administration, frequency, dosage, strength, form and
+ duration from a large number of medical records. The core
+ architecture of this proposed NER model is based on a CNN
+ network in which the token representations are hashed
+ VOLUME XX, 2017
+ 3
+Bloom embeddings of specific word prefixes, suffixes and
+ lemmatizations. For this model, the data from the United
+ Kingdom Secondary Care Mental Health Record (CRIS) has
+ evaluated its transferability [40].
+ 2) RECURRENTNEURALNETWORKANDLONG
+ SHORT-TERM MEMORY
+ A recurrent neural network (RNN) is a sequence of feed
+forward neural networks (FNNs) with the output of each
+ FNNcorresponding to the input of the next one. In all, layers
+ in an RNN can be categorized into input, hidden, and output
+ layers [34]. At each time step, predictions are made and
+ parameters of the current hidden layer are used as input to the
+ next time step. In particular, hidden layers in RNNs can carry
+ information from the past, which is useful in language
+ modeling like identifying the meaning behind a pronoun to
+ work as the memory. Especially, the long short-term memory
+ network (LSTM) is one of the most widely used classes of
+ RNNs, aiming at capturing the long-time dependencies
+ between inputs from different time steps [41].
+ The structures of RNN and LSTM have been utilized in
+ the clinical text classification. A study showed a hybrid
+ model of gated attention incorporated bidirectional long
+ short-term memory (ABLSTM) and attention-based
+ bidirectional LSTM to classify the clinical document [42]. To
+ finish this NLP task, RNN was first added in this study to
+ model time-sensitive sequences. Then, LSTM in this study
+ served as “gates” to regulate or control the data flow to RNN.
+ Furthermore, due to the disadvantages of “black box”
+ methods when dealing with medical multi-class classification,
+ the researcher introduced a bidirectional LSTM framework
+ containing an attention layer to weigh the words in a phrase
+ automatically based on the perceived relevance (Fig. 3).
+ FIGURE 3. Thearchitecture of the hybrid model of ABLSTM.
+ 3) TRANSFORMER
+ In all, the transformer architecture utilizes a self-attention
+ mechanism to capture long-range relationships in the input
+ and to process input sequences with various lengths
+ simultaneously. Vaswani et al. first proposed the transformer
+ architecture in 2017 [43]. Since then, transformer-based
+ architectures have created novel models for various NLP
+ tasks, especially for the application of bidirectional encoder
+ representation from transformer (BERT) on clinical records
+ [44]. For example, a Multitask-Clinical BERT (MT-Clinical
+ BERT) model can realize multitask learning on eight
+ different information retrieval tasks, including clinical text
+ embedding learning, entity retrieval, and the recognition of
+ personal health indicators (PHI) (Fig. 4). At the same time,
+ these embeddings serve as inputs to these prediction
+ functions [45]. Interestingly, several transformer-based
+ models have been trained on actual clinical data. MS-BERT
+ created by Costa et al. can be the most representative one. To
+ be more specific, this model has been trained on more than
+ 70,000 medical notes from multiple sclerosis (MS) patients
+ after de-identified processing. According to an evaluation of
+ the expanded disability status scale (EDSS) from a study,
+ MS-BERT performed better compared with models based on
+ CNN[20].
+ FIGURE 4. Thearchitecture of the eight-headed MT-Clinical BERT.
+ III. 
+APPLICATION ON THE NLP OF CHRONIC
+ DISEASE’S EHR
+ A. CARDIOVASCULARDISEASES
+ Chronic cardiovascular diseases include chronic heart
+ failure, coronary heart disease, hypertension, chronic
+ infectious endocarditis, chronic pericarditis, and so on.
+ Cardiovascular diseases make a substantial contribution to
+ the incidence and mortality rates among both men and
+ women worldwide, affecting not only high-income countries
+ but also middle and low-income nations. Globally, deaths
+ caused by coronary heart disease account for 40% of the total
+ mortality rate [46]. Presently, much of the focus is on
+ utilizing NLP to the risk of heart diseases. As one of the
+ major risk factors for individuals over 65 years old,
+ developing NLP in EHR for analyzing patient data related to
+ cardiovascular system diseases will be conducive to clinical
+ and translational research. It assists clinical professionals in
+ effectively extracting clinically significant information for
+ guiding clinical decisions. Brodnick et al. developed a
+ machine learning-based, stakeholder-informed, automated,
+ NLP system to assess the quality of heart failure (HF)
+ inpatient care. Through training and testing the congestive
+ heart failure information extraction framework (CHIEF), it
+ reliably captured clinical data, reducing or eliminating costs
+ associated with human review of HF patient records [47].
+ VOLUME XX, 2017
+ 4
+Karystianis et al. evaluated the identification of cardiac risk
+ factors in clinical notes of diabetic patients. The study
+ demonstrated that the system, applied to 514 unseen
+ assessments, showed relatively good outcomes in identifying
+ coronary heart disease family history, medications, and some
+ related disease factors (such as hypertension, diabetes, and
+ hyperlipidemia), but faced challenges in identifying specific
+ indicators of coronary heart disease [48]. Kim et al.
+ developed a left ventricular ejection fraction (LVEF)
+ extraction module aimed at identifying LVEF information
+ from various types of clinical notes and using this
+ information for heart failure quality measurements.
+ Additionally, the authors indicated that when clinical data
+ reports are highly structured, less training data is required.
+ However, when reports are less structured or have rich
+ vocabularies, combining the predictions of the existing
+ LVEF extraction module can improve information extraction
+ [49]. Similarly, Byrd et al. developed an NLP program to
+ identify information and symptoms of HF in early-admission
+ patients. They utilized clinical notes from EHR for early
+pattern analysis of HF and to provide clinical decision
+ support [50]. Other heart diseases have also received
+ significant attention apart from heart failure. Yang et al.
+ developed an information extraction system based on
+ machine learning, rule-based methods, and dictionary-based
+ keyword spotting to automatically identify coronary heart
+ disease risk factors in medical records, addressing the
+ inherent complexity of various risk factors within clinical
+ contexts. The system exhibited good performance in the test
+ data of the 2014 i2b2/UTHealth NLP Challenge [51].
+ Echocardiography is one of the most common diagnostic
+ techniques in cardiology. Due to the lack of structure in most
+ echocardiographic reports, analyzing them has been
+ challenging in terms of scope of data retrieval, automation,
+ and accuracy in earlier years. In recent years, Nath et al.
+ proposed an NLP-based system, EchoInfer, capable of
+ transforming heterogeneous echocardiography reports into
+ structured data format on a large scale. It demonstrated high
+ sensitivity and accuracy in extracting and identifying key
+ indicators from echocardiography reports, offering potential
+ clinical applications [52].
+ Peripheral artery disease (PAD) and coronary artery
+ disease (CAD) are chronic diseases with high incidence and
+ mortality rates, associated with increased risks of myocardial
+ infarction and stroke [53, 54]. Several studies have reported
+ their contributions to the automatic identification and
+ extraction of clinical free-text and report data related to PAD
+ and CAD. These contributions encompass utilizing new text
+ analysis techniques to quantify adverse events associated
+ with the only FDA-approved drug, cilostazol, used in clinical
+ settings for treating PAD, to evaluate drug effectiveness and
+ safety [55]. Additionally, automatic identification of PAD
+ cases from clinical narrative notes [56], followed by the same
+ team's expansion of the PAD identification algorithm to
+ develop a subtyping NLP algorithm for identifying
+ complications of late-stage peripheral arterial disease—
+ severe limb ischemia cases from clinical notes [14].
+ Furthermore, the development of models based on Naïve
+ Bayes, Maximum Entropy, and SVM to automatically
+ predict CAD development from clinical free-text [57], along
+ with mining CAD risk factor-related data from unstructured
+ clinical narratives for assessment [58].
+ Hypertension is also a common chronic disease within the
+ circulatory system, with a relatively high incidence rate.
+ Among individuals aged 60 and above, the prevalence of
+ hypertension exceeds 60% [59]. Many efforts have been
+ made in recent years towards the assessment of hypertension.
+ It has been reported that in the classification of hypertension,
+ billing codes or blood pressure readings have shown good
+ performance in hypertension classification. Even simple
+ combinations of input categories can enhance performance.
+ Sophisticated algorithms can achieve highly accurate
+ classifications [60]. However, consensus has not been
+ reached on the definition of hypertension monitoring based
+ on EHRs. Applying different criteria to define hypertension
+ using EHR data has a large effect on hypertension prevalence
+ estimates. Hohman et al. recently proposed an electronic
+ phenotype for hypertension monitoring in EHRs. Their work
+ emphasizes the substantial impact of different analytical
+ decisions on defining the numerator and denominator in
+ EHR-based estimates of chronic disease prevalence and
+ control, contributing to standardization efforts [61].
+ Additionally, Martin et al. recently utilized EHR data to
+ develop a hypertension identification algorithm based on the
+ Gradient Boosting algorithm XGBoost [62].
+ B. DIGESTIVE SYSTEM DISEASES
+ Digestive system diseases are highly prevalent worldwide,
+ cause considerable distress, and can be fatal. To be more
+ specific, the impacts of digestive system diseases in 2019
+ could be equivalent to the one healthy year loss of 88.99
+ million people [63]. Digestive system diseases include
+ organic and functional diseases of the esophagus, stomach,
+ intestine, liver, biliary, pancreas and other organs, which are
+ very common in clinics. As a significant part of digestive
+ system diseases, chronic digestive diseases such as cirrhosis
+ and other chronic liver diseases constituted the highest
+ proportion of categorized digestive disease disability
+adjusted life-year (DALY) burdens globally [64]. Despite the
+ high prevalence of these diseases, a large number of chronic
+ digestive system diseases are underdiagnosed and lack
+ systematic screening protocols. For instance, although
+ hepatic steatosis presents in approximately 25% of the US
+ population, research on the natural history with the use of
+ EHR data can be difficult due to the requirement of long
+term follow-up and the lack of gold standard for diagnosis
+ [65, 66]. In recent years, a vast number of studies have
+ proposed various NLP methods to extract information
+ relevant to medical decisions from the EHR of chronic
+ digestive system diseases.
+ VOLUME XX, 2017
+ 5
+cancer,
+ Firstly, for chronic gastric diseases such as gastritis and
+ gastric
+ they
+ are
+ usually
+ screened
+ by
+ esophagogastroduodenoscopies (EGDs) [67]. However, on
+ the one hand, the unstructured format of the reports and
+ usage of endoscopic abbreviations made it hard to extract
+ information about diagnosis and specific phenotypes of
+ gastric disease. On the other hand, the endoscopic procedures
+ discord with the pathologic reports in EHRs. Then, a group
+ of researchers developed an effective NLP-based pipeline
+ including text preprocessing, concept mapping, concept
+ extraction and summarizing to extract gastritis-associated
+ information on the presence and anatomical extent or degree
+ of the lesion and gastric-cancer-associated information on the
+ presence, anatomic location, size of the lesion and cancer
+ classification from the EGDs and pathologic reports in EHRs.
+ Furthermore, the feasibility of this NLP-based algorithm built
+ on Python 3.7 and the regular expression package ‘re’ has
+ been verified by 1000 EHRs over 10 years [68]. Similarly,
+ Soroush et al. designed an NLP system based on regular
+ expressions and MetaMapLite to extract endoscopy-related
+ quality metrics such as dysplasia and intestinal metaplasia in
+ Barrett’s Esophagus (BE) patients’ EHRs for BE-related
+ treatment [69].
+ In addition, various NLP-based information extraction
+ methods are also widely used for EHRs of patients with gut
+related chronic diseases. For inflammatory bowel disease,
+ extraintestinal
+ manifestations
+ (EIMs) are important
+ symptomatic components of it. EIMs can impact various
+ organs to cause inflammation like iritis and are closely
+ associated with the disease course, clinical outcomes, the
+ medication need and increased relapse rate of IBD [70, 71].
+ However, due to the unconformity in the description of EIM
+ occurrence along with unreliable and inaccurate diagnostic
+ codes, it is hard to understand and extract EIM-related
+ information from EHRs [72]. A study showed a new NLP
+ pipeline to realize automatic detection of EIMs and inference
+ of EIM activities from the EHRs to better diagnose IBD. In
+ this research, Ryan et al. conducted an NLP flow including
+ document preparation, identification of EIM keywords and
+ concepts, tokenization of EIM description window and status
+ concept identification, negation detection, EIM document
+ section identification, and document-level EIM status
+ determination to predict EIM status. Especially, the keys to
+ implementing this NLP approach comprise the use of Natural
+ Language Tool Kit functions from Python modules, the use
+ of SecTag to localize the EIM-associated document and
+ document section prioritization [73]. As another significant
+ characteristic of IBD, Crohn’s disease (CD) has also been
+ involved in the application of clinical NLP. A group
+ developed an initial NLP model to describe the clinical
+ characteristics of patients with CD and generate a predictive
+ model for the CD relapses, which identified information from
+ patients’ EHRs and utilized ML algorithms such as logistic
+ regression, decision tree and random forest [74]. Meanwhile,
+ several researchers have focused on the celiac disease. Chen
+ et al. designed a NLP system in 2016 to improve the
+ identification of celiac disease patients based on the
+ pathology reports in EHRs, which was achieved with the
+ help of n-gram feature extraction by Java-based Weka and
+ classification model from Bayes, function-based, lazy model
+ and tree classifiers [75]. Furthermore, colorectal cancer
+ (CRC) is a kind of malignant tumor to cause the third rank
+ globally in incidence [76]. A large number of NLP models
+ have been applied to treat CRC-related EHRs. For instance,
+ the combination method of SVM and feature selection has
+ been designed to extract the hidden information indicating
+ the CRC-related complication, anastomosis leakage [77].
+ Also, the relationship between time course and symptoms of
+ CRC and the onset of CRC based on family history have
+ been realized by improved NLP-based methods to extract
+ information from EHRs [78, 79].
+ Although some criteria such as mild elevations in aspartate
+ aminotransferase (AST) and alanine aminotransferase (ALT)
+ levels can determine the occurrence of chronic liver disease,
+ the information hidden in the unstructured text of the EHR
+ needs to be further explored to quickly identify liver-related
+ chronic diseases [80]. Then, several NLP methods can solve
+ this. For instance, researchers have utilized an NLP algorithm
+ with a Linguamatics literature text mining tool to identify
+ undiagnosed hepatic steatosis with EHRs [65]. Also, a
+ commercial model, CLiX clinical NLP engine, had been
+ improved to better reflect progressive risks for non-alcoholic
+ fatty liver disease with the process of unstructured data in
+ EHRs[81].
+ IV. DISCUSSION
+ NLP has found extensive applications in handling clinical
+ notes of various chronic diseases. Advances in machine
+ learning and deep learning models can facilitate health
+ learning tasks in Electronic Health Records (EHRs),
+ enhancing understanding of patient clinical trajectories and
+ predicting chronic disease risks, thus driving forward
+ intelligent healthcare. In this review, we primarily summarize
+ the algorithmic foundation of NLP for EHRs and its specific
+ applications in chronic diseases of the circulatory and
+ digestive systems.
+ While machine learning occupies a considerable portion of
+ chronic disease EHRs, deep learning algorithms exhibit a
+ rapid growth trend and demonstrate significant potential.
+ However, the development of deep learning still faces
+ challenges. Compared to Machine Learning models
+ commonly used in health records, Deep Learning models
+ have room for improvement in data availability, complexities
+ of specific domain text data, and interpretability.
+ Furthermore, DL-based algorithms require substantial data
+ for superior performance over other algorithms, imposing
+ significant demands on financial support and workstation
+ capacity.
+ Although numerous studies indicate the use of machine
+ learning to automatically detect and predict patient safety
+ VOLUME XX, 2017
+ 6
+events, many of these algorithms lack external validation or
+ prospective testing. Thus, further research is needed to
+ enhance the performance of these automated systems.
+ Issues related to the accuracy of medical text spelling and
+ abbreviations increase the time and difficulty required for
+ model training. Due to the specificity and linguistic diversity
+ of medical terminologies, some doctors use Latin
+ abbreviations to specify drug frequency (e.g., "BD" spelled
+ as "bis die") or use conventional abbreviations to spell
+ diseases (e.g., "cancer" spelled as "CA"). This makes it
+ challenging for computers to correctly identify these complex
+ abbreviation patterns.
+ Data scarcity remains a significant challenge in medical
+ NLP research. A large amount of data is a prerequisite for
+ model accuracy. However, due to various issues concerning
+ patient privacy, ethics, and other considerations associated
+ with EHRs, acquiring substantial data can be challenging,
+ with healthcare systems hesitating to provide patient data.
+ One potential solution is utilizing synthetic data [82].
+ However, the practicality of using machine-generated data
+ for machine training needs careful consideration.
+ In summary, NLP has made significant strides in EHRs.
+ The advent of deep learning-based algorithms will expedite
+ its development. Future research should focus on enhancing
+ accuracy and practical clinical translation.

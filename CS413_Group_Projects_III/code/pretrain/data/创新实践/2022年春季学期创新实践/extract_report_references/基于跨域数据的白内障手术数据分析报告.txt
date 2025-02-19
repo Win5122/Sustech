@@ -1,0 +1,29 @@
+REFERENCES
+[1] Yanchao Yang and Stefano Soatto, “Fda: Fourier domain adaptation for
+semantic segmentation,” in 2020 IEEE/CVF Conference on Computer
+Vision and Pattern Recognition (CVPR) , 2020, pp. 4084–4094.[2] Jiaxing Huang, Dayan Guan, Aoran Xiao, and Shijian Lu, “Fsdr:
+Frequency space domain randomization for domain generalization,” in
+2021 IEEE/CVF Conference on Computer Vision and Pattern Recogni-
+tion (CVPR) , 2021, pp. 6887–6898.
+[3] Yawei Luo, Liang Zheng, Tao Guan, Junqing Yu, and Yi Yang, “Taking
+a closer look at domain shift: Category-level adversaries for semantics
+consistent domain adaptation,” in 2019 IEEE/CVF Conference on
+Computer Vision and Pattern Recognition (CVPR) , 2019, pp. 2502–
+2511.
+[4] Maria Grammatikopoulou, Evangello Flouty, Abdolrahim Kadkho-
+damohammadi, Gwenol ´e Quellec, Andre Chow, Jean Nehme, Imanol
+Luengo, and Danail Stoyanov, “Cadis: Cataract dataset for surgical rgb-
+image segmentation,” Medical Image Analysis , vol. 71, pp. 102053,
+2021.
+[5] Markus Fox, Mario Taschwer, and Klaus Schoeffmann, “Pixel-based
+tool segmentation in cataract surgery videos with mask r-cnn,” in
+2020 IEEE 33rd International Symposium on Computer-Based Medical
+Systems (CBMS) , 2020, pp. 565–568.
+[6] Yuxin Wu and Kaiming He, “Group normalization,” in Proceedings of
+the European conference on computer vision (ECCV) , 2018, pp. 3–19.
+[7] Yanchao Yang and Stefano Soatto, “Fda: Fourier domain adaptation for
+semantic segmentation,” in Proceedings of the IEEE/CVF Conference
+on Computer Vision and Pattern Recognition , 2020, pp. 4085–4095.
+[8] Judy Hoffman, Dequan Wang, Fisher Yu, and Trevor Darrell, “Fcns in
+the wild: Pixel-level adversarial and constraint-based adaptation,” arXiv
+preprint arXiv:1612.02649 , 2016.

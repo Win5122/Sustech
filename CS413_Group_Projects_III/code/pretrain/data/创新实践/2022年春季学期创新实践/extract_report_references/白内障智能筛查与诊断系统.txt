@@ -1,0 +1,6 @@
+Part5 - References
+[1]Vaswani, Ashish, et al. "Scaling local self-atte ntion for parameter efficient visual backbones." Proceedings of  
+the IEEE/CVF Confer ence on Computer V ision and Pattern Recognition . 2021.
+[2]Guo, Meng-Hao, et al. "Beyond self-attention: External attention using two linear layers for visual tasks."  
+arXiv preprint arXiv:2105.02358 (2021).
+[3]Gao Z , W ang L , W u G . LIP: Local Importance-based Pooling[J]. Nanjing University .

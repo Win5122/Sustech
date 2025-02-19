@@ -1,0 +1,32 @@
+REFERENCES
+[1] Meng Lei. (2013). Near infrared spectroscopy analysis of coal quality
+based on machine learning (doctoral dissertation, China University of
+Mining and Technology)
+[2] Guang Wen, Zhichun Jing. (1997). Research on Archaeology of Ancient
+Jade Geology in China. Institute of Geology, Chinese Academy of
+Geological Sciences. (eds.) Collected Works of Institute of Geology, Chi-
+nese Academy of Geological Sciences (29-30) (pp. 292-307). Geological
+Publishing House
+[3] Guang Wen. (1990). Research on Chinese Ancient Jade Building material
+geology (02), 2-10+49-50+2
+[4] Gualandi 2021 An Open System for Collection and Automatic Recogni-
+tion of Pottery through Neural Network Algorithms
+[5] Batsaki 2021 AI and Cultural Heritage Image Collections-Opportunities
+and challenges
+[6] Landscape Archaeology and Artificial Intelligence 2021
+[7] Kazimi 2022 Deep Learning for Archaeological Object Detection
+[8] Pawlowicz 2021 Applications of deep learning to decorated ceramic
+typology and classification 2021
+[9] LYONS 2021a Ceramic Fabric Classification of Petrographic Thin Sec-
+tions with Deep Learning
+[10] ABITBOL 2021 Machine Learning Based Assembly of Fragments of
+Ancient Papyrus 2021
+[11] A tutorial on automatic hyperparameter tuning of deep spectral modeling
+for regression and classification tasks 2022
+[12] Computer Vision in the Infrared Spectrum 2022[13] Geological Archaeological Research on M54 Unearthed Jade Articles
+2008
+[14] Middleton 2006 Jade – Geology and Mineralogy
+[15] Wen Guang.Evaluation criteria for jade. 1900
+[16] Wenying Li, Bin Cao, Chunshui Cao, Yongzhen Huang. A bronze
+inscription recognition method based on deep learning [J]. Journal of
+Automation, 2018, 44 (11): 2023-2030.
