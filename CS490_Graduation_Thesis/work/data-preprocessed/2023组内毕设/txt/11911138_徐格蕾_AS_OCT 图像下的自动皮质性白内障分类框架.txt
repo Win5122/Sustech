@@ -1,0 +1,983 @@
+分类号 编号
+U D C 密级
+本科生毕业设计（论文）
+题 目： 基于联邦对比学习的
+AS-OCT 皮质性白内障分类框架
+姓 名： 徐格蕾
+学 号： 11911138
+系 别： 计算机科学与工程系
+专 业： 智能科学与技术
+指导教师： 刘江 教授
+2023 年 5 月 8 日
+CLC Number
+UDC Availableforreference □Yes □No
+Undergraduate Thesis
+Thesis Title: A Federated Contrastive Learning
+Framework for Cortical Cataract Diagnosis
+Based on AS-OCT Images
+Student Name: Gelei Xu
+Student ID: 11911138
+Department: Computer Science and Engineering
+Program: Intelligent Science and Technology
+Thesis Advisor: Professor Jiang Liu
+Date: May 8, 2023
+诚信承诺书
+1. 本人郑重承诺所呈交的毕业设计（论文），是在导师的指导下，
+独立进行研究工作所取得的成果，所有数据、图片资料均真实可靠。
+2. 除文中已经注明引用的内容外，本论文不包含任何其他人或
+集体已经发表或撰写过的作品或成果。对本论文的研究作出重要贡
+献的个人和集体，均已在文中以明确的方式标明。
+3. 本人承诺在毕业论文（设计）选题和研究内容过程中没有抄袭
+他人研究成果和伪造相关数据等行为。
+4. 在毕业论文（设计）中对侵犯任何方面知识产权的行为，由本
+人承担相应的法律责任。
+作者签名:
+年 月 日
+COMMITMENT OF HONESTY
+1. I solemnly promise that the paper presented comes from my
+independent research work under my supervisor’s supervision. All
+statistics and images are real and reliable.
+2. Except for the annotated reference, the paper contents no other
+published work or achievement by person or group. All people making
+important contributions to the study of the paper have been indicated
+clearly in the paper.
+3. I promise that I did not plagiarize other people’s research achievement
+or forge related data in the process of designing topic and research
+content.
+4. If there is violation of any intellectual property right, I will take legal
+responsibility myself.
+Signature:
+Date:
+A Federated Contrastive Learning
+Framework for Cortical Cataract Diagnosis
+Based on AS-OCT Images
+Gelei Xu
+(ComputerScienceandEngineering DepartmentTutor: JiangLiu)
+[ABSTRACT]: Corticalcataractssignificantlythreatenglobalhealth,affect-
+ing a vast portion of the world’s population. Studies have shown that early
+diagnosis and intervention are crucial to improving outcomes. Consequently,
+deep learning-based cortical cataract diagnosis methods have rapidly evolved
+in the past decade. However, there are two challenges to the existing frame-
+works: first, most of the frameworks were designed for centralized environ-
+ments, which is difficult to deploy in real-world scenarios due to data shar-
+ing restrictions between hospitals. Second, most existing frameworks use la-
+beled data for training, and cataract image labeling is often time-consuming
+and requires professional medical knowledge, making it difficult to obtain suf-
+ficientlabeleddata. Basedonthis, thispaperproposesaframeworkforcortical
+cataract diagnosis based on federated contrastive learning. In this framework,
+federated learning allows distributed clients to learn a shared model for predic-
+tion while maintaining data locally, and contrastive learning can learn repre-
+sentation vectors from unlabeled data. The results indicate that the proposed
+framework can outperform the fully-trained ResNet18 baseline model by uti-
+lizingjust10%oflabeleddata. Additionally,numerousotherexperimentswere
+conducted to demonstrate the effectiveness and robustness of the model.
+[Key words]: Cortical cataract; federated learning; contrastive learning
+I
+[摘要]：皮质白内障是一种主要导致视觉损伤的眼病，对全球广泛人群
+造成了影响。由于早期诊断和干预可以显著改善诊疗结果，已有大量研
+究使用深度学习辅助白内障诊断。然而，现有的基于深度学习的皮质性
+白内障诊断框架的应用存在两个难点：首先，由于一家医院数据量有限，
+往往需要多家医院共享数据以训练模型。但过去提出的大多数框架都是
+为中心化环境设计的，由于医院之间存在隐私保护等诸多限制，数据无
+法直接共享，因此中心化框架在现实场景中难以部署。其次，现有框架大
+多使用有标签的数据进行训练，白内障图像标记通常耗时且需要医生专
+业知识，标注成本过高，因此很难获取足量有标签数据。基于此，本文提
+出了一个基于联邦对比学习皮质白内障诊断的框架。其中，联邦学习允
+许分布式客户端在保持训练数据本地存储的同时学习用于预测的共享模
+型；对比学习可以从无标签数据中学习表征向量。框架中的结果表明，该
+框架利用仅 10％的标签数据就可以达到优于全标签训练的 ResNet18 模
+型的准确率。此外，本文还完成了许多其他实验来展示该模型的有效性
+和鲁棒性。
+[关键词]：皮质性白内障；联邦学习；对比学习
+II
+Content
+1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+2. Background and Related Works . . . . . . . . . . . . . . . . . . . . . . 4
+2.1 AS-OCT Based Automatic Diagnosis . . . . . . . . . . . . . . . . . . . 4
+2.2 Federated Learning in Computer-Aided Diagnosis . . . . . . . . . . . 5
+2.3 Contrastive Learning in Computer-Aided Diagnosis . . . . . . . . . . 6
+3. Overview of the FCL Framework . . . . . . . . . . . . . . . . . . . . . 7
+4. Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+4.1 Image Preprocessing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+4.2 Federated Learning Procedure . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.3 Contrastive Learning Procedure . . . . . . . . . . . . . . . . . . . . . . . 11
+5. Experiments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.1 Experimental Settings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.1.1 Dataset . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.1.2 Evaluation Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+5.1.3 Hyperparameters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+5.1.4 Baselines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+5.2 Classification Performance of the FCL Framework (RQ1) . . . . . . 16
+5.3 AssessingtheEffectivenessofContrastiveLearninginLearnedRep-
+resentations (RQ2) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+5.4 Performance of the FCL with Different Data Settings (RQ3) . . . . . 18
+III
+5.4.1 Performance with Varied Amounts of Labeled Data . . . . . . . . . 18
+5.4.2 Performance with Varied Client Size and Client Number . . . . . . 19
+5.5 Ablation Study (RQ4) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+5.5.1 Performance Evaluation of Different Preprocessing Methods . . . 20
+5.5.2 Performance of Different Federated Learning Aggregation Settings 21
+6. Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+7. Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+Acknowledgement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+IV
+1. Introduction
+Cataract is a leading cause of blindness globally, affecting a significant portion of the
+population worldwide. The World Health Organization (WHO) estimates that 65.4 million
+patients suffer from moderate to severe vision impairment due to cataracts[1]. Furthermore,
+as the global population ages, the number of cataract patients is expected to rise rapidly,
+especially among the elderly population[2]. According to the opacity location of cataract,
+cataractsaregenerallyclassifiedintothreetypes: posteriorsubcapsularcataract(PSC),cor-
+ticalcataract(CC),andnuclearcataract(NC)[3]. CCisthemostcommontypecharacterized
+byspoke-like linesthatleadintothecenterofthe corticalregioninthelens.
+Anterior segment optical coherence tomography imaging (AS-OCT) is a new ophthal-
+mology image type, which is non-invasive, user-friendly, and high-resolution, Unlike tra-
+ditional ophthalmology images such as slit-lamp images and fundus images, AS-OCT can
+captureboththeposteriorandanteriorcortexregions,makingitbettersuitedforCCdiagno-
+sis. Figure 1 provides examples of three CC stages on AS-OCT images: normal, mild, and
+severeCC[4].
+Figure1 ExamplesofAS-OCTimagesforthreeseveritylevelsofcorticalcataract.
+Early intervention and cataract surgery can help slow the development of cataracts,
+making timely and convenient diagnosis critical[3]. Computer-aided diagnoses, especially
+deep learning models trained on large-scale labeled datasets, have shown great potential in
+automatingCCdiagnosis[5]. However,cataractdataexistinisolatedmedicalcentersandhos-
+pitals[6],andcombininga largedatasetconsistingof verysensitiveandprivatemedicaldata
+in a single location is impractical and even illegal. This is primarily due to the data sharing
+1
+constraintsimposedbytheHealthInsurancePortabilityandAccountabilityAct(HIPAA)[7].
+Without access to an ample dataset, achieving satisfactory results through centralized train-
+ingisunfeasible.
+Federatedlearning(FL)isalearningparadigmthatenablescollaborationbetweenma-
+chinelearningmodelswhilekeepingdatalocalforprivacy[8] comparedtocentralizedlearn-
+ing, as shown in Figure 2. In a classical federated learning process FedAvg[9], a federation
+of data owners (clients) trains its model locally and uploads the training model to a central-
+izedserver. Theserveraggregatesthelocalmodelandpassestheglobalmodelbacktoeach
+client. By leveraging federated learning, distributed cataract images on the mobile device
+canbetrainedlocallywithoutuploadingthe trainingdatadirectlytotheserver.
+Centralized Machine Learning Federated Learning
+Server model
+Model
+Data parameters
+Server model Local model Local data
+Figure2 Comparisonoffederatedlearningandcentralizedlearning.
+Although existing federated learning methods use supervised learning on individual
+clients,theyrequirealldatatobelabeled,whichisoftenunrealisticinmedicalimagingdue
+tothehighcostandneedforexpertise. Thelackoflabeleddatamakessupervisedfederated
+learning impractical. To overcome this challenge, self-supervised learning can be used to
+trainaneuralnetworkencoderwithunlabeleddata. Contrastivelearning(CL),atypeofself-
+supervisedlearning,isparticularlyeffectiveinlearninghigh-qualityimagerepresentations.
+By integrating contrastive learning into federated learning, clients can first collabora-
+2
+tivelylearnasharedimage-levelrepresentationbeforeusinglimitedannotationstogenerate
+representations for a machine learning classifier. Compared to local contrastive learning,
+federated contrastive learning (FCL) can produce a better encoder and higher classification
+performance, enabling the learning of a high-quality model using limited annotations while
+maintaining data privacy. This paper presents an approach for diagnosing cortical cataracts
+based on AS-OCT images using the FCL framework. Our results demonstrate that the pro-
+posedframeworkcansurpasstheperformanceoftheResNet18[10]baselinemodelbyutilizing
+only 10% of labeled data. This finding suggests the potential of the FCL framework in im-
+provingtheefficiencyandprivacyofcorticalcataractdiagnosis,whichcouldhavesignificant
+clinical implicationsforpatientsandpractitioners.
+Thecontributionofthispaperisthree-fold:
+• This paper proposes an FCL framework that combines the advantages of federated
+learningandcontrastivelearning. Theaimistomaximizetheutilizationofunlabeled
+datawhilepreservingprivacy,whichiscrucialindecentralizedenvironments.
+• TheFCLframeworkemploysanovelweightingstrategyinthemodelaggregationpro-
+cess. This strategy enables the worst-performing client to catch up with other clients
+andenhancetheoverallperformanceofthemodel. Thisapproachaddressestheissue
+of performance heterogeneity among clients in federated learning and improves the
+robustnessofthemodel.
+• Experiments conducted on the FCL framework demonstrate its effectiveness. The
+framework achieves comparable performance to centralized learning while outper-
+forming a fully-trained ResNet18 model with only 10% labeled data. These results
+highlightthepotentialofFCLasapromisingapproachforcollaborativemachinelearn-
+ingindecentralizedenvironmentswhile preservingdataprivacy.
+3
+2. Background and Related Works
+In this section, we will provide a comprehensive overview of the background and re-
+lated works that form the foundation of our research. We will review existing literature on
+AS-OCT based cataract diagnosis and federated learning, and then leads to the significance
+of federated contrastive learning. Overall, this section aims to provide readers with a com-
+prehensiveunderstandingofthecontextandtohighlightthenoveltyandsignificanceofthe
+proposedapproach.
+2.1 AS-OCT Based Automatic Diagnosis
+AS-OCT is a recently developed non-invasive technique that captures high-resolution
+imagesoftheentireanteriorchamberstructureoftheeye. Ophthalmologistsareincreasingly
+using AS-OCT images for diagnosing anterior segment ophthalmic diseases and conduct-
+ing scientific research on the cornea, glaucoma, and cataract[11]. For instance, recent stud-
+ies have used deep convolutional neural network (CNN) models to automatically segment
+cornea structures in AS-OCT images, aiding clinicians in precise cornea disease diagno-
+sis[12-13]. Additionally,AS-OCTimageshavebeenusedtodiagnoseangle-closureglaucoma
+using deep learning models[14-15], and to study the correlation between opacity information
+ofthenucleusandmeanfeaturewiththeSpearmancorrelationcoefficientmethod[16]. Other
+studies have investigated the relationship between opacity and mean/maximum features[17],
+obtaining similar correlation results. Building on these findings, Zhang et al. developed
+a Clinical-Awareness Attention Network to automatically classify the severity of nuclear
+cataracts on AS-OCT images, achieving an accuracy 0f 95%[18]. Similarly, Xiao et al. used
+aLocal-GlobalSpatialAttentionNetworktoclassifycorticalcataractswitha92%accuracy
+rate[19].
+However, the issue of patient privacy has been a major concern in previous works that
+relyoncentralizedlearning. Thisapproachrequiresdatatobecollectedandstoredinacentral
+location,whichcanbeproblematicduetorestrictionsondatasharingbetweenhospitals. Asa
+result,itmaycompromisepatientprivacyandhindertheprogressofresearchinthisfield. To
+4
+addressthischallenge,newapproachesareneededthatallowmultiplehospitalstocollaborate
+and train machine learning models without sharing their raw data. Such approaches would
+enableresearcherstomaintaindataprivacywhileachievinghighclassificationperformance
+for corticalcataractdiagnosis.
+2.2 Federated Learning in Computer-Aided Diagnosis
+Deep learning has shown great potential to revolutionize healthcare by improving di-
+agnosis, treatment, and patient outcomes. However, the use of sensitive patient data raises
+concerns about privacy and security. The importance of privacy in the medical region can-
+not be overstated, since patients have a right to privacy and confidentiality of their medical
+information. The unauthorized disclosure of this information can lead to discrimination,
+stigmatization,andothernegativeconsequences.
+Federatedlearningisadistributedmachinelearningapproachthattrainsmodelsonde-
+centralized data sources without sharing the raw data. Federated learning allows for more
+efficientuseofresourcesbytrainingmodelslocallyoneachdeviceandonlysendingmodel
+updatesbacktothecentralserver. Thistechniqueresolvesissuesrelatedtocentralizedstor-
+age and sharing of sensitive data while preserving individual privacy. Unlike other privacy
+protectionmethods,federatedlearningdoesnotrequirethecentralizationofdata,whichcan
+be burdensome for large machine learning models or data volumes. Additionally, feder-
+ated learning allows for more efficient use of resources by training models locally on each
+device and only sending model updates back to the central server. By training models on
+decentralizeddatasources,federatedlearningcanimprovemodelaccuracywhileprotecting
+sensitive user information. Therefore, this paper uses federated learning settings to protect
+dataprivacy.
+Inrecentyears,severalstudieshaveproposedtheuseoffederatedlearninginhealthcare
+to protect patients’ privacy. For instance, Li et al. developed a federated learning frame-
+work with dynamic focus for COVID-19 detection on chest X-ray images, named FedFo-
+cus. The results showed that FedFocus outperformed the baselines in terms of model train-
+5
+ing efficiency, accuracy, and stability[20]. Similarly, Julian et al. used a federated learning
+framework for deep neural network-based retinal microvasculature segmentation and refer-
+able diabetic retinopathy (RDR) classification using OCT and OCT angiography[21]. The
+study demonstrated that the proposed framework achieved comparable results to traditional
+deep learning methods while preserving patient privacy through decentralized data storage
+and processing. B. L. Y. Agbley et al. presented a federated learning model that combines
+twomodalitiesfordiagnosingMelanomadisease. Thestudydemonstratedthattheproposed
+modelachievedsimilarF1andaccuracyscorestothecentralizedmodel,indicatingitspoten-
+tialfordecentralizedandprivacy-preservingdiagnosis[22]. Meanwhile,Mengetal. proposed
+anovelfederateduncertainty-awareaggregationparadigm(FedUAA)fordiabeticretinopa-
+thy(DR)staging. FedUAAconsidersthereliabilityofeachclientandproducesaconfidence
+estimation for DR staging, which achieves better performance with higher reliability com-
+pared to other federated learning methods[23]. This approach has significant implications
+forimprovingtheaccuracyandrobustnessofDRdiagnosiswhileprotectingpatientprivacy
+throughdecentralizeddataprocessing.
+Traditional federated learning use fully labeled data for training. However, Obtaining
+labeled data for medical images is a challenging task due to the need for expert annotation
+andthesensitivenatureofpatientdata. Thislackoflabeleddatacanhinderthedevelopment
+of accurate deep-learning models for medical image analysis. Therefore, it is imperative to
+develop an approach that can effectively leverage the information contained in unlabeled
+dataandcombine itwithfederatedlearning.
+2.3 Contrastive Learning in Computer-Aided Diagnosis
+Contrastivelearningoffersapromisingsolutionbyallowingmodelstolearnfromunan-
+notateddataandaimstolearnrepresentationsbymaximizingthesimilaritybetweensimilar
+pairs while minimizing the similarity between dissimilar pairs. It can effectively pretrain
+neuralnetworkmodels,whichcanthenbefine-tunedforavarietyofdownstreamtasks. Con-
+trastive learning has been used in a variety of applications, including natural language pro-
+6
+cessing, computer vision, and speech recognition. Compared to traditional self-supervised
+methodssuchasgenerative learning,
+Compared to other self-supervised learning methods, contrastive learning has the fol-
+lowingadvantages:
+• Contrastive learning explicitly trains the network to distinguish between similar and
+dissimilarexamplesinthedata,whichleadstomorerobustandtransferablerepresen-
+tations.
+• Contrastive learning allows for flexibility in the choice of contrastive loss, which can
+betailoredtothe specificcharacteristicsofthe datasetortask.
+• Contrastivelearninghasshownsuperiorperformancecomparedtootherself-supervised
+learningmethodsonvariousbenchmarks.
+Thereareseveralapproachestocontrastivelearning,includingInfoNCE[24],SimCLR[25],
+andMoCo[26],amongothers. Thesemethodstypicallyinvolvetheuseofsiamesenetworks,
+which are neural networks with shared weights that process two inputs simultaneously. By
+maximizingthesimilaritybetweenthetwoinputsofasiamesenetwork,contrastivelearning
+canbeusedto learnusefulrepresentations.
+By combining federated learning and contrastive learning, the framework can effec-
+tivelyutilizeunlabeleddata whileensuringdataprivacy.
+3. Overview of the FCL Framework
+Figure3illustratestheFCLframework’soverview,whichentailsaseriesofstepsstart-
+ingwithimagepreprocessing. Foreachclient,theinputAS-OCTimagesundergosegmenta-
+tiontoextractthecorticalregion,followedbycroppingandcontrastenhancementtoenhance
+useful features. Following preprocessing, the federated learning process begins. In each
+communication round, individual clients train their contrastive learning encoder by maxi-
+mizing positive sample similarity and minimizing negative sample similarity for multiple
+localepochs. Theclientthenuploadstheirencoderparameterstotheserver,whichtransfers
+7
+AS-OCT image (removed nuclear) ResNet18 backbone
+Cortial region Contrastive features
+Client 1 Preprocessing
+Classifier
+model uploading
+Client 2, ... n-1 Model aggregator
+model downloading
+Preprocessing
+Client n
+Classifier
+Contrastive features
+Cortial region
+AS-OCT image (removed nuclear) ResNet18 backbone
+Figure3 ThestructureoftheFCLframework. Foreachclient,theAS-OCTimagesaresegmented,
+cropped, and enhanced for useful features. Clients train their CL encoders to maximize positive
+sample similarity and minimize negative sample similarity. Encoders are uploaded to the server
+and aggregated to update parameters, which clients download and use to extract representative
+featuresandtrainanMLclassifierforclassification.
+the parameters to the encoder aggregator. The aggregator computes the updated encoder
+parameter by summing the average of each client’s encoder parameter. Once the model ag-
+gregation completes, each client downloads the updated encoder and begins a new epoch.
+This process repeats until the encoder converges. After obtaining the global encoder, each
+clientusesittoextractrepresentativefeatures,whichtheythenusetotrainamachinelearn-
+ing classifier with a small quantity of labeled data. Finally, the machine learning classifier
+generatestheclassificationresult.
+4. Methodology
+4.1 Image Preprocessing
+In the initial step, a deep segmentation network is utilized to isolate the cortex region
+fromtheanteriorsegmentstructureonAS-OCTimages. Toaccentuatethecorticalpathology
+featuresoftheimage,croppingandcontrastenhancementareapplied. Thespecificstepsare
+8
+Normal
+Mild
+Severe
+Lens Cortical Region Cropped Contrast Enhancement
+Figure4 Imagepreprocessingprocedure.
+as follows: First, we use the watershed algorithm[27] to locate the black nuclear region in
+the middle. Then, we remove the nuclear region based on its edges and stitch together the
+upperandlowercorticalregions. Toenhancethecontrastbetweendifferentseveritylevelsof
+corticalcataracts,weapplyformula(1)toprocesseachpixelvalueintheimageandenhance
+pixelcontrast:
+pixel[i,j] ← pixel[i,j]×1.5+30 (1)
+Figure4displaystheoutcomesofthecomparativeanalysisofAS-OCTimagesforvar-
+ious degrees of cortical cataracts, before and after pre-processing. The left side of Figure 4
+reveals that the pathological features of the cortical region of the lens are not clearly visi-
+blebeforepre-processing. However,after applyingcroppingand contrastenhancement,the
+opacity differences between the three stages of cortical cataracts are significantly accentu-
+ated, particularly in the pathological regions on both sides of severe cortical cataracts. The
+results of the experiments carried out in Section 5.2 demonstrate the efficacy of these two
+procedures.
+9
+4.2 Federated Learning Procedure
+Federatedlearningenablesknowledgesharingamongnumerousdecentralizededgede-
+vices while keeping raw data local. In a typical federated learning algorithm FedAvg[9], the
+asynchronous update is performed in the communication round by round. In each round t,
+the central server activates a fraction of clients Ct and sends them the latest global model.
+Eachclientc ∈ CttrainsforseveralepochslocallyonlocaldatasetD toupdatetheirparam-
+c
+eterθt+1 byminimizingthelossL. Thentheserver aggregatesthe localparameters toform
+c
+a global model through the weight averaging function below, this learning process repeats
+until themodelconverges.
+∑
+|D |
+θt+1 ← ∑ c θt+1 (2)
+|D | c
+c∈Ct i∈Ct i
+FedAvg is a widely used approach in several federated learning scenarios. However,
+FedAvg hassomelimitations,especiallywhendealingwithnon-IIDdatasets. Insuchcases,
+the data distribution among clients may be significantly different, resulting in some clients
+having poorer performance than others. If these clients are not given enough attention, they
+can negatively impact the performance of the global model, leading to a vicious cycle of
+suboptimalmodelaggregation.
+To address this issue, a natural solution is to assign more weight to clients with poor
+performance. This can be achieved by measuring the performance of each client using the
+lossvalueofthemodel. Specifically,theaveragelossL forclientciscalculatedasfollows:
+c
+1
+∑Nc
+L = l (p ,t ) (3)
+c ce n n
+N
+c
+n=1
+Here, N is the number of data samples in client c, p is the vector of predictions after
+c n
+theSoftmaxactivation,andt istheone-hottargetvectorofthen-thdata. Thecross-entropy
+n
+lossfunctionl isused,whichisdefinedasfollows:
+ce
+∑M
+l (p ,t ) = − t(i)log(p(i)) (4)
+ce n n n n
+i=1
+10
+whereM isthenumberofclasses.
+Inpractice,thelossvaluebetweenmodelsareclosetoeachother,thereforewewrapthe
+loss value with an exponential function to map loss to the weight of the model and amplify
+the difference between loss values. Based on the loss function of each client L , a weight-
+c
+adjustingfunctioncanbeconstructedasfollows:
+eL
+c
+∑
+w = (5)
+c
+i∈C
+eL
+i
+By aggregating the model with the weights above, we can calculate the updated model
+∑
+byθ = w θ .
+c∈C c c
+Thedetailedprocedureofthe federatedlearningprocessisshowninAlgorithm1.
+4.3 Contrastive Learning Procedure
+Transformed Image
+Encoder
+Sample Image
+Pull
+Push away
+Contrastive
+Neighbor Image
+features
+(in the same batch)
+Push
+away
+Figure5 InthecontrastivelearningcomponentoftheFCLframework,eachimageinabatchun-
+dergoesrandomaugmentationtoproducetwotransformedimages. Theseimagesarethenpassed
+throughanencodertocomputecontrastivefeatures. Thecontrastivelossissubsequentlycalculated
+bymaximizingthesimilaritybetweentheaugmentedversionofthesameimageandminimizingthe
+similaritybetweentheaugmentedversionofdifferentimages(otherimagesinthebatch)usingcon-
+trastivefeatures.
+The structure of the contrasstive learning framework is shown in Figure 5. The con-
+trastivelearningprocedureintheFCLframeworkaimstolearneffectivedatarepresentations
+by maximizing agreement between two views of the same data example, generated using a
+11
+Algorithm1FederatedLearningwithLoss-BasedWeightAdjusting
+Input: ThesetofallclientsC,roundnumberT,localepochnumberE,batchsizeB,model
+parameterθ,hyperparameterQ,M
+Output: Trainedaggregatedmodelparameterθ
+m ← 1
+foreachround t = 1,2,3...T do
+L isanemptyset
+foreachclientc ∈ C inparalleldo
+θ ← θ ▷ distributeglobalmodeltolocalclients
+c
+θ ,L ←LocalUpdate(c,θ )
+c c c
+L appendL
+c
+endfor
+foreachclientc ∈ C do
+w ← ∑eLc ▷ adjustweightbasedonthe lossofeachclients
+c i∈CeL
+i
+endf∑or
+θ ← w θ ▷ aggregatelocalmodelstoobtainthenewglobalmodel
+c∈C c c
+endfor
+LocalUpdate(k,θ ): ▷ localcontrastivelearningtrainingonclientk
+k
+B ← (splitdatasetofk intobatchesofsizeB)
+foreachlocalepochifrom1 toE do
+forbatchb ∈ B do
+θ ← θ −η∇L(θ ;b)
+k k k
+endfor
+endfor
+returnθ ,L toserver
+k k
+stochastic data augmentation module. Specifically, three simple augmentations are applied
+sequentially: random cropping, followed by resizing to the original size, random color dis-
+tortions, and random Gaussian blur. The augmented data samples are then fed into a neural
+network-basedencoder,specificallyResNet18,toextractrepresentationvectors. Theresult-
+ing vectors are projected onto a space where contrastive loss is applied using a small neural
+networkprojectionhead.
+Thecontrastivelossisdesignedtomaximizethesimilaritybetweenpairsofaugmented
+versions of the same image, while minimizing the similarity between pairs of augmented
+versions of different images. More formally, given a pair of augmented images (x ,x ), the
+i j
+contrastivelossisdefinedas:
+exp(f(x )·f(x )/τ)
+L = −log ∑ i j (6)
+i,j 2N ⊮ exp(f(x )·f(x )/τ)
+k=1 [k̸=i] i k
+12
+where f(x) is the output of the neural network for input x, τ is a temperature hyperpa-
+rameter, and ⊮ is an indicator function that is 1 if k is different from i and 0 otherwise.
+[k̸=i]
+Intuitively, the contrastive loss works by comparing the representations of two augmented
+versionsofanimageandadjustingtheneuralnetworkparameterstomakethemmoresimilar.
+At the same time, it also compares the representations of two different images and adjusts
+thenetworkparameterstomakethemlesssimilar. Thisencouragesthenetworktolearnrep-
+resentationsthatcapturetheunderlyingstructureofthedata,ratherthansimplymemorizing
+theinputimages. Inpractice,thecontrastivelossistypicallycomputedoverabatchofimage
+pairs,andtheparametersoftheneuralnetworkareupdatedusingstochasticgradientdescent
+tominimizetheaveragecontrastivelossover thebatch.
+5. Experiments
+In this section, a series of comprehensive experiments are presented to tackle the fol-
+lowingresearchquestions(RQs).
+• RQ1: HowdoestheFCLframeworkperformwhencomparedtocentralizedlearning,
+federatedlearningbackbone,andstate-of-the-artbaselines?
+• RQ2: What is the quality of the learned representation obtained through contrastive
+learningintheFCLframework,andhowdoesthisrepresentationaffecttheclassifica-
+tionaccuracyofthemodel?
+• RQ3: HowrobustistheFCLframeworkagainstdifferentamountoflabeleddataand
+datadistribution?
+• RQ4: Howeffectiveistheproposeddatapreprocessingmethodandfederatedlearning
+aggregationalgorithmintheFCLframework?
+5.1 Experimental Settings
+5.1.1 Dataset
+TheCASIA2AS-OCTdatasetwascollectedusingtheCASIA2ophthalmologydevice
+from Tomey Corporation in Japan. This dataset comprises clinical images of the anterior
+13
+segment of the eyes and includes a total of 542 eyes from 303 participants, with 279 right
+eyes and 263 left eyes. Sixteen AS-OCT images were captured from each eye, but only
+high-quality images were retained with the assistance of ophthalmologists to exclude those
+withpoorlyopenedeyelids. Afterthescreeningprocess,thedatasetcontained1,151normal
+images,2,109imagesshowingmildcorticalcataract(CC),and1,672imagesshowingsevere
+CC.
+The Federated Contrastive Learning (FCL) framework employs five clients in the AS-
+OCT dataset, with each client having an equal amount of data. Two distinct dataset settings
+are created to evaluate the performance of the framework: the IID setting and the Non-
+IID setting. In the IID setting, the dataset is randomly split among each client to ensure
+an even distribution of data. To simulate real-world scenarios where data distribution may
+vary across different hospitals, each client in the non-IID setting has an imbalanced amount
+of data for each class. Further details regarding the non-IID settings can be found in the
+appendix section. By evaluating FCL under both settings, we can assess its robustness and
+effectivenessinhandlingimbalanceddatasetsandvaryingdatadistributions.
+Thedatasetaresplitequallyamongeachclient,witheachclientcontaining80%training
+data and 20% testing data. 50% labeled data is used as the default settings in the following
+experiments.
+5.1.2 EvaluationMetrics
+Inthispaper,wecomprehensivelyevaluatetheclassificationperformanceofourmodel
+using four key metrics: Accuracy, Precision, Recall, and F1 score. Accuracy measures the
+percentageofcorrectlyclassifiedimagesamongallcorticalcataractimages. Recallisacru-
+cialmetricinmedicaldiagnosis,indicatingthepercentageofcorrectlyclassifiedimagesfor
+each class. Precision assesses the classifier’s ability to avoid classifying a negative sample
+as positive. Achieving high precision and recall simultaneously can be challenging; hence
+we use F1 score to evaluate the trade-off between these two metrics. By considering these
+four evaluation metrics, we can comprehensively assess the effectiveness of our classifica-
+14
+tionmodelinaccuratelyidentifyingcorticalcataractimages. Belowaretheformulasforthe
+four metricsusedinourevaluation:
+TP +TN
+Accuracy = (7)
+TP +TN +FP +FN
+TP
+Precision = (8)
+TP +FP
+TP
+Recall = (9)
+TP +FN
+2×Precision×Recall
+F1 = (10)
+Precision+Recall
+whereTP,TN,FP,andFN representtruepositive,truenegative,falsepositive,andfalse
+negative, respectively. The metrics for the entire dataset are calculated as an average value
+weightedbythenumberoftrueinstancesforeachclass.
+5.1.3 Hyperparameters
+Each client is selected and updated in each of the 100 communication rounds. In each
+round, every client is activated and trained for five local epochs using ResNet18[10] as the
+backbone. TheAdam[28] optimizerisutilizedwithabatchsizeof128andaninitiallearning
+rateof1e-4witha cosinedecay. AllexperimentswereconductedonanNvidiaV100GPU.
+5.1.4 Baselines
+To evaluate the effectiveness of both the federated learning and contrastive learning
+component in the FCL framework, centralized ResNet18, centralized contrastive learning,
+and federated ResNet18 are used. Besides, other self-supervised learning approaches are
+alsocompared. Rotationisaself-supervisedlearningapproachbypredictingtherotationof
+images[29]. SwAV is a SOTA approach for self-supervised learning[30]. We combine these
+approacheswithFedAvg[9].
+15
+Inourfederatedlearningaggregationalgorithmexperiment,wecomparedourproposed
+baseline with five other baselines. FedAvg, is a standard federated learning aggregation
+method that utilizes the number of samples from each client as the weight for model ag-
+gregation. FedAvg-L, uses FedAvg aggregation with multiple rounds of local training (the
+round number is set to 5). FedLoss, utilizes normalized loss values as weights. The fourth
+method,FedAW,assignshigherweightstoclientswithlowerlosstohighlightrepresentative
+data. FedExpisourproposedalgorithmthatutilizesexponentiallossasweights.
+5.2 Classification Performance of the FCL Framework (RQ1)
+Table1 ComparisonoftheFCLframeworkwithotherbaselines
+IID Non-IID
+Method
+Acc Pre Rec F1 Acc Pre Rec F1
+FedResNet18 88.88 88.65 88.67 87.98 87.69 86.90 87.85 87.43
+FedRot 90.08 89.95 89.67 89.89 89.56 88.50 88.51 88.42
+FedSwav 90.89 90.28 90.73 90.65 88.80 88.41 88.85 88.55
+FCL 92.80 92.75 93.13 92.63 92.98 92.68 92.49 92.65
+ResNet18(central.) 90.35 90.98 90.86 90.12 - - - -
+CL(central.) 93.50 93.34 94.13 93.35 - - - -
+Table1presentstheresultsofourFCLframework,includingaccuracy,precision,recall,
+andF1scoresforbothIIDandnon-IIDsettings. OurframeworkoutperformsFedResNet18,
+FedRot, and FedSwav on all metrics. Furthermore, when compared to centralized learning,
+our approach achieves a 2.45%, 1.77%, 2.27%, and 2.51% improvement in accuracy, preci-
+sion, recall, and F1 scores respectively while maintaining a small gap between centralized
+contrastive learning. These results demonstrate the effectiveness of our FCL framework in
+improvingtheperformanceoffederatedlearningmodelsforcorticalcataractclassification.
+5.3 Assessing the Effectiveness of Contrastive Learning in Learned Repre-
+sentations (RQ2)
+Besides,acomparisonoftheresultsbetweenIIDandnon-IIDsettingsinTable1reveals
+thatFedResNet18,FedRot,andFedSwavexperienceaperformancedropinnon-IIDsettings.
+In contrast, our FCL framework maintains consistent performance across both settings, in-
+16
+dicating its superior robustness when dealing with imbalanced datasets compared to other
+methods. This can be attributed to the weighting method we employed during the federated
+process,whichisfurtherdiscussedinTable4tohighlightitseffectiveness.
+Table2 Differentclassificationmethods
+IID Non-IID
+Method
+Acc Pre Rec F1 Acc Pre Rec F1
+KNN 87.26 88.85 87.20 87.57 87.14 87.35 88.01 87.39
+DT 81.44 83.34 82.45 82.90 81.09 82.39 83.88 83.30
+RF 89.05 87.55 86.29 87.01 88.23 89.68 89.00 89.32
+Linear-SVM 90.54 90.37 90.93 90.82 88.89 89.42 89.05 89.33
+LinearProbe 89.85 88.89 88.98 88.90 88.90 88.19 88.68 88.42
+Fine-tuning 92.80 92.75 93.13 92.63 92.98 92.68 92.49 92.65
+In order to evaluate the efficacy of the representation learned by our FCL framework,
+weconductedaseriesofclassificationtestsusingseveraltraditionalmachinelearningmeth-
+ods. Specifically,weemployedK-NearestNeighbors(KNN),DecisionTrees(DT),Random
+Forests (RF), and Linear Support Vector Machines (Linear-SVM), as well as two methods
+commonlyusedforrepresentationevaluation: linearprobeandfine-tuning. Theresultswere
+highlyencouraginginbothIIDandnon-IIDsettings,withmostofthemachinelearningmeth-
+odsachievingaperformancescoreabove0.85. Infact,thelinear-SVMandfine-tuningmeth-
+odsbothsurpassedthisbenchmark,withallperformancemetricsachievingscoresabove0.9.
+ThesefindingssuggestthatthefeatureslearnedbyourFCLframeworkcanbeeasilyclassi-
+fied by a wide range of classifiers, providing strong evidence for the utility and robustness
+oftherepresentationlearnedbyourFCLframework.
+Toprovideamorestraightforwarddemonstrationoftheeffectivenessofourcontrastive
+learning representation, we conducted a principal component analysis (PCA) of the learned
+features with the main components equal to 2 and 3. Figure 6 shows the results of this
+analysis, where each scattered point represents a test image, with normal, mild, and severe
+cortical cataracts represented by purple, yellow, and green points respectively. The figure
+clearlyshowsthatmostimageswithinthesamesevereclassareclusteredtogetherinagroup.
+The clear separation between normal cases and those with cortical cataracts indicates that
+17
+Figure6 2D(left)and3D(right)visualizationoflearnedrepresentation.
+our method has learned to capture important information for distinguishing between these
+two categories. The overlap between mild and severe cortical cataract cases suggests that
+thesecategoriessharesomecommonfeatures,makingthemmorechallengingtodistinguish.
+Overall,thisvisualizationdemonstratesitseffectivenessincapturingimportantinformation
+for imageclassificationtasks,aswellasenhancingtheinterpretabilityofourmethods.
+5.4 Performance of the FCL with Different Data Settings (RQ3)
+5.4.1 PerformancewithVariedAmountsofLabeledData
+95
+90
+85
+80
+75
+70
+65
+60
+0.01 0.05 0.1 0.2 0.5 1
+labeled data proportion
+)%(
+ycaruccA
+IID AS-OCT dataset
+95
+90
+85
+80
+75
+70
+FCL
+65
+FedResNet18
+60
+0.01 0.05 0.1 0.2 0.5 1
+labeled data proportion
+)%(
+ycaruccA
+non-IID AS-OCT dataset
+FCL
+FedResNet18
+Figure7 TheaccuracyofResNet-18trainedinFLandFCLusing varyingproportionsoflabeled
+data.
+To evaluate the effectiveness of FedResNet18 and FCL in handling data scarcity, we
+conducted an experiment with varying proportions of labeled data in both IID and non-IID
+18
+settings. The results, depicted in Figure 7, reveal that FCL outperforms FedResNet18 in
+termsofaccuracyandresiliencetolimitedlabeleddata. FedResNet18isknownforitsstrong
+performance in image classification tasks. However, our findings indicate that as the pro-
+portion of labeled data decreases, the accuracy of FedResNet18 drops rapidly. In contrast,
+FCL framework maintains remarkable accuracy even with just 1% labeled data. It is note-
+worthythatFCLachievessuperioraccuracyevenwithonly10%labeleddata,outperforming
+FedResNet18inthesamesetting.
+Moreover,ourresultsshowthatFedResNet18performsdifferentlyonIIDandnon-IID
+datasets. TheaccuracyofFedResNet18onnon-IIDdataisevidentlylowerthanitsaccuracy
+on IID data. In contrast, the accuracy of FCL remains consistent in both datasets. This ob-
+servationindicatesthattheFCLframeworkisbetterequippedtolearngeneralizablefeatures
+thatcanbeeffectivelyappliedtodifferentdatasets.
+These findings underscore the effectiveness of the FCL framework in handling data
+scarcity,anditspotentialforpracticalapplicationswherelabeleddataislimited. Thisperfor-
+manceisattributedtotheFCL’scontrastivelearningprocedure,whichfacilitatesthelearning
+ofrepresentative features.
+5.4.2 PerformancewithVariedClientSizeandClientNumber
+Table3 Performanceresultwithdifferentclientsettings
+Setting #Client ClientImbalanceRatio Acc Pre Rec F1
+A 5 EqualSize 92.80 92.75 93.13 92.63
+B 5 10:1:1:1:1 91.25 92.31 92.80 91.36
+C 5 10:10:10:1:1 91.68 91.93 92.05 91.99
+D 5 100:1:1:1:1 90.36 90.45 91.28 90.81
+E 20 EqualSize 87.58 87.27 87.68 87.40
+F 100 EqualSize 84.39 85.02 85.60 85.27
+Table3presentstheperformanceofdifferentclientsizesandnumbersinfederatedlearn-
+ing. Six different settings, labeled A through F, were used with varying client numbers and
+imbalancedratios(theproportionofeachclient’ssize). SettingsA,B,C,andDwereusedto
+test the effect of client size, while settings A, E, and F were used to test the effect of client
+19
+number.
+Comparingthe results of settingsA, B, C,and D,we observe a slightdecrease in accu-
+racyduetoimbalancedclientdata. Specifically,clientswithsignificantlylargeramountsof
+datathanotherscanleadtoamoreseveredecreaseinperformance. Furthermore,theresults
+of settings A, E, and F suggest that total performance decreases as the number of clients
+increasesandthesizeofeachclientdecreases.
+Therefore, 3 demonstrate that imbalanced client data and suboptimal client configura-
+tionscannegativelyimpactfederatedlearningperformance. Toachieveoptimalresults,itis
+important to balance the amount of data across clients and find an optimal balance between
+thenumberandsizeofclients.
+5.5 Ablation Study (RQ4)
+5.5.1 PerformanceEvaluationofDifferentPreprocessingMethods
+90
+80
+70
+60
+50
+Linear-SVM Adaboost k-nearest neighbors Decision Tree Random Forest
+Method
+ycaruccA
+No preprocessing
+Crop only
+Contrast enhancement only
+Crop and contrast enhancement
+Figure8 Theperformancecomparisonofdifferentimagepreprocessingmethodsevaluatedonfive
+machinelearningclassifiers.
+ThestudycomparedtheaccuracyofAS-OCTimageclassificationunderdifferentpre-
+processing methods, as shown in Figure 8. To evaluate the robustness of the proposed pre-
+processing methods, five common machine learning classifiers were used: Adaboost (AB),
+K-nearestneighbors(KNN),decisiontreeclassifier(DT),andrandomforest(RF).Theclas-
+sificationresultsofAS-OCTimageswithoutanypreprocessing,onlycropping,onlycontrast
+enhancement, and a combination of cropping and contrast enhancement are presented. Ac-
+cording to the comparison results presented in Figure 8, the mixed method of cropping and
+20
+contrast enhancement yielded the highest classification accuracy for AS-OCT images. This
+methodincreasedtheaccuracyby28.16%comparedtounprocessedimages,and23.83%and
+10.94%comparedtotheseparatecroppingandcontrastenhancementmethods,respectively.
+These experimental findings demonstrate that the adopted image enhancement methods are
+effectiveinimprovingboththe classificationresultsandrobustnessofcorticalcataracts.
+5.5.2 PerformanceofDifferentFederatedLearningAggregationSettings
+Table4 Performanceresultofdifferentfederatedlearningsettings
+IID Non-IID
+Method
+Acc Pre Rec F1 Acc Pre Rec F1
+FedAvg 91.57 91.30 91.89 91.72 87.67 88.35 88.02 88.29
+FedAvg-L 92.55 91.83 92.38 92.52 91.56 91.54 92.01 91.72
+FedLoss 91.98 92.66 92.13 92.30 91.34 91.89 91.20 91.56
+FedAW 92.02 92.32 92.51 92.40 89.57 89.93 89.25 89.43
+FedExp 92.80 92.75 93.13 92.63 92.98 92.68 92.49 92.65
+Table 4 displays the outcomes of numerous federated learning configurations for both
+independentandnon-independentandidenticallydistributed(non-IID)datasets. Whenana-
+lyzingtheresults,itbecomesapparentthatinIIDdatasets,theperformancegapbetweenthe
+differentFLsettingsissmall. ThismeansthatFLsettingsdonothaveasignificantimpacton
+the results. However, in the case of non-IID datasets, the gap between the different FL set-
+tings becomes significantly larger. The performance of FedAW and FedAvg is significantly
+lower than that of our methods. In terms of accuracy, precision, recall, and F1, our meth-
+ods outperform FedAW and FedAvg by 5.31%, 4.33%, 4.47%, 4.36% and 3.41%, 2.75%,
+3.24%,and3.22%,respectively. Ourframeworkachievesasatisfactoryresultbyemploying
+a weighting aggregation method during the federated process that effectively balances the
+contributionofeachclient’sdatatotheglobalmodel.
+The results of our experiments clearly demonstrate that federated learning settings can
+haveasignificantimpactontheperformanceofnon-IIDdatasets. Innon-IIDdatasets,clients
+may have different types of data, resulting in imbalanced contributions to the global model
+21
+during the federated learning process. In such scenarios, the aggregation strategy becomes
+crucial in ensuring that the global model accurately represents the underlying data distri-
+bution. Hence, it is essential to carefully select appropriate federated learning settings and
+aggregation strategies for non-IID datasets to achieve optimal performance while ensuring
+dataprivacyandsecurityina distributedlearningenvironment.
+We also tested the performance of our FCL framework on the Messidor dataset. The
+detailisshowninappendix.
+6. Discussion
+Althoughsection5hasdonealotofexperimentstoprovetheeffectivenessoftheFCL
+framework,therearestillsome drawbacksinthispaperthatcanbeimprovedinthefuture:
+• Thispaperpresentsamodelinwhichmultiplehospitalsparticipateasclientsbysharing
+data. However,duetothelimitedavailabilityofthedataset,onlyasingledatasetwas
+used to simulate the client behavior in the experiments. Although non-IID settings
+were utilized to simulate the varying distribution between hospitals, it cannot fully
+replicatereal-timescenarios. Toenhancethereliabilityofourexperiments,additional
+datasetsshouldbeincorporatedinthefuture.
+• ThisarticleusessingleAS-OCTimagesfortrainingandvalidationofcorticalcataracts.
+However,AS-OCTimagesareobtainedbasedoncircularscanning,andasingle-angle
+imagecannoteffectivelyrepresenttheopacityoftheentirecorticalregion,whichmay
+resultinlowerclassificationresultsforcorticalcataracts. Inthefuture,whensufficient
+dataiscollected,wecantrainandclassifymodelsusingpatientsastheminimumunit.
+• The federated learning model proposed in this paper represents an optimal scenario,
+where every client is selected in all rounds, each client has the same size, and each
+client is trained for only one epoch before aggregation. However, it is important to
+consider the real-time properties and activities of each client, as well as the cost of
+aggregation. In future work, we aim to develop a more realistic model that takes into
+22
+accountthesefactors.
+7. Conclusion
+This paper proposes a federated contrastive learning Framework for cortical cataract
+diagnosisbasedonAS-OCTImages. Theframeworkleveragesthebenefitsofbothfederated
+andcontrastivelearningtotacklereal-lifescenarioswheredatasharingbetweenhospitalsis
+difficult. Itallowsdistributedclientstolearnasharedmodelforpredictionwhilekeepingthe
+training data local, ensuring privacy and security. Moreover, it can effectively learn visual
+representations from unlabeled image data using contrastive learning. The results indicate
+that the proposed framework can achieve satisfactory results using only a small amount of
+data,demonstrating itspotential in improvingthe efficiencyand privacy ofcortical cataract
+diagnosiswithsignificantclinicalimplicationsforpatientsandpractitioners.
+23
+References
+[1] ORGANIZATIONWH,etal.Worldreportonvision[J].,2019.
+[2] BURTONMJ,RAMKEJ,MARQUESAP,etal.TheLancetglobalhealthCommis-
+sion on global eye health: vision beyond 2020[J]. The Lancet Global Health, 2021,
+9(4):e489-e551.
+[3] LAM D, RAO S K, RATRA V, et al. Cataract[J]. Nature reviews Disease primers,
+2015,1(1):1-15.
+[4] BENČIĆ G, ZORIĆ-GEBER M, ŠARIĆ D, et al. Clinical importance of the lens
+opacities classification system III (LOCS III) in phacoemulsification[J]. Collegium
+antropologicum,2005,29(1):91-94.
+[5] ZHANG H, NIU K, XIONG Y, et al. Automatic cataract grading methods based
+on deep learning[J]. Computer methods and programs in biomedicine, 2019, 182:
+104978.
+[6] YANG Q, LIU Y, CHEN T, et al. Federated machine learning: Concept and appli-
+cations[J]. ACM Transactions on Intelligent Systems and Technology (TIST), 2019,
+10(2):1-19.
+[7] KAIROUZ P, MCMAHAN H B, AVENT B, et al. Advances and open problems in
+federatedlearning[J].FoundationsandTrends®inMachineLearning,2021,14(1–2):
+1-210.
+[8] TAN A Z, YU H, CUI L, et al. Towards personalized federated learning[J]. IEEE
+TransactionsonNeuralNetworksandLearningSystems,2022.
+[9] MCMAHAN B, MOORE E, RAMAGE D, et al. Communication-efficient learning
+of deep networks from decentralized data[C]//Artificial intelligence and statistics.
+2017:1273-1282.
+[10] HE K, ZHANG X, REN S, et al. Deep residual learning for image recognition[C]
+//Proceedings of the IEEE conference on computer vision and pattern recognition.
+2016:770-778.
+[11] ANG M, BASKARAN M, WERKMEISTER R M, et al. Anterior segment optical
+coherencetomography[J].Progressinretinalandeyeresearch,2018,66:132-156.
+[12] DOSSANTOSVA,SCHMETTERERL,STEGMANNH,etal.CorneaNet:fastseg-
+mentation of cornea OCT scans of healthy and keratoconic eyes using deep learning
+[J].Biomedicalopticsexpress,2019,10(2):622-641.
+24
+[13] KELLER B, DRAELOS M, TANG G, et al. Real-time corneal segmentation and 3D
+needletrackinginintrasurgicalOCT[J].Biomedicalopticsexpress,2018,9(6):2716-
+2732.
+[14] FU H, BASKARAN M, XU Y, et al. A deep learning system for automated angle-
+closuredetectioninanteriorsegmentopticalcoherencetomographyimages[J].Amer-
+icanjournalofophthalmology,2019,203:37-45.
+[15] FU H, XU Y, LIN S, et al. Multi-context deep network for angle-closure glaucoma
+screening in anterior segment OCT[C]//Medical Image Computing and Computer
+AssistedIntervention–MICCAI2018:21stInternationalConference,Granada,Spain,
+September16-20,2018,Proceedings,PartII 11.2018:356-363.
+[16] WONGAL,LEUNGCK,WEINREBR,etal.Quantitativeassessmentoflensopac-
+ities with anterior segment optical coherence tomography[J]. British Journal of Oph-
+thalmology,2009,93(1):61-65.
+[17] WANGW,ZHANGJ,GUX,etal.Objectivequantificationoflensnuclearopacities
+usingswept-sourceanteriorsegmentopticalcoherencetomography[J].BritishJournal
+ofOphthalmology,2022,106(6):790-794.
+[18] ZHANGX,XIAOZ,HUL,etal.CCA-Net:Clinical-awarenessattentionnetworkfor
+nuclearcataractclassificationinAS-OCT[J].Knowledge-BasedSystems,2022,250:
+109109.
+[19] XIAOZ,ZHANGX,SUNQ,etal.ANovelLocal-GlobalSpatialAttentionNetwork
+for Cortical Cataract Classification in AS-OCT[C]//Pattern Recognition and Com-
+puterVision:5thChineseConference,PRCV2022,Shenzhen,China,November4–7,
+2022,Proceedings,PartII.2022:262-273.
+[20] LIZ,XUX,CAOX,etal.IntegratedCNNandfederatedlearningforCOVID-19de-
+tectiononchestX-rayimages[J].IEEE/ACMTransactionsonComputationalBiology
+andBioinformatics,2022.
+[21] LOJ,TIMOTHYTY,MAD,etal.Federatedlearningformicrovasculaturesegmen-
+tationanddiabeticretinopathyclassificationofOCTdata[J].OphthalmologyScience,
+2021,1(4):100069.
+[22] AGBLEY B L Y, LI J, HAQ A U, et al. Multimodal melanoma detection with feder-
+ated learning[C]//2021 18th International Computer Conference on Wavelet Active
+MediaTechnologyandInformationProcessing(ICCWAMTIP).2021:238-244.
+[23] WANG M, WANG L, XU X, et al. Federated Uncertainty-Aware Aggregation for
+FundusDiabeticRetinopathyStaging[J].arXivpreprintarXiv:2303.13033,2023.
+25
+[24] VINYALS O, BLUNDELL C, LILLICRAP T, et al. Matching networks for one shot
+learning[J].Advancesinneuralinformationprocessingsystems,2016,29.
+[25] CHEN T, KORNBLITH S, NOROUZI M, et al. A simple framework for contrastive
+learningofvisualrepresentations[C]//Internationalconferenceonmachinelearning.
+2020:1597-1607.
+[26] HE K, FAN H, WU Y, et al. Momentum contrast for unsupervised visual representa-
+tion learning[C]//Proceedings of the IEEE/CVF conference on computer vision and
+patternrecognition.2020:9729-9738.
+[27] KORNILOV A S, SAFONOV I V. An overview of watershed algorithm implemen-
+tationsinopensource libraries[J].JournalofImaging,2018,4(10):123.
+[28] KINGMADP,BAJ.Adam:Amethodforstochasticoptimization[J].arXivpreprint
+arXiv:1412.6980,2014.
+[29] KOMODAKIS N, GIDARIS S. Unsupervised representation learning by predicting
+image rotations[C]//International conference on learning representations (ICLR).
+2018.
+[30] CARONM,MISRAI,MAIRALJ,etal.Unsupervisedlearningofvisualfeaturesby
+contrasting cluster assignments[J]. Advances in neural information processing sys-
+tems,2020,33:9912-9924.
+26
+Appendix
+Non-IID Client Settings
+Table5 Non-IIDClientSettings. Thetableshowstheproportionofeachclassinthedatasetthatis
+distributedacrosseachclient. Forexample,forthe”normal”classinthedataset,theproportions
+distributedacrossclientsA-Eare0.4,0.1,0.1,0.1,and0.3respectively.
+Client Classnormal Classmild Classsevere
+A 0.4 0.1 0.1
+B 0.1 0.4 0.1
+C 0.1 0.4 0.1
+D 0.1 0.1 0.5
+E 0.3 0 0.2
+Overall 1 1 1
+Performance on Public Messidor Dataset
+The Messidor dataset is a publicly available dataset consisting of 1200 eye fundus
+colorimageslabeledwithfourretinopathygrades. Thedatasetincludes546grade0images,
+153grade1images,247grade2images,and254grade3images. Astheimagesaresourced
+from three ophthalmologic departments, this dataset provides a suitable setting to test the
+robustness and generality of our FCL methods. Three clients in the Messidor dataset are
+employedcorrespondingtothethreeophthalmologicdepartments.
+Table 6 shows the results of our experiments on the Messidor dataset, comparing the
+performance of our FCL framework with other baselines under different proportions of la-
+beled data. The results demonstrate that even with 100% labeled data, our FCL framework
+achieves a performance close to that of ResNet 18, highlighting the effectiveness of con-
+trastive learning feature extraction. Moreover, among all the federated learning baselines,
+ourFCLframeworkachievesthehighestaccuracyof68.30%andF1scoreof68.89%,further
+confirmingthe effectivenessof theFCLframework.
+Tosumup,theexperimentsontheMessidordatasetwithclientsfromdifferentophthal-
+mologic departments demonstrate that the FCL framework is highly effective and robust.
+27
+Table6 TheresultontheMessidordatasetwithdifferentproportionsoflabeleddata.
+5% 20% 50% 100%
+Method
+Acc F1 Acc F1 Acc F1 Acc F1
+FedResNet18 46.53 45.29 55.81 56.32 62.48 62.47 64.42 65.27
+FedRot 56.82 56.85 61.57 61.22 65.88 66.02 66.88 66.85
+FedSwav 57.22 58.52 62.38 61.90 65.93 65.98 67.92 67.38
+FCL 60.03 60.82 65.33 65.25 68.50 68.21 68.30 68.89
+ResNet18 51.71 51.30 59.59 59.04 64.34 64.21 68.43 67.35
+CL 62.41 63.77 67.01 66.39 69.24 69.32 71.49 71.40
+The framework’s ability to handle data scarcity and maintain data privacy, combined with
+its superior performance compared to other federated learning baselines, highlights its po-
+tentialforpracticalapplicationsinthe medicalfield.
+28
+Acknowledgement
+Reflectingonmyfouryearsofundergraduatestudy,Iamproudofthesignificantgrowth
+I have achieved. From being a complete novice in scientific research to becoming a begin-
+ner in the field, I owe much of my progress to the support and guidance of those around
+me. Throughout these four years, numerous individuals have provided me with invaluable
+assistance,forwhichIamdeeplygrateful.
+I would like to express my gratitude to my advisor, Professor Jiang Liu. During a time
+when I was feeling most lost, he introduced me to his research and opened my eyes to the
+vast potential of medical AI. Throughout our interactions, Professor Liu has always been a
+source of encouragement and enlightenment, offering gentle guidance that has helped me
+growbothpersonallyandprofessionally.
+IwouldalsoliketothankYuxinMa,thereviewerofmypaper,andtheothercommittee
+membersXinYao,XuetaoWei,andPengYangfortheirvaluablefeedback. Iamalsothank-
+ful to all the professors at SUSTech who have had a profound impact on me, including Qi
+Hao, Xuan Song, and many others. Their expertise and exemplary character demonstrated
+intheircourseshave leftanindelibleimpressiononme.
+IwouldliketothankXiaqingZhangforhisassistanceinguidingmethroughtheinitial
+stages of research. As a seasoned Ph.D. in the field, he provide me with a comprehensive
+overviewandsteermeintherightdirection. Healsoplayedacrucialroleinhelpingmewith
+myfirstpaperbydedicatingseveralnightstometiculouslyreviewingmydraftandproviding
+detailedsuggestions,whichhadaprofoundimpactonmysubsequentresearchwork.
+IwouldliketoacknowledgethecontributionofmyteammatesYuhangZhao,XiaoWu,
+and Bofang Zheng. During our collaboration on the undergraduate project, we encountered
+numerous obstacles, but we were able to overcome them through our seamless teamwork.
+Eachof themprovidedmewithassistanceandinspirationthroughoutourcollaboration.
+My sincere thanks go to my boyfriend Ning Tang who I think is a born researcher. He
+29
+hasprovidedmewithinvaluableassistance,andbeingwithhimeverydayhasallowedmeto
+gain boundless knowledge and inspiration. Together, we are making daily progress toward
+becomingbetterresearchers.
+Finally, I am especially thankful for the support of my parents for always standing be-
+hindme with love and encouragementwhen I am down. Theirsupport means everything to
+meandI willalwayslovethem.
+30

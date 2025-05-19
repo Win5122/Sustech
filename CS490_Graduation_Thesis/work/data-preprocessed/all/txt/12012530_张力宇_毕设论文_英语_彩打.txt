@@ -1,0 +1,1069 @@
+CLC Number
+UDC Availableforreference □Yes □No
+Undergraduate Thesis
+Thesis Title: NASHA: Narrow Pair Splitting
+Hybrid A* Algorithm
+Student Name: Zhang Liyu
+Student ID: 12012530
+Department: Computer Science and Engineering
+Program: Computer Science and Technology
+Thesis Advisor: Associate Professor Ma Yuxin
+Date: June 7, 2024
+COMMITMENT OF HONESTY
+1. I solemnly promise that the paper presented comes from my
+independent research work under my supervisor’s supervision. All
+statistics and images are real and reliable.
+2. Except for the annotated reference, the paper contents no other
+published work or achievement by person or group. All people making
+important contributions to the study of the paper have been indicated
+clearly in the paper.
+3. I promise that I did not plagiarize other people’s research achievement
+or forge related data in the process of designing topic and research
+content.
+4. If there is violation of any intellectual property right, I will take legal
+responsibility myself.
+Signature:
+Date:
+NASHA: Narrow Pair Splitting
+Hybrid A* Algorithm
+NASHA: 狭窄点对分割混合 A* 搜索算法
+张力宇
+（计算机科学与工程系 指导教师：马昱欣）
+[摘要]：在错综复杂和狭窄的空间内确保无碰撞导航仍然是一个重大挑
+战，尤其是在低速的长距离规划中。如图1所示，非常狭窄的空间极大地
+限制了车辆直接通过的可用区域。当前主流的算法采取两步解决路径规
+划问题：首先，它们寻找一条路径解，然后将这个初始解输入到一个最
+优控制问题（OCP）求解器中，并加入优化约束。以往的搜索算法在面对
+狭窄搜索空间和延长路径长度的双重挑战时，难以有效地发现可行的解
+决方案，导致计算时间显著延长。为了解决这个问题，本文引入了狭窄
+点对分割混合 A*（NASHA）算法，这是一种新颖的方法，主要包括四个
+关键阶段：首先，从 2D 栅格地图中提取轮廓点；然后，选择限制车辆的
+狭窄点对；接着，为每个狭窄点对确定合适的输入集；最后，从每个段的
+起始点搜索到下一个狭窄点对的输入集或目标点。通过连接所有搜索结
+果，最终获得一个初始解。经过广泛测试的 NASHA 算法擅长在狭窄空
+间规划可能的路径，总能最快速度找到可行的初始解，证实了其在具有
+挑战性的狭窄通道的路径规划问题的可靠性和有效性。与 Hybrid A* 和
+Enhanced Hybrid A* 相比，NASHA 将总运行时间减少了 50％以上，同时
+相对于 A* 算法大幅提高了二阶段优化的成功率。
+[关键词]：自动泊车，路径规划，碰撞避免
+I
+[ABSTRACT]: Ensuring collision-free navigation within intricate and con-
+finedspacesremainsasignificantchallenge,particularlyfortheextendedtraver-
+sal at low speeds. As demonstrated in Figure 1, very narrow spaces substan-
+tially limit the available area for vehicles to pass through directly. Current
+mainstream algorithms approach this path planning issue in two steps: first,
+they search for a path solution, and then they input this initial solution into
+an optimal control problem (OCP) solver along with optimization constraints.
+Previous search algorithms have struggled to efficiently discover feasible solu-
+tions when confronted with the dual challenges of confined search spaces and
+extended path lengths, resulting in significantly prolonged computation times.
+To tackle this problem, this paper introduces the Narrow Pair Splitting Hybrid
+A* (NASHA) algorithm, a novel approach that primarily consists of four key
+stages: first, extracting contour points from the 2D grid map; then, selecting
+narrow point pairs that restrict the vehicle; next, identifying suitable input set
+for each narrow point pair; and finally, searching from each segment’s starting
+point to the next narrow point pair’s input set or the goal point. By integrat-
+ing all search results, an initial solution is eventually obtained. The extensively
+tested NASHA algorithm excels at planning possible paths through confined
+spaces, consistently finding feasible initial solutions that confirm its reliability
+andeffectivenessinnavigatingchallengingnarrowpassages. ComparedtoHy-
+brid A* and Enhanced Hybrid A*, NASHA reduces total runtime by over 50%
+while substantially boosting the success rate relative to the A* algorithm.
+[Key words]: automatic parking, path planning, collision avoidance
+II
+Contents
+1. INTRODUCTION . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+2. RELATED WORK . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+2.1 Search-and-Sample-Based Methods . . . . . . . . . . . . . . . . . . . . 2
+2.2 Optimization-Based Methods . . . . . . . . . . . . . . . . . . . . . . . . 3
+2.3 Hybrid Methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+3. PRELIMINARIES . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.1 Constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.2 Collision Detection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+3.3 Trajectory Planning Problem . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.4 Second Stage Optimization . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.5 Input Map . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4. METHODOLOGY . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+4.1 Narrow Pairs Extraction and Registration . . . . . . . . . . . . . . . . . 12
+4.2 Identification of Input Set for Narrow Pairs . . . . . . . . . . . . . . . 14
+4.3 Path Planning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+5. EXPERIMENT . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+5.1 Implementation and Testing Details . . . . . . . . . . . . . . . . . . . . 17
+5.2 Analysis of the Practical Process . . . . . . . . . . . . . . . . . . . . . . 18
+5.3 Comparison of the Experiment Results . . . . . . . . . . . . . . . . . . 20
+5.3.1 Comparison Settings . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+III
+5.3.2 Overall Time Comparison . . . . . . . . . . . . . . . . . . . . . . . . . 20
+5.3.3 Comparison of Actual Paths Found . . . . . . . . . . . . . . . . . . . 21
+5.3.4 Control Parameter Output . . . . . . . . . . . . . . . . . . . . . . . . . 24
+6. CONCLUSION . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+IV
+1. INTRODUCTION
+Path planning for unmanned vehicles is an integral component of both robotics and
+artificial intelligence. It involves the development of sophisticated algorithms and systems
+to enable autonomous navigation in diverse and intricate environments. Recent progress in
+thisfieldhasbeenpropelledbytechnologicaladvancementsincomputationalpower,sensor
+capabilities, and machine learning[1]. The capacity for unmanned vehicles to autonomously
+chartandfollowapathfromanorigintoadestinationiscrucialacrossmyriadapplications,
+rangingfromself-drivingcarsanddronestomarineandspaceexplorationvehicles.
+Path planning algorithms have undergone a significant evolution, transitioning from
+basic deterministic models to more advanced frameworks that are adaptive, predictive, and
+capableofhandlingvariousconstraints. Theseconstraintsincludedynamicobstacles[2],un-
+structured environmental conditions[3], and the need for real-time planning which means
+lowlatency[4]. Contemporaryresearchintrajectoryplanningprimarilyfocusesonstructured
+highway navigation[5] and unstructured parking scenarios[6][7]. The principal distinction be-
+tween these scenarios lies in the existence of a driving reference line and the uniformity
+of the landscape in structured environments. On structured roads, path planning typically
+revolves around closely following the reference line, emphasizing the smoothness and con-
+tinuityofcurvature. Conversely,unstructuredparkingscenarios,characterizedbytheirlack
+ofreference linesandvariablelandscapes,oftennecessitateprecisemaneuvering.
+This thesis concentrates on the unique challenges posed by extremely narrow parking
+environments, a context where the narrowest passage is only 1.2 times the width of the ve-
+hicle,or evennarrower. Anotherconcurrent challengeis that thesearch targetpoint andthe
+starting point have a relatively long straight-line distance, potentially exceeding 50 meters.
+In our experiments conducted under two extreme restrictive conditions, traditional parking
+algorithmsorSOTAalgorithmstailoredfornarrowenvironmentsfailtoquicklyidentifyini-
+tialsolutions. Meanwhile,ouralgorithmiscapableofswiftlyfindinganinitialsolutionthat
+isconducivetotheOCPoptimizerinsuchenvironments.
+1
+a) Thenarrowareais3.2mwide b) Thenarrowareais2.4mwide
+Figure1 Reducingthewidthofthenarrowareaby25%willleadtoareductionofmorethan70%
+intheviableareaforvehiclestoenterdirectly. Vehiclewidthis1.942m.
+Themaincontributionofthisthesis: Proposeasolutionforlong-distancepathplanning
+problems of Ackermann steering vehicles in narrow environments. It significantly reduces
+the search time for initial solutions and the initial solutions found can save time for subse-
+quentoptimizationsteps.
+2. RELATED WORK
+This section critically examines the spectrum of methodologies employed in trajectory
+planning for autonomous parking in unstructured environments. These methods fall into
+search-and-sample-based,optimization-based,andhybridmethods[8].
+2.1 Search-and-Sample-Based Methods
+Search-and-sample-basedtechniquesprimarilyaimtobreakdowncontinuousstateand
+controlspacesintodiscrete,manageablecomponents. Thistransformationfacilitatesthecre-
+ation of a structured graph comprising nodes and edges, which is crucial for path planning.
+The A* algorithm stands out as a foundational approach in state space search using graph
+searchmethods[9]. Thisalgorithmanditsderivatives,suchasthosedocumentedin[10-12],have
+2
+beeninstrumentalinadvancingthisfield,thoughtheysometimesfallshortinfullyaddress-
+ing vehicle-specific dynamics like Ackerman steering and motion posture. The Hybrid A*
+algorithm[13], an extension of the classic A*, integrates vehicle-specific constraints, thereby
+providing a more tailored approach to path planning for vehicles with Ackerman steering
+geometry.
+Recent developments in state space sampling, particularly deterministic methods like
+thestatelatticeapproachandstochasticmethodsexemplifiedbytheRapidly-exploringRan-
+dom Tree (RRT) series, have shown promise in managing complex navigation tasks[14-17].
+These methods are adept at creating paths in multi-dimensional state spaces, highlighting
+their effectiveness even in high-dimensional spaces[18]. However, navigating narrow pas-
+sages by the RRT series algorithm poses a significant challenge. The likelihood of success-
+fully sampling and integrating states in these constrained areas is substantially lower than
+in open spaces. For instance, a vehicle entering a narrow passage with an incorrect orienta-
+tion struggles to connect to the goal state, as the required maneuvers to adjust its direction
+are often not feasible in such tight spaces. Control space sampling methods, including the
+Dynamic Window Approach (DWA), complement these techniques[19-20]. They offer alter-
+native solutions, especially in scenarios where state space sampling may be less effective.
+Nevertheless, these methods are primarily constrained by the dimensions of sampling and
+mainlyfocusonshort-termobstacleavoidanceandtrajectoryplanning. Itisnotsuitablefor
+long-distanceglobalpathplanning.
+2.2 Optimization-Based Methods
+Optimization-basedmethodsprioritizeacontinuousvariablemodelingapproach,offer-
+ing an intuitive, precise, and uniform representation of planning tasks. These methods are
+pivotalinconvertingcomplextrajectoryplanningtasksintoNonlinearProgramming(NLP)
+problems. Within this category, methods are further divided based on their constraint han-
+dlingintostrictandsofteningconstraintapproaches.
+Strict constraint methods, such as Sequential Quadratic Programming (SQP) and Inte-
+3
+riorPointMethods(IPM),demandthatsolutionsrigorouslysatisfyallNLPconstraints[21-25].
+These methods are known for their precision and robustness in solving complex trajectory
+planning problems. For instance, Li and Shao’s triangle area method and Zhang’s symbolic
+distance function demonstrate innovative approaches to modeling collision avoidance[24,26].
+However,theircomplexitycanleadtosubstantialcomputationaldemands,posingchallenges
+inscenariosrequiringreal-timesolutions. Thisoccursasthequantityofcollisionavoidance
+constraints correlates with both the number of spatial obstacles and the length of the path
+planning. In environments with clutter, where the specific geometries of obstacles are con-
+sidered,thecomputationaldemandisincreasedbythecountofsurfacesoneachobstacle.
+In contrast, softening constraint methods, as employed by Dolgov et al.[20] and in the
+TimeElasticBand(TEB)method[27],offergreaterefficiency(e.g.,upto50Hz). Foranother
+instance, the EGO planner[28] accelerates the process by transforming hard collision avoid-
+anceconstraintsintosoftregularizersthroughtheadditionofpenaltyterms. However,these
+softening constraint methods are quite challenging to apply in extremely narrow scenarios
+thatrequirehighprecision.
+2.3 Hybrid Methods
+The integration of search-and-sample-based with optimization-based methods repre-
+sents a significant advancement in addressing the complexities of NLP problems in au-
+tonomous parking[29-32]. These hybrid methods utilize initial solutions from search-and-
+sample-based approaches as the input of NLP problem. Hybrid methods can be viewed
+as comprising two stages. The first stage involves finding an initial solution using search-
+and-sample-based methods. The second stage then uses this initial solution as the input for
+anoptimization-basedmethod. Thissynergyhasshownpotentialinreducingsolutiontimes
+while maintaining continuous results. The optimization-based methods in the second stage
+can also be replaced with a local planner, which can execute the overall planned path and
+avoiddynamicobstaclesinrealtime[33].
+One of the key challenges in applying these methods is NLP’s inherent scale and non-
+4
+linearity, which can be particularly pronounced in complex or unstructured environments.
+Toaddressthesechallenges,drivingcorridormodelingstrategieshavebeendeveloped[34-37].
+These strategies simplify collision avoidance by creating navigational corridors around ini-
+tial solutions, thereby reducing the complexity of the optimization problem. However, the
+effectiveness of these corridors can vary, with some scenarios still presenting significant
+challengesduetotheircomplexityorthenatureofthe constraintsinvolved.
+Table1 Comparisonwithotherapproachesinlongdistancefield
+Scheme SystemInput FullShape Latency ConstraintsGuarantee
+A* Grids ✓ 0.1s-1s ×
+OBCA ObjectSets ✓ 1s-100s ✓
+Hybrid-A* Grids ✓ 1s-100s ✓
+NASHA(Ours) Grids ✓ 1s-10s ✓
+3. PRELIMINARIES
+3.1 Constraints
+Thesimplifiedkinematicbicyclemodelischosentodescribeafour-wheeledvehicle. It
+isassumedthatthevehiclemovesinatwo-dimensionalplaneandthattheleftandrighttires
+maintain the same steering angle and rotational speed at any given moment. The vehicle is
+presumedtohaveaslowvariationindrivingspeed,andboththebodyandsuspensionsystem
+areconsideredtoberigid. Themotionandsteeringofthevehiclearefront-wheel-onlydrive.
+The geometric representation of a vehicle is shown in Figure 2. In the depicted model, the
+vehicleisabstractedtoarectangularform. Here,L denotesthefrontoverhanglength,L
+F W
+isdefinedasthevehiclewheelbase,L representstherearoverhanglength,W indicatesthe
+R
+vehicle width. The kinematic constraints of the bicycle model are represented as shown in
+Equation1:
+   
+x(t)
+v(t)·cosθ(t)
+ y(t)
+
+ v(t)·sinθ(t)
+
+d  θ(t)  =   v(t)·tanϕ(t)  , t ∈ [0,T]. (1)
+dt    LW 
+v(t) a(t)
+ϕ(t) ω(t)
+5
+Figure2 AsimplifiedbicyclemodelunderCartesiancoordinates,assumingthecenterpointofthe
+rearwheelaxleasthevehicle’scenter,thevehicle’smotionoverashortperiodcanberegardedas
+circularmotionaroundthecenterOwitharadiusR.
+In Equation 1 and Figure 2, x and y represent the coordinates of the rear axle’s center.
+θ(t) represents the vehicle’s orientation angle, v(t) represents the longitudinal velocity, and
+ϕ(t) denotes the steering angle of the front wheels. a(t) signifies acceleration, while ω(t)
+represents angular velocity. During the motion of the vehicle, the aforementioned states are
+subjecttokinematicconstraintsandhave upperandlowerlimitsinEquation2:
+     
+a a(t) a
+min max
+     
+ −v Ωmin   ≤   ωv( (t t) )  ≤   Ωv max , t ∈ [0,T]. (2)
+max max
+−Φ ϕ(t) Φ
+max max
+In a relatively short period of motion, the bicycle model can be considered to be moving in
+acirculararcaroundacenter. ThecurvatureofthiscircularmotionisgivenbyL /tan(ϕ),
+W
+whereL is the vehicle wheelbase and ϕ is the current steering angle of the front wheel.
+W
+6
+Since there is a maximum steering angle for the vehicle, there exists a minimum turning
+radius,givenbyEquation3:
+L
+W
+R = (3)
+min
+tan(Φ )
+max
+3.2 Collision Detection
+The algorithm involves constructing a rectangular frame that matches the size of the
+vehicle and is oriented in the vehicle’s direction of travel. This process aims to identify any
+overlaps between the rectangular frame and obstacles, thereby enabling the detection and
+avoidanceofpotentialcollisions.
+
+ P .x = x (t)+l ∗cosθ +l ∗sinθ
+ t1 v 2 t 3 t
+
+   P t1.y = y v(t)+l 2 ∗sinθ t −l 3 ∗cosθ t
+
+   P t2.x = x v(t)+l 2 ∗cosθ t −l 3 ∗sinθ t
+
+P .y = y (t)+l ∗sinθ +l ∗cosθ
+t2 v 2 t 3 t
+(4)
+ P .x = x (t)−l ∗cosθ −l ∗sinθ
+  t3 v 1 t 3 t
+
+ P .y = y (t)−l ∗sinθ +l ∗cosθ
+ t3 v 1 t 3 t
+
+
+ P .x = x (t)−l ∗cosθ +l ∗sinθ
+ t4 v 1 t 3 t
+
+P .y = y (t)−l ∗sinθ −l ∗cosθ
+t4 v 1 t 3 t
+Initially, the xy coordinates of points P ,P ,P ,P are computed using Equation 4.
+t1 t2 t3 t4
+Here x (t),y (t) represent the coordinate of center of the rear axle of the vehicle at time t.
+v v
+l ,l ,and l aredefinedbyEquation5.
+1 2 3
+
+ l = L
+1 R
+l = L +L (5)
+ 2 W F
+
+l = W/2
+3
+After calculating the four points P ,P ,P ,P , four line segments are obtained. On
+t1 t2 t3 t4
+these line segments, actual discrete points are taken at intervals of 0.1 meters, ensuring that
+the endpoints of each segment are included. Subsequently, it is determined whether these
+discrete points fall within obstacle areas on the map. If all the obstacle points are traversed
+andfoundtobewithinfeasibleareas,thenthecurrentpositionofthevehicleisdeemedfea-
+sible. Otherwise,itisimmediatelydeterminedtobeinfeasible. Thismethodofdetermining
+obstacles is easy to implement and straightforward. Moreover, it can adapt to agents of any
+7
+shape, allowing for more precise modeling of vehicles. In this thesis, because of computa-
+tionalconvenience,vehiclesarestillsimplifiedintorectangularshapes. However,itisclear
+that the edges of vehicles are actually curved. Detailed modeling can increase the search
+spaceforsolutions.
+3.3 Trajectory Planning Problem
+Ouralgorithmprimarilytargetsthepathplanningproblemforasingleagent. Therefore
+the problem formulation doesn’t involve multi-agents. Through the optimization process,
+thealgorithmiscapableofgeneratingtrajectorieswithtimestamps. Hence,abriefoverview
+ofthetrajectoryplanningproblemwillbe providedhere.
+∫
+T
+min f(x(t),u(t),t)dt
+u(t) 0
+s.t. x˙(t) = f(x(t),u(t),t), ∀t ∈ [0,T] (6)
+x(0) = x , x(T) = x
+start end
+u(t) ∈ U, x(t) ∈ X, ∀t ∈ [0,T]
+Here, x(t) and u(t) represent the state and control input of the agent at time t, respectively.
+x(t) is a five-dimensional variable representing the current state of the vehicle, which in-
+cludes x, y, v, heading, and steer heading. v is the current speed of the vehicle at time t.
+u(t) is a two-dimensional variable representing the changes in the vehicle’s current state,
+specificallyaccelerationandsteeringacceleration. L(x(t),u(t),t)denotesthecostfunction.
+The function f describes the dynamics of the agent. x and x are the initial and final
+start end
+states of the agent, respectively. U and X represent the feasible sets for the control inputs
+andstates.
+3.4 Second Stage Optimization
+Our algorithm is primarily aimed at finding a feasible and optimization-friendly initial
+solution for long-distance path planning involving multiple narrow passages. Below is the
+optimization objective for the second stage after finding the initial solution. The second
+stage optimization process refers to the work presented in the[26] and the following formula
+8
+Equation7ismerelyasimplificationof theoptimizationalgorithmpresentedinthisarticle.
+min f(x,u),
+x,u
+s.t. x(0) = x ,u(0) = u ,
+start start
+x(M) = x ,
+target
+x(k +1) = x(k)+f(x(k),u(k))·∆t,
+x ≤ x(k) ≤ x ,
+min max
+(7)
+u ≤ u(k) ≤ u ,
+min max
+−g⊤ µ(l) +(A⊤ (t)(x(k))−b⊤ (t))λ(l) ≥ 0,
+k k
+G⊤ µ(n) +r(x′ (k))+A⊤ (t)(n)λ(n) = 0,
+k k
+∥A⊤ (t)(n)λ(n)∥ ≤ 1,λ(n) ≥ 0,µ(n) ≥ 0,
+k 1 k k
+forallk ∈ {1,...,M}, forall n ∈ {1,...,N},
+Let X = {x (0),x (1),...,x (M)} and U = {u (0),u (1),...,u (M)} be the trajec-
+0 0 0 0 0 0 0 0
+tory and control sequence generated via first stage trajectory planning. The meaning of the
+vector variables x and u is the same as in Equation 6. Serial number 0 here indicates that
+this data represents the initial solution found by NASHA or other search-and-sample-based
+methods before the optimizer starts its iterative solving process. The matrices G and vec-
+torg collaborativelydefinetheinitialgeometricshapeofacontrolledobjectasaconvexset
+B = {y : Gy ≤ K¯ g},whereGrepresentsshape-relatedlinearconstraintsandgprovidesthe
+correspondingthresholds,facilitatingthemodelingoftheobject’sspatialoccupancywithout
+rotationsortranslations. k,λ(l) isthedualvariableassociatedwithl-thobstacleattimestep
+k
+k. A represents a linear mapping from the controlled object to the distance to an obstacle,
+mappingthestateofthecontrolledvehicleintoavectorspace. Thepenaltytermforthesize
+ofthecontrolmagnitudeisgivenby
+M∑−1
+f(x,u) = ∥u(k)∥2 (8)
+k=0
+M is the number of discrete points initially searched. N is the number of convex polygons
+in the current map, and the constraints in the last three lines of the formula are primarily to
+preventtherectangle,representingthe vehicle,fromcollidingwiththeconvexpolygons.
+9
+3.5 Input Map
+Representation and acquisition of maps in the field of robotics are challenging prob-
+lems. Common map formats include objects set, 2D grid maps, 3D point cloud maps (ob-
+tained from LiDAR), 3D occupancy grid maps (acquired through deep learning networks),
+signeddistancefieldandetc. OCBA[26],STT[3],RDA[38]useobjectsmapasinput,allrequir-
+ing extraction from a grid map or an object detector. To more closely align with practical
+applicationscenarios,ouralgorithmwillusethe2Dgridmapasinput. 2Dgridmapscanbe
+derivedfrom3Dpointcloudmapsor3Doccupancygridmapseasily. Occupancygridmap-
+ping typically involves accumulating LIDAR data in grid cells using a voting mechanism,
+andthenthresholdingthesevaluestocreateabinaryoccupancymapfromthisarticle[39]. Us-
+ing2Dgridmapasinputsalsoeffectivelysimplifiestheproblem. However,amorerealistic
+mapinputclosertorealityisLiDARpoints,whichcanbedirectlyobtainedfromlidar. This
+isadirectionweurgentlyneedtoimprove inthe future.
+10
+a) b) c)
+d) e) f)
+Figure 3 The whole method process: (a) Use traditional 2D A* to search a path X and extract
+2D
+counterpoints(bluepoints)P . (b)Findnarrowpairswhichredandbluepointsform. Based
+counters
+onthepairs,locatethecorrespondingperpendicularbisectorsO (greenlinesegments). Accord-
+center
+ing to the vehicle’s width, find the extreme offset points O′ (yellow points). (c) Based on O′
+start start
+found in (b), offset according to the vehicle’s length to obtain O (yellow points). Starting from
+start
+O , solve for the vehicle’s feasible minimum radius arc(red ones and blue ones), stopping when
+start
+thearcangleexceedsacertainlimit. (d)Startingfromcertainarcsegmentsfoundin(c),interpolate
+betweenthen-thredarcsegmentandthen-thbluearcsegmenttoobtainS (thepurplevectors).
+n
+Repeat this process n times; all vectors together form the entry area S . (e) Utilize Multi-Goal
+input
+Hybrid A* search to connect the S of each narrow pair, ultimately linking them to form the
+input
+initialpath. (f)Usetheoptimizertorefinethetotalpaththathasjustbeensearched.
+4. METHODOLOGY
+The methodology section will detail each step of the method in sequence, beginning
+withthedefinitionofnecessarymathematicalsymbolsusedinthemethoddescription.
+Let Q be a subset of a specialized three-dimensional space, denoted as R2 × S1. R is
+thesetofrealnumbers,andSisthesetofvaluesin[0,2π),representingtheanglemeasured
+counterclockwise from the positive x-axis. This space consists of two spatial dimensions
+andoneangulardimension. EachpointinQcanbeuniquelyidentifiedbyacombinationof
+coordinates and an angle: (x,y,θ). Here, (x,y) represents the point’s position in the two-
+dimensional plane, while θ represents an angle, defining the heading direction at that point.
+Given the start position p ∈ Q and goal p ∈ Q, a path can be searched between p
+start goal start
+and p . Consider a two-dimensional space, denoted as R2. This space is characterized by
+goal
+11
+twodimensions,representedbythecoordinateaxesxandy. Eachpointinthisspacecanbe
+uniquelyidentifiedbya pairofcoordinates(x,y),representingitspositiononaflatplane.
+4.1 Narrow Pairs Extraction and Registration
+Thesubsequentsectionsdetailtheprocessofextractingobstacleedgesfromtheworkspace
+R2 intonarrowpairs,denotedasP = {(p ,p ) | p ,p ∈ R2}.
+pairs 1 2 1 2
+Extractingcontours :ThispartcorrespondstoFigure3(a). First,detecttheobjectbound-
+aries in R2, resulting in the detected edge points using the topological structural analysis
+method in[40] as shown in Figure 4a. This method primarily involves obtaining bound-
+ary points by analyzing the topological distribution in the map. Then, employ the Ramer-
+Douglas-Peuckeralgorithmfrom[41] toiterativelyremoveedgepointsthathaveminimalim-
+pactontheoverallshapeofthecurve,preservingonlythosepointsthatarekeytothecurve’s
+shape. Those points that form a larger angle with the two adjacent nodes are also removed,
+as these points are more similar to those on a continuous wall and should not be considered
+as boundary points. These steps can convert the edge points to the final refined contours
+P aspresentedinFigure4b.
+contours
+b) Red points are the refined contours pro-
+a) Redpointsaretheedgepointsfromthetopo- cessed by the Ramer-Douglas-Peucker algo-
+logicalstructuralanalysismethod rithm
+Figure4 Theprocessofgettingrefinedcontoursfromedgepoints.
+Findingsuitablecontourpairs : This part corresponds to Figure 3(b). The traditional
+2D form of the A* algorithm is employed for the identification of a 2-dimension path X .
+2D
+RegardingthecontourpointsP ,Algorithm1isutilizedforthedeterminationofclosely
+contours
+situatedpairsP .
+pairs
+12
+Algorithm1GetPairsfromContours
+1: Input: P contours
+2: Output: P pairs
+3: forp ∈ P contours do
+4: forq ∈ P contours do
+5: if distance(p,q) < δ then
+6: P contours.deletep
+7: P contours.deleteq
+8: P contours.push(middle(p+q))
+9: endif
+10: endfor
+11: endfor
+12: forp ∈ P contours do
+13: forq ∈ P contours do
+14: if D min < distance(p,q) < D max then
+15: if X 2D traversestheline segmentofp,q then
+16: P pairs.push(p,q)
+17: endif
+18: endif
+19: endfor
+20: endfor
+The selection of narrow point pairs through Algorithm 1 necessitates an additional fil-
+tering step. This step involves identifying those narrow point pairs that traverse X to be
+2D
+considered as a valid pair in P . This step is of paramount importance. For instance, in
+pair
+Figure3(b),thepairofpointsgeneratedbytheobstaclebelowsatisfiesthedistancecriteria.
+However,itisevidentthatthesearelocatedwithintheobstacleandhence,willnotaffectthe
+pathof theagent.
+[ ]
+(A⃗ B ×A⃗ C)·(A⃗ B ×A⃗ D) < 0 ∧
+[ ]
+(C⃗ D ×C⃗ A)·(C⃗ D ×C⃗ B) < 0 ⇔ (9)
+pair (A,B) is valid.
+The C and D points are the start and end points in the surrounding 2D path. Given a pair of
+points A and B, and the distance between them denoted as d , the surrounding 2D path,
+AB
+S ,canbedefinedas:
+2D
+S = {P ∈ X |d(P,A) < d ∧d(P,B) < d }
+2D 2D AB AB
+13
+whered(P,Q)representstheEuclideandistancebetweenpointsP andQ,andX istheset
+2D
+of all considered points in the 2D space. A more intuitive show of S and points A,B,C,D
+2D
+canbeseeninFigure3(b).
+4.2 Identification of Input Set for Narrow Pairs
+This section matches Figure 3(c)(d). It’s necessary to reorder the narrow pairs P
+pair
+according to the sequential order of the path X first. Then, find the midpoints O ∈ Q
+2D center
+andthevehiclepositionsO ∈ Qthatareclosesttotheobstaclesonbothsidesofthepath
+start
+points but do not produce a collision. O is the green arrow in Figure 3(b) and O is
+center start
+the yellow points. Starting from two O , attempt to generate two arc trajectories X
+start Boundary
+using the Algorithm 2. The red and blue arc depicted in Figure 3(c) corresponds to the
+X . InAlgorithm2,weconsidertheX asasegmentofacirculararc,wherer is
+Boundary Boundary
+Algorithm2BoundaryComputationAlgorithm
+1: Input: r min,r max,α max,δr,O start
+2: Output: X Boundary
+3: r ← r min
+4: whiler < r max do
+5: X Boundary.clear()
+6: Computex c,y c byO start
+7: θ ← 0
+8: whileθ < α max do
+9: Computeθ Vehicle,x Vehicle,y Vehicle byx c,y c
+10: if ¬collisionFree(θ Vehicle,x Vehicle,y Vehicle) then
+11: r ← r+δr
+12: break;
+13: else
+14: X Boundary.push(θ Vehicle,x Vehicle,y Vehicle)
+15: θ ← θ+δ
+16: endif
+17: endwhile
+18: if X Boundary isnotempty then
+19: returnX Boundary
+20: endif
+21: endwhile
+22: returnthestraightline
+theradiusofthecurrentboundaryarcasshowninFigure3(c). Thevalueofrstartsfromthe
+14
+minimum R as the initial value, and then increases to the maximum R . With
+entry,min entry,max
+each certain r, the angle starts from zero to α until an arc trajectory is found that allows
+max
+forvehiclepassage. Iftheα can’tbesatisfied,therwillincreaser . Iftherislargerthan
+max δ
+the R , the algorithm will switch to straight-line mode. Beginning from the endpoint
+entry,max
+on the other side of X , the points on the trajectory at both ends are labeled as P ,
+Boundary a1
+P , P ... and P , P , P ... . It’s necessary to know P ∈ Q and P ∈ Q. Connect
+a2 a3 b1 b2 b3 an bn
+thecorrespondingpointsontwopairedX ,withallpointsonthelinebetweenP and
+Boundary an
+P forming the set S . The direct show of P and P can be seen in Figure 3(c). The
+bn n an bn
+S is calculated by interpolating the P and P using Algorithm 3. Use Equation 10, the
+n an bn
+Algorithm3InterpolationAlgorithm
+1: Input: P an,P bn
+2: Output: S n
+3: δ angle ← P an.angle−P bn.angle
+4: if δ angle > π then
+5: δ angle ← δ angle −2π
+6: elseif δ angle < −π then
+7: δ angle ← δ angle +2π
+8: endif
+9: fori ← 0 toc do
+10: Create pointP
+11: P.x ← P bn.x+ ci ×(P an.x−P bn.x)
+12: P.y ← P bn.y + ci ×(P an.y −P bn.y)
+13: P.angle ← P bn.angle+ ci ×δ angle
+14: Add P toS n
+15: endfor
+inputsetS foracertainnarrowpairconsistsoftheunionofsetsS toS . InFigure3(d),
+input 1 n
+due to space constraints, only S and S are depicted. In actual experiments, this number is
+1 2
+generallysetto5.
+S = S ∪S ∪···∪S (10)
+input 1 2 n
+Itisnecessarytodeterminewhetherthedistancebetweenthemiddlepointofthelastnarrow
+pair and p is less than Vehicle Length L, and whether the direction of p is opposite
+goal goal
+to the direction of the middle point of the last narrow pair. If both conditions are met, the
+directionofeverypointintheinputsetS ofthelastnarrowpairmustbereversedtohelp
+input
+15
+thevehiclebacktotheparkingspace.
+4.3 Path Planning
+Startingfromthestartingpointp ,usetheMulti-GoalHybridA*algorithmtosearch
+start
+for a path to the input set of the first narrow pair in the narrow pairs P . When using the
+pair
+Multi-Goal Hybrid A* algorithm, the heuristic function has small modifications compared
+to the regular hybrid A* algorithm. The actual cost g consists of four components. The
+(n)
+first component of P is a penalty for turning the steering angel. The second component
+turn
+is a penalty for reverse motion P , generated when the vehicle engages in reverse ac-
+reverse
+tions. The third component is a penalty for changes in direction P , generated when the
+COD
+vehicle alters its direction while moving. This penalty primarily restricts frequent changes
+in direction, such as switching from forward to backward and back to forward. The fourth
+componentD istheactualdistancetothepreviouspointD .
+previous previous
+∆g = P ×P ×P ×D (11)
+turn reverse COD previous
+The heuristic cost associated with the Multi-Goal Hybrid A* algorithm, as implemented,
+is determined by the maximum value between two distinct distances: the first being the
+distance from a given point to the arithmetic mean point O of all points within the input
+avg
+set S , computed via the Reeds-Shepp path planning method; and the second being the
+input
+actual distance from the same point to O , calculated using a conventional 2D A* search
+avg
+methodology. The term ”Multi-Goal” in this context denotes the practice of utilizing solely
+thegeometriccentroidofallpointswithinthetargetsetastheheuristic’stargetpoint. Next,
+thealgorithmwillusetheendpointoftheprevioussearchasthestartingpoint,andthetarget
+setistheS ofthenextNarrowPair. Thisprocessisrepeateduntilthesearchreachesthe
+input
+endpointp .
+goal
+16
+Table2 BasicParameters
+Symbol Description Value
+L Vehiclelength 4.689m
+L Frontoverhanglength 0.960m
+F
+L Vehiclewheelbase 2.8m
+W
+L Rearoverhanglength 0.929m
+R
+W Vehiclewidth 1.942m
+Φ Maximumsteeringangle 0.75radian
+max
+R Minimumturningradius LW
+min tan(Φmax)
+a Maximumacceleration 1m/s2
+max
+ω Maximumangularvelocity 0.5rad/s
+max
+v Maximumvelocity 2.5m/s
+max
+D Minimumdistanceforanarrowpair 1×W
+min
+D Maximumdistanceforanarrowpair 1.6×W
+max
+R Minimumradiusforentryboundaries R
+entry,min min
+R Maximumradiusforentryboundaries 6×R
+entry,max min
+α maxangelfor(X 90degree
+max Boundary
+∆x,∆y Thex/yresolutionfortheHybridA* 0.1m,0.1m
+∆d TheangelresolutionfortheHybridA* 5degree
+P turningpenalty,ifnot,thevalueis1 1.1
+turn
+P reversepenalty,ifnot,thevalueis1 1.05
+reverse
+P changeofdirectionpenalty,ifnot,thevalueis1 2
+COD
+5. EXPERIMENT
+5.1 Implementation and Testing Details
+To facilitate practical applications in the production environment of intelligent vehi-
+cles,allsimulationsandtestswereconductedontheUbuntu20system,basedontheNoetic
+version of ROS. The hardware setup consists of a virtual machine running on a Windows
+computer equipped with a CPU featuring 3.8GHz and 16GB of RAM. The code of our al-
+gorithm was entirely developed in C++. The code of the optimization is using Python. The
+code of our algorithm is also compatible with the ROS Melodic on the Ubuntu 18 system.
+Due to the methodology involving direct measurement of execution time, it is imperative
+during the testing phase to ensure that the computer is dedicated solely to the testing task
+at hand. On systems operating under Windows, the priority level of the program must be
+adjusted to ’Real-time’. Conversely, on Ubuntu systems, the program’s nice value should
+besetto−20,therebyallocatingmaximumprocessingprioritytothetask. Theinvolvedpa-
+rametersthatareshowninTable2. Allcodeandexperimentalresultsarefullyopen-sourced
+17
+onhttps://github.com/zly7/NASHA.
+During the testing phase, we selected several narrow scenarios, primarily focusing on
+tightparkinglotenvironmentsandpassagesthroughnarrowdoorways. Intuitivedescriptions
+of different acses are provided in Table 3. Six of these scenarios were selected from the
+TPCAPcompetition[42] whoseindexesare2,5,8,11,12,14. Otherscenariosdonothavevalid
+narrow point pair narrower than the D of NASHA algorithm in Table 2. The remaining
+max
+scenarios tested were designed by our team. The format of the scenarios was represented
+using a two-dimensional grid map, input as a PGM file. Case-7 was specifically designed
+in a narrow parking lot. Case-8 is more complex, depicting a parking lot with a huge field.
+In case-8, there are two passages, upper and lower, leading to the designated parking space.
+However,thelowerpassageisobstructedbyotherexitingvehicles,whichmeansitneedsto
+searchforarouteviatheupperpassage. Case-6andCase-9representdiagramsencountered
+byAckermann-steeredvehiclesnavigatinginnarrowcorridors.
+Table3 SimulationEnvironmentsforVariousCases
+Case SimulationEnvironment
+0-6 Simulatesmall-scalenarrowenvironments
+7 Simulateaparkinglotenvironment
+8 Simulatealargerparkinglotenvironment
+9 Simulatealarge-scaleindoorenvironment
+5.2 Analysis of the Practical Process
+This section is dedicated to detailed results that have been identified, focusing on the
+narrowpointpairsP ,theirentryboundariesX ,andthenarrowpointpairentrysets
+pairs Boundary
+S . Allimagesarederivedfromactualcode-generatedgraphics. ThismapistheScenario-
+input
+ex1. In Figure 5a, the green path represents the initially identified 2D trajectory X . The
+2D
+bluepointsinthesequencerepresentP . Themorecomplexthescene,themorecontour
+Contours
+pointsarefound,sometimesevenuptothousands. However,inreality,forCase-8,over98%
+ofthetimeisspentonthefinalHybridA*segmentsearch. InFigure5bthereare5pairsof
+red and blue points forming P . Each pair of points corresponds to two deep yellow dots,
+pair
+which are the starting points for the next step of the arc search, denoted as O previously.
+start
+18
+a) X andP b) P andO
+2D Contours pairs start
+c) X d) S
+Boundary input
+Figure5 Case-7practicalprocessandfinalresult
+It can be observed that the deep yellow points are slightly offset from the golden yellow
+points when X is not reversed, which can increase the search space. There are five
+Boundary
+setsofsuchpointsinthisFigure5cdisplaysredandbluearcsorstraightlines,whichsignify
+the entry boundaries X . These boundary points are directional. For the first pair of
+Boundary
+narrow points, the entry X is in the forward direction of the arc. Due to obstacles,
+Boundary
+the entry boundaries for the second, third, and fourth pairs have degenerated into straight
+lines. The entry X for the fifth pair of narrow points is determined by the algorithm
+Boundary
+to require a reverse entry, thus the direction of the identified arc boundary is reversed. In
+Figure5d,theredvectorsrepresenttheactualsearchareaspointsS interpolatedfromthe
+input
+arc or straight line boundaries, which also constitute the termination sets for each segment
+ofthemulti-objective Hybrid-Asearch.
+19
+5.3 Comparison of the Experiment Results
+5.3.1 ComparisonSettings
+Intheresultscomparisonsection,thetimemeasurementoftheinitialpathfindingstage
+startedfromthemomentthemapwasfullyloadedandconcludedwhenthealgorithmdissem-
+inatedtheinitialsolutionpathtotheROSmainnode. Themeasurementofoptimizationtime
+refers only to the duration from the completion of problem initialization to the conclusion
+of problem optimization. All experimental scenarios were tested for at least 100 rounds. It
+shouldbenotedthattheremaystillbesubstantialroomforimprovementintheoptimization
+time of the second phase. The testing of the second phase’s time is merely to demonstrate
+that the initial solutions found by our algorithm can be well solved by the OCP optimizer.
+In all figures, the green dashed line represents the vehicle’s starting position, while the red
+dashedlinedenotesthevehicle’sendingposition.
+For comparative purposes, we selected the Hybrid A* algorithm[13], the Enhanced Hy-
+bridA*(EHA)algorithm[43],andthetraditional2DA*[44] asthealgorithmtofindtheinitial
+path. The original paper of EHA calculates the direction between points in different search
+phasesusingthefollowingEquation12,which isnotentirely accurate.
+( )
+pd −pd
+θd = arctan y,end y,end−1 (12)
+init pd −pd
+x,end x,end−1
+Inmanycases,thiscanleadtoimpassableroutes. Inpracticalimplementation,thedirectionis
+treatedfuzzily,allowingsimilarfeasiblevehicledirectionsatthatpointtoalsobeincludedin
+thesearchtargetset. TheA*+OCBAalgorithmmanagestoidentifyaninitial2Dpathinmost
+scenarios. However, the orientation of the initial solutions hinders successful optimization
+insubsequentphases.
+5.3.2 OverallTimeComparison
+As shown in Table 4, the results of the experiments demonstrate that our algorithm
+achieves similar initial path search time and total search time as other algorithms in short-
+20
+distance maps (cases 1-6). However, in long-distance maps (cases 7-9), it has a significant
+advantage over other algorithms. In case-7 Figure 13, the algorithm NASHA demonstrated
+a significant reduction in initial search time, approximately 73% less than the second short-
+est, EHA, and finding solutions is more favorable to optimization. In case-8 Figure 7, the
+solutionsidentifiedbythesearchexhibitedaclearadvantageinthesecondphasecompared
+to other algorithms. In case-9 Figure 14, NASHA’s initial path search time was about 69%
+shorterthanthatofEHA,thesecondshortest,alsoyieldinginitialpathsthatweremorecon-
+ducive to optimization by the solver. These results indicate a distinct advantage of the pro-
+posed algorithm in long-distance, narrow environments. Figure 8 illustrates the optimized
+valuesforvelocity,acceleration,steeringangle,andsteerrateincase-9. Itisevidentthatthe
+finalvaluescomplywiththevehicleconstraintsoutlinedinTable2andmaintaincontinuity.
+Figure6 Scatterplotofexperimenttimeforfindingtheinitialpathofonehundredtimes. Because
+theinitialpathsearchoftheA*algorithmdidnotfindafeasiblesolution,itisnotdisplayedinthis
+figure. Ascanbeseenfromthefigure,allalgorithmsarerelativelystable,andthescatterpointsare
+concentratedforallthreealgorithms. Inthecomplexscenariosontheright,ouralgorithmNASHA
+hasaveryobviousadvantageinsearchingtime.
+5.3.3 ComparisonofActualPathsFound
+When in case-2, as shown by Table 4, our algorithm can also save 64% of the time
+compared to the traditional Hybrid A* and 45% compared to EHA. However, the reason it
+21
+Figure7 case-8FinalResult
+performsworseinscenarioslikecase-0,case-1,andcase-5,whichareallsimilartoreversing
+into a parking spot, is that the garage in case-2 is relatively narrower than in other maps,
+whichimposeshigherdemandsonthesearchasshowninFigure11d. OuralgorithmNASHA
+tends to aim to stop right in the middle of the ga—rage. So in the scenario of case-1 shown
+in10,thepathsearchedbyouralgorithmwillfirstmoveacertaindistancetowardsthefront-
+leftwhiletheoutcomeyieldedbytheHAalgorithmresultsinthevehiclebeingparkedclose
+to the wall. Therefore, in the case-1 scenario, the time spent by the NASHA algorithm is
+significantlylongerthanthe traditionalHybridA*algorithm.
+Thescatterplotofresultsoveronehundredtrials,asillustratedinFigure6,demonstrates
+that the initial solution search times for the three algorithms are relatively stable. Notably,
+in case-0, the initial paths found by the Hybrid A* algorithm, and in case-3 by the EHA
+algorithm, are hard to optimize in the second phase. However,such issues do not arise with
+our algorithm, indicating that our algorithm has enhanced stability. As depicted in Table 4,
+innoscenariodidouralgorithmexhibitthe longesttotaltimeacrossallcases.
+22
+Figure8 Thevelocityv,accelerationa,steeringangleϕandsteerrateofwtheoptimizedtrajectory
+ofcase-8optimizedresults
+In this section, we will compare the discovered Initial Path. The path found by the A*
+algorithm is directionless and searches directly along the boundary. The Hybrid A* path
+chooses to reverse encountering the first narrow area, which does not align with the intu-
+itive practices of parking or driving because the vehicles or agents rarely reverse for long
+distances. The initial search results of the EHA algorithm and our NASHA algorithm are
+quite similar. However, the EHA algorithm involves reversing to adjust the position upon
+enteringthefirstnarrowarea,amaneuverthatcouldbeavoidedwithbettercontrol. Revers-
+ing and then moving forward again not only wastes time but also makes optimization more
+challenging. Therefore, our algorithm can find solutions more conducive to optimization
+morequickly.
+23
+Figure9 Ourmethod(NASHA)identifiesaninitialpathforcase-8(thebluepath)thatissmoother
+andmoreconducivetooptimization,betteraligningwithdrivinghabits.
+a) case-0ofNarrowPairSplittingHybridA* b) case-0ofHybridA*
+Figure10 Ouralgorithmdemonstratesapreferenceforpositioningthevehiclepreciselyatthecen-
+tralpoint.
+5.3.4 ControlParameterOutput
+As illustrated in Figure 12a, Figure 12b and Table 4, for cases 3 and 4, the algorithm
+NASHA exhibits a notable disadvantage in initial path search time compared to other algo-
+rithms. This discrepancy arises due to the inclusion of penalties for direction changes and
+24
+reversingEquation11. Importantly,inactualparkingscenarios,reversingoccursonlywhen
+the vehicle is close to the parking space, rather than engaging in reverse driving throughout
+theentiretyofthe approach,asobservedincases3and4.
+25
+Table4 Experimentresults
+Scene method
+NASHA HybridA* EHA A*
+InitialPathFoundTime|OptimizedTime
+SumTime
+0.34|3.27 1.26|28.07 0.32|2.54 0.02|fail
+case-0
+3.61 29.33 2.86 —
+0.08|0.83 0.06|0.30 0.16|2.06 0.01|fail
+case-1
+0.91 0.36 2.22 —
+0.17|0.37 1.13|0.37 0.41|0.58 0.01|fail
+case-2
+0.54 1.50 0.99 —
+2.77|3.22 1.62|2.94 0.43|29.17 0.04|fail
+case-3
+6.39 4.56 29.6 —
+0.93|2.71 0.83|1.65 0.45|5.58 0.02|fail
+case-4
+3.64 2.48 6.03 —
+0.21|0.50 0.79|0.51 0.26|0.38 0.01|fail
+case-5
+0.71 1.30 0.64 —
+0.64|1.56 0.64|1.43 2.65|3.86 0.05|2.45
+case-6
+2.20 2.07 6.51 2.50
+1.60|6.01 10.47|8.55 5.87|9.20 0.06|fail
+case-7
+7.61 19.02 15.07 —
+10.37|285.61 83.01|402.25 10.56|863.44 0.38|fail
+case-8
+295.98 485.26 874.00 —
+7.31|42.24 90.76|45.60 23.39|58.54 0.26|145.55
+case-9
+49.55 136.36 81.93 145.81
+26
+6. CONCLUSION
+Inthisthesis,weintroducedtheNarrowPairSplittingHybridA*Algorithm(NASHA),
+a multi-segment search method based on narrow point pairs, to address the too-long initial
+solutionfindingtimeinpathplanningproblemsoflongdistancesandnarrowenvironments,
+like the parking garage entrance to the parking spot. The method utilizes a combination of
+searching 2D paths and graphics methodology to solve for contour points. This leads to
+the determination of narrow point pairs P , which assists in identifying accessible regions
+pair
+for multiple narrow point pairs, effectively guiding the search process. Multiple rounds of
+experimentation have demonstrated that NASHA significantly reduces the search time for
+initial solutions in long-distance path planning within narrow environments, and the gen-
+erated solutions are more effective in the optimization of the second-stage optimal control
+problem.
+Despite the achievements, this article did not present a complete algorithm for solving
+thelong-distancetrajectoryplanningprobleminnarrowenvironments,particularlylackingin
+bridgingtheinitial2Dgridmapextractionfrom3Dpointcloudsor3Doccupancynetworks.
+Futureworkwillconsiderhowtodevelopacomprehensivealgorithmforthefullprocessof
+automaticparkingproblems.
+References
+[1] FAYYADJ,JARADATMA,GRUYERD,etal.DeepLearningSensorFusionforAutonomous
+VehiclePerceptionandLocalization:AReview[J].Sensors,2020,20(15).
+[2] ALMAZROUEIK,KAMELI,RABIET.DynamicObstacleAvoidanceandPathPlanningthrough
+ReinforcementLearning[J].AppliedSciences,2023,13(14).
+[3] HANZ,WUY,LIT,etal.AnEfficientSpatial-TemporalTrajectoryPlannerforAutonomousVe-
+hiclesinUnstructuredEnvironments[J].IEEETransactionsonIntelligentTransportationSystems,
+2024,25(2):1797-1814.
+[4] CASTILLO-LOPEZM,LUDIVIGP,SAJADI-ALAMDARISA,etal.AReal-TimeApproachfor
+Chance-ConstrainedMotionPlanningWithDynamicObstacles[J].IEEERoboticsandAutomation
+Letters,2020,5(2):3620-3625.
+[5] LIM W, LEE S, SUNWOO M, et al. Hybrid Trajectory Planning for Autonomous Driving in
+On-RoadDynamicScenarios[J].IEEETransactionsonIntelligentTransportationSystems,2019,
+27
+22(1):341-355.
+[6] WIJAYATHUNGAL,RASSAUA,CHAID.ChallengesandSolutionsforAutonomousGround
+RobotSceneUnderstandingandNavigationinUnstructuredOutdoorEnvironments:AReview[J].
+AppliedSciences,2023,13(17):9877.
+[7] GUO Y, GUO Z, WANG Y, et al. A Survey of Trajectory Planning Methods for Autonomous
+Driving—Part I: Unstructured Scenarios[J]. IEEE Transactions on Intelligent Vehicles, 2023:1-
+29.
+[8] LIB,ACARMANT,ZHANGY,etal.Optimization-BasedTrajectoryPlanningforAutonomous
+ParkingWithIrregularlyPlacedObstacles:ALightweightIterativeFramework[J].IEEETransac-
+tionsonIntelligentTransportationSystems,2022,23(8):11970-11981.
+[9] HART P E, NILSSON N J, RAPHAEL B. A Formal Basis for the Heuristic Determination of
+MinimumCostPaths[J].IEEETransactionsonSystemsScienceandCybernetics,1968,4(2):100-
+107.
+[10] ZHOUR,HANSENEA.MultiplesequencealignmentusinganytimeA*[C].in:EighteenthNa-
+tional Conference on Artificial Intelligence. Edmonton, Alberta, Canada: American Association
+forArtificialIntelligence,2002:975-976.
+[11] KOENIGS,LIKHACHEVM,FURCYD.LifelongPlanningA*[J].ArtificialIntelligence,2004,
+155(1-2):93-146.
+[12] LIKHACHEV M, FERGUSON D I, GORDON G J, et al. Anytime Dynamic A*: An Anytime,
+Replanning Algorithm[C]. in: International Conference on Automated Planning and Scheduling:
+vol.5.2005:262-271.
+[13] DOLGOVD,THRUNS,MONTEMERLOM,etal.PracticalSearchTechniquesinPathPlanning
+for Autonomous Driving[Z]. AI & Robotics Group, Toyota Research Institute, Ann Arbor, MI
+48105;ComputerScienceDepartment,StanfordUniversity,Stanford,CA94305.2008.
+[14] HOWARD T M, KELLY A. Optimal Rough Terrain Trajectory Generation for Wheeled Mobile
+Robots[J].TheInternationalJournalofRoboticsResearch,2007,26(2):141-166.
+[15] PALMIERIL,KOENIGS,ARRASKO.RRT-basedNonholonomicMotionPlanningUsingAny-
+angle Path Biasing[C]. in: IEEE International Conference on Robotics and Automation. 2016:
+2775-2781.
+[16] HAN L, DO Q H, MITA S. Unified Path Planner for Parking an Autonomous Vehicle Based on
+RRT[C].in:IEEEInternationalConferenceonRoboticsandAutomation.2011:5622-5627.
+[17] DONGY,CAMCIE,KAYACANE.FasterRRT-basedNonholonomicPathPlanningin2DBuild-
+ing Environments Using Skeleton-constrained Path Biasing[J]. Journal of Intelligent & Robotic
+Systems,2018,89(3):387-401.
+[18] LAVALLE S M, KUFFNER J J. Randomized Kinodynamic Planning[C]. in: IEEE International
+ConferenceonRoboticsandAutomation:vol.1.1999:473-479.
+[19] LEI Y, WANG Y, WU S, et al. A Fuzzy Logic-Based Adaptive Dynamic Window Approach
+forPathPlanningofAutomatedDrivingMiningTruck[C].in:IEEEInternationalConferenceon
+Mechatronics.2021:1-6.
+28
+[20] DOLGOV D A, THRUN S, MONTEMERLO M, et al. Path Planning for Autonomous Vehicles
+in Unknown Semi-structured Environments[J]. The International Journal of Robotics Research,
+2010,29:485-501.
+[21] ZIPSP,BÖCKM,KUGIA.OptimisationBasedPathPlanningforCarParkinginNarrowEnvi-
+ronments[J].RoboticsandAutonomousSystems,2016,79:1-11.
+[22] BERGMANK,AXEHILLD.CombiningHomotopyMethodsandNumericalOptimalControlto
+SolveMotionPlanningProblems[C].in:IEEEIntelligentVehiclesSymposium.2018:347-354.
+[23] LIB,WANGK,SHAOZ.Time-OptimalManeuverPlanninginAutomaticParallelParkingUsing
+aSimultaneousDynamicOptimizationApproach[J].IEEETransactionsonIntelligentTransporta-
+tionSystems,2016,17(11):3263-3274.
+[24] LI B, SHAO Z. A Unified Motion Planning Method for Parking an Autonomous Vehicle in the
+PresenceofIrregularlyPlacedObstacles[J].Knowledge-BasedSystems,2015,86:11-20.
+[25] LIB,SHAOZ.SimultaneousDynamicOptimization:ATrajectoryPlanningMethodforNonholo-
+nomicCar-likeRobots[J].AdvancesinEngineeringSoftware,2015,87:30-42.
+[26] ZHANGX,LINIGERA,BORRELLIF.Optimization-BasedCollisionAvoidance[J].IEEETrans-
+actionsonControlSystemsTechnology,2021,29(3):972-983.
+[27] RÖSMANNC,HOFFMANNF,BERTRAMT.IntegratedOnlineTrajectoryPlanningandOpti-
+mizationinDistinctiveTopologies[J].RoboticsandAutonomousSystems,2017,88:142-153.
+[28] ZHOUX,WANGZ,YEH,etal.EGO-Planner:AnESDF-FreeGradient-BasedLocalPlannerfor
+Quadrotors[J].IEEERoboticsandAutomationLetters,2021,6(2):478-485.
+[29] LIMW,LEES,SUNWOOM,etal.HierarchicalTrajectoryPlanningofanAutonomousCarBased
+ontheIntegrationofaSamplingandanOptimizationMethod[J].IEEETransactionsonIntelligent
+TransportationSystems,2018,19(2):613-626.
+[30] BITAR G, MARTINSEN A B, LEKKAS A M, et al. Two-Stage Optimized Trajectory Planning
+forASVsUnderPolygonalObstacleConstraints:TheoryandExperiments[J].IEEEAccess,2020,
+8:199953-199969.
+[31] ZHOUJ,HER,WANGY,etal.AutonomousDrivingTrajectoryOptimizationWithDual-Loop
+Iterative Anchoring Path Smoothing and Piecewise-Jerk Speed Optimization[J]. IEEE Robotics
+andAutomationLetters,2021,6(2):439-446.
+[32] LI B, ACARMAN T, ZHANG Y, et al. Tractor-Trailer Vehicle Trajectory Planning in Narrow
+EnvironmentsWithaProgressivelyConstrainedOptimalControlApproach[J].IEEETransactions
+onIntelligentVehicles,2020,5(3):414-425.
+[33] CAO C, ZHU H, YANG F, et al. Autonomous Exploration Development Environment and the
+PlanningAlgorithms[J].InternationalConferenceonRoboticsandAutomation,2021:8921-8928.
+[34] SHENG W, LI B, ZHONG X. Autonomous Parking Trajectory Planning With Tiny Passages: A
+Combination of Multistage Hybrid A-Star Algorithm and Numerical Optimal Control[J]. IEEE
+Access,2021,9:102801-102810.
+29
+[35] CHEN C, RICKERT M, KNOLL A. Path Planning with Orientation-Aware Space Exploration
+Guided Heuristic Search for Autonomous Parking and Maneuvering[C]. in: IEEE Intelligent Ve-
+hiclesSymposium.2015:1148-1153.
+[36] ANDREASSON H, SAARINEN J, CIRILLO M, et al. Fast, Continuous State Path Smoothing
+to Improve Navigation Accuracy[C]. in: International Conference on Robotics and Automation.
+2015:662-669.
+[37] LIB,ACARMANT,PENGX,etal.ManeuverPlanningforAutomaticParkingwithSafeTravel
+Corridors: A Numerical Optimal Control Approach[C]. in: European Control Conference. 2020:
+1993-1998.
+[38] HANR,WANGS,WANGS,etal.RDA:AnAcceleratedCollisionFreeMotionPlannerforAu-
+tonomousNavigationinClutteredEnvironments[J].IEEERoboticsandAutomationLetters,2023,
+8(3):1715-1722.
+[39] LEE S M, IM J J, LEE B H, et al. A Real-Time Grid Map Generation and Object Classification
+forGround-Based3DLIDARDataUsingImageAnalysisTechniques[C].in:IEEEInternational
+ConferenceonImageProcessing.2010:2253-2256.
+[40] SUZUKI S, ABE K. Topological Structural Analysis of Digitized Binary Images by Border Fol-
+lowing[J].ComputerVision,Graphics,andImageProcessing,1985,30(1):32-46.
+[41] WUST,MARQUEZMRG.ANon-Self-IntersectionDouglas-PeuckerAlgorithm[C].in:Brazil-
+ianSymposiumonComputerGraphicsandImageProcessing.2003:60-66.
+[42] LIB,FANL,OUYANGY,etal.OnlineCompetitionofTrajectoryPlanningforAutomatedPark-
+ing:Benchmarks,Achievements,LearnedLessons,andFuturePerspectives[J].IEEETransactions
+onIntelligentVehicles,2023,8(1):16-21.
+[43] LIANJ,RENW,YANGD,etal.TrajectoryPlanningforAutonomousValetParkinginNarrowEn-
+vironmentsWithEnhancedHybridA*SearchandNonlinearOptimization[J].IEEETransactions
+onIntelligentVehicles,2023,8(6):3723-3734.
+[44] HART P E, NILSSON N J, RAPHAEL B. A Formal Basis for the Heuristic Determination of
+MinimumCostPaths[J].IEEETransactionsonSystemsScienceandCybernetics,1968,4(2):100-
+107.
+Appendix
+Other Optimized Trajectory of NASHA
+Thissectionoftheappendixincludesthefinalpathsobtainedafteroptimizingtheinitial
+solutionpathswiththe NASHAsearch.
+30
+a) case-0 b) case-5
+c) case-1 d) case-2
+Figure11 FinalResults
+31
+b) case-4
+a) case-3 c) case-6
+Figure12 FinalResults
+32
+Figure13 case-7FinalResult
+Figure14 case-9FinalResult
+33
+Other Compared Initial Path
+Thissectionoftheappendixincludesacomparisonoftheinitialsolutionpathsdirectly
+searchedoutbyfourmethods(A*,HybridA*,EHA,NASHA).
+a) case-0 b) case-5
+c) case-1 d) case-2
+Figure15 ComparisonResults
+34
+b) case-4
+a) case-3
+c) case-6
+Figure16 ComparisonResults
+35
+Figure17 case-7ComparisonResult
+Figure18 case-9ComparisonResult
+36
+致谢
+非常感谢马昱欣老师一路以来对我的支持和培养，以及对于毕业设计的认真指导和
+修改。也感谢宋轩老师，范子沛老师，黄豆老师，张浩然老师，赵奕丞老师在不同阶
+段对于我科研的支持和指导，同时我也要感谢图灵班班主任郝祁老师和于仕琪老师
+以及从大二到大三单独为图灵班上过课的老师的辛苦付出，他们大多上课非常认真，
+也愿意承担图灵班的额外教学任务。其中，数据库原理和算法设计与分析于仕琪老
+师，数字逻辑余剑峤老师，数据结构唐博老师，离散数学王琦老师，计算机组成原理
+张进老师，人工智能袁博老师，操作系统张殷乾老师，机器学习郝祁老师均值得我感
+恩铭记于心。我上过的其他课程中，对待教学任务认真的，愿意用心回答学生问题的
+还有计算机网络李卓钊老师，软件工程陈馨慧老师，编译原理刘烨庞老师，以及助教
+沈昀老师，王薇老师，王维语老师，王晴老师。以上的老师都在我从小白成长基础计
+算机从业者帮助过我很多，我非常感谢他们的付出。
+37

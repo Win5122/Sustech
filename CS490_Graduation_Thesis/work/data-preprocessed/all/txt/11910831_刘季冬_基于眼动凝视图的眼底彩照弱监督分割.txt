@@ -1,0 +1,648 @@
+分类号 编号
+U D C 密级
+本科生毕业设计（论文）
+题 目： 基于眼动凝视图的眼底彩照弱监督分割
+姓 名： 刘季冬
+学 号： 11910831
+系 别： 计算机科学与工程系
+专 业： 计算机科学与技术
+指导教师： 刘江 教授
+2023 年 5 月 6 日
+诚信承诺书
+1. 本人郑重承诺所呈交的毕业设计（论文），是在导师的指导下，
+独立进行研究工作所取得的成果，所有数据、图片资料均真实可靠。
+2. 除文中已经注明引用的内容外，本论文不包含任何其他人或
+集体已经发表或撰写过的作品或成果。对本论文的研究作出重要贡
+献的个人和集体，均已在文中以明确的方式标明。
+3. 本人承诺在毕业论文（设计）选题和研究内容过程中没有抄袭
+他人研究成果和伪造相关数据等行为。
+4. 在毕业论文（设计）中对侵犯任何方面知识产权的行为，由本
+人承担相应的法律责任。
+作者签名:
+年 月 日
+基于眼动凝视图的眼底彩照弱监督分割
+刘季冬
+（计算机科学与工程系 指导教师：刘江）
+[摘要]：本研究使用眼动仪采集视盘注意力图并进行标准化处理作为图
+像弱监督标签，分别使用粗监督和噪声监督的两种方式，利用 Mask R-
+CNN, U-Net, DeepLabv2, DeepLabv3+ 四种方法对所标注的视盘数据进行
+分割和对比实验结果。在 Mask R-CNN 网络中，我们采用了一种新颖的
+训练方法，结合了点级别的标签信息和边界框级别的标签信息作为弱标
+签输入，从而使模型在没有像素级别标注的情况下进行训练。实验结果
+表明，四种方法都能够对眼底彩照进行较为有效的分割，Mask R-CNN 结
+合点监督的方法在交并比阈值为 50% 时有着良好的表现，U-Net 方法较
+为简单因此性能表现一般，DeepLabv2 和 DeepLabv3+ 则具有更好的目标
+定位能力。此外，DeepLabv3+ 网络也对分割出的视盘边缘锯齿问题进行
+了优化。我们还对分割的视盘图像进行了可视化，证明了眼动凝视图作
+为弱标签输入神经网络训练的可行性。本研究有利于减轻数据标注的负
+担，尝试让医生在诊断过程中进行数据标注，并为推广到病灶定位和诊
+断，促进人机交互诊断的发展打下了基础。
+[关键词]：弱监督；眼动凝视图；图像分割
+I
+[ABSTRACT]: In this study, eye tracking technology was used to collect
+and standardize the attention diagram of optic disc with eye tracker, which was
+used as the label of weak supervision of image. Two types of weak supervi-
+sion,coarsesupervisionandnoisesupervision,werestudiedbyusingfourcom-
+monly used convolutional neural networks, Mask R-CNN, U-Net, DeepLabv2
+and DeepLabv3+. The experiment of weak supervised segmentation of optic
+disc was carried out on fundus color photos. In the Mask R-CNN network, we
+adopt a novel training method that combines point-level label information and
+box-levellabelinformationasweaklabelinput,sothatthemodelcanbetrained
+without pixel-level label. All the models can effectively segment the optic disc
+area of fundus color photography. We used the same evaluation standard to
+compare the four models. The experiment result shows that the Mask R-CNN
+method performs well when the intersection and union ratio threshold is 50%,
+andtheU-Netmethodissimplersotheperformanceisaverage,andDeepLabv2
+and DeepLabv3+ have better target positioning capabilities. Besides, from the
+image, DeepLabv2 network has a lot of jagged edges, which is improved in
+DeepLabv3+. In addition, we also visualized the segmented optic disc image,
+proving the feasibility of the eye-movement gaze pattern as a weak label input
+neural network training. This study is conducive to reducing the burden of data
+annotation, trying to allow doctors to annotate data in the diagnosis process,
+and laying a foundation for promoting the localization and diagnosis of lesions
+and promoting the development of human-computer interaction diagnosis.
+[Key words]: weak supervision; gaze map; image segmentation
+II
+目录
+1. 绪论 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.1 研究背景与意义 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.2 国内外研究现状 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+1.3 主要贡献 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2. 知识基础与相关工作 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.1 弱监督分类 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.2 常用分割网络 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+3. 数据收集及处理 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+4. 实验方法 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.1 基于点监督的 Mask R-CNN 实例分割 . . . . . . . . . . . . . . . . . 9
+4.2 基于凝视图弱监督的语义分割 . . . . . . . . . . . . . . . . . . . . . . 11
+4.2.1 U-Net 语义分割 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+4.2.2 DeepLabv2 语义分割 . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+4.2.3 DeepLabv3+ 语义分割 . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5. 实验结果 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+5.1 基于点监督的 Mask R-CNN 实例分割 . . . . . . . . . . . . . . . . . 14
+5.2 基于凝视图弱监督的语义分割 . . . . . . . . . . . . . . . . . . . . . . 16
+5.2.1 U-Net 语义分割 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+5.2.2 DeepLabv2 语义分割 . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+5.2.3 DeepLabv3+ 语义分割 . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+III
+5.2.4 对比分析 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+6. 总结 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+参考文献 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+致谢 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+IV
+1. 绪论
+1.1 研究背景与意义
+随着医学影像领域和人工智能领域的不断发展变化，计算机辅助诊断的地位逐
+渐提高。通过深度学习技术使用不同网络模型对医学图像进行研究，因其对诊断效率
+的大幅提高和对临床医师工作量的缓解而具有着独特的优势和发展潜能，也有着巨
+大的现实意义。
+然而，对于眼底图像而言，无论是研究视盘、血管还是病灶，深度学习都严重依
+赖于大规模的有标签训练数据。如何获取大规模的数据及它们的像素级标签，成为了
+当下计算机辅助诊断的最大难题。
+现有的医学图像数据集种类丰富，涉及到肝脏、肺、脑、肾脏、心脏、眼睛等各
+个人体部位，各个领域也都有着数量不等的公开数据集，但与深度学习所需数据量相
+比起来还远远不够，也并不能充分的满足研究的需求。分析其原因在于，即使各医疗
+机构在多年的积累下已经拥有了大量的原始医学图像，但这些数据并未经过任何处
+理，无论是数据标注的缺乏、数据质量的不稳定还是数据格式的不统一都直接导致这
+些数据无法应用于深度学习。与此同时，数据不互通、不共享的问题也导致各医疗机
+构的数据彼此独立[1]，并不能解决计算机辅助诊断所面临的数据集紧缺的问题，依旧
+需要人工对共享公有数据集进行标注。
+不同于常用的自然图像可以使用迁移学习等方法缓解数据标注量规模小的问题，
+现有的医学图像数据集往往只针对于某一种特定疾病或某一种特定检查手段，普适性
+较弱。例如，糖尿病视网膜病变检测IDRID数据集（IndianDiabeticRetinopathyImage
+Dataset）数据量为516[2]，而眼底彩照DRIVE数据集（DigitalRetinalImagesforVessel
+Extraction）数据量仅有 40[3]。除了图像标注本身存在的成本高、标注耗时等问题以
+外，由于医学图像的标注对医生权威性要求较高，依赖医生丰富的知识和经验，同时
+具备着患者群体、采集参数等差异所加剧的数据稀缺性[4]，就更加难以保证数据集的
+数量和质量。
+以眼底图像为例，现有的一种较为常用的眼底图像标注方法是DanielS.Kermany
+等人提出的分层评分[5]。如图1所示，整个评分系统由三层组成，本科医学生作为第
+1
+一层，负责最基础的数据质量控制，去除噪声过大或分辨率过低的数据。第二层则是
+让临床眼科医生来在第一层的基础上以有无病变为标准进行图片的独立分级，再送
+给第三级经验丰富的临床眼科专家来评估标签的正确性。在这样层层评分的控制下，
+眼底彩照图像数据集才得以保证质量。但与此同时，所耗费的高额人力物力以及时间
+成本也是显而易见的，这也就直接导致了数据的稀缺。
+图1 眼底图像数据集分级评分
+因此，本文使用眼动凝视图模拟图像标注过程，用弱标签结合弱监督分割进行实
+验，可以充分利用有限的医学图像数据，减轻数据标注的负担。与此同时，眼动仪可
+以在医生诊断过程中记录下注意力的分配，也有助于实现人机交互诊断，以及对记录
+下来的其他生物信息的进一步分析，具有独特的创新意义和研究价值。
+1.2 国内外研究现状
+如图2所示，从 2012 年开始，深度学习方法就已经在眼底图像的分类、分割和
+分级任务中广泛应用，且每年发表论文数也在不断增加。我们进一步使用眼底彩照、
+糖尿病视网膜病变、视盘、血管等关键词，从 DBLP, ScienceDirect, JAMA Network,
+InvestigativeOphthalmology&VisualScience和WebofScience数据库中选取论文，涵
+盖了 CVPR, AAAI, MICCAI, ISBI 等会议和 IEEE TIP, IEEE TMI, MIA 等期刊，并对
+它们进行研究类别和期刊的分类分析。从研究任务上看，20.3% 的论文在研究血管，
+16.8%的论文主要研究糖尿病视网膜病变，12.6%的论文集中于视盘和视杯。从期刊
+分类上看，21.7%的论文来源于MICCAI,15.4% 的论文来源于ISBI[6]。
+从网络结构上看，所应用的分类神经网络已经从 VGG, Inception-v1 发展到了
+2
+图2 每年发表的论文数
+Inception-v2, Inception-v3, ResNet 和 DenseNet，而分割神经网络也已经从 CNN, FCN
+发展到了U-Net,MaskR-CNN 和DeepLabv3+等等。
+同时，方法的进展范围也从深度学习的简单应用变成了多分支、多尺度、粗到精
+网络和注意力机制等等。而对于注意力机制而言，现有的研究方法往往采取热力图的
+形式，如Zoom-in-Net使用放大网络模拟医生在诊断时放大图像的过程，生成热力图
+显示可疑病灶点区域[7]；或是 BiRA-Net 中使用 Attention-Net 为每个疾病等级生成注
+意力图[8]。
+本文所尝试的使用眼动仪直接采集注意力图，再作为标签输入神经网络的方法
+是一个较新的领域。经调研，现有的一种基于眼动凝视图和深度学习相结合的方法
+是 2019 年 Li 等人为研究青光眼所提出的 AG-CNN[9]，其所用的数据包含 5824 张眼
+底图像，其中2392张是青光眼，3432张不是青光眼，并使用眼动追踪技术收集注意
+力图作为标签输入神经网络，最终达到检测青光眼的目的。
+1.3 主要贡献
+本文使用视线跟踪技术，利用 TOBII 眼动仪对 800 张视盘数据集进行视觉注意
+力标注，并尝试分别使用粗监督和噪声监督的两种方式，利用 Mask R-CNN, U-Net,
+DeepLabv2,DeepLabv3+四种方法对所标注的视盘数据进行分割和对比实验结果。
+3
+2. 知识基础与相关工作
+2.1 弱监督分类
+作为机器学习的一个子领域，深度学习是当下最流行的研究领域之一，新的深度
+学习技术也一直在随着时间不断诞生，试图取得更多的突破。无论是在监督学习、无
+监督学习还是强化学习方面，深度学习模型都有着很成功的表现。而弱监督学习，则
+是人们在缺少大规模的有标注数据集的情况下所提出的降低成本的新方法。
+弱监督的类型具体包括四种：无监督，粗监督，不完全监督和噪声监督[10]。
+无监督指的是所有训练图像均无任何形式的标注，所有图像均以原图的形式存
+在。
+粗监督指的是虽然所有训练图像都有标注，但都是粗标注的形式，并未具体到
+像素级别。而根据粗标签的类型，粗监督又可以进一步分为图像级监督 (image-level
+supervision)、边界框级监督 (box-level supervision) 和小区域级监督 (scribble-level su-
+pervision)三类。
+不完全监督指的是只有一部分训练集图像有像素级标注，可以细分为半监督
+(semi supervision)、特定区域监督 (domain-specific supervision) 和部分监督 (partial su-
+pervision)三类，主要区别为：
+a) 半监督：一部分的训练图像有像素级标注，剩余部分没有任何标注
+b) 特定区域监督：一部分的训练图像有像素级标注，剩余训练图像来自另外一个
+源域（另外一个数据集）
+c) 部分监督：一部分的训练图像有像素级标注，剩余训练图像有粗标签标注
+噪声监督指的是所有图像都有像素级标注，但会存在一些标注错误的情况。
+2.2 常用分割网络
+在实际的应用场景中，图像分割往往分为语义分割、实例分割和全景分割三大
+类。语义分割指的是对图像中的每个像素打上类别标签，即把图像分为人、天空、树
+木等不同的类别，但不区分同一类别下的不同实例[11]。实例分割并不要求对全部像
+素都进行类别标注，但它在语义分割的基础上，对同一类的不同实例进行了区分[12]。
+4
+全景分割是语义分割和实例分割的结合，不仅要检测出所有目标，还要区分出同一类
+目标的不同实例[13]。
+四种弱监督的类别分别有着其所对应的常用分割任务类型，也有着代表性的分
+割方法。无监督学习常常用于语义分割的任务，代表性算法为 SegSort[14], MaskCon-
+trast[15], IIC[16]和 STEGO[17]。语义分割、实例分割和全景分割任务全部适用于粗监督
+的范围，代表性算法也较多，有语义分割的SeeNet[18],SEAM[19],BAP[20]；实例分割的
+PRM[21],SDI[22],BBTP[23]和全景分割的JSTM[24],WPS[25]。不完全监督可用来解决语义
+分割和实例分割任务，语义分割有CAC[26],BDL[27]方法，实例分割有MaskR-CNN[28],
+Shapeprop[29]方法。噪声监督主要用于语义分割，ADELE[30]为其代表性方法。
+3. 数据收集及处理
+为采集视盘注意力图像，本实验使用视线跟踪技术，记录下被试者在不同时间和
+任务中的眼动和注视位置，从而观察视觉注意力的分配。视线跟踪技术主要有几个重
+要的指标，分别为注视持续时间、注视次数、注视点序列和第一次到达目标兴趣区的
+时间[31]。如图3所示，实验设备为TOBII眼动仪，具有多个近红外光源和多个眼动传
+感器，因此具备了更多的参照点和更丰富的光线采集角度，从而结合眼动仪独特的头
+动补偿算法为被试者生成特定的三维眼球模型，计算出眼睛所在的位置和视线的落
+点，减小实验的误差[32]。
+TOBII 眼动仪主要基于瞳孔-角膜反射技术来捕捉被试者的注意力，也称为普金
+野图像跟踪法[33]。其基本原理为：光源发射出的红外线经过滤和半反射后，部分到达
+眼球，再经眼球反射到达瞳孔摄像机进行连续记录。而普金野图像则是由眼睛的若干
+光学界面反射所形成的图像。角膜前表面、后表面、晶状体前表面和晶状体后表面分
+别反射出第一、第二、第三和第四普金野图像，当眼球转动时，不同的普金野图像移
+动距离不同；眼球移动时，不同的普金野图像运动距离相同[34]。因此，通过测量这些
+图像就可以得出所注视的位置。
+眼动仪的使用过程主要有以下七个步骤：
+a) 初始参数设置，包括创建项目、图片分组、播放速率、图片位置等
+b) 图片导入
+5
+图3 眼动仪
+c) 人机相对位置标准化
+d) 眼动仪配准
+e) 采集注意力
+f) 选择热点半径、背景等参数
+g) 数据导出
+模拟的实验环境及真实实验环境分别如图4a和图4b所示，眼动仪位于显示屏的
+下方，观察者平视屏幕中心，与屏幕距离60cm，夹角呈90度，视盘数据集图像在显
+示屏上循环播放。
+本实验在数据采集的过程中，借助 Tobii Pro Lab 软件创建项目并记录眼动数据。
+对于本实验所使用的屏幕式眼动仪而言，TobiiProLab软件也提供了对应的项目类型
+“Screen”，如图5a所示。把 REFUGE 视盘数据集[35]中的 800 张视盘数据集图像按照
+40 张图片为一组进行分组，图片大小调整为占满整张实验屏幕，并利用鼠标点击控
+制图片切换，以便于更准确的录制注意力，保证录制时长。
+人机相对位置标准化和眼动仪配准步骤是眼动仪针对不同人的眼球特征和生理
+结构进行的调节，分别测试被试者观察屏幕中心和屏幕的四个角落时眼球的移动变
+6
+a) 数据采集实验环境模拟 b) 数据采集真实实验场景
+图4 数据采集实验环境
+化，测试视线实际落点和真正观察点之间的误差并进行校准。具体来说，眼动仪的校
+准同样依据瞳孔-角膜反射技术，用“·”代表眼睛所注视的位置，用“+”代表校准目
+标的位置。当眼动仪记录下屏幕中心和屏幕四个角落的注视点和目标点后，再使用映
+射函数建立校准模型，从有限的五个点推广到整个屏幕上所有的注视点，提供凝视位
+置的准确预测。
+a) 眼动仪创建项目 b) 热力图生成位置
+图5 TobiiProLab使用场景
+注意力采集过程中，眼动仪会自动做一些合并相邻点等降噪操作来进行优化，在
+记录下注意力后，以热力图的形式如图5b所示存储。在数据导出之前，还需要进行热
+点半径、背景等参数的调整。如图6，在本实验中，选取黑色作为背景，半径调整为
+100px，颜色设置为白色，获得初步的视盘分割弱监督标签。调整参数前后的注意力
+热力图如图7a和图7b所示。
+然而，调整参数后的热力图也不能直接进行使用，还需要进行图像标准化。如
+图8所示，对所采集到的热力图进行标准化的流程有两步：图像二值化和去除小区域
+噪声。图像二值化指的是把图片上像素点的灰度值调整为只有0或255，从而使整张
+图片呈现出只有黑白两种颜色的视觉效果。对视盘数据图像设置全局阈值为127，大
+7
+图6 实验参数设置
+a) 初始热力图 b) 调整参数后的热力图
+图7 眼动仪输出图片
+于阈值的像素点取为 255，小于阈值的像素点取 0。在图片被二值化处理后，还需要
+进行小区域噪声的去除。在注意力采集的过程中，由于无法保证被试者的注意力在看
+到图片的一瞬间就集中在视盘上，因此一些小区域的噪声不可避免。为了让最终的标
+签只保留视盘区域，实验中计算出像素为0的点各自组成的区域面积大小，选取每张
+图中面积最大的区域作为最终的视盘区域。
+a) 初始热力图 b) 二值化处理后的热力图 c) 最终视盘区域
+图8 图像标准化处理
+8
+在处理完图片后，为方便实验，需要对数据集进行 COCO（Common Objects in
+COntext）格式的转换。COCO 数据集图像来源于日常的各种场景，具有精准的像素
+级标注，主要用于检测对象的非标志性视图(或非规范视角)，对象之间的上下文推理
+以及对象的精确2D定位。整个数据集共有328000张图像，包含91个公共对象类别，
+其中82个公共对象类别具有超过5000个标记实例，总标记实例有2500000个[36]。
+COCO 数据集的标注借助了 Json 文件存储，Json 文件的具体格式又分为物体检
+测、关键点检测、实例分割、全景分割和图片标注五类，但都包括info,images,licenses,
+annotations四个字段。其中，info字段主要介绍了数据集的版本、链接、作者以及时间
+等信息。images字段和licenses字段都包含多个实例，分别描述一张图片的名称、宽
+度、高度，许可证的链接、名字等基本信息。文件中的annotations字段较为复杂，也
+是实验中最为重要的部分，不同任务下的annotation字段内容也有所不同。例如，对
+目标检测任务和实例分割任务而言，字段包含了包围框坐标、分段掩码、类别序号、
+分割格式等等。对关键点检测任务而言，则是包含了关键点个数、每个关键点的坐标
+和可见性标志。本实验主要为了完成实例分割任务，因此它包含了视盘的类别序号，
+分段掩码，视盘的包围框坐标、视盘的多边形分割掩码等重要信息。
+4. 实验方法
+4.1 基于点监督的 Mask R-CNN 实例分割
+本文选取的第一个弱监督分割方法为基于点监督的MaskR-CNN实例分割[37]，属
+于一种粗监督方法。它结合了边界框注释和每个边界框里的标记点，即在框内随机采
+样点并为这些点生成二进制标签，把它们分类为前景和背景，然后使用MaskR-CNN
+网络[38]进行训练。
+此方法中，标记点的随机采样方法是实验中重要的一环。如果是人来手动点击图
+像获取标记点，再输入神经网络进行训练，则这些点往往会具有较强的相关性和较低
+的可变性[39]，训练效果也会受到影响。因此，本实验为每一个分割实例生成边界框
+之后，采取在边界框中随机采样的方法选取标注点，并根据点的位置对点进行分类。
+这种方法不仅简化了采样随机点的流程，增加了数据集的可变性，而且可以广泛应用
+于各个数据集里，节省了更多数据采集的成本。
+9
+我们首先在COCO数据集上进行实验，以确定采样点的个数。实验表明，随着采
+样点个数的增加，模型的表现会逐渐提升，但与此同时生成随机点的时间也会增加。
+当标记点从1增长到10时，模型性能有明显的提高，但标记点从10增加到20时，模
+型性能的提高变得不那么显著，反而标注时间翻倍。综合考虑，本实验选取 10 作为
+随机采样点的个数，在节省时间和空间的同时达到最好的效果。
+实验中，把使用眼动仪采集的 800 张视盘图片分为 640 张训练集和 160 张验证
+集，每张图片随机选取 10 个点并进行分类作为标注，输入 Mask R-CNN 网络进行训
+练。Mask R-CNN 本质上是在 Faster R-CNN[40]的基础上进行了进一步的改进。整体
+流程可概括为，首先提取图片特征，然后输入到区域生成网络RPN（RegionProposal
+Network）[40]中得到候选区域的特征信息，生成区域提议，即提出有可能包含目标对象
+的区域。对这些区域进行ROIAlign操作后进行分类、边界框回归和掩码生成，网络
+架构图如图9所示。
+图9 MaskR-CNN网络架构图
+在实验中，选取ResNet-50-FPN网络作为特征提取器提取特征，即输入图像通过
+ResNet网络得到五层特征图，再经过特征金字塔网络(FPN)[41]进行特征融合。由于低
+层特征包含更多的细节信息，但同时也有着较多的噪声和无关内容；高层特征包含更
+10
+多的语义信息，但信息丢失较为严重，因此特征金字塔网络将分辨率较小的高层特征
+降维并上采样到前一个特征图的尺寸，与上一个特征图相加，从而达到特征融合的效
+果。
+在得到增强的特征后，就可以使用区域生成网络 (RPN) 得到感兴趣的区域。区
+域生成网络为特征图的每一个点生成 9 个边界框，再根据框内是否有物体以及有无
+物体的概率计算得分，筛选合适的边界框作为感兴趣的区域。
+ROI Align 步骤的意义在于，区域生成网络所产生的边界框大小对应的是特征图
+上物体的不同大小，因此需要把它们统一尺寸。ROI Align 保留了浮点数的边界，即
+保留边界框顶点的虚拟像素值，在每个框中取四个虚拟像素点，使用其周围的四个真
+实像素点进行双线性插值[42]求得四个虚拟像素点的值，取最大值作为最终输出。不
+同于ROIPooling在操作过程中的取整操作，ROIAlign操作减小了误差，更有利于分
+割任务的实现。
+最后，网络分别对每一个感兴趣的区域进行分类和边界框回归，再输入全卷积神
+经网络(FCN) 进行掩码的生成。
+4.2 基于凝视图弱监督的语义分割
+除了粗监督之外，本文又尝试基于凝视图弱监督的方法进行实验，属于一种噪声
+监督。对数据集而言，实验中直接把使用眼动仪采集的800张视盘图片作为原图，所
+采集的注意力热力图二值化去噪后作为标签，把 800 张视盘图片分为 640 张训练集
+和160张验证集输入网络进行训练。
+4.2.1 U-Net 语义分割
+本文所使用的第一个基于凝视图弱监督的分割方法为U-Net网络[43]。作为最经典
+的语义分割网络之一，再结合其在多种医疗图像分割任务上的良好表现，使用U-Net
+网络进行语义分割可以作为本实验的基础。
+U-Net 网络较为简单，是一个编码器-解码器的对称结构。编码器部分使用卷积
+层和池化层缩小特征图的尺寸和维度，从而提取特征；解码器部分则由上采样和卷积
+层来扩大特征图的大小和维度，直到还原为原始图像大小。同时，在编码器和解码器
+11
+之间使用跳连机制，通过连接相应层的特征来保留更多的细节，提高图像分割的准确
+性。
+4.2.2 DeepLabv2语义分割
+第二个方法是基于凝视图弱监督的DeepLabv2网络[44]语义分割。
+整体流程为，把图片输入深度卷积神经网络，使用空洞卷积得到粗略预测结果，
+通过双线性插值扩大到原本大小，再通过全连接的条件随机场细化预测结果，得到最
+终输出。网络架构如图10所示。
+图10 DeepLabv2网络架构图
+在深度卷积神经网络中，本实验采取空洞卷积的方法将其进行改善，从而可以在
+不增加任何多余参数的情况下增大感受野，减少信息丢失。此外，还增加了一个空洞
+空间卷积池化金字塔 (ASPP) 模块，使模型可以获取多尺度的信息，进一步强化分割
+结果。空洞空间卷积池化金字塔通过以不同的采样率对输入进行并行采样，最后再融
+合形成最终输出。
+在使用双线性插值进行上采样，让特征图和原图大小一致之后，DeepLabv2网络
+又引入了条件随机场[45]，其公式为：
+∑ ∑
+E(x) = θ (x )+ θ (x ,x ) (1)
+i i ij i j
+i ij
+12
+θ(x ) = −log(P(x )) (2)
+i i
+[ ]
+∥p −pj∥2 ∥I −Ij∥2 ∥p −pj∥2
+θ (x ,x ) = µ(x ,x ) w exp(− i − i +w exp(− i ))
+ij i j i j 1 2σ2 2σ2 2 2σ2
+α β γ
+(3)
+其中，p为像素的位置坐标，I 为像素的RGB数值，P(x )为深度卷积神经网络输
+i
+出的置信度。当x 与x 相等时，µ(x ,x )的值为0；而当x 与x 不相等时，µ(x ,x )
+i j i j i j i j
+的值为1。
+条件随机场可以保证对像素的分类不仅仅考虑深度卷积神经网络输出的结果，也
+会考虑到周围的像素点，从而保证分割边缘更好。
+4.2.3 DeepLabv3+语义分割
+在DeepLabv2网络的基础上，我们又尝试使用了DeepLabv3+网络[46]，网络架构
+图如图11所示。它由编码器和解码器组成，编码器部分在 ResNet 后端利用不同的卷
+积率多次进行空洞卷积，从而保留更多的细节信息。在空洞空间卷积池化金字塔模块
+中，增加了全局池化层和1×1的卷积，从而更好的在不同尺度上提取特征。解码器
+的部分里，把空洞空间卷积池化金字塔的输出进行上采样，与1×1卷积后的低层级
+特征连接，再次进行卷积和上采样后获得最终预测结果。
+此外，DeepLabv3+网络去除了条件随机场部分。由于引入了多尺度卷积操作，随
+着感受野的扩大，模型所能够获得的上下文信息也会增加，因此不再需要条件随机场
+引入周围像素保证上下文的信息。
+13
+图11 DeepLabv3+网络架构图
+5. 实验结果
+5.1 基于点监督的 Mask R-CNN 实例分割
+图12和图13分别为基于点监督的 Mask R-CNN 实例分割方法实验结果在眼底彩
+照和注意力标签上的展示。右侧图为标签，左侧图为实验结果，各自用标签框和彩色
+体现了分割的区域。由图可看出，此实验方法可基本分割出视盘的范围和大小，但也
+有细节上的不足。与此同时，因为注意力标签与视盘本身的区域也存在一些差异，因
+此对分割结果也会造成一定的影响。
+图12 眼底彩照上的分割结果示例
+14
+图13 注意力标签上的分割结果示例
+在本实验中选取交并比(IoU)作为评价标准，用来描述检测区域的重合度。假设
+A 集合为目标，B 集合为预测结果，则计算公式为：
+A∧B
+IoU = (4)
+A∪B
+此外，本实验还引入平均精度AP作为评价指标。AP50和AP75分别表示交并比
+为 50% 和 75% 时的平均准确率，AP 则是从交并比为 0.5 开始间隔 0.05 一直取值到
+0.95后的均值。分别计算迭代5000，10000，15000和20000次之后AP、AP50、AP75
+的值如表1所示。
+表1 实验结果
+迭代次数 5000 10000 15000 20000
+AP 37.159 38.271 39.481 39.821
+AP50 97.816 97.667 97.393 97.236
+AP75 10.037 12.137 14.741 14.945
+从实验结果的数据上看，该模型在不同的阈值下可以检测出大部分目标，在视盘
+分割任务中表现良好。同时，AP50的值较高，也证明本实验满足当交并比为50%时
+有着较高准确率的基本要求，证明模型具有较好的目标定位能力和对目标较高的区
+分度。当迭代 20000 次时，AP50 和 AP75 分别为 97.236 和 14.945，说明模型在低阈
+值下的表现非常好，但在高阈值下表现不佳。
+15
+分析其原因，由于交并比的阈值高时要求检测结果和目标有着更高的重合程度，
+而AP50指标只考虑了交并比为50%的情况，不会受到其他交并比阈值的干扰。但当
+模型预测目标时存在的漏检和误检情况较多，即 False Negative 和 False Positive 较多
+的情况下，AP 和 AP75 由于需要平均更大范围的 IoU 阈值，就会受到更大影响。与
+此同时，由于实验本身使用了眼动凝视图的注意力标签，数据的边缘本身就会存在误
+差，因此AP 和AP75 较低是合理的。
+5.2 基于凝视图弱监督的语义分割
+5.2.1 U-Net 语义分割
+我们基于分割的准确性，分别选取了两张U-Net网络的分割结果，如图14和15所
+示。图14中，预测出的图片与视盘区域较为接近，有很好的分割表现。但是在图15中，
+分割结果与标签就产生了比较大的差异，这可能是因为U-Net网络结构较为简单、眼
+动凝视图弱监督标注噪声较多导致。
+a) 眼底彩照原图 b) 标签 c) 分割结果
+图14 误差较小的U-Net分割结果
+a) 眼底彩照原图 b) 标签 c) 分割结果
+图15 误差较大的U-Net分割结果
+实验中，我们分别使用均交并比MIoU和像素准确率PA两种指标对分割结果进
+行评价。像素准确率表示了预测类别正确的像素个数占总像素个数的比例。公式中，
+IoU 为第n个样本的交并比值，k 为类别数，p 表示第i类预测正确的像素个数，p
+n ii ij
+表示像素实际为第i 类，但被预测成了第j 类的个数。两种指标的公式分别为：
+16
+IoU +IoU +IoU +...+IoU
+1 2 3 n
+MIoU = (5)
+n
+∑
+k p
+PA = ∑ i∑=1 ii (6)
+k k p
+i=1 j=1 ij
+具体数值如表2所示，均交并比为0.4762，像素准确率为0.4918，分割效果一般。
+表2 实验结果
+MIoU PA
+0.4762 0.4918
+5.2.2 DeepLabv2语义分割
+使用DeepLabv2网络的分割结果如图16所示，分割结果与标签较为接近，但周围
+存在一定的锯齿，边缘不够平滑。除了由于数据集本身是注意力图，边缘存在锯齿的
+原因之外，也受到了Deeplabv2网络中最大池化降低了模型在边缘处的预测精度，空
+洞卷积减少了细节信息等影响。
+我们依旧使用均交并比和像素准确率作为评价指标，均交并比为0.7139，像素准
+确率为0.8002，有着比较高的准确率。
+5.2.3 DeepLabv3+语义分割
+使用 DeepLabv3+ 网络的分割结果如图17所示。与 DeepLabv2 的分割结果相对
+比，DeepLabv3+ 分割出的视盘边缘明显变得更加平滑，且更接近标签图像。从评价
+指标来看，均交并比为0.8626，像素准确率为0.9290，也有着更好的表现。
+17
+a) 眼底彩照原图 b) 标签 c) 分割结果
+图16 DeepLabv2分割结果对比
+a) 眼底彩照原图 b) 标签 c) 分割结果
+图17 DeepLabv3+分割结果对比
+5.2.4 对比分析
+把 U-Net, DeepLabv2, DeepLabv3+ 三种基于凝视图弱监督的语义分割的实验结
+果使用同样的标准进行评价并对比，如表3所示。从整体上看，均交并比(MIoU)的值
+18
+表3 结果对比
+方法 MIoU PA
+U-Net 0.4762 0.4918
+DeepLabv2 0.7139 0.8002
+DeepLabv3+ 0.8626 0.9290
+总是较低，但像素准确率 (PA) 则会较高。其原因在于，均交并比同时考虑了模型在
+像素级别上的分类准确性和分割准确性，而像素准确率只考虑了分类准确性，会更大
+程度上受到背景的影响。同时，由于眼动凝视图作为弱监督标签时形状不规则，存在
+大小不一的情况也会存在，便也同样会影响均交并比的值。
+把几种方法对比起来，可以看出均交并比和像素准确率整体上成一个正相关的
+关系，数值也随着网络结构的复杂逐渐提升。除了U-Net较为简单导致分割结果一般
+之外，其他语义分割方法有着更高的均交并比和更高的像素准确率，意味着它们具有
+更好的目标定位能力，可以更精确的定位物体边界，也有着更好的分割效果。
+从图像的表现上看，DeepLabv2语义分割的分割结果边缘较为粗糙，仍需要进一
+步的处理。DeepLabv3+ 方法相对于前者改善了边缘粗糙的问题，可以获得更准确的
+分割结果。
+6. 总结
+本文使用眼动仪采集注意力作为标签，分别使用基于点监督的 Mask R-CNN 实
+例分割以及基于凝视图弱监督的 U-Net, DeepLabv2, Deeplabv3+ 的三种语义分割方法
+进行眼底彩照中视盘弱监督分割的研究，并使用AP，AP50，AP75，均交并比，像素
+准确率等标准进行评价，对比分析实验结果。实验结果证明了以注意力热力图作为弱
+监督标签的可行性和实用性，无论是结合粗监督的点标签，还是直接将视盘注意力图
+作为噪声监督标签输入神经网络，都能够较好的完成分割任务。
+以视盘分割为基础，把借助眼动凝视图的定位和标注推广到病灶，再利用深度学
+习进行病灶的分类和分割，是我们未来所要研究的方向。眼动追踪技术能够记录下医
+生诊断过程中所注视的位置信息，让医生在诊断过程中进行标注，减轻像素级数据标
+注的负担。除此之外，眼动的过程还可以记录下医生的注视路径、注视时长等重要信
+19
+息，并依据这些信息分析医生诊断的流程、所关注的部位、病灶可能的位置，从而真
+正实现计算机辅助诊断，因此有着独特的应用前景和推广价值。
+20
+参考文献
+[1] 陆萌.面向深度学习的医学图像标注系统的研究与实现[D].北京邮电大学,2020.
+[2] PORWAL P, PACHADE S, KAMBLE R, et al. Indian Diabetic Retinopathy Image Dataset
+(IDRiD).2018.https://dx.doi.org/10.21227/H25W98.
+[3] STAALJ,ABRAMOFFM,NIEMEIJERM,etal.Ridge-basedvesselsegmentationincolorimages
+oftheretina[J].IEEETransactionsonMedicalImaging,2004,23(4):501-509.
+[4] PENGJ,WANGY.MedicalImageSegmentationWithLimitedSupervision:AReviewofDeep
+NetworkModels[J].IEEEAccess,2021,PP:1-1.
+[5] KERMANY D S, GOLDBAUM M, CAI W, et al. Identifying Medical Diagnoses and Treatable
+DiseasesbyImage-BasedDeepLearning[J/OL].Cell,2018,172(5):1122-1131.e9.https://www.s
+ciencedirect.com/science/article/pii/S0092867418301545.
+[6] LIT,BOW,HUC,etal.Applicationsofdeeplearninginfundusimages:Areview[J/OL].Medical
+ImageAnalysis,2021,69:101971.https://www.sciencedirect.com/science/article/pii/S13618415
+21000177.
+[7] WANGZ,YINY,SHIJ,etal.Zoom-in-Net:DeepMiningLesionsforDiabeticRetinopathyDe-
+tection[C].in:DESCOTEAUXM,MAIER-HEINL,FRANZA,etal.MedicalImageComputing
+and Computer Assisted Intervention − MICCAI 2017. Cham: Springer International Publishing,
+2017:267-275.
+[8] ZHAO Z, ZHANG K, HAO X, et al. BiRA-Net: Bilinear Attention Net for Diabetic Retinopa-
+thyGrading[C].in:2019IEEEInternationalConferenceonImageProcessing(ICIP).2019:1385-
+1389.
+[9] LIL,XUM,WANGX,etal.AttentionBasedGlaucomaDetection:ALarge-ScaleDatabaseand
+CNNModel[C].in:TheIEEEConferenceonComputerVisionandPatternRecognition(CVPR).
+2019.
+[10] SHEN W, PENG Z, WANG X, et al. A Survey on Label-efficient Deep Segmentation: Bridging
+theGapbetweenWeakSupervisionandDensePrediction.2022.
+[11] ASGARI TAGHANAKI S, ABHISHEK K, COHEN J P, et al. Deep Semantic Segmentation of
+NaturalandMedicalImages:AReview[J/OL].Artif.Intell.Rev.,2021,54(1):137-178.https://d
+oi.org/10.1007/s10462-020-09854-1.
+[12] MINAEES,BOYKOVY,PORIKLIF,etal.ImageSegmentationUsingDeepLearning:ASurvey
+[J].IEEETransactionsonPatternAnalysisandMachineIntelligence,2022,44(7):3523-3542.
+[13] KIRILLOV A, HE K, GIRSHICK R, et al. Panoptic Segmentation[C]. in: Proceedings of the
+IEEE/CVFConferenceonComputerVisionandPatternRecognition(CVPR).2019.
+[14] HWANG J J, YU S, SHI J, et al. SegSort: Segmentation by Discriminative Sorting of Segments
+[C].in:2019IEEE/CVFInternationalConferenceonComputerVision(ICCV).2019:7333-7343.
+21
+[15] VANGANSBEKEW,VANDENHENDES,GEORGOULISS,etal.UnsupervisedSemanticSeg-
+mentationbyContrastingObjectMaskProposals[C].in:2021IEEE/CVFInternationalConference
+onComputerVision(ICCV).2021:10032-10042.
+[16] JIX,HENRIQUESJF,VEDALDIA.InvariantInformationClusteringforUnsupervisedImage
+Classification and Segmentation[C]. in: Proceedings of the IEEE/CVF International Conference
+onComputerVision(ICCV).2019.
+[17] HAMILTON M, ZHANG Z, HARIHARAN B, et al. Unsupervised Semantic Segmentation by
+DistillingFeatureCorrespondences[C/OL].in:InternationalConferenceonLearningRepresenta-
+tions.2022.https://openreview.net/forum?id=SaKO6z6Hl0c.
+[18] HOU Q, JIANG P T, WEI Y, et al. Self-Erasing Network for Integral Object Attention[C]. in:
+NIPS’18: Proceedings of the 32nd International Conference on Neural Information Processing
+Systems.Montréal,Canada:CurranAssociatesInc.,2018:547-557.
+[19] WANGY,ZHANGJ,KANM,etal.Self-SupervisedEquivariantAttentionMechanismforWeakly
+SupervisedSemanticSegmentation[C].in:2020IEEE/CVFConferenceonComputerVisionand
+PatternRecognition(CVPR).2020:12272-12281.
+[20] OHY,KIMB,HAMB.Background-AwarePoolingandNoise-AwareLossforWeakly-Supervised
+Semantic Segmentation[C]. in: 2021 IEEE/CVF Conference on Computer Vision and Pattern
+Recognition(CVPR).2021:6909-6918.
+[21] ZHOUY,ZHUY,YEQ,etal.WeaklySupervisedInstanceSegmentationUsingClassPeakRe-
+sponse[C]. in: 2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2018:
+3791-3800.
+[22] KHOREVA A, BENENSON R, HOSANG J, et al. Simple Does It: Weakly Supervised Instance
+andSemanticSegmentation[C].in:2017IEEEConferenceonComputerVisionandPatternRecog-
+nition(CVPR).2017:1665-1674.
+[23] HSUCC,HSUKJ,TSAICC,etal.WeaklySupervisedInstanceSegmentationUsingtheBound-
+ingBoxTightnessPrior[M].in:Proceedingsofthe33rdInternationalConferenceonNeuralInfor-
+mationProcessingSystems.RedHook,NY,USA:CurranAssociatesInc.,2019.
+[24] SHEN Y, CAO L, CHEN Z, et al. Toward Joint Thing-and-Stuff Mining for Weakly Supervised
+PanopticSegmentation[C].in:ProceedingsoftheIEEE/CVFConferenceonComputerVisionand
+PatternRecognition(CVPR).2021:16694-16705.
+[25] LI Q, ARNAB A, TORR P H S. Weakly- and Semi-supervised Panoptic Segmentation[C]. in:
+FERRARI V, HEBERT M, SMINCHISESCU C, et al. Computer Vision – ECCV 2018. Cham:
+SpringerInternationalPublishing,2018:106-124.
+[26] LAI X, TIAN Z, JIANG L, et al. Semi-Supervised Semantic Segmentation With Directional
+Context-AwareConsistency[C].in:ProceedingsoftheIEEE/CVFConferenceonComputerVision
+andPatternRecognition(CVPR).2021:1205-1214.
+[27] LIY,YUANL,VASCONCELOSN.BidirectionalLearningforDomainAdaptationofSemantic
+Segmentation[C]. in: 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition
+(CVPR).2019:6929-6938.
+22
+[28] HUR,DOLLÁRP,HEK,etal.LearningtoSegmentEveryThing[C].in:2018IEEE/CVFCon-
+ferenceonComputerVisionandPatternRecognition.2018:4233-4241.
+[29] ZHOUY,WANGX,JIAOJ,etal.LearningSaliencyPropagationforSemi-SupervisedInstance
+Segmentation[C]. in: 2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition
+(CVPR).2020:10304-10313.
+[30] LIUS,LIUK,ZHUW,etal.AdaptiveEarly-LearningCorrectionforSegmentationfromNoisy
+Annotations[C]. in: 2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition
+(CVPR).2022:2596-2606.
+[31] 赵新灿,左洪福,任勇军.眼动仪与视线跟踪技术综述[J].计算机工程与应用,2006,42(12):4.
+[32] 朱姝蔓, 潘伟杰, 吕健, 等. 基于眼动追踪方法的可视化技术综述[J]. 软件工程与应用, 2021,
+10(3):9.
+[33] CORNSWEET T N, CRANE H D. Accurate two-dimensional eye tracker using first and fourth
+Purkinjeimages.[J].JournaloftheOpticalSocietyofAmerica,1973,638:921-8.
+[34] 闫国利,白学军.眼动分析技术的基础与应用[M].北京师范大学出版社,2018.
+[35] ORLANDOJI,FUH,BARBOSABREDAJ,etal.REFUGE Challenge:Aunifiedframeworkfor
+evaluatingautomated methodsforglaucoma assessmentfromfundusphotographs[J/OL].Medical
+ImageAnalysis,2020,59:101570.https://www.sciencedirect.com/science/article/pii/S13618415
+19301100.
+[36] LIN T Y, MAIRE M, BELONGIE S, et al. Microsoft COCO: Common Objects in Context[C].
+in: FLEET D, PAJDLA T, SCHIELE B, et al. Computer Vision – ECCV 2014. Cham: Springer
+InternationalPublishing,2014:740-755.
+[37] CHENG B, PARKHI O, KIRILLOV A. Pointly-Supervised Instance Segmentation[C]. in: 2022
+IEEE/CVFConferenceonComputerVisionandPatternRecognition(CVPR).2022:2607-2616.
+[38] HE K, GKIOXARI G, DOLLÁR P, et al. Mask R-CNN[J/OL]. CoRR, 2017, abs/1703.06870.
+arXiv:1703.06870.http://arxiv.org/abs/1703.06870.
+[39] CLARKHH.CoordinatingwithEachOtherinaMaterialWorld[J].DiscourseStudies,2005,7(4-
+5):507-525.
+[40] REN S, HE K, GIRSHICK R, et al. Faster R-CNN: Towards Real-Time Object Detection with
+Region Proposal Networks[J]. IEEE Transactions on Pattern Analysis and Machine Intelligence,
+2017,39(6):1137-1149.
+[41] LIN T Y, DOLLÁR P, GIRSHICK R, et al. in: 2017 IEEE Conference on Computer Vision and
+PatternRecognition(CVPR).2017:936-944.
+[42] KIMKH,SHIMPS,SHINS.AnAlternativeBilinearInterpolationMethodBetweenSpherical
+Grids[J].Atmosphere,2019.
+[43] RONNEBERGERO,FISCHERP,BROXT.U-Net:ConvolutionalNetworksforBiomedicalIm-
+ageSegmentation[C].in:InternationalConferenceonMedicalImageComputingandComputer-
+AssistedIntervention.2015.
+23
+[44] CHENLC,PAPANDREOUG,KOKKINOSI,etal.DeepLab:SemanticImageSegmentationwith
+DeepConvolutionalNets,AtrousConvolution,andFullyConnectedCRFs[J].IEEETransactions
+onPatternAnalysisandMachineIntelligence,2018,40(4):834-848.
+[45] LAFFERTY J D, MCCALLUM A, PEREIRA F C N. Conditional Random Fields: Probabilistic
+ModelsforSegmentingandLabelingSequenceData[C].in:ICML’01:ProceedingsoftheEigh-
+teenth International Conference on Machine Learning. San Francisco, CA, USA: Morgan Kauf-
+mannPublishersInc.,2001:282-289.
+[46] CHEN L C, ZHU Y, PAPANDREOU G, et al. Encoder-Decoder with Atrous Separable Convo-
+lutionforSemanticImageSegmentation[C].in:FERRARIV,HEBERTM,SMINCHISESCUC,
+etal.ComputerVision–ECCV2018.Cham:SpringerInternationalPublishing,2018:833-851.
+24
+致谢
+首先要特别感谢我的导师刘江教授和姜泓羊博士后，感谢您们在我撰写论文的
+过程中给予的耐心指导与帮助，对我提出的问题一一解答，为我的论文提供思路和建
+议。本科期间，我很荣幸能够加入到iMED这个大家庭中，学到了很多专业知识和科
+研方法，领会到了iMED团结、专注、坚持的精神。感谢陈馨慧老师把我领进科研的
+大门，在申请季耐心修改我的推荐信并帮忙提交，我收获的 offer 离不开您百忙之中
+的辛苦付出。感谢本科四年期间教过我的每一位老师，是您们让我了解了计算机这个
+专业，让我找到今后的人生方向。
+其次，我要感谢我最可靠的队友谭雅静。从数字逻辑到计组计网再到 OOAD 和
+软件工程，大大小小11门课的project我们都一起组队做过。荔园机房的凌晨，二教
+机房的下午，致诚活动室的深夜和一丹图书馆的每一天，都是与你一起奋斗过的足
+迹。即使毕业季的大家各奔前程，但未来的我们也一定都会带着这一份最初的热爱，
+各自闪闪发光。
+此外，我还要感谢赖海韵和邵美玉，我最棒的朋友们。七年、十年，我曾不止一
+次的感叹这两份友谊的坚固——我们不在一个城市，不在一所大学，所学的专业差别
+大到甚至不在同一年本科毕业，但我们依旧在这四年里每天保持联系。虽然我们一年
+只见两次面，但依旧可以在失意时打电话倾诉，在思考人生时彻夜长谈，在忙碌时苦
+中作乐，仿佛对方一直就在身边。
+同时，我还要感谢电子系的张策同学。是你让我学会了如何积极的表达情绪，如
+何合理的交流沟通，如何平衡独立与依赖，以及如何爱一个人。我们走遍深圳的每一
+个角落，去过许多个城市旅行，在spoccosquare上体验各种运动，和马里奥一起战胜
+过无数只卡美克和库巴，探索过海拉鲁大陆的每一寸土地。你也让我看到了一个真正
+优秀的大学生的样子，让我有着目标和动力朝我们的未来前行。
+最后，我要感谢我的家人们，你们是我生命中最重要的人。感谢你们一直以来的
+理解、关爱和支持，是你们的陪伴让我能够承受各种压力和挑战。我将永远记得你们
+的付出和爱，这份爱将激励我不断奋斗与进步。
+25

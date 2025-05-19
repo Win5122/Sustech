@@ -1,0 +1,9 @@
+a / b 向上取整
+result = (a + b - 1) / b
+assume:
+a = x * b + y and y >= 0;
+then:
+a / b = x
+a % b = y
+if y = 0, then a = x * b, a + b - 1 = x * b + (b - 1), (a + b - 1) / b = x + (b - 1) / b = x + 0 = x
+else then a = x * b + y, a + b - 1 = (x + 1) * b + (y - 1), (a + b - 1) / b = (x + 1) + (y - 1) / b = (x + 1) + 0 = x + 1

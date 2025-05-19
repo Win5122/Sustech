@@ -1,0 +1,877 @@
+CLC Number
+UDC Availableforreference □Yes □No
+Undergraduate Thesis
+Thesis Title: Decentralized Recommendation System
+Based on BSO
+Student Name: Tengfei Liu
+Student ID: 11911720
+Department: Computer Science and Engineering
+Program: Computer Science and Engineering
+Thesis Advisor: Professor Yuhui. Shi
+Date: June 13, 2024
+Commitment of Honesty
+1. I solemnly promise that the paper presented comes from my
+independent research work under my supervisor’s supervision. All
+statistics and images are real and reliable.
+2. Except for the annotated reference, the paper contents no other
+published work or achievement by person or group. All people making
+important contributions to the study of the paper have been indicated
+clearly in the paper.
+3. I promise that I did not plagiarize other people’s research achievement
+or forge related data in the process of designing topic and research
+content.
+4. If there is violation of any intellectual property right, I will take legal
+responsibility myself.
+Signature:
+Date: June 13, 2024
+Decentralized Recommendation System
+Based on BSO
+[ABSTRACT]: This thesis primarily explains how the Brainstorming Op-
+timization Algorithm (BSO) can optimize the FedFast (Federated Fast Algo-
+rithm), which is prone to falling into local optima. Federated learning recom-
+mendation systems are an excellent solution for companies to provide person-
+alized recommendations while protecting personal privacy. In this common
+architecture, a central server aggregates model updates from various clients
+and then feeds the updated model back to the clients. This way, the training
+data of the clients is stored only on local devices and is not uploaded to the
+server. FedFast uses a clustering method based on user similarities to acceler-
+atetheconvergenceofthefederatedlearningrecommendationsystem,grouping
+clients based on the model updates and aggregating updates within each group.
+However, this method may lead to similar clustering results in successive it-
+erations, causing the model to fall into local optima and fail to achieve global
+optima. Therefore, we propose a new method in this thesis, called FedBSO,
+which uses the Brainstorming Optimization Algorithm to optimize the aggre-
+gation process. Performance evaluations conducted on three datasets show that
+FedBSO outperforms FedFast in terms of Hit Rate (HR) and Normalized Dis-
+counted Cumulative Gain (NDCG).
+[Key words]: Federated Learning, Recommendation System, Brainstorm-
+ing Optimization Algorithm
+I
+[摘要]：本文主要说明了 BSO（头脑风暴优化算法）如何优化 FedFast
+（联邦快速算法）容易陷入局部最优解的问题。联邦学习推荐系统是企业
+在保护个人隐私的同时能够提供个性化推荐的优秀解决方案。在这种常
+见的架构中，中心服务器聚合各客户端的模型更新，再将更新后的模型
+反馈给客户端。这样，客户端的训练数据就仅存储在本地设备上，无需
+上传至服务器。FedFast 利用一种基于用户间相似性的聚类方法来加速联
+邦学习推荐系统的收敛，通过模型更新情况将客户端进行分组，并在各
+个群组内进行更新聚合。尽管如此，这种方式可能导致连续多次迭代中
+聚类结果相似，从而使模型陷入局部最优解，无法达到全局最优。因此，
+我们在本文中提出了一种新的方法，称为 FedBSO，该方法采用头脑风暴
+优化算法对聚合过程进行优化。在 3 个数据集进行的性能评估表明，与
+FedFast 相比，FedBSO 在命中率（HR）和归一化折损累计增益（NDCG）
+方面表现更佳。
+[关键词]：联邦学习，推荐系统，头脑风暴优化算法
+II
+Table of Content
+1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.1 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.2 Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+1.3 Contributions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+1.4 Organization of the Thesis . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2. Fundamental Theories and Related Word . . . . . . . . . . . . . . . . 5
+2.1 Fundamental Theories . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.1.1 Problem Formulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.1.2 Matrix Factorization . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2.1.3 Learning MF . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.1.4 Evaluation Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+2.1.5 Hit Ratio (HR) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+2.1.6 Normalized Discounted Cumulative Gain (NDCG) . . . . . . . . . . 9
+2.2 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+2.2.1 GMF Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+2.2.2 BSO Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+2.2.3 FedFast Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+3. Design and Research methods . . . . . . . . . . . . . . . . . . . . . . . . 12
+3.1 Problem Statement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+3.2 FedBSO Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+III
+4. Experiments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+4.1 Experimental Setup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+4.1.1 Datasets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+4.1.2 Evaluation Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+4.1.3 Baselines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+4.2 Parameter Settings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+4.3 Experimental Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+4.3.1 The accuracy of the FedBSO algorithm . . . . . . . . . . . . . . . . . 19
+4.3.2 The convergence rate of the FedBSO algorithm . . . . . . . . . . . . 21
+5. Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+5.1 Key Findings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+5.1.1 Performance Comparison . . . . . . . . . . . . . . . . . . . . . . . . . 23
+5.1.2 Convergence Speed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+5.1.3 Stability in Training . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+5.1.4 Plateau Phase . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+5.1.5 Implications for Federated Learning . . . . . . . . . . . . . . . . . . . 24
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+IV
+1. Introduction
+1.1 Background
+Recommendersystemsarecrucialtoolsthatassistusersinfindingrelevantinformation
+and services in a timely and appropriate manner. They achieve this by analyzing user pref-
+erencesandbehaviortoprovidetailoredsuggestions. However,thislevelofpersonalization
+requiresaccesstopersonaldata,leadingtoadilemmawheretheadvantagesofcustomization
+mustbeweighedagainstthe potentialprivacyconcernsoftheusers.
+WiththeintroductionofstricterdataprivacyregulationssuchastheGDPR[1]inEurope,
+along with increasing public concern over personal data misuse, the importance of balanc-
+ing personalization with privacy in recommender systems has grown. This has pushed the
+developmentofrecommendertechnologiesthatprioritizeuserprivacy.
+Advancements are being made towards creating recommender systems that maintain
+high personalization standards without heavily depending on personal data. Innovations in-
+cludeemployingtechniqueslikefederatedlearning,whichallowsdatatoremainontheuser’
+s device, and incorporating methods like differential privacy to ensure that the information
+used cannot be traced back to any individual. The goal of these advancements is to refine
+the capability of recommender systems to offer personalized suggestions while strictly ad-
+hering to privacy-preserving measures. The evolution of these systems continues to focus
+onachievingthedualobjectivesofeffectivepersonalizationandrobustprivacyprotection.
+Thetraditionalcentralizedtrainingmethodsforrecommendersystems(RS),whichof-
+ten handle databases containing data on millions of users and items, face numerous chal-
+lenges. Thesechallengesincludethesignificantdemandsoncomputationalpowerandstor-
+age,escalatingtheoperationalcostsfororganizations. Furthermore,centralizedsystemsare
+pronetocreatingpotentialprivacyrisksandefficiencybottlenecks.
+Federated Learning (FL)[2], as an alternative, shifts the paradigm by decentralizing the
+training process of RS models. This shift allows the computational tasks to be distributed
+across a multitude of user devices, rather than relying on a central server. By keeping the
+1
+personaldatalocalizedonindividualdevices,FLsignificantlyenhancesthesecurityandpri-
+vacyofuserinformation. Thisdecentralizedapproachalsoreducestheloadoneachdevice,
+asitallowsforsimplermodelsthataremoremanageableonsmaller,lesspowerfuldevices.
+This research paper delves into the potential of combining recent innovations in neu-
+ralnetwork-drivenrecommender[3-4] systemswiththedecentralizedframeworkofFL.Such
+a combination is poised to address the dual challenges of scalability and data privacy that
+plaguetraditionalRS.Byintegratingcutting-edgeneuralnetworktechniques,whichcanre-
+fineandpersonalizerecommendationsmoreeffectively,withFL’scapabilitytoprocessdata
+locally on user devices, the resulting system can deliver highly accurate recommendations
+withoutcompromisinguserprivacy[5-6].
+ExploringthisintegratedapproachcouldrevolutionizethefieldofRSbymakingthem
+moreadaptabletothegrowingdemandsforefficiencyanddataprotection. Thiscouldleadto
+thedevelopmentofrecommendersystemsthatarenotonlymoreresponsivetouserneedsbut
+alsomorecompliantwithglobaldataprotectionstandards,therebysettinganewbenchmark
+inthebalance betweenuser-centricperformanceandprivacypreservation.
+1.2 Motivation
+MostexistingapplicationsofFederatedLearning(FL)[5]inrecommendersystemsprior-
+itizeenhancingbothaccuracyandprivacy,asnotedinvariousstudies. FL’suniquecapability
+allows for the training of a global model while ensuring that users’ data never leaves their
+personal devices. However, the level of privacy preservation offered by FL is still under
+scrutiny. Critics argue that private information might still be deduced from shared model
+parameters, a concern highlighted in some recent research. This possibility opens up de-
+batesaboutthetrueeffectivenessofFLasaprivacy-preservingtechnologyinthecontextof
+recommendersystems.
+Another significant challenge associated with FL-based systems is the distribution of
+costsassociatedwithmodeltraining. Typically,theburdenfallspredominantlyontheusers,
+whomaysufferfromreduceddeviceperformanceandincreaseddatausageduetotheheavy
+2
+communication requirements needed during the model updating process. This increase in
+resourceconsumptioncanleadtoslowerdeviceoperation,potentiallyfrustratingusers. Fur-
+thermore, the latency in updating and improving the model means that users might have to
+enduresuboptimalrecommendationqualityforextendedperiods. Suchdrawbackscannega-
+tivelyimpactusersatisfactionandmayleadtoloweradoptionratesofthesystem,especially
+if usersarekeenonimmediateandhigh-qualitypersonalizedrecommendations.
+Given these complexities[2], it is crucial for developers and researchers working with
+FL to delve deeper into the trade-offs involved. There is a pressing need to innovate ways
+tostreamline communication and computation processeswithin FL systems to speedup the
+convergenceofthemodelwithoutcompromisingthequalityofrecommendationsorthepri-
+vacyofuserdata. EnhancingtheefficiencyofFLcouldinvolveoptimizingdatatransmission
+methods, developing lightweight model architectures, or devising more effective incremen-
+tallearningstrategiesthatrequirelessfrequentupdatesyetstillcapturesignificantimprove-
+mentsinthemodel. UnderstandingthesedynamicsisessentialforadvancingFLtechnology
+and making federated recommender systems both faster and more accurate, ultimately en-
+hancinguserexperience andacceptance ofsuchsystems.
+FedFast has achieved considerable success in addressing the communication and com-
+putationalefficiencyissueswithinfederatedlearningsystems. However,itsrelianceonclus-
+tering methods based on user similarity has inherent limitations. Specifically, the clustering
+operation tends to produce highly similar results across multiple training phases, which can
+cause the model to converge to local optima, preventing the achievement of a global opti-
+mum.
+To overcome this challenge, the introduction of the Brainstorming Optimization Algo-
+rithm (BSO)[7] is worth considering. This algorithm employs dynamic strategies for replac-
+ingandexchangingclustercenters,effectivelybreakingtherepetitivepatternsformedbytra-
+ditional clustering methods. Consequently, this prevents the model from stagnating at local
+optima. Suchan approach not only enhances the global search capabilities ofthe model but
+3
+also optimizes the overall performance of the recommender system, making it more precise
+inmeetinguserneeds,enhancinguserexperience,anddeepeningusers’trustandacceptance
+ofthesystem. Theintegrationofinnovativealgorithmswithpracticaltechnologiesiskeyto
+advancingfederatedlearningtechnologies.
+1.3 Contributions
+Thus, we introduce FedBSO, a framework[8] based on Generalized Matrix Factoriza-
+tion(GMF)that,whileslightlyslowerinconvergencecomparedtoFedFast[9],moreclosely
+approximates the performance of centralized models. This approach balances the trade-off
+between convergence speed and model accuracy, particularly in how it handles the intri-
+cacies of data distribution across different clients in a federated learning environment. By
+integratingGMF,FedBSOenhancesitscapabilitytotacklesparsedatascenarioscommonly
+encounteredindecentralizedsettings,therebyimprovingtherobustnessandreliabilityofthe
+recommendations. This strategic incorporation of GMF not only aids in achieving a more
+accurate approximation of centralized algorithms but also ensures that the model remains
+effective across diverse and distributed datasets, making it a more versatile and reliable so-
+lutioninfederatedlearningscenarios.
+1.4 Organization of the Thesis
+Thisthesisisorganizedintofive chapters:
+Chapter1introducesthebackgroundandmotivationfortheresearchonimprovingfed-
+eratedlearningrecommendationsystemsusingtheBrainstormingOptimization(BSO)algo-
+rithm. Ithighlightsthekeycontributionsofthethesisandprovidesanoverviewofthethesis
+structure.
+Chapter2presentsthefundamentaltheoriesandrelatedworkrelevanttotheresearch. It
+coverstheproblemformulation,matrixfactorizationtechniques,learningfromimplicitfeed-
+back data, and evaluation metrics. The chapter also discusses related algorithms, including
+GMF[4],BSO[7],andFedFast.
+Chapter 3 describes the design and research methods employed in this study. It starts
+4
+bystatingtheproblemobservedinthereplicationoftheFedFastalgorithmandproposesen-
+hancementsusingBSOconcepts. ThechapterthendetailstheFedBSOalgorithm,explaining
+thekeystepsandparametersinvolved.
+Chapter4focusesontheexperimentalsetupandresults. Itintroducesthedatasetsused,
+the evaluation metrics, the baselines for comparison, and the parameter settings. The chap-
+ter presents the experimental results, analyzing the accuracy and convergence rate of the
+FedBSOalgorithmcomparedtothe baselines.
+Chapter 5 concludes the thesis by summarizing the key findings, including the perfor-
+mancecomparison, convergencespeed, stabilityin training, theplateau phase,and implica-
+tionsforfederatedlearning. IthighlightstheeffectivenessofFedBSOinenhancingfederated
+learningrecommendationsystemsandsuggestsfutureresearchdirections.
+2. Fundamental Theories and Related Word
+2.1 Fundamental Theories
+Thischapterprovidesacomprehensiveoverviewofthetheoreticalfoundationsandprior
+studies pertinent to our research. It begins with a discussion on fundamental theories that
+underpin the research, followed by an exploration of algorithms and methodologies from
+relatedworkthathaveinformedour approach.
+2.1.1 ProblemFormulation
+Assume M and N represent the total numbers of users and items, respectively[4]. We
+construct a user-item interaction matrix Y ∈ RM×N based on the implicit feedback from
+users,definedas:
+{
+1 ifthereisarecordedinteractionbetweenuseru anditem i;
+y =
+ui
+0 otherwise.
+In this context, a value of 1 for y signifies a recorded interaction between user u and
+ui
+itemi,thoughitdoesnotconfirmwhetheruprefersi. Conversely,avalueof0doesnotimply
+dislike; it may simply indicate that the user is not familiar with the item. These dynamics
+5
+introducecomplexitiesinlearningfromimplicitdataasitprimarilyoffersnoisyindications
+of user preferences. While entries that are observed provide some insight into what users
+might be interested in, entries that are not observed often represent mere gaps in the data,
+andthelackofnegativefeedbackinherentlylimitstheavailableinformation.
+The issue of generating recommendations based on implicit feedback is essentially the
+task of predicting the scores for unobserved entries in the matrix Y, which serve to rank
+the items. Model-based methods posit that such data can be generated or represented by a
+foundationalmodel. More formally,thiscanbe describedas:
+yˆ = f(u,i | Θ),
+ui
+where yˆ represents the predicted interaction score between user u and item i, Θ refers to
+ui
+the parameters of the model, and f is defined as the function that maps these parameters to
+thepredictedscore,commonlytermedastheinteractionfunction.
+2.1.2 MatrixFactorization
+MatrixFactorization(MF)[10] techniquesassociate eachuseru anditemi withacorre-
+sponding real-valued feature vector. Denote P and Q as the latent feature vectors for user
+u i
+u and item i, respectively. The interaction between a user and an item is estimated by the
+innerproductoftheirrespectivelatentvectors:
+∑K
+yˆ = ⟨P ,Q ⟩ = P⊤ Q = p q ,
+ui u i u i uk ik
+k=1
+whereK isthenumberoflatentfactors,representingthedimensionalityofthelatentspace.
+MFmodelsnotonlyfacilitateaquantifiableestimationofuser-iteminteractionsbutalso
+simplify the computation by assuming a linear relationship between the latent dimensions.
+This assumption posits that each dimension of the latent space contributes independently
+and equally to the overall interaction score, effectively modeling the interactions as a linear
+combinationofthelatentfeatures. Consequently,thisapproachconceptualizestheMFmodel
+6
+asalinearmodeloflatentfactors,wherethecomplexityofuser-itemrelationshipsiscaptured
+inthesimplicityoflinearalgebra.
+Figure1 MF
+2.1.3 LearningMF
+Totrainmodelparameters,manycurrentpointwisemethods[11-12] primarilyuseregres-
+sionwithsquaredloss:
+∑
+L = w (y −yˆ )2
+sqr ui ui ui
+(u,i)∈Y∪Y−
+Inthiscontext,Y denotesthesetofobservedinteractions,whileY−representsthesetofneg-
+ativeinstances,whichcaneitherencompassallunobservedinteractionsorasampledsubset.
+The parameter w serves as the weight for each training instance (u, i). While the squared
+ui
+lossisofftenjustifiedbyassumingobservationsaredrawnfromaGaussiandistribution,this
+assumptionisnotwell-suitedforimplicitfeedbackdata. Implicitdatainvolvesbinarytarget
+valuesy ,indicatingwhetheruseru hasinteractedwithitemi.
+ui
+HenceaprobabilisticapproachforlearningpointwiseMFismoresuitable,whichduly
+considersthebinarynatureofimplicitdata. Here,y functionsasabinarylabel: avalueof
+ui
+1 signifies item i is relevant to user u, while 0 indicates irrelevance To imbue NCF with a
+probabilistic interpretation, we constrain yˆ within the interval [0, 1] by employing a prob-
+ui
+abilistic function (e.g., Logistic or Probit function) as the activation function for the output
+7
+layer.
+Underthesesettings,wedefine thelikelihoodfunctionas:
+∏ ∏
+p(Y,Y−|P,Q,Θ ) = yˆ (1−yˆ )
+f ui uj
+(u,i)∈Y (u,j)∈Y−
+Bytakingthenegativelogarithmof thislikelihoodfunction,wederive:
+∑ ∑
+L = − logyˆ − log(1−yˆ )
+ui uj
+(u,i)∈Y (u,j)∈Y−
+Thiscanbefurthersimplifiedto:
+∑
+L = − [y logyˆ +(1−y )log(1−yˆ )]
+ui ui ui ui
+(u,i)∈Y∪Y−
+Thisobjectivefunctionisminimizedusingstochasticgradientdescent(SGD).Notably,
+thisformulationisequivalenttothebinarycross-entropyloss,alsoreferredtoaslogloss. By
+adopting a probabilistic framework for MF, we address the recommendation problem with
+implicitfeedbackasabinaryclassificationtask.
+2.1.4 EvaluationMetrics
+In the context of evaluating recommender systems, we often use metrics such as Hit
+Ratio (HR) and Normalized Discounted Cumulative Gain (NDCG)[13]. Below, we provide
+detailedexplanationsofthesemetrics.
+2.1.5 HitRatio(HR)
+Hit Ratio, also known as Recall, measures the fraction of relevant items that are suc-
+cessfullyrecommended[14]. Itisdefinedasfollows:
+∑
+1
+HR@k = I(hit(@k)) (1)
+|U|
+u∈U
+where U is the set of users, and I(hit(@k)) is an indicator function that returns 1 if
+anyofthetopk recommendeditemsarerelevanttotheuseru,and0otherwise. Essentially,
+8
+HR@kcheckswhetheratleastonerelevantitemispresentinthetopkrecommendationsfor
+eachuser.
+2.1.6 NormalizedDiscountedCumulativeGain(NDCG)
+NDCG[13]isamoresophisticatedmetricthatconsidersthepositionoftherelevantitems
+in the recommended list. It assigns higher scores to relevant items that appear higher in the
+ranking. NDCG isdefinedasfollows:
+∑
+1 DCG@k
+NDCG@k = (2)
+|U| IDCG@k
+u∈U
+whereDCG@k (DiscountedCumulative Gain) iscalculatedas:
+∑k
+2reli −1
+DCG@k = (3)
+log (i+1)
+i=1 2
+In this formula, rel denotes the relevance score of the item at position i. For binary
+i
+relevance(0or1),rel is1iftheitemisrelevantand0otherwise. IDCG@k(IdealDCG)is
+i
+the maximum possible DCG@k, used to normalize the DCG score, making NDCG a value
+between0and1.
+By utilizing HR and NDCG, we gain insights into both the presence of relevant items
+intherecommendations(HR)andthe rankingqualityofthoseitems(NDCG).
+2.2 Related Work
+2.2.1 GMFAlgorithm
+Matrix factorization algorithms have already demonstrated impressive performance in
+the field of recommendation systems. The generalized matrix factorization (GMF) model,
+which incorporates neural networks[3-4,6], can further enhance this performance. Therefore,
+we have chosen GMF as the foundational model for FedBSO, FedAVG, and FedFast to
+achievesuperiorrecommendationresults.
+TheGMFmodelisdesignedtolearnthelatentvectorrepresentationofusersanditems
+byleveragingneuralnetworks.
+9
+Figure2 GMFArchitecture
+Due to the one-hot encoding of user (item) IDs in the input layer, the resulting embed-
+ding vector can be interpreted as the latent vector for the user (item). Let the user latent
+vector p be represented as PTvU and the item latent vector q as QTvI. We define the
+u u i i
+transformationfunctionoftheinitialneuralcollaborativefilteringlayeras:
+ϕ (p ,q ) = p ⊙q ,
+1 u i u i
+where⊙signifiestheelement-wise[11] productofvectors. Thisvectoristhenprojected
+totheoutputlayer:
+yˆ = a (hT(p ⊙q )),
+ui out u i
+wherea andhrepresenttheactivationfunctionandedgeweightsoftheoutputlayer,
+out
+respectively. Conceptually, if an identity function is used for a and h is set as a uniform
+out
+vector of ones,thematrixfactorization(MF)modelcanbepreciselyrecovered.
+2.2.2 BSO Algorithm
+Optimization algorithms have been widely utilized in various fields to solve complex
+problems. Traditional optimization algorithms, such as evolutionary algorithms and swarm
+intelligence algorithms, are inspired by natural phenomena. However, the Brain Storm Op-
+timization(BSO)algorithm[7] isanovelapproachinspiredbythehumanbrainstormingpro-
+cess. The BSO algorithm leverages the creative problem-solving abilities of humans to en-
+hanceoptimizationperformance.
+10
+The brainstorming process involves generating a diverse set of ideas through collabo-
+rativeefforts. Ittypicallyfollowsthese steps:
+1. Formadiverse groupofindividuals.
+2. Generate asmanyideasaspossiblewithoutjudgment.
+3. Selectpromisingideasandrefinethemfurther.
+4. Use selected ideas to generate more ideas, iterating the process until a satisfactory
+solutionisfound.
+Thiscollaborativeanditerativeapproachtoproblem-solvinginspiredthedevelopmentofthe
+BSOalgorithm.
+Data: Populationsize N,Numberof clustersK
+Result: Bestsolutionfound
+InitializethepopulationwithN solutions;
+Evaluatethefitnessofeachsolution;
+whilestoppingcriterianotmet do
+GroupthepopulationintoK clusters;
+Selectoneormoreclustersprobabilistically;
+Selectoneormoresolutionsfromthe selectedclusters;
+Performa combination(orperturbation) operationontheselectedsolutionsto
+generatenewsolutions;
+Evaluatethefitnessofthe newsolutions;
+Selectthebestsolutionstoformthenewpopulation;
+end
+Outputthebestsolutionfound;
+Algorithm1:BrainStormOptimization(BSO) Algorithm
+2.2.3 FedFastAlgorithm
+FedFast[9] is a federated learning algorithm designed to enhance the efficiency and ac-
+curacy of training recommender systems. Unlike traditional federated learning approaches
+that randomly select users and average their local models to form a global model, FedFast
+11
+introducesnoveltechniquestoacceleratethetrainingprocessandimprovethequalityofrec-
+ommendationsfromearlytrainingstages. Here’sanoverviewoftheFedFastalgorithmand
+itscomponents.
+UserClustering: Usersaregroupedintoclustersbasedontheirsimilarities. Thisclus-
+teringprocessaimstoexploitthehomogeneityamonguserstofacilitatemoreefficientlearn-
+ing. ActiveSampling(ActvSAMP):Fromeachcluster,asubsetofusersisactivelysampled.
+Thissamplingprocessensuresthatrepresentativeusersfromeachclusterareselectedforthe
+subsequentparameterupdatephase??.
+Parameter Update: The selected users from each cluster update their local model pa-
+rameters. This update is based on the user’s local data and the current state of the model.
+Active Aggregation (ActvAGG): The updated parameters from the sampled users are then
+aggregatedtoformtheglobalmodel. Thisaggregationstepinvolvescombiningtheupdates
+fromallclusterstorefinetheoverallmodelparameters,ensuringthattheglobalmodelben-
+efitsfromthediversedatadistributedacrossdifferentusers.
+3. Design and Research methods
+3.1 Problem Statement
+In our attempt to replicate the FedFast[9] algorithm, we observed a significant issue
+where the algorithm fails to learn effectively in the latter stages of training. This stagnation
+inlearning,wehypothesize,isduetotheinherentnatureoftheclusteringprocessinFedFast.
+The clustering results often remain unchanged or very similar across consecutive iterations,
+whichsuggeststhatthealgorithmisconvergingtolocaloptimaandisunabletoexploreother
+potentialsolutions.
+To mitigate this issue, we proposed an enhancement to the FedFast algorithm by in-
+tegrating concepts from the Brainstorming Optimization (BSO)[7] algorithm. The key idea
+behind BSO is to introduce dynamic changes to the clustering process, thereby preventing
+thealgorithmfromgettingstuckinrepetitivepatterns.
+StepsforEnhancement:
+12
+• DynamicClusterCenterAdjustment: Duringeachclusteringiteration,weintroduce
+randomness in the selection of cluster centers. This involves randomly altering the
+cluster centers, which helps in exploring a broader solution space and avoiding local
+optima.
+• Cluster Center Swapping: We further enhance the clustering process by probabilis-
+ticallyswappingthecentersofdifferentclusters. Thismethodensuresthattheclusters
+donotbecomestatic andencouragesmoredynamic interactionsbetweendatapoints.
+By applying these BSO[7,15] principles, we aim to disrupt the repetitive clustering pat-
+terns that FedFast experiences, thereby improving its ability to learn and converge effec-
+tively. These modifications are intended to enhance the model’s performance by ensuring
+that it does not get confined to suboptimal solutions and can continue to learn and adapt
+throughoutthetrainingprocess. Thisinnovativeapproachnotonlyaddressesthelimitations
+observed in FedFast but also leverages the strengths of BSO to achieve more robust and
+reliablemodeltrainingoutcomes.
+3.2 FedBSO Algorithm
+Parameter Notation: We introduce the following notation for the parameters in the
+FedFast algorithm. Let K represent the entire set of clients participating in the federated
+learning process. The complete set of parameters for the recommendation model is denoted
+byw,whichencompassesbothuseranditemembeddings,alongwithanyadditionalparam-
+eters. Thenumberofparametersinwisdeterminedbythespecificmodelarchitecturebeing
+used. For a given index j, we use the notation w[j] to refer to the j-th component of the
+parameter set. This notation can be extended to w[J] to represent the subset of parameters
+indexedbyanysubsetJ ofthefullindexset.
+We further define U as the set of indices corresponding to all user embeddings in the
+model. For each client k ∈ K, we use Uk to denote the indices of the user embeddings
+associatedwiththatparticularclient. Theunionofallclient-specificuserembeddingindices
+∪
+formsthecompletesetofuserembeddingindices,i.e.,U = k ∈ KU .
+k
+13
+Similarly,letI representthesetofindicescorrespondingtoallitemembeddingsinthe
+model. During each round of the FedFast algorithm, a client k may update a subset of item
+embeddings,whichwedenoteasI ⊆ I.
+k
+Finally, we use N to represent the indices of all other non-embedding parameters in
+the model. The complete set of parameter indices can be expressed as the union of user
+embeddingindices,itemembeddingindices,andnon-embeddingindices,i.e.,U ∪I ∪N.
+To enhance the performance of the FedFast algorithm, we incorporate a Brainstorm-
+ing Optimization algorithm. This optimization algorithm is applied to randomly modify the
+clusters generated by the k-means algorithm, introducing an element of stochasticity to the
+clusteringprocess. Byrandomlyalteringtheclusters,theBrainstormingOptimizationalgo-
+rithmaimstoexploreawiderrangeofpossibleclusterconfigurationsandpotentiallydiscover
+moreoptimalclusteringsthatcanimprovetheoverallperformanceoftheFedFastalgorithm.
+TheFedBsoAlgorithm
+14
+1: initialisew 0,P 0,p,G 0
+2: foreachround t = 0,1,... do
+3: G t ← ClusterUsersByCenter(K,p,P,G t−1)
+4: G t ← GetBestUser(G t)
+5: Generate arandomnumberr 1 uniformlyin[0,1]
+6: if r 1 < p 5 then
+7: Randomlyselectauseru
+8: Randomlyreplacethecenterof a cluster withu
+9: endif
+10: Generate arandomnumberr 2 uniformlyin[0,1]
+11: if r 2 < p 6 then
+12: Randomlyselecttwoclustersu
+13: Randomlyswapthecenterof twoclusters
+14: endif
+15: foreachclusterc ∈ G t inparalleldo
+16: m ← max(⌈α∗len(c)⌉,1)
+17: C ←Randomlyselectm usersfromc
+18: foreachuser k ∈ C inparalleldo
+19: wk ← ClientUpdate(k)
+t+1
+20: endfor
+∑
+21: W[C] ← k∑∈Cn kw tk +1
+k∈Cn
+k
+22: endfor
+23: endfor
+Algorithm2:The FedBSOalgorithm
+The FedBSO algorithm, delineated in Algorithm 2, advances the federated learning
+frontierbyoptimizingtheaggregationofmodelupdates. Itcommenceswithinitializingthe
+modelparametersw ,theclusteringfromthepreviousroundP ,andaprobabilitythreshold
+0 0
+p. Eachsubsequentroundt unfoldsasfollows:
+• User Clustering: Leveraging ‘ClusterUsersByCenter‘, the algorithm clusters users
+based on the set of all clients K, the threshold p, the clustering from the prior round
+P,andthepreviousclustercentersG ,resultinginanupdatedsetofclustercenters
+t−1
+G .
+t
+• StochasticClusterCenterModification: Thealgorithminjectsrandomnessintothe
+clusteringprocess;ifauniformlygeneratedrandomnumberr islessthanthethresh-
+1
+15
+oldp ,itrandomlyselectsa useru toreplace thecenterof anexistingcluster.
+5
+• Cluster Center Swapping: A second random decision occurs if a generated number
+r falls below the threshold p , wherein two clusters are chosen, and their centers are
+2 6
+swapped. Thisstepintroducesadditionalrandomnessthatcanpreventconvergenceto
+localoptima.
+• Active Sampling and Updating: Within each cluster c, the algorithm samples m
+users,dictatedbymax(⌈α·len(c)⌉,1). ForeveryuserkinthesampleC,thealgorithm
+updates their model parameters wk in parallel via ‘ActvSamp‘, taking into account
+t+1
+the current model parameters w , user data n , probability threshold p, and a decay
+t k
+factory.
+• Weighted Aggregation: Post updates, a weighted aggregation of the parameters is
+conducted where W[C] is computed as the weighted average, factoring in the contri-
+butionsignificanceordatavolumefromeachuserk vian .
+k
+TheFedBSOalgorithmiteratesoverthesestepsforapre-setnumberofroundsoruntil
+it meets convergence criteria. By interspersing random elements in cluster center selection
+andemployingaweightedaveragingapproach,FedBSOaimstostrikeastrategicbalancebe-
+tweenexplorationandexploitation,crucialforrobustglobalmodelachievementinfederated
+learningsettings.
+4. Experiments
+4.1 Experimental Setup
+In this section, we evaluate FedBSO with the aim of answering the research questions
+describedinthe introductionsection.
+4.1.1 Datasets
+Datasets We experimented with three datasets: Movielens 100K (ML100K), Movielens
+1M(Ml-1M),Printerest.
+16
+MovieLens TheMovieLensdataset,commonlyutilizedfortheevaluationofcollaborative
+filtering algorithms, was employed in this study. Specifically, we used the version compris-
+ing one million ratings, ensuring that each user has provided at least 20 ratings. Although
+this dataset originally represents explicit feedback, we chose to use it to explore the perfor-
+manceoflearningfromimplicitsignalsderivedfromexplicitfeedback[16]. Forthispurpose,
+we converted the dataset into implicit feedback data by marking each entry as either 0 or 1,
+indicatingwhethertheuserhasratedthe item.
+Pinterest The Pinterest dataset, originally constructed by[17] for evaluating content-based
+imagerecommendation,consists ofimplicit feedbackdata. Theraw datasetisnotably large
+yethighlysparse,withover20%ofusershavingonlyasinglepin,presentingchallengesfor
+the evaluation of collaborative filtering algorithms. Therefore, similar to our preprocessing
+of the MovieLens data, we filtered the Pinterest dataset to retain only users with at least 20
+interactions (pins). This filtering process resulted in a subset containing 55,187 users and
+1,500,809 interactions. Each interaction indicates whether a user has pinned an image to
+their ownboard.
+Table1 Statisticsoftheevaluationdatasets
+Dataset Interaction# Item# User# Density
+ML100K 100,000 1,628 943 6.3%
+ML1M 1,000,296 3706 6040 4.5%
+Pinterest 1,500,809 9,916 55,187 0.27%
+4.1.2 EvaluationMetrics
+To evaluate the performance of item recommendation, we adopted the leave-one-out
+evaluation protocol, which has been widely used in the literature[18-19]. In this protocol, for
+each user, we held out their latest interaction as the test set, utilizing the remaining data for
+training the recommendation model. This method simulates a realistic scenario where the
+mostrecentuseractivityisunknownandneedstobe predicted.
+17
+Giventhecomputationalinefficiencyofrankingallitemsforeveryuserduringevalua-
+tion, we followed a common strategy[16,20] to mitigate this issue. Specifically, for each user,
+werandomlysampled100itemsthattheuserhadnotinteractedwithandrankedthetestitem
+amongthese100items. Thisapproachreducestheevaluationcomplexitywhilemaintaining
+therobustnessoftheperformancemetrics.
+The performance of the ranked list is assessed using two widely recognized metrics:
+HitRatio(HR)andNormalizedDiscountedCumulativeGain(NDCG)[13]. HitRatioatrank
+k (HR@k) measures the presence of the test item within the top-k positions of the ranked
+list. In our evaluations, unless stated otherwise, we set k = 20, thus evaluating HR@20.
+This metric provides an intuitive measure of whether the test item appears in the top-20
+recommendations.
+Normalized Discounted Cumulative Gain at rank k (NDCG@k) evaluates the quality
+of the ranked list by considering the positions of the relevant items. NDCG assigns higher
+scorestohitsathigherranks,emphasizingtheimportanceofcorrectlyrankingrelevantitems
+near the top of the list. We also set k = 20 for NDCG, thus evaluating NDCG@20. This
+metric captures the ranking quality and helps in understanding the effectiveness of the rec-
+ommendationmodelinplacingrelevantitemshigher inthelist.
+For each test user, we calculated HR@20 and NDCG@20 and reported the average
+scores across all users. This comprehensive evaluation provides insights into both the pres-
+ence and the ranking quality of relevant items in the recommendations, offering a balanced
+viewof themodel’sperformance.
+4.1.3 Baselines
+WecomparedtheperformanceofFedBSOwithseveralstate-of-the-artrecommendation
+algorithms,including:
+• GMF. GMF[4] serves as the foundational model for all our methods. It represents the
+upper bound of all federated learning models since it is not limited by the constraints
+18
+offederatedlearning.
+• FedAVG. This method[2] is a traditional federated learning algorithm known for its
+effectivenessinfederatedlearningscenarios. Itfollowsthesettingsdescribedin??to
+adaptforimplicitdata[21].
+• FedFast. FedFast[9] employs clustering operations similar to those in FedBSO. By
+comparing these methods, we aim to explore the impact of the BSO component in
+FedBSO.
+4.2 Parameter Settings
+Wesetthehyperparametersasfollows: theembeddingsizeis16,thenumberofrounds
+issetto1000(360forthePinterestdatasetduetoitslargesize),thenumberofclustersisset
+to20,theoptimizerusedisAdam,p issetto0.5,p issetto0.5,thelearningrateis0.1,and
+5 6
+thebatchsizeis256,withasamplingratioof 0.1asshowninthefigure.
+4.3 Experimental Results
+Inthissection,wepresenttheexperimentalresultsoftheFedBSOalgorithmonthethree
+datasets. We compare the performance of FedBSO with the baselines using the evaluation
+metricsdescribedintheprevioussection.
+4.3.1 Theaccuracy oftheFedBSOalgorithm
+Thetableshowstheperformanceofdifferentmodelsonthreedifferentdatasets(ML100K,
+ML1M, and Pinterest) based on two metrics: HR (Hit Rate) and NDCG (Normalized Dis-
+countedCumulative Gain).
+Firstly, as expected, GMF (Generalized Matrix Factorization) has consistently main-
+tained a leading position in our model performance analysis. This is mainly because all our
+modelsarebuiltonthefoundationofGMF.Asacentralizedmodel,GMFhasdemonstrated
+significantadvantagesintermsofperformance.
+The strength of GMF lies in its use of centralized data processing and computation,
+allowing it to fully utilize all available data for training, thereby achieving optimal perfor-
+19
+mance. In the context of federated learning, the data from each participating party is dis-
+tributed and cannot be directly accessed in its entirety. Even though we use GMF as the
+underlying model to build more complex systems in a federated learning environment, the
+performanceisstillconstrainedbydatadistributionandcommunicationlimitations. Hence,
+regardlessofhowmuchweoptimizefederatedlearningmodels,theirperformanceceilingis
+alwayssetbythecentralizedGMF model.
+Secondly,whencomparingFedFastwithFedAvg,itisevidentthatFedFastconsistently
+outperformsFedAvgacrossalldatasets,evenwiththesamenumberoftrainingrounds. This
+significantimprovementcanbeattributedtotheincorporationofclusteringtechniquesinthe
+FedFast model. By introducing the concept of clustering, FedFast leverages the similarity
+between users to enhance learning efficiency. This clustering mechanism allows the model
+tomaximizetheutilizationofusersimilarities,leadingtosuperiorperformancecomparedto
+FedAvg.
+FedBSOintroducesfurtherimprovementsontopofFedFast. WhileFedFastaccelerates
+theconvergenceofmodelparameters,ithasadrawback: theclusteringresultstendtoremain
+similar across training rounds. This similarity can easily lead the model parameters to get
+stuckinlocaloptima. FedBSOaddressesthisissuebyintroducingaprobabilisticmechanism
+thatexchangesorreplacesclustercenters. Thismechanismdisruptstheestablishedclustering
+resultstosomeextent,allowingfor reorganizationandpotentiallyavoidinglocaloptima.
+Table2
+Federated Centralised
+FedBSO FedAvg FedFast GMF
+HR0.8204 0.7328 0.8091 0.8378
+ML100K
+NDCG0.4335 0.3565 0.4237 0.4442
+HR0.8534 0.6917 0.8346 0.8577
+ML1M
+NDCG0.4489 0.3195 0.4325 0.4560
+HR0.9529 0.4604 0.9481 0.9632
+Pinterest
+NDCG0.5603 0.1946 0.5512 0.5814
+20
+4.3.2 Theconvergencerate oftheFedBSOalgorithm
+Acrossthreedatasets,FedBSOconsistentlyachievedgoodresults,withfinaloutcomes
+aligning closely with expectations. GMF, being a centralized model, converges the fastest
+andperformswellduetoitsabilitytolearnfromglobalinformation.
+FedAvg, on the other hand, struggles to effectively learn sufficient information even
+with a large number of rounds. This limitation is inherent to its training structure. FedFast
+significantly outperforms FedAvg because it incorporates clustering operations. By lever-
+aging the similarities between users, FedFast updates model parameters more efficiently,
+greatlyacceleratingconvergence.
+Building on the foundation of FedFast, FedBSO addresses the issue of local optima
+that FedFast can encounter. By mitigating this problem, FedBSO further enhances model
+performance,bringingitcloser tothatof centralizedmodels.
+The improvement of FedBSO over FedFast is clearly evident in six graphs. FedBSO
+reaches performance levels close to GMF with fewer iterations, indicating that it has faster
+convergenceandbetteroverallperformance.
+IntermsofHR@20andNDCG@20,FedBSOconsistentlyoutperformsFedFast,demon-
+strating that its performance gains are generalizable across different datasets. Compared to
+FedFast,FedBSOshowsmorestabilityinthelateriterations,withHR@20andNDCG@20
+valuesexhibitingminimalfluctuations. ThishighlightstheadvantagesofFedBSOinmodel
+training,showcasingitssuperiorandstable performance.
+Throughout the convergence process, it is observed that FedBSO consistently expe-
+riences a small plateau phase. We hypothesize that this phenomenon is due to the inherent
+instabilityintheclusteringoperationsduringtheearlytomiddlestagesofrapidconvergence.
+Atthesestages,thefrequentalterationsinclusteringresultscandisruptthestabilityofparam-
+eteraggregation. Thisinstabilityinparameteraggregationduringthetrainingperiodcauses
+the model to temporarily plateau before resuming its convergence. Such behavior indicates
+that while FedBSO is efficient, the dynamic nature of its clustering mechanism requires a
+21
+period of adjustment to stabilize the clustering results, ultimately leading to a more stable
+andeffectiveconvergenceinlater stages.
+a) ml-100kHR@20 b) ml-100kNDCG@20 c) ml-1mHR@20
+d) ml-1mNDCG@20 e) PinterestHR@20 f) PinterestNDCG@20
+Figure3 Figuressidebyside
+5. Conclusion
+In this thesis, we explored the effectiveness of the FedBSO algorithm in enhancing
+federated learning recommendation systems. The experimental results demonstrated that
+FedBSO consistently achieved superior performance across multiple datasets, confirming
+ourhypothesisthatincorporatingtheBrainstormingOptimization(BSO)algorithmcanmit-
+igatethelimitationsofexistingfederatedlearningmodels.
+The FedBSO algorithm offers a significant advancement in federated learning recom-
+mendationsystemsbybalancingthetrade-offsbetweenconvergencespeedandmodelaccu-
+racy. Its dynamic clustering and optimization strategies ensure efficient and stable perfor-
+mance, making it a valuable contribution to the field of federated learning. Future research
+could focus on further refining the clustering mechanisms and exploring the application of
+FedBSOinotherdomainsrequiringrobustandscalablerecommendationsystems.
+22
+5.1 Key Findings
+5.1.1 PerformanceComparison
+FedBSOconsistentlyoutperformedFedFastandFedAvgintermsofHR@20andNDCG@20
+metrics. Thisperformanceimprovementwasobservedacrossalldatasetsusedinourexperi-
+ments. TheresultsindicatethatFedBSO’sclusteringandoptimizationstrategiessignificantly
+enhancetheaccuracyandefficiencyof themodel.
+5.1.2 ConvergenceSpeed
+WhileGMF,asacentralizedmodel,achievedthefastestconvergenceduetoitsaccessto
+globalinformation,FedBSOshowedamarkedimprovementinconvergencespeedcompared
+to FedFast and FedAvg. FedBSO’s ability to reach performance levels close to GMF with
+feweriterationsunderscoresitsefficiencyinfederatedlearningscenarios.
+5.1.3 StabilityinTraining
+FedBSO demonstrated more stable performance in later iterations, with minimal fluc-
+tuations in HR@20 and NDCG@20 values. This stability can be attributed to FedBSO’s
+dynamicclusteringmechanism,whichpreventsthemodelfromgettingstuckinlocaloptima
+andensuresasmootherconvergencetrajectory.
+5.1.4 PlateauPhase
+During the convergence process, FedBSO exhibited a small plateau phase. This phe-
+nomenon can be explained by the instability in clustering operations during the early to
+middle stages of rapid convergence. Frequent changes in clustering results can disrupt the
+stability of parameter aggregation, causing temporary plateaus before the model resumes
+its convergence. This behavior indicates the need for a period of adjustment to stabilize
+the clustering results, ultimately leading to a more stable and effective convergence in later
+stages.
+23
+5.1.5 ImplicationsforFederatedLearning
+TheincorporationofBSOintofederatedlearningframeworksprovidesarobustsolution
+tothechallengesoflocaloptimaandslowconvergence. FedBSO’sabilitytodynamicallyad-
+justclusteringcentersandimproveparameteraggregationhighlightsitspotentialforbroader
+applicationinfederatedlearningenvironments.
+References
+[1] ZHANGB,WANGN,JINH.PrivacyConcernsinOnlineRecommenderSystems:Influencesof
+ControlandUserDataInput[C/OL].in:10thSymposiumOnUsablePrivacyandSecurity(SOUPS
+2014).MenloPark,CA:USENIXAssociation,2014:159-173.https://www.usenix.org/conferenc
+e/soups2014/proceedings/presentation/zhang.
+[2] MCMAHANB,MOOREE,RAMAGED,etal.Communication-EfficientLearningofDeepNet-
+worksfromDecentralizedData[C/OL].in:SINGHA,ZHUJ.ProceedingsofMachineLearning
+Research:Proceedingsofthe20thInternationalConferenceonArtificialIntelligenceandStatistics:
+vol.54.PMLR,2017:1273-1282.https://proceedings.mlr.press/v54/mcmahan17a.html.
+[3] COVINGTON P, ADAMS J, SARGIN E. Deep Neural Networks for YouTube Recommenda-
+tions[C/OL]. in: RecSys ’16: Proceedings of the 10th ACM Conference on Recommender Sys-
+tems.Boston,Massachusetts,USA:AssociationforComputingMachinery,2016:191-198.https:
+//doi.org/10.1145/2959100.2959190.DOI:10.1145/2959100.2959190.
+[4] HEX,LIAOL,ZHANGH,etal.NeuralCollaborativeFiltering[C/OL].in:WWW’17:Proceedings
+of the 26th International Conference on World Wide Web. Perth, Australia: International World
+WideWebConferencesSteeringCommittee,2017:173-182.https://doi.org/10.1145/3038912.30
+52569.DOI:10.1145/3038912.3052569.
+[5] CHENF,LUOM,DONGZ,etal.FederatedMeta-LearningwithFastConvergenceandEfficient
+Communication[J].,2019.arXiv:1802.07876[cs.LG].
+[6] NASRM,SHOKRIR,HOUMANSADRA.ComprehensivePrivacyAnalysisofDeepLearning:
+PassiveandActiveWhite-boxInferenceAttacksagainstCentralizedandFederatedLearning[C].
+in:2019IEEESymposiumonSecurityandPrivacy(SP).2019:739-753.DOI:10.1109/SP.2019
+.00065.
+[7] SHIY.BrainStormOptimizationAlgorithm[C].in:TANY,SHIY,CHAIY,etal.Advancesin
+SwarmIntelligence.Berlin,Heidelberg:SpringerBerlinHeidelberg,2011:303-309.
+[8] GRASSJ,ZILBERSTEINS.Anytimealgorithmdevelopmenttools[J/OL].SIGARTBull.,1996,
+7(2):20-27.https://doi.org/10.1145/242587.242592.DOI:10.1145/242587.242592.
+24
+[9] MUHAMMAD K, WANG Q, O’REILLY-MORGAN D, et al. FedFast: Going Beyond Average
+forFasterTrainingofFederatedRecommenderSystems[C/OL].in:KDD’20:Proceedingsofthe
+26thACMSIGKDDInternationalConferenceonKnowledgeDiscovery&Data Mining.Virtual
+Event,CA,USA:AssociationforComputingMachinery,2020:1234-1242.https://doi.org/10.11
+45/3394486.3403176.DOI:10.1145/3394486.3403176.
+[10] RENDLES.FactorizationMachines[C].in:2010IEEEInternationalConferenceonDataMining.
+2010:995-1000.DOI:10.1109/ICDM.2010.127.
+[11] HEX,ZHANGH,KANMY,etal.FastMatrixFactorizationforOnlineRecommendationwith
+ImplicitFeedback[C/OL].in:SIGIR’16:Proceedingsofthe39thInternationalACMSIGIRCon-
+ferenceonResearchandDevelopmentinInformationRetrieval.,Pisa,Italy,AssociationforCom-
+putingMachinery,2016:549-558.https://doi.org/10.1145/2911451.2911489.DOI:10.1145/2911
+451.2911489.
+[12] WANGM,FUW,HAOS,etal.ScalableSemi-SupervisedLearningbyEfficientAnchorGraph
+Regularization[J]. IEEE Transactions on Knowledge and Data Engineering, 2016, 28:1-1. DOI:
+10.1109/TKDE.2016.2535367.
+[13] CHENT,SUNY,SHIY,etal.OnSamplingStrategiesforNeuralNetwork-basedCollaborative
+Filtering[Z].2017.arXiv:1706.07881[cs.LG].
+[14] DESHPANDEM,KARYPISG.Item-basedtop-Nrecommendationalgorithms[J/OL].ACMTrans.
+Inf.Syst.,2004,22(1):143-177.https://doi.org/10.1145/963770.963776.DOI:10.1145/963770.9
+63776.
+[15] CHENG S, QIN Q, CHEN J, et al. Brain storm optimization algorithm: a review[J]. Artificial
+IntelligenceReview,2016,46:445-458.
+[16] KORENY.Factorizationmeetstheneighborhood:amultifacetedcollaborativefilteringmodel[C/OL].
+in:KDD’08:Proceedingsofthe14thACMSIGKDDInternationalConferenceonKnowledgeDis-
+coveryandDataMining.LasVegas,Nevada,USA:AssociationforComputingMachinery,2008:
+426-434.https://doi.org/10.1145/1401890.1401944.DOI:10.1145/1401890.1401944.
+[17] GENGX,ZHANGH,BIANJ,etal.LearningImageandUserFeaturesforRecommendationin
+SocialNetworks[C].in:2015:4274-4282.DOI:10.1109/ICCV.2015.486.
+[18] CHENGHT,KOCL,HARMSENJ,etal.Wide&DeepLearningforRecommenderSystems[C].
+in:2016:7-10.DOI:10.1145/2988450.2988454.
+[19] HEX,ZHANGH,KANMY,etal.FastMatrixFactorizationforOnlineRecommendationwith
+ImplicitFeedback[C/OL].in:SIGIR’16:Proceedingsofthe39thInternationalACMSIGIRCon-
+ferenceonResearchandDevelopmentinInformationRetrieval.,Pisa,Italy,AssociationforCom-
+putingMachinery,2016:549-558.https://doi.org/10.1145/2911451.2911489.DOI:10.1145/2911
+451.2911489.
+[20] ELKAHKY A M, SONG Y, HE X. A Multi-View Deep Learning Approach for Cross Domain
+UserModelinginRecommendationSystems[C/OL].in:WWW’15:Proceedingsofthe24thIn-
+ternationalConferenceonWorldWideWeb.Florence,Italy:InternationalWorldWideWebCon-
+ferences Steering Committee, 2015:278-288. https://doi.org/10.1145/2736277.2741667. DOI:
+10.1145/2736277.2741667.
+25
+[21] KORENY.Factorizationmeetstheneighborhood:amultifacetedcollaborativefilteringmodel[C/OL].
+in:KDD’08:Proceedingsofthe14thACMSIGKDDInternationalConferenceonKnowledgeDis-
+coveryandDataMining.LasVegas,Nevada,USA:AssociationforComputingMachinery,2008:
+426-434.https://doi.org/10.1145/1401890.1401944.DOI:10.1145/1401890.1401944.
+26
+Firstandforemost,Iwanttoexpressmydeepestgratitudetomygirlfriend. Duringmy
+fiveyearsofstudyattheSouthernUniversityofScienceandTechnology,Ifacednumerous
+challenges and setbacks. There were times when I would lie alone on the campus field,
+gazing up at the pitch-black night sky, with tears uncontrollably streaming down my face.
+Sometimes,Iwouldhelplesslyhitmyownbodywhiletakingashower,asifitcouldalleviate
+the pain in my heart. Other times, I would act indifferent, as if everything in this world had
+nothing to do with me, losing all aspirations for life. However, when I hit rock bottom,
+I met my current girlfriend. It was her presence that made me rediscover the meaning of
+life. Because of her, I realized that in this world, there is still someone willing to selflessly
+devoteherselftome,someoneworthcherishing,respecting,andprotecting. Herlove,likea
+beacon guiding me through the darkness, dispelled the gloom that shrouded my heart. With
+her by my side, I no longer felt lonely and helpless. I rekindled my passion for life and
+became full of anticipation for the future. I know that no matter what difficulties I may
+encounter in the future, I am no longer fighting alone because she will always be there for
+me, giving me strength. Secondly, I want to express my heartfelt gratitude to my research
+supervisor, Professor Shi Yuhui, and my senior fellow apprentice, Qu Liang. During the
+mostchallengingmomentsofmygraduationproject,itwastheirimmensehelpandsupport
+that pulled me through. My supervisor utilized his profound knowledge, keen insight, and
+rich experience to provide invaluable guidance for my research. He tirelessly answered my
+questions and helped me overcome one obstacle after another, encouraging me to bravely
+explore unknown academic territories. In particular, Senior Qu Liang gave me meticulous
+care and attention. He was not only a mentor and friend in my studies but also a brotherly
+companioninlife. WheneverIfeltlostandoverwhelmedbypressure,hewouldalwayscheer
+meupandhelpmeregainmyconfidence. Itwasunderthecarefulguidanceofmysupervisor
+and senior fellow apprentice that I was able to successfully complete my graduation project
+andachievesatisfactoryresults. Lookingbackonmyfive-yearjourneyofstudying,although
+it was full of twists and turns, I was never fighting alone. My girlfriend, supervisor, and
+27
+seniorfellowapprenticewerethepreciouspeoplebestoweduponmebyheaven. Itwastheir
+love, support, and help that gave me the courage to face all the difficulties and obstacles,
+shaping me into who I am today. In the future, I will always remember their kindness and
+repay them with my achievements and happiness. At the same time, I also hope to pass on
+this love and support to help and encourage more junior schoolmates who come after me,
+letting love and hope forever reside on our campus. Lastly, I sincerely wish all graduating
+studentsabrightfutureandahappylife! Ialsowishmyalmamater,theSouthernUniversity
+ofScienceandTechnology,continuedsuccessincultivatingmoreoutstandingtalentsforour
+country! Thankyou,everyone!
+28

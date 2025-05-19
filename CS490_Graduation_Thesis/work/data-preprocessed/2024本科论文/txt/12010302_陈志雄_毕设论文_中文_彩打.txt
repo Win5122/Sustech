@@ -1,0 +1,567 @@
+本科生毕业设计（论文）
+题 目： 基于时空轨迹数据的电动汽车行为模
+式建模与充电需求刻画
+姓 名： 陈志雄
+学 号： 12010302
+系 别： 计算机科学与工程系
+专 业： 计算机科学与技术
+指导教师： 宋 轩副教授
+2024 年 6 月 7 日
+诚信承诺书
+1.本人郑重承诺所呈交的毕业设计（论文），是在导师的指导下，
+独立进行研究工作所取得的成果，所有数据、图片资料均真实可靠。
+2.除文中已经注明引用的内容外，本论文不包含任何其他人或集
+体已经发表或撰写过的作品或成果。对本论文的研究作出重要贡献的
+个人和集体，均已在文中以明确的方式标明。
+3.本人承诺在毕业论文（设计）选题和研究内容过程中没有抄袭
+他人研究成果和伪造相关数据等行为。
+4.在毕业论文（设计）中对侵犯任何方面知识产权的行为，由本
+人承担相应的法律责任。
+作者签名：
+2024 年 6 月 7 日
+基于时空轨迹数据的电动汽车行为模式建
+模与充电需求刻画
+陈志雄
+计算机科学与工程系 指导教师：宋轩
+[摘要] 在快速发展的电动汽车领域，了解充电需求和用户行为是设
+计适当的基础设施和促进相关研究的关键。以往对电动汽车充电行为
+模式的调查由于数据可及性有限以及长期、不间断的监测和监测不足
+而受到阻碍。本研究通过对电动汽车 GPS 数据集的时空数据及电量变
+化进行广泛的长期观察，识别不同电动汽车的重要场所，明确其在不
+同场所不同状态的转变情况，从而生成电动汽车的行为特征。再结合
+不同区域所公开的电动汽车调查数据，采用基于电动汽车活动的行为
+预测模型，基于重要场所分布生成电动汽车时空轨迹，模拟出电动汽
+车在家、工作地及其他重要场所之间的行为状态转变，实现不同地区
+相同电动行为状态的转变预测。本文提出一种基于马尔可夫链的电动
+汽车时空轨迹预测模型，结合电动汽车的重要场所识别，生成一段时
+间内的电动汽车时空轨迹，用以分析和预测不同地区之间的电动汽车
+行为状态转变情况以及相应的充电需求，更好地利用一个模型解决不
+同地区间的电动汽车时空轨迹的缺失问题。
+[关键词]：电动汽车；时空轨迹预测；生成模型；GPS 轨迹
+I
+[ABSTRACT] In the rapidly developing field of electric vehicles
+(EVs), understanding charging needs and user behaviors is crucial for
+designing appropriate infrastructure and promoting related research.
+Previous studies on EV charging behavior patterns have been hindered by
+limited data accessibility, as well as insufficient long-term and continuous
+monitoring. This study conducted extensive long-term observations on
+the spatiotemporal data and power changes in EV GPS datasets to
+identify important locations for different EVs and clarify their state
+transitions in different locations. This allowed us to generate behavioral
+characteristics of EVs. Combined with publicly available EV survey data
+from different regions, we employed a behavior prediction model based
+on EV activities to generate spatiotemporal trajectories of EVs based on
+the distribution of important locations. This enabled us to simulate the
+state transitions of EVs between homes, workplaces, and other critical
+locations, and predict similar EV behavior patterns across different
+regions. In this paper, we propose a spatiotemporal trajectory prediction
+model for EVs based on Markov chains. By combining the identification
+of important EV locations, we generate spatiotemporal trajectories of EVs
+over a period of time. This approach can be used to analyze and predict
+the state transitions of EVs and corresponding charging needs across
+different regions, better addressing the issue of missing spatiotemporal
+trajectories for EVs in various locations using a single model.
+II
+[Key words]: Electric Vehicles, Spatiotemporal Trajectory Prediction,
+Generative Model, GPS Trajectories
+III
+目录
+1.引言 ................................................ 1
+1.1 背景介绍............................................ 1
+1.2 问题定义............................................ 1
+2.相关工作 ............................................ 2
+2.1 生活模式的定义和提取................................ 2
+2.2 数据收集与行为模式特征.............................. 3
+2.3 轨迹的生成模型...................................... 4
+3.数据预处理 .......................................... 4
+3.1 数据集.............................................. 4
+3.2 数据集的清洗........................................ 5
+3.3 停留位置检测和集群.................................. 6
+3.4 重要场所识别........................................ 6
+4.方法论 .............................................. 7
+4.1 基于活动的模型...................................... 7
+4.2 生成概率矩阵........................................ 8
+4.3 马尔可夫链模型...................................... 9
+4.4 电量估计方法........................................ 9
+4.5 充电状态定义........................................10
+5.验证与分析...........................................11
+5.1 充电时间对比........................................11
+IV
+5.2 充电时长对比........................................12
+5.3 充电开始时电量对比..................................13
+5.4 行为模式聚类与充电需求刻画..........................13
+6.结论 ................................................15
+参考文献...............................................17
+V
+1.引言
+1.1 背景
+从传统的内燃机汽车（ICEVs）到电动汽车（EVs）的转变对于减轻温室气体
+的影响和应对气候变化的[1][2]至关重要。各国政府正在促进采用电动汽车，以减
+少排放和改善城市地区[3][4]的空气质量。然而，城市地区电动汽车充电设施数量
+有限，公共充电站面临着充电点短缺、充电时间延长、建设成本高、电力需求大
+[5]等挑战。随着电动汽车的采用越来越多，潜在的充电需求可能会对城市电网[6][7]
+造成重大压力，使电动汽车产生的准确功率负荷估计至关重要。另一方面，驾驶
+电动汽车时对电池电量不足的担忧（即续航里程焦虑）可能导致不同的使用模式，
+这是由于充电基础设施的稀缺、有限的驾驶里程以及充电站[8][9]可用性的不确定
+性。通过对电动汽车驾驶员的行为模式的分析，可以为城市规划、充电基础设施
+发展和电力系统规划等各个领域提供有价值的见解和信息。这反过来又有助于缓
+解与推广电动汽车相关的挑战。先前的研究表明，人类轨迹表现出高度的时间和
+空间规律[10]，每个人的生活模式都可以提取分类[11]，而电动汽车的行为模式也同
+样适用。
+因此，探索电动汽车的行为模式对于应对当前时代城市规划和充电基础设施
+发展所面临的一些最紧迫的挑战是必不可少的。随着新技术的出现，大数据，特
+别是电动汽车的轨迹与电量等数据，为电动汽车在哪里和在干什么提供了最直接
+的指示，为后续理解电动汽车的行为模式方面发挥了关键的作用。
+1.2 问题定义
+目前，电动汽车运动轨迹与电量数据的收集依靠于特定的数据源。本论文基
+于数以百万计的GPS记录，构建出一个关于电动汽车行为模式的框架，可以有效
+地识别具有相似模式的汽车群体，并保留个体行为模式的数据特征，形成一个电
+动汽车出行充电的预测模型。构建这个预测模型，特别先解决以下两个方面：
+·运行状态：电动汽车是静止还是运动，充电还是放电？
+·位置状态：如何定义并判断电动汽车的位置状态？
+通过分析电动汽车的移动轨迹数据和电量实时数据，我们可以确定电动汽车
+的停放和充电等运行状态。同时，要生成对日常活动的全面表现，了解并分析电
+1
+动汽车经常停留的地点，确定不同地点的分类并不是一项简单的任务。许多因素
+在起作用，如电动汽车停留在此处的时间段、充电情况、特殊工作要求、工作日
+还是节假日等情况，甚至是天气条件。在本文中考虑到所有这些因素将会过于广
+泛。因此，本文将主要关注适用于绝大部分汽车行为模式的一些因素去进行预测
+模型的构建。需要强调的是，本研究的目的是构建电动汽车的行为模式特点，通
+过给定的数据和相关场所的位置，利用马尔可夫链模型，预测一个长期的电动汽
+车行为。然而，在交通系统便利的城市，复杂的电动汽车行驶数据，很难通过简
+单的轨迹识别去构建电动汽车行为模式的特点。因此，整个预测模型的构建可以
+转移到两个步骤：
+·分类并标签不同电动汽车的停留位置
+·归纳表示所有个体行为模式的数据特征
+2. 相关工作
+2.1 生活模式的定义和提取
+生活模式是城市计算、城市规划、交通等领域最热门的话题之一。一些研究
+可能将其称为“移动模式”[12]、“活动模式”[13]或“通勤模式”[14]。但他们都在
+讨论人类如何旅行和进行日常活动。家庭和工作场所之间的日常流动经常被讨论，
+其他地方包括旅游景点[15]，购物[16]和餐饮[17]也被细分为一些研究。
+过去，与生活模式相关的研究主要基于论官方记录或问卷调查的统计结果
+调查。相关研究，如 Kahneman等人[18]和Matz等人[19]对研究人们如何度过他们的
+时间和人们的活动模式。然而，相对较小的采样数据将在表现整体的所有特征时
+带有偏见研究人群[20]。它们不足以揭示大规模的群体生活模式特征。这个生活模
+式的相似性和差异性也依然存在以进一步量化。最近，随着事态的发展信息和通
+信技术、大数据位置为的生活模式提供了一个新的视角城市研究。智能卡数据[21]、
+Wi-Fi数据[22]、呼叫详细记录（CDR）数据[12]、手机数据[23]已被用于捕获基于个人
+活动的大规模的行为和生活模式。在所有种类中在带有位置信息的大数据中，GPS
+数据被认为在记录个人位置历史[24]。Ye等人[25]提出了系统描述如何从GPS数据中
+挖掘生活规律的框架。他们的工作专注于个人生活的重要计划，并将不同的特性
+融入重要位置。陈等人[26]和李等人[27]开采人们的周期性活动模式。
+2
+2.2 数据收集与行为模式特征
+电动汽车的充电行为具有高度随机性。用户选择何时何地充电以及充电时间
+的长短取决于多种因素，包括个人出行模式、电价、驾驶员经验、电动汽车的实
+时充电状态（SoC）、充电站的特征、快充或慢充等[28][29][30]。该领域的研究通常依
+赖大量真实世界数据进行统计分析，以准确描述电动汽车的使用模式和充电供需
+情况。数据集的选择直接决定了研究成果的准确性和可靠性。此类研究常用的数
+据集可分为三类：充电站数据、用户调查数据和车辆轨迹数据。
+充电站数据通常包括公共和私人充电设施充电活动的全面记录，包括充电持
+续时间、耗电量、充电时间和充电功率等细节。这类数据反映了用户充电行为的
+时空模式。例如，Hecht 等人[31]利用德国 20,000 个充电站的真实数据进行了分
+析。他们研究了充电的开始时间、结束时间、持续时间和平均利用率等指标。他
+们的研究讨论了不同类型充电站、不同速率充电器之间的使用差异，以及不同地
+点（如城市和农村地区）之间的差异。然而，充电站数据的一个重要局限是缺乏
+对个人用户行为的持续跟踪，无法了解个人用户的长期充电模式和行为。
+通过问卷调查、访谈等多种方式收集用户调查数据，以收集用户的充电行为、
+首选充电时间、充电桩选择等信息。这些数据有助于探索用户对充电设施和服务
+的态度、信念、意见和满意度[32][33]。例如，Wang 等人[34]利用多项式 Logit 模型
+分析了司机在各种情况下的充电选择，并从问卷调查数据中获得了启示。他们的
+研究结果表明，车辆状况、目的地状态和充电站的可用性等因素对充电行为有显
+著影响。重要因素包括剩余SoC、剩余续航里程和停车时间。然而，用户调查数
+据的方式存在局限性，数据收集的成本相对较高，时间框架通常有限，空间覆盖
+范围也可能受限，因此很难全面反映长期充电行为和需求模式。此外，被调查的
+人群可能有一定的局限性，不能代表整个电动汽车用户群体。
+通过 GPS 定位等技术收集车辆轨迹数据，提供车辆位置的时空信息。通过
+这些数据可以提取出行和停车记录，从而推断驾驶员的出行行为和充电需求[35]。
+例如，Yang 等人基于北京的私人电动汽车轨迹数据集，分析了用户出行行为的
+各个方面，包括出行距离、时间、频率、速度和活动地点。他们的研究结果表明，
+私人电动车用户经常表现出受建筑环境影响的规律性出行和活动模式[36]。同样，
+Deng 等人利用北京的电动车轨迹数据集研究了用户的路线选择，发现私人电动
+3
+车用户在通勤过程中受个人偏好、出行时间和路网结构的影响，经常选择相同或
+相似的路线[37]。不过，值得注意的是，由于数据收集设备的限制，目前研究中使
+用的大部分轨迹数据可能缺乏车辆电池电量的实时信息。车辆的充电状态和剩余
+续航里程等关键信息往往需要通过建模来推断。大多数研究主要侧重于分析电动
+汽车的出行行为特征，而较少强调探索充电行为与出行模式之间的内在关联机制。
+这些常用的数据源提供了对用户充电和出行行为的间接观察，使得对电动汽
+车充电需求的时间和空间分布模式进行精细分析具有挑战性。此外，它们对深入
+分析电动汽车行为机制和精确规划充电基础设施布局的支持也很有限。通过引入
+包含电池级信息的高分辨率轨迹级数据，我们可以直接、精确地捕捉和观察电动
+汽车在较长时间内的使用行为。这种方法解决了以往相关研究中数据资源的局限
+性，为分析电动汽车行为模式和充电供需特征提供了更准确可靠的支持。
+2.3 轨迹的生成模型
+随着技术的进步，利用智能卡、Wi-Fi和呼叫详细记录（CDRs）等大数据源
+已成为研究人类流动性的关键。各种方法已经被用来生成人类的运动轨迹。例如，
+Joubert等人[38]应用贝叶斯网络来研究人类活动的因果关系，并使用基于活动的
+模型生成移动模式。Yuan等人[39]利用神经微分方程来模拟人类活动的时空动力学
+并生成轨迹。基于活动的方法，如Jiang等人[40]提出的时间地理方法，已被用来
+生成人类流动轨迹，取代传统的基于调查或基于普查的方法。同样，XUE等人[41]
+也引入了转变，这是一种对人类流动性预测的新方法。他们将其视为一个语言翻
+译任务，通过使用一个移动到语言的模板，并使用一个双分支网络来生成未来的
+移动性描述。该转变为预测人类的移动模式提供了一种有效和开创性的方法。
+3.数据预处理
+3.1 数据集
+本文所使用的数据集分为两部分，来源于不同的时期的上海，如表1所示。
+数据集一包含2000辆电动汽车，其中BEV 330辆，PHEV 1639辆，REEV 31辆。
+在2020年10月-12月（3个月）中的行驶数据，数据为每15秒一次采样，采集
+的信息包括GPS数据，当前电量，当前充电状态，及车辆型号与电池信息等。数
+据集二包含 500辆电动汽车，在 2022 年的6 月所有的充电停车信息，并且该信
+4
+息也包含了重要场所的标签。
+表 1 数据集来源
+城市 持续时长 描述 电动汽车数
+上海 三个月 上海市全范围数百万条电动汽车数据 2000辆
+上海 一个月 某小区电动汽车充电停车信息及重要场所 500辆
+鉴于两个数据集的不同特征，它们将被用于不同的目的。具体来说，数据集
+一将用于训练电动汽车行为预测模型，并通过数据集二中重要场所的联合分布，
+生成模拟的出行链数据，从中提取出充电停放等行为特征，与数据集二中真实的
+充电停车信息进行对比，完成模型的验证。
+图1 停留地点的说明
+3.2 数据集的清洗
+预处理阶段的第一步包括对数据集整体进行分析，清除一些明显异常的数据，
+如图1（a）所示[11]。对于每辆电动汽车而言，由于数据集一为每15s收集一次数
+据，则需要将上下两次收集的数据进行对比，确定并保留正常的数据。异常的数
+据可能有以下几种情况：上下两次的时间数据间隔不为15s；上下两次的电量变
+化超过 1%；上下两次的经纬度数据发生变化，但汽车为充电状态等。将这些异
+常数据删除后，就可以开始预处理阶段的第二步了。
+3.3 停留位置检测和集群
+预处理阶段的第二步包括识别电动汽车个体在日常移动记录中停止的位置。
+停留点定义为个体持续时间超过指定时间阈值的位置，记为∆ts。考虑到GPS记
+5
+录的潜在容忍差，一组点 P  {P (ln g ,lat ,t ),...} 满足条件 d(P ,S)  r 和
+i i i i i
+决定一个停留点S。每个停留点包括到达时间 和出发
+t时ma间x−tmin ≤ ∆t。s属于轨迹的一部分但不对应于任何停留点的点被   认 =为   是   中间点，
+表示两   个 =停   留   点之间的旅行过程。如图 1（b）所示，对整个上海区域进行栅格
+化处理，每一个圆圈表示一个栅格，每个栅格的大小为500m * 500m，这一过程
+可以将所有的停留位置集计到不同的栅格中，而停留的中心区域则可以由每个栅
+格的中心表示，活动的范围就是所在的栅格中。电动汽车个体在一天内访问的一
+系列地方就可以归纳为一系列栅格，不仅可以加速简化计算，也可以更利于去进
+行接下来重要场所的识别工作。
+3.4 重要场所识别
+通过停留位置检测过程，提取出重要的位置。接下来的步骤涉及到确定与这
+些位置关联的语义。在一系列长期的访问地点中，某些地点表现出周期性的时空
+特征，包括固定的位置、到达时间和持续时间。基于 Li 等人[11]提出的方法，确
+定了三组不同的重要场所：
+·W（工作地）：这些位置对应固定工作场所，特征是固定到达时间和持续
+时间，多为白天停留。
+·H（家）：家的位置显示出一个固定的位置，而到达的时间和持续时间可
+能会有所不同，多为夜晚停留。
+·O（其他重要场所）：这些位置在位置、到达时间和持续时间方面表现出
+灵活性。
+在识别完不同电动汽车个体的重要场所后，为其打上标签。
+在经过数据清洗、停留点检测集群和重要场所识别标记之后，得到每辆车对
+应的重要场所。预处理阶段包括数据清理和特征提取，以方便后续的分析和建模。
+停留位置检测和聚类可以识别重要的场所，而重要场所识别分配标签和区分基于
+其不同的空间和时间特征。这些处理后的数据为进一步研究和分析人类移动模式
+提供了基础。
+4.方法论
+4.1 基于活动的模型
+6
+了解电动汽车（EVs）的行为分布对于城市规划和能源管理的几个关键方面
+至关重要，准确地建模电动汽车的行为有助于预测对电网的需求，并有助于制定
+有效满足这一需求的策略。基于这一动机，为了模拟涉及充电、用电和潜在充电
+需求的电动汽车使用特征，我们引入了基于活动的模型。
+电动汽车的停放地点主要有三类：W（工作地）、H（家）、O（其他场所）。
+构建活动模型并不仅仅是这三类，本文中将充电与非充电的状态融入到活动中，
+即整个活动模型为6种状态之间的转变，分别为：在家充电、在家不充电、在工
+作地充电、在工作地不充电、在其他场所充电、在其他场所不充电。
+图2 基于活动的模型框架
+在先前的一些研究中，这些模型通常只有汽车的时空轨迹数据，伴随一系列
+的经度-纬度-时间戳属性，对于电动汽车的调查并不充分。目前，随着越来越多
+新能源汽车技术升级，带有实时电量改变的时空轨迹数据越来越多，也给建模电
+动汽车的行为带来了生机。首先，从这些时空轨迹中检测到停留位置，周围相对
+更密集的经纬度点。然后，分离开停留时充电与不充电的数据。之后，根据上述
+规则，将停留点分为家庭、工作和其他类型。当提取关键位置时，一辆电动汽车
+的活动可以被抽象为一系列关键位置，节点具有坐标、时间戳和位置类型（家庭、
+工作和其他类型）的语义。关键位置搭配上充放电状态，形成一个个不同的节点。
+当节点聚合时，将形成电动汽车整个行为的链表。因此，关键位置序列是每辆电
+动汽车的行为表达，将所有电动汽车的序列相结合，即可得到。在这部分中，我
+7
+们将从真实的电动汽车时空轨迹数据中提取关键位置，生成关键位置序列。这个
+过程可以如图2所示。
+4.2 概率矩阵的生成
+在将电动汽车长期行为归纳到重要场所之间的转变后，描述电动汽车的行为
+显得不再费力。先前的研究大多是直接通过轨迹、地点等生成汽车的活动行为序
+列，但是这样往往更耗费时间，且取得的效果不是很好。本文通过引用重要场所
+的定义，更好地简化了汽车的长期行为，且完整保留了汽车的特征。此外，也创
+新性地将电动汽车的状态转变作为特征进行保留储存。
+在考虑到场所构建出的关键位置序列不易储存与分析，同时每辆汽车每小时
+仅有三类场所进行转变，搭配上充电或不充电情况，一天总共也仅有864种状态
+转变（24小时*6种状态*6种状态），即决定使用矩阵来保存所有电动汽车的行
+为状态转变序列。具体方法与图3[11]所示类似：
+图3 基于某电动汽车的概率矩阵生成
+首先对每个用户进行处理，由于每个小时之间的状态转变都存在36种情况，
+那么可以将这种状态转变标号，得出一天内所有时间转变的号码。然后将其储存
+到对应矩阵的相应位置，将每天的状态转变储存在矩阵中。需要注意的是，此处
+我们对工作日与非工作日进行了区分收集。最后将数据集一中每辆汽车三个月的
+数据统计，求得每个用户的概率矩阵，合并所有用户，便得到了整个地区电动汽
+车的行为模式的状态转变概率矩阵了。
+4.3 马尔可夫链模型
+马尔可夫链模型是一个数学工具，用于描述一种状态序列，其中每个状态的
+值取决于前面有限个状态。在一阶马尔可夫链中，下一个状态的转移仅依赖于当
+8
+前状态，即具有所谓的“马尔可夫性质”。这种性质意味着，在给定当前状态的
+情况下，未来的状态仅依赖于当前状态，而与过去的状态无关。而考虑到连续时
+间马尔可夫链可以很好地模拟电动汽车在连续时间间隔内的状态转变，本文便采
+用了马尔可夫链模型生成模拟的电动汽车出行链。
+在本文4.2中提到，我们已经得到了每辆车关键位置的序列，并将其储存成
+一个完整的概率矩阵，综合数据集二中某小区真实的家、工作地、其他场所的联
+合分布，可以得到不同用户的模拟出行链数据。
+马尔可夫链模型的使用需要特别注意两个方面，分别是初始状态和生成的时
+间段。对于初始状态，由于是完整的生成一个月的电动汽车出行数据，我挑选了
+周一的凌晨0点开始模拟，所以初始状态通过周一凌晨0点的概率矩阵来随机生
+成；对于初始的电量设置，也进行了一个相应的概率随机生成，很好地模拟了现
+实情况。对于生成的为期 30 天的模拟电动汽车出行链，包含了 4个周末，对于
+周末的模拟，需要将工作日的概率矩阵替换成非工作日的概率矩阵，使生成的结
+果更加合理。
+4.4 电量估计方法
+在模拟生成的电动汽车出行链中，包含了不同时间的汽车状态与位置，但是
+仅有这些数据是不够的，我们的目的是通过模拟生成的出行链去分析该小区的充
+电和停车情况，了解他们的行为模式以及充电需求。因此，需要将模拟生成的出
+行链数据开展电量估计，生成实时的电量，便于分析整个电动汽车群体的行为模
+式特征，刻画充电需求。
+在正常的生活中，电动汽车的电量总是有这么几个阶段：运行阶段，电动汽
+车的位置发生变化，电量也随着下降；停放不充电阶段，电动汽车的位置不变，
+电量也不发生变化；停放充电阶段，电动汽车的位置不变，但电量增加。对生成
+的出行链数据开展电量估计，就可以从这三个阶段入手。首先，设置电动汽车的
+最大电池容量，每百公里消耗，不同场所的充电速率等；其次，分析位置转移的
+路径，通过osmnx库抓取路网信息，对不同位置的行驶路线进行模拟，确认其行
+驶的距离和时间（如图4所示），从而确定电量消耗；最后，通过场所的不同，
+结合现实情况，将充电速率设置为不同的家用充电和商用充电，利用充电时长来
+计算充电的多少，得到每个时期汽车的电量变化。
+9
+图4 使用 osmnx库模拟的出行轨迹
+4.5 潜在充电需求识别
+根据连续的车辆轨迹信息和电池状态信息，充电状态包括可以识别和提取的
+电动汽车的充电和能量使用事件。电动汽车的潜在充电需求不会直接反映在数据
+中，挖掘和估计这些需求可以加强对电动汽车充电电网供需平衡的研究。
+当电动汽车的电池容量不足且处于停车状态时，我们认为它有潜在的充电需
+求。只有当电动汽车在特定位置保持静止超过一定时间时，才被确定为停放。如
+果可以在停车期间给车辆完全充电，那么最大充电容量是填充剩余电池容量所需
+的能量。事实上，充电需求的存在并不一定意味着电动汽车会立即充电。实际的
+充电行为也会受到剩余电量、驾驶员习惯和其他相关因素等因素的影响。
+图5显示了电动汽车在一天时间内的轨迹，全天的电量变化，以及确定的充
+电、潜在能源消耗和潜在充电需求。至于潜在的充电，它们从长期停车开始，直
+到电池完全充电或下一次能源使用事件发生。
+10
+图5 位置变化对应的充电状态变化
+5.验证与分析
+应用之前提出的方法，模拟生成了500辆车22880条状态数据。接下来我会
+将真实的数据集二进行充电时间、充电需求等特征提取，与模拟生成的出行链进
+行对比验证。
+5.1 充电时间对比
+电动汽车的充电时间分布代表着整体电动汽车的行为习惯，这对于验证我们
+预测模型的有效性和准确性起着重大意义。如图6所示，两图绘制的都是充电时
+间的分布曲线，左侧为真实数据所绘制的概率密度分布曲线，右侧为模拟生成数
+据的概率密度曲线。横坐标表示的是小时数，代表着一天的 24 个小时；纵坐标
+是概率密度，概率密度函数曲线下的面积表示了充电落在某个区间内的概率。
+首先，从整体趋势来看，真实数据与生成数据的充电时间概率密度分布图呈
+现出相似的增长或减少趋势。这表明在充电时间分配中，无论是生成数据还是真
+图6 充电时间概率密度分布（真实数据（左），生成数据（右））
+11
+实数据，都遵循了相似的充电规律。这种一致性反映出我们所使用的充电模型在
+模拟充电过程时具有一定的准确性。
+其次，仔细观察，我们会发现两者之间存在一些差异。例如，在0点时，生
+成数据的概率密度大大低于真实数据。这种差异可能是由多种因素导致的，如数
+据生成过程中的随机误差、模型参数的微小差异、实际充电环境中的干扰因素等。
+最后，需要指出的是，尽管生成数据与真实数据在充电时间图上存在一定差
+异，但这并不意味着我们的模拟方法完全失败。相反，这些差异为我们提供了改
+进和优化模型的机会。在未来的研究中，我们可以针对这些差异进行更深入的分
+析和探讨，以进一步提高充电过程模拟的准确性和可靠性。
+5.2 充电时长对比
+通过对真实数据与生成数据的统计，可以绘制图像如图7。左侧是真实数据
+的概率密度分布图，右侧为生成数据的频率分布直方图。横坐标是充电的时长，
+左边的单位是分钟，右边的单位是小时。在生成过程中，为了匹配前文提到的重
+要场所识别，一开始的设计是每个状态默认为每个小时持续时间最长的状态，所
+以想当然将生成数据中的小时数固定，得到整小时段的充电数据，所以绘制的是
+频率分布直方图而不是更精细直接的概率密度直方图。
+尽管两者绘制的图不同，但从整体的趋势也不难看出两者还是有很强的相似
+性，可以在一定程度上验证我们预测模型的有效性。美中不足的地方同样存在，
+正如刚刚所提到的，这样的一个频率分布直方图并不精细。当然，将生成数据随
+机上一个分钟，可以做到精细化，但是这样在并不严谨的同时，也对后面的每个
+小时状态识别造成不小的影响。这是未来研究中需要深入分析解决的问题。
+图7 充电时长概率密度分布-真实数据（左），频率分布直方图-生成数据（右）
+12
+5.3 充电开始时电量对比
+通过对真实数据与生成数据的充电开始时电量的统计，可以绘制图像如图8。
+左侧是真实数据统计出来的充电开始时电量分布，右侧是生成数据的分布。横坐
+标代表的是电量百分比，纵坐标为概率密度。
+不难看出真实的数据呈现出类似正态分布的曲线，而生成数据也大差不差，
+只是在一些细微处有所偏差，在一定程度上的表明模拟的情况良好，同时也说明
+着电量难把控的一点。不仅需要对汽车运行的初始电量进行各种参数估计，还需
+要精准把控行驶消耗的电量，这一点又与出行时间、出行路线息息相关。
+图8 充电开始时电量概率密度分布（真实数据（左），生成数据（右））
+5.4 行为模式聚类与充电需求刻画
+在上述对模拟情况验证对比之后，了解到模型的构建的较为完整，接下来正
+式开始对生成的出行链数据进行行为模式聚类分析，刻画充电需求。通过基于
+Li等人[11]提出的聚类方法，简化其聚类思路，采用 DBSCAN 聚类方法简单提取出
+几个类别进行分析和刻画。
+图9 某车辆位置及充电状态的转变
+13
+如图9所示，经过上述的全部过程之后，能够绘制出每一辆车的位置及充电
+状态的改变，这样可以给我们带来更加直观的感受。横坐标为模拟生成的一个月
+时间，纵坐标为每日的 24个小时，右下角的不同颜色表明了不同的车辆状态。
+本文的研究重点在于建立模型以及刻画充电需求，所以将充电的部分提取出来进
+行一个充电需求的刻画。
+图 10 为 A 类车辆代表的充电需求图，代表的车辆特征为早晨傍晚放电时间
+段稳定，充电时间大多都分布在中午和晚上，用电和充电需求极大。结合场所变
+化进行分析，这一类的车主符合正常的上班一族，早上出门去工作地、晚上下班
+回家，这一类人由于充电非常规律，潜在充电的时间会较少，但是充电的频繁性
+长期来看也是有着极大的潜在充电需求。
+图10 A 类车辆代表充电需求图
+图11 B 类车辆代表充电需求图
+图 11 为 B 类车辆代表的充电需求图，代表的车辆特征为仅在中午放电，而
+白天和晚上均有充电，用电和充电需求一般。结合生成链位置变化的分析，这一
+14
+类的车主使用汽车的频率一般，偶尔会驾车去其他场所。这一类人虽然用车并不
+多，但也有着部分的充电需求。同时，更重要的是，这类人对于充电时间和充电
+区域的随机性较大，未来可能随着使用电动汽车频率的增加而开始大量充电，存
+在着大量的潜在充电需求。
+图12 C 类车辆代表充电需求图
+图 12 为 C 类车辆代表的充电需求图，代表的车辆特征为仅在晚上充电，而
+中午和晚上均有放电，中午较多，用电和充电需求较少。结合生成链位置变化的
+分析，这一类的车主使用汽车的频率较少，偶尔会开车。这一类人因为用车的次
+数十分少，所需的充电需求也十分少。
+6.结论
+在节能环保的大力推动下，城市规划下的电动汽车备受关注，电动汽车的充
+电问题成了头号难题，找到电动汽车的充电需求成了重中之重。本研究提出了刻
+画充电需求问题的方法。在了解了电动汽车活动的基本特征后，我们可以重建和
+模拟在该地区的电动汽车的出行，并保证重建的出行链具有与初始统计数据相同
+的整体框架和个体水平的独特特征。在此基础上，我们引入了基于活动的模型，
+从位置变化和充电状态变化开始重建出行链。这项工作已经在多角度验证了模拟
+出行链的有效性和正确性，并且完成了对不同群体的充电需求刻画，为解决这类
+问题提供了一个较为完整的方法。
+当然，这项研究仍然存在一些局限性。在重要场所的识别中，只选取了重复
+频率最高的家与工作地进行分析，这与现实世界的场景相差很远。电量的估计方
+法中，简单的把电动汽车归纳为同一类进行分析，缺少了对于不同型号的车辆、
+15
+不同充电速率以及不同最大电池容量等不同情况的考虑。在行为模式聚类上面，
+也只是简单的进行分类，没有更加精细化去分析不同的车辆类别；并且对于充电
+需求的刻画，只是简单的分析了不同车辆种类的潜在充电需求。在未来的工作中，
+可以将研究做的更加深入，对不同的情况多加分析，将充电需求与实际的地理位
+置结合，更好地为城市规划、充电基础设施发展和电力系统规划等各个领域提供
+有价值的见解和信息。
+16
+参考文献
+[1] Jia Ying Yong, Vigna K Ramachandaramurthy, Kang Miao Tan, and Nadarajah
+Mithulananthan.Areview on the state-of-the-art technologies of electric vehicle, its impacts
+andprospects.Renewableandsustainableenergyreviews,49:365–385,2015.
+[2] LixinSitu.Electricvehicledevelopment:thepast,present&future.In20093rdInternational
+ConferenceonPowerElectronicsSystemsandApplications(PESA),pages1–3.IEEE,2009.
+[3] Viktoria Gass, Johannes Schmidt, and Erwin Schmid. Analysis of alternative policy
+instrumentstopromoteelectricvehiclesinaustria.RenewableEnergy,61:96–101,2014.
+[4] Ehsan Shafiei, Brynhildur Davidsdottir, Reza Fazeli, Jonathan Leaver, Hlynur Stefansson,
+and Eyjolfur IngiAsgeirsson. Macroeconomic effects of fiscal incentives to promote electric
+vehicles in iceland: Implications for government and consumer costs. Energy Policy,
+114:431–443,2018.
+[5] Bardia Mashhoodi and Nils van der Blij. Drivers’range anxiety and cost of new ev chargers
+inamsterdam:ascenario-basedoptimizationapproach.AnnalsofGIS,27(1):87–98,2021.
+[6] GA Putrus, Pasist Suwanapingkarl, David Johnston, EC Bentley, and Mahinsasa Narayana.
+Impactof electric vehicles onpower distribution networks. In 2009IEEEVehicle Power and
+PropulsionConference,pages827–831.IEEE,2009.
+[7] Kang Miao Tan, Vigna K Ramachandaramurthy, and Jia Ying Yong. Integration of electric
+vehicles in smart grid:Areview on vehicle to grid technologies andoptimization techniques.
+RenewableandSustainableEnergyReviews,53:720–732,2016.
+[8] C.E. Thomas. Fuel cell and battery electric vehicles compared. International Journal of
+HydrogenEnergy,34(15):6005–6020,2009.
+[9] Bin Zhang, Niu Niu, Hao Li, Zhaohua Wang, and Weijun He. Could fast battery charging
+effectivelymitigaterangeanxietyinelectricvehicleusage?evidencefromlarge-scaledataon
+travel and charging in beijing. Transportation Research Part D: Transport and Environment,
+95:102840,2021.
+[10] Yuhao Yao, Haoran Zhang, Lifeng Lin, Guixu Lin, Ryosuke Shibasaki, Xuan Song, and
+KepingYu.Internetofthings positioning technology based intelligentdelivery system. IEEE
+17
+TransactionsonIntelligentTransportationSystems,2022.
+[11] LI W, ZHANG H, CHEN J, et al. Metagraph-based Life Pattern Clustering with Big Human
+MobilityData[J].IEEETransactionsonBigData,2022.
+[12] S. Jiang, J. Ferreira, and M. C. Gonzalez, “Activity-based human mobility patterns inferred
+frommobilephonedata:AcasestudyofSingapore,”IEEETrans.BigData,vol.3,no.2,pp.
+208–219,Jun.2017.
+[13] S. Phithakkitnukoon, T. Horanont, G. Di Lorenzo, R. Shibasaki, and C. Ratti,
+“Activity-aware map: Identifying human daily activity pattern using mobile phone data,” in
+Proc.Int.WorkshopHum.Behav.Understanding,2010,pp.14–25.
+[14] R. A. Acheampong, “Spatial structure, intra-urban commuting patterns and travel mode
+choice:Analysesofrelationshipsinthekumasimetropolis,Ghana,”Cities,vol.96,2020,Art.
+no.102432.
+[15] S. Phithakkitnukoon, T. Horanont,A. Witayangkurn, R. Siri,Y. Sekimoto, and R. Shibasaki,
+“Understanding tourist behavior using large-scale mobile sensing approach:A case study of
+ilephoneusersinJapan,”PervasiveMobileComput.,vol.18,pp.18–39,2015.
+[16] T.Hu, R. Song,Y.Wang, X. Xie, andJ. Luo, “Mining shoppingpatterns for divergent urban
+regions by incorporating mobility data,” in Proc. 25thACM Int. Conf. Inf. Knowl. Manage.,
+2016,569–578.
+[17] F. Zhang, N. J. Yuan, K. Zheng, D. Lian, X. Xie, andY. Rui, “Exploiting dining preference
+for restaurant recommendation,” in Proc. 25th Int. Conf. World Wide Web, 2016, pp.
+725–735.
+[18] D. Kahneman, A. B. Krueger, D. A. Schkade, N. Schwarz, and A. A. Stone, “A survey
+method for characterizing daily life experience: The day reconstruction method,” Sci., vol.
+306,no.5702,pp.1776–1780,2004.
+[19] C. J. Matz et al., “Effects of age, season, gender and urban-rural status on time-activity:
+Canadian human activity pattern survey 2 (CHAPS 2),” Int. J. Environ. Res. Public Health,
+vol.11,no.2,pp.2108–2124,2014.
+[20] J. Chen et al., “Mining urban sustainable performance: GPS databased spatio-temporal
+analysisonon-roadbrakingemission,”J.CleanerProd.,vol.270,2020,Art.no.122489.
+[21] F. Devillaine, M. Munizaga, and M. Trepanier, “Detection of activities of public transport
+18
+usersbyanalyzingsmartcarddata,”Transp.Res.Rec.,vol.2276,no.1,pp.48–55,2012.
+[22] G.Poucin,B.Farooq,andZ.Patterson,“Activitypatterns mininginwi-fiaccesspointlogs,”
+Comput.Environ.UrbanSyst.,vol.67,pp.55–67,2018.
+[23] T. Qin, W. Shangguan, G. Song, and J. Tang, “Spatio-temporal routine mining on mobile
+phonedata,”ACMTrans.Knowl.Discov.Data,vol.12,no.5,pp.1–24,2018.
+[24] V. W. Zheng, Y. Zheng, X. Xie, and Q. Yang, “Collaborative location and activity
+recommendationswithGPShistorydata,”inProc.19thInt.Conf.WorldWideWeb,2010,pp.
+1029–1038.
+[25] Y. Ye, Y. Zheng, Y. Chen, J. Feng, and X. Xie, “Mining individual life pattern based on
+location history,” in Proc. 10th Int. Conf. Mobile Data Manage., Syst. Serv. Middleware,
+2009,pp.1–10.
+[26] X.Chen,D.Shi,B.Zhao,andF.Liu,“PeriodicpatternminingbasedonGPStrajectories,”in
+Proc.Int.Symp.Adv.Elect.Electron.Comput.Eng.,2016,pp.181–187.
+[27] C. Li, J. Hu, Z. Dai, Z. Fan, and Z. Wu, “Understanding individual mobility pattern and
+portraitdepictionbasedonmobilephone data,” ISPRS Int. J.GeoInformation,vol. 9,no. 11,
+2020,Art.no.666.
+[28] RanBi,Jiajian Xiao,VaisaghViswanathan,andAloisKnoll.Influenceofchargingbehaviour
+given charging station placement at existing petrol stations and residential car park locations
+insingapore.ProcediaComputerScience,80:335–344,2016.
+[29] Elham Azadfar, Victor Sreeram, and David Harries. The investigation of the major factors
+influencing plug-in electric vehicle driving patterns and charging behaviour. Renewable and
+SustainableEnergyReviews,42:1065–1076,2015.
+[30] Michael von Bonin, Elias Dörre, HadiAl-Khzouz, Martin Braun, and Xian Zhou. Impact of
+dynamic electricity tariff and home pv system incentives on electric vehicle charging
+behavior:Studyonpotentialgridimplicationsandeconomiceffectsforhouseholds.Energies,
+15(3):1079,2022.
+[31] Christopher Hecht, Saurav Das, Christian Bussar, and Dirk UweSauer. Representative,
+empirical, real-world charging station usage characteristics and data in germany.
+ETransportation,6:100079,2020.
+[32] Jing Zhang, Jie Yan, Yongqian Liu, Haoran Zhang, and Guoliang Lv. Daily electric vehicle
+19
+charging load profiles considering demographics of vehicle users. Applied Energy,
+274:115063,2020.
+[33] JieYan, Jing Zhang,Yongqian Liu, Guoliang Lv, Shuang Han, and Ian Emmanuel Gonzalez
+Alfonzo. Ev charging load simulation and forecasting considering traffic jam and weather to
+supporttheintegrationofrenewablesandevs.Renewableenergy,159:623–641,2020.
+[34] Yue Wang, Enjian Yao, and Long Pan. Electric vehicle drivers’ charging behavior analysis
+consideringheterogeneityandsatisfaction.JournalofCleanerProduction,286:124982,2021.
+[35] Sina Baghali, Zhaomiao Guo, and Samiul Hasan. Investigating the spatiotemporal charging
+demandandtravelbehaviorofelectricvehiclesusinggpsdata:Amachinelearningapproach.
+In2022IEEEPower&EnergySocietyGeneralMeeting(PESGM),pages1–5.IEEE,2022.
+[36] Xiong Yang, Chengxiang Zhuge, Chunfu Shao, Yuantan Huang, Justin Hayse Chiwing G
+Tang, Mingdong Sun, Pinxi Wang, and Shiqi Wang. Characterizing mobility patterns of
+privateelectricvehicleuserswithtrajectorydata.AppliedEnergy,321:119417,2022.
+[37] Jihao Deng, Lei Gao, Xiaohong Chen, and QuanYuan.Taking the same route every day? an
+empiricalinvestigationofcommutingroutestabilityusingpersonalelectric vehicletrajectory
+data.Transportation,pages1–27,2023.
+[38] JOUBERT J W, DE WAAL A. Activity-based travel demand generation using Bayesian
+networks[J].TransportationResearchPartC:EmergingTechnologies,2020,120:102804.
+[39] YUAN Y, DING J, WANG H, et al. Activity Trajectory Generation via Modeling
+Spatiotemporal Dynamics[C]//Proceedings of the 28th ACM SIGKDD Conference on
+KnowledgeDiscoveryandDataMining.2022:4752-4762.
+[40] JIANG S,YANGY, GUPTAS, et al. The TimeGeo modeling framework for urban mobility
+without travel surveys[J]. Proceedings of the NationalAcademy of Sciences, 2016, 113(37):
+E5370-E5378.
+[41] XUE H, SALIM F D, REN Y, et al. Translating human mobility forecasting through natural
+language generation[C]//Proceedings of the FifteenthACM InternationalConferenceonWeb
+SearchandDataMining.2022:1224-1233.
+20

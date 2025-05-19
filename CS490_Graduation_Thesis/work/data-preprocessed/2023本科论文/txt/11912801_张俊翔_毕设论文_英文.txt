@@ -1,0 +1,545 @@
+Trajectory Generation Model Based on
+Human Mobility Characteristics
+Zhang Junxiang
+(DepartmentofComputerScienceandEngineering ThesisAdvisor：SongXuan)
+[ABSTRACT]: The aim of this graduation project is to use computers to re-
+construct and simulate individual pedestrian trajectories at the individual level
+in large cities, based on group-level statistical data. The trajectory reconstruc-
+tion consists of two steps: firstly, using publicly available population survey
+dataandpersonalactivitycharacteristicsgeneratedthroughdatasets,anactivity-
+based behavior prediction model is employed to generate crowd trajectories
+based on activity characteristics. The TimeGeo model is utilized and improved
+to differentiate between commuters and non-commuters in terms of their be-
+havioral patterns and simulate the main locations where crowds stay in the tra-
+jectory reconstruction. Secondly, trajectory completion is performed for each
+inter-stop trajectory. As the Tokyo dataset used in this graduation project has a
+high proportion of rail transit travelers, special emphasis is placed on studying
+rail transit behavior between different stop locations. The author proposes a
+Markov chain-based rail transit network flow prediction model to analyze and
+predict train passengers’ travel trajectories between different origins and des-
+tinations. Finally, the author improves and proposes a trajectory generation
+model that achieves improvements in metrics such as grid population accuracy
+and OD flow accuracy compared to baseline models based on GAN models.
+[Key words]: Human Mobility, Spatiotemporal Prediction, Generative
+Model, GPS Trajectory
+I
+• How: how dopeople travelamonglocations?
+By analyzing human mobility patterns, we can determine the sequence of locations
+peopletravelto. Additionally,togenerateacomprehensiverepresentationofdailyactivities,
+itiscrucialtounderstandhowindividualsmovefromoneplacetoanother.
+However, determining the specific mode of transportation between locations is not a
+straightforwardtask. Numerousfactorscomeintoplay,suchasanindividual’sdemographic
+characteristics,economicstatus,theroadnetwork,availabilityofbuildingfacilities,andeven
+weather conditions. Considering all these factors in this thesis would be overly extensive.
+Therefore,thisthesiswillprimarilyfocusononeofthemostsignificanttransportationmodes
+inmetropolitanareas,trains.
+Hence, the objective of this research is to determine how individuals utilize trains for
+theirjourneys,giventhesourceanddestinationlocations. Thesimplestapproachwouldbeto
+identifythenearesttrainstations. However,incitieswithhighlycomplextransitsystemslike
+TokyoMetropolitanorGreaterLondon,relyingsolelyonproximitymightyieldsuboptimal
+results.
+Consequently,the taskfortrajectorygenerationcanbetransferredtotwosteps:
+• Indicatingthelocationsofdifferenttypesthatpeopletraveltoeveryday.
+• Indicatingtheroute thatpeople travelamongdifferentlocations.
+2. Related Works
+2.1 Characteristics of Human Mobility
+The study of human mobility holds paramount significance and has been extensively
+exploredbyresearchersacrossvariousdisciplines,includingphysics,geography,transporta-
+tion,andcomputerscience. Extensiveresearchhasfocusedoninvestigatingthefundamental
+characteristicsofhumanmobility,providingatheoreticalbasisforestimatingtraveldemands
+and generating travel trajectories. Notably, Brockmann et al.[9] discovered that the distribu-
+tion of jump size and wait time in human activity follows a fat-tailed distribution. Song et
+2
+al.[10] utilizedsmartphonerecordstoanalyzethescalinglawofhumanmobility,resultingin
+the development of a quantitative model that effectively captures the statistical features of
+humantravel.
+2.2 Periodicity of Traveling Behaviors
+Moreover,throughtheanalysisofmobilephonerecords,Gonzalezetal.[6]demonstrated
+the highly regular nature of human activity in terms of both spatial and temporal patterns.
+They found that individual mobility patterns can be represented by probability distributions
+associated with these characteristics. In contrast, Song et al.[11] measured the entropy of
+individual trajectories and argued that despite the presence of general travel patterns, the
+specifictrajectoryofanindividual,whichheavilyreliesondailyroutines,lackspredictabil-
+ity. Schneideretal.[12] identifieddailyactivitymotifsthatcanpredictmobilitypatternsona
+daily basis for months. Pappalardo et al.[13] discovered the recurrent nature of human travel
+demands and introduced the concept of ”returners” and ”explorers” to elucidate the spatial-
+temporal correlation in human mobility patterns. Additionally, Issacman et al.[14] proposed
+a model that utilizes call detail records to predict the scale of migration among different
+metropolitanareas.
+2.3 Generation Models of Trajectories
+With advancements in technology, the utilization of big data sources such as smart
+cards[4,15], Wi-Fi[16], and call detail records (CDRs)[6] has become essential for studying hu-
+man mobility. Various methods have been employed to generate human trajectories. For
+instance, Joubert et al.[17] applied Bayesian Networks to investigate the causality of human
+activity and generate mobility patterns using activity-based models. Yuan et al.[5] leveraged
+neural differential equations to simulate the spatiotemporal dynamics of human activities
+and generate trajectories. Activity-based methods, such as the time geography approach
+proposed by Jiang et al.[8], have been adopted to generate human mobility trajectories, re-
+placingtraditionalsurvey-basedorcensus-basedapproaches. Pappalardoetal.[18]developed
+DITRAS,acomprehensiveframeworkforsimulatinghumanmobilitypatterns. Thisframe-
+3
+workincludesadata-drivenalgorithmthatcapturesindividuals’routine-breakingtendencies
+and a trajectory generator based on preferential exploration and return, resulting in the gen-
+eration of trajectories that accurately reproduce the statistical properties of real human mo-
+bility. Furthermore, He et al.[19] proposed a framework for generating human mobility data
+in new cities by transferring knowledge from source cities. Their approach encompasses
+three stages: mobility intention transfer, origin-destination generation, and path generation,
+whichwerevalidatedthroughextensiveexperimentsandacasestudyinanewlydeveloped
+region. Feng et al.[20] introduced DeepMove, an attentional recurrent network that incorpo-
+rates a multi-modal embedding recurrent neural network and a historical attention model.
+DeepMove addresses challenges associated with complex sequential transition regularities,
+multi-levelperiodicity,andheterogeneityinhumanmobilityprediction. Itoutperformsstate-
+of-the-art models and provides interpretable predictions. Nguyen et al.[21] utilized social
+networking data from Go Walla to collect and validate models of human mobility and rela-
+tionships. Their objective was to provide more realistic movement and social relationship
+models for the analysis and evaluation of applications in opportunistic networks and com-
+plex mobile networks. In a similar vein, Hao et al.[22] introduced SHIFT, a novel approach
+to human mobility forecasting. They treated it as a language translation task by employ-
+ing a mobility-to-language template and utilizing a two-branch network to generate future
+mobility descriptions. SHIFT offers an effective and groundbreaking method for predicting
+humanmobilitypatterns.
+3. Data Preprocessing
+3.1 Datasets
+Thedatasetsutilizedinthisthesisare presentedinTable1.
+Thesedatasetshave beenobtainedfromdifferentsources:
+• Tokyo Dataset: This dataset comprises GPS records of 5,000 individuals in Tokyo
+overaperiodofafewweeks. Eachdatapointincludeslongitude,latitude,timestamp,
+andthecorrespondingtravelmode.
+4
+City Duration Description Amount of People
+Key location series in Tokyo,
+Tokyo 3 Months 5,000
+with 1-hour accuracy
+Call Detail records of cell phone
+Shanghai 1 Month Over 100,000
+users in Shanghai in Nov. 2019
+Table1 DataSources
+• ShanghaiDataset: TheShanghaidatasetconsistsofCallDetailRecords(CDRs)from
+over100,000individualsinShanghaicollectedoveramonth. Duetoprivacyconcerns,
+accesstothisdatasetisrestrictedandnotpubliclyavailable.
+Giventhediversecharacteristicsofthesedatasets,theywillbeutilizedfordistinctpur-
+poses. Specifically, the Tokyo dataset will be employed for training trajectory-generation
+models, while the Shanghai dataset will be utilized to extract Points of Interest (POIs) to
+enhancethemodelandgeneratetrajectories.
+3.2 Stay Location Detection and Clustering
+The initial step in the preprocessing stage involves identifying the locations where in-
+dividuals halt in their daily mobility records. A stay point is defined as a location where an
+individualspendsa durationlongerthanaspecifiedtimethreshold,denotedas∆t .
+s
+ConsideringthepotentialtoleranceofGPSrecords,asetofpointsP = {P (lng ,lat ,t ),...}
+i i i i
+that satisfies the conditions d(P ,S) < r and t −t ≤ ∆t determines a stay point S.
+i max min s
+Eachstaypointencompassesthearrivaltimet = t anddeparturetimet = t .
+a min d max
+Points that are part of the trajectory but do not correspond to any stay points are con-
+sideredastheintermediatepoints,representingthetravelprocessbetweentwostaypoints.
+Lietal.[23] proposedtheutilizationoftheDBSCANalgorithmtofurtherclustertheset
+of stay points based on point density. This process leads to the generation of stay locations,
+representedbythecentroidsofeachcluster. Theselocationsserveasaseriesofplacesvisited
+byindividualsinaday.
+5
+snoitacoLrehtO
+)d
+snoitacoLemoH
+)c
+snoitacoLkroW
+)b
+snoitacoLllA
+)a
+snoitacoLfosepyTtnereffiD
+1erugiF
+7
+types of locations based on their spatial and temporal characteristics. These processed data
+provideafoundationforfurther researchandanalysisofhumanmobilitypatterns.
+4. Methodology
+4.1 Activity-Based Models
+Urban travel demands have been widely applied in many fields for policy makers, in-
+cluding detecting traffic modes [6], generating temporal POIs of regions [7], detecting hu-
+manflows[8],andconstructingtourismfootprint[9]. Toillustratetheurbantraveldemands,
+activity-based model is introduced. There are mainly three states of the stay locations that
+areassumedforindividualagents[5]: home,work,andothers.
+Once the agent may have several stay locations that follows the H/W/O features , the
+indexes of each state are used to mark the frequency of the agent in each state. (e.g., W0 is
+themostfrequentworkplaceof theagent,W1isthesecondmostfrequent,andsoon).
+Constructing activity models is not trivial. Traditionally, these models are based on
+census or household travel surveys. Currently, many activity-based models are extracted
+fromcellphonedata. Theinputforcurrentactivity-basedmodelsarecellphonerecords(e.g.,
+CDRs, GPS trajectories, etc.), as a series of longitude-latitude-timestamp attributes. First,
+stay-locations are detected from the series, around with relatively more densely scatters the
+longitude-latitude points. Then, the stay-points are classified into the types of home, work,
+andother,withthe rulesabove.
+As key locations are extracted, the activities of a person can be abstracted into a series
+ofkeylocations,withthenodeswithsemanticsofcoordinates,timestamps,andthelocation
+types(oneofHome,Work,andOther). Asthenodesaggregate,thelinkedlistofkeylocation
+isformed. Thus,thekeylocationseriesisalsoasemanticseries,whichispotentiallyableto
+beprocessedwithNLPmodels. Inthispart,wearegoingtogeneratethekey-locationseries
+with the extracted key locations from ground truth Tokyo trajectory data. The process can
+beillustratedasFigure2:
+8
+Figure2 FrameworkforActivity-BasedModels
+4.2 TimeGeo Framework
+Ref. [5]hasproposedTimeGeoFrameworktomodelthedynamicsofhumanactivities.
+In Ref. [5], human activities are a series of state transitions powered by travel demands. In
+eachstepoftransition,thestepcanbedividedintotwodecisions:
+1)whattodoonthenextstep,and
+2)wheretogoforthechoice.
+The decisions correspond to two choices: temporal choices, and spatial choices. Table 2
+showstheparametersinTimeGeomodel:
+4.2.1 ModelingWorkingChoices
+Individuals in the city are divided into two groups: commuters and non-commuters.
+The difference between them is that whether working location exists in the key-locations
+extractedfromtheirtrajectories. Forthecommuters,theirworkingactivitycanbetreatedas
+apuretemporalchoice,withfixedtimeandlocation. InsteadofCDRwhoseresolutionistoo
+lowtoextractworktimeandduration,theindividualwork-shiftcanbesampledfromdistri-
+9
+Model Name Note Code Est.Value Source
+Theempiricalprobabilityofselectingthek-th
+EPR α locationasadestinationisP(k)k−α _alpha 0.86 GivenbyTimeGeopaper
+γ Probabilitytogoouthomeinaday _gamma 0.89 Statisticdatafromgovernment
+θ Probabilitytohaveawork-breakinaday _theta 0.2 GivenbyTimeGeopaper
+tw0 Workstartingtime(inhours) _t_w0
+Sampledfrom2DGMM
+WorkChoice ∆tw Workduration(inhours) _delta_tw
+Sampled
+Normalizeddeviationofworkbreakmidpoint
+Dw
+fromworkmidpoint
+_D_w SampledfromCauchydistributioin
+tb Breakduration(inhours) _delta_tb Sampledfromlog-normaldistribution
+tb0 Breakstartingtime(inhours) _t_b0 Inferredfromtb0=tw0+(tw−tb)(0.5+Dw)
+Parameterforgeneratethetimegapbetween
+β,τ _beta,_tau 0.8,0.17 β=0.8,τ=17GivenbyScikit-MobilityPackage
+stepsbypowerlaw
+P(t) Travelprobabilitybytimet _P_t Sampled Sampledfromgroundtruth
+HomeOtherChoice
+Likelihoodforchoosingtomovewhilenotat
+β1
+home
+_beta1 avg=48.1
+IndividualFeatures
+Likelihoodforchoosingtoexplorewhilenot
+β2
+athome
+_beta2 avg=4.6
+nw Weeklyhome-basedtournumber _n_w avg=7.4
+Table2 ParametersofTimeGeoFramework
+butions. The work start time and work duration time are sampled from 2-D joint Gaussian
+mixture distribution. One also may have a noon-break during work, and its probability is
+θ. ThebreaktimeissampledfromCauchydistribution,andbreakdurationissampledfrom
+log-normaldistribution. Thesamplingresultgivesthetime-slotsforworkingand(possibly)
+breaking.
+4.2.2 ModelingNon-WorkingChoices
+During the time that the agent is not working, we need to determine that when she is
+going to travel, and the destination for the travel. This decision process is given by EPR
+model [3]. In EPR model, there are three parameters to describe the travel demand for an
+individual:
+• n : Weeklyhome-basedhometripnumber
+w
+• β Burstrate: likelihoodforchoosingtoexplore
+1
+• β Dwellrate: likelihoodforchoosingtomove
+2
+The time that one stays in the location t is sampled from a fat-tailed distribution. As
+L
+each t goes, the agent decides: to go home, to stay in the location, or travel to another
+L
+10
+location,followingtheprobability:
+• Attime-slott,theprobabilitytotravelisP (t)
+• If theagentisathome,theprobabilityshe choosestomoveisn P (t)
+w
+• If theagentisnotathome,the probabilityshe choosestomoveisβ n P (t)
+1 w
+• If the agent is not at home, and she chooses to move, the probability she chooses to
+exploreanotherlocationisβ n P (t)
+2 w
+During the non-working time, the location that the individual visits can be determined
+throughtheprobabilityabove,andthe key-locationseriesaregenerated.
+4.3 Markov-Train
+4.3.1 TrainsasaMarkovChain
+Out of the concern of the complexity, it is obvious that the railway network could be
+a bidirectional graph, where the stations are nodes, the rail links are edges, and the trains
+running on the railway and their passengers could be the edge features. Suppose that each
+train-riding behavior is independent, when the train moves from one station to another one,
+one iteration, or the state transition occurs. Figure 3 shows the railways and stations near
+Xizhimen station in Beijing. Correspondingly, treating the stations and metro lines near
+Xizhimenstation,theadjacentmatrixof thegraphisliketable3
+Figure3 RailwayNetworkNearXizhimenStation
+The Tokyo dataset records the station that the passenger goes through. Counting the
+number of people that travels in one railway section, using the frequency as the probability,
+11
+XZM XJK DWY JST CGZ DZS PAL
+XZM 1 1 1 1 1 1 0
+XJK 1 1 0 0 0 0 0
+DWY 1 0 1 0 0 0 0
+JST 1 0 0 1 0 0 1
+CGZ 1 0 0 0 1 1 0
+DZS 1 0 0 0 1 1 0
+PAL 0 0 0 1 0 0 1
+Table3 AdjacentMatrixofRailwayNetworkNearXizhimenStation
+From/To XZM XJK DWY JST CGZ DZS PAL
+XZM 0.2 0.1 0.1 0.1 0.2 0.4 0
+XJK 0.1 0.9 0 0 0 0 0
+DWY 0.1 0 0.9 0 0 0 0
+JST 0.1 0 0 0.6 0 0 0.4
+CGZ 0.2 0 0 0 0.7 0.1 0
+DZS 0.4 0 0 0 0.1 0.5 0
+PAL 0 0 0 0.4 0 0 0.7
+Table4 SampleoftheInitialTransitionMatrix
+we can build up the transition matrix of the Markov chain. In the matrix, the value in po-
+sition (x, y) represents that: as the passenger is in station x (state x), the possibility that the
+passengerwilltakethetraintostationy(theMarkovchainwilltransferitsstatetoy).
+4.3.2 InitialStateofMarkov-Train
+The Initial value for the transition matrix M could be like table 4, where the sum of
+0
+each column and each row is 1.0. Note that the value of M is non-zero only at where two
+0
+train stationsareconnected.
+From the frequency of the passengers’ riding behavior among stations from Tokyo
+dataset, we can initialize the Markov transition matrix of the railway system. The transi-
+tion matrix is illustrated in figure 4. The station in the matrix includes Toei-Mita Line, and
+Toei-Asakusa Line, two underground train lines operated by Tokyo Metropolitan Bureau of
+Transportation,whichgothroughmanytrainstationswithhugecapacityofpassengers.
+12
+Figure4 PartofInitialTransitionMatrixofTokyoRailwaySystem
+13
+Thisfigurereflectsphysicalfeaturesofthe railwaysystem,like:
+• HakusanstationisadjacenttoSengokustationandKasugastation,inthesameline.
+• Kokkai-gijidomaestationisatransfer stationamongthreelines.
+• ManypassengerstakeoffthetrainatOmoristation.
+4.3.3 IterationofMarkov-Train
+AstheMarkovtrainiterates,the transitionmatrixiteratesas
+M = M M
+i+1 i 0
+Physically, while the transition matrix iterates once, it indicates that all the passengers
+intherailwaynetworktravelfromonestationtoanother,enteringthestation,orleavingthe
+station. For example, M [x,y] means the passenger departs at station x, the probability for
+30
+the train to exist at station y after 30 “steps”. If the passenger travels to the same station
+thathetravelsfrom,physicallyitindicatesthatthispassengergetsoffthetrainatthatstation.
+Therefore, it statistically simulates the feature of the passengers’ train-riding behavior with
+theMarkovChain.
+5. Experiment
+5.1 Fitting the Individual Parameters in TimeGeo
+AccordingtoJiangetal.[8],eachpersonhashisorherownpreferenceofgoingouthome,
+exploringsomewherenew,orgohomewhilenotathome. Thesetravelfeaturesareillustrated
+byindividualparameters. Individualparametercapturesthecircadiumspatialactivitywhich
+islessrelatedtotemporalfeatures. Thus,theindividualfeaturesmostlydescribeswherethe
+person will determine to go while not at work, since working activity is treated as a pure-
+temporal activity (work location has a fixed start-time, duration, and location, where only
+the first two of them need to be determined. There are three individual parameters for one
+person:
+14
+• Weekly-BasedTourNumber: n
+w
+• DwellRate: β ,tocapturetheprobabilityofgoinghome while atother locations.
+1
+• Burst Rate: β , to capture the probability of going out to explore while the person
+2
+comesbackhomefromnon-workinglocations.
+Specifically, these three individual parameters in an area (e.g. in a city) follows distri-
+butions. Theyfollowthedistributionsbelow
+• Log-normalDistribution: weekly-basedtour number anddwellrate,n andn β
+w w 1
+• WeibullDistribution: burstraten β
+w 2
+Thus, the distribution of the people living in an area can be inferred from the ground
+truth key-location activity series of the people. Weekly-based tour number is calculated by
+thenumberoftimesthatpeopletraveloutfromhomeinthewholeweek. Dwellrateisgiven
+by the percentage of people who come home as the next step while they are not working
+(the weight of O − H series out of all O −∗ series). Burst rate is given by the percentage
+of people who travel out home while they just came back home (the weight of O −H −O
+series out of all O −H −∗ series. Fitted n β Distribution The distributions are shown in
+w 1
+figure5,6and7.
+Figure5 Fittedn Distribution
+w
+15
+Figure6 Fittedn β Distribution
+w 1
+Figure7 Fittedn β Distribution
+w 2
+5.2 Implementation of TimeGeo
+The model is implemented based on Scikit-mobility package[24]. Scikit-mobility is a
+Pythonlibrarythatoffersarangeoftoolsforanalyzing,simulating,andevaluatingmobility
+data. Overthelastdecade,theincreasingavailabilityofvastmobilitydatasets,suchasGPS
+tracks,calldetailrecords,andsocialmediaposts,hasledtoagrowinginterestinthestudyof
+human mobility patterns. Scikit-mobility aims to provide a comprehensive environment to
+support researchers and practitioners in addressing challenges such as data cleaning, statis-
+tical analysis, and synthetic trajectory generation. This efficient and user-friendly package
+buildsonthecapabilitiesofthepopularPythonlibrarypandasandincludesfeaturessuchas
+16
+visualization of trajectories, synthetic data generation, statistical pattern analysis, and pri-
+vacy risk assessment. There are mainly four classes in the implementation code: TimeGeo,
+WorkChoice, HomeOtherChoice, and RankedEPR. RankedEPR overrides the original EPR
+model in scikit-mobility package, and HomeOtherChoice model (i.e. the spatial decision of
+theuser)usesRankedEPR modeltochoose thenext-location.
+5.2.1 GeneratingWorkingBehavior
+With government survey records of transportation[25], we can obtain the statistical fea-
+ture of the start time and duration of work time and work-break time, we can construct the
+joint-distributionbetweenthestarttimeandthedurationforworktimeandwork-breaktime.
+Correspondingly, the individual working feature can be sampled from the distribution. The
+samplingresultslikefigure8and9.
+Figure8 SampledWorkTimeDistribution
+5.2.2 GeneratingNon-WorkingBehaviorsofTimeGeo
+With the fitted individual parameters from section 5.1, we can indicate the probability
+that people travel among home, work, and other locations. Given the specific labeled lo-
+cations for the exact type, we can generate the temporal sequence of the key-locations. A
+sampleofthegeneratednon-workingkey-locationseriesislikefigure10.
+17
+Figure9 SampledWork-BreakTimeDistribution
+5.3 Generating Trajectories via Key-Location Sequences
+Withworkingbehaviorandnon-workingbehaviorthatisgenerated,thewholesequence
+of key location can be generated, which contains the timestamps, longitudes, latitudes, and
+location-types.
+Thegeneration of trajectory goes with the following steps: First, to determine whether
+the person is a commuter, if so, determine the home and the work location of the person.
+Second, determine the work schedule by sampling from the distribution given by the gov-
+ernment statistical data. Then, for the time that the person is neither at work not at home,
+determine the locations (in other location type) that the person travels to. Some generated
+sequenceoflocationsarelikefigure11.
+5.4 Generating Trajectories without Knowledge of People’s Activities
+Due to privacy concerns, in many cases we cannot obtain the high-resolution ground-
+truth trajectories of cellphone users. Regarding this circumstance, we can also generate the
+trajectoriesofpeople withlimitedspatialknowledge ofthecity. Forexample,POIs.
+Here, we added up the POI of Shanghai to the activity-based model, and generated the
+trajectoriesofpeople inShanghaiwithoutknowingGPSorCDRrecords,infigure12.
+18
+Figure10 SampledWork-BreakTimeDistribution
+5.5 Iteration of Markov-Train
+Astheprevioussectionshavementioned,theiterationgoesonwiththephysicalmean-
+ing of the riding of the trains that the number of iterations infers that the number of stations
+that the passenger travels through. Additionally, the coordinate of the same station for from
+andtomeansthatthepassengertakesoffthetrainandleavesthatstation.
+The iterated result is shown in figure 13. From the iterated result, we can find that the
+values of the stations have differed, and some stations are specifically popular than others
+(likeTokyo,Shinjuku,Shibuya,andShinbashi). Together,somepairsofstationshavecome
+outasapopularpairoforiginanddestination,likebetweenJimbochoandBakuro-Yokoyama
+station.
+Meanwhile, the result of convergence also differ among different hours that people
+travels. The popular destination (i.e. the stations with relatively large value of row in the
+converged transition matrix) also varies within the time: at midnight, morning rush-hours,
+afternoon,orevening. TheConvergedresultondifferenthoursareshowninfigure14.
+19
+Figure11 SampledWork-BreakTimeDistribution
+Figure12 GeneratedShanghaiTrajectoris
+20
+a) After5iterations b) After10iterations
+c) After20iterations d) After50iterations
+Figure13 ConvergedTransitionMatricesonDifferentHours
+21
+a) 0am b) 8am
+c) 11am d) 4pm
+e) 8pm f) 10pm
+Figure14 ConvergedTransitionMatricesonDifferentHours
+22
+6. Evaluation
+Inthissection,wearegoingtoevaluatethegeneratedtrajectoryingrid-levelandflow-
+level. We will use Tokyo as the study area for evaluations. Two evaluation indicators are
+included:
+• GridPopulation: reflectsthestaticdistributionofpeopleindifferentareasofthecity
+indifferenttime.
+• ODPopulation: reflectsthedynamic flowof people
+Thebaselineisrandom-walkalgorithmintheGAN-generatedlifepatterns,asP.Lihas
+mentioned in ref.[23]. The indicator to evaluate the accuracy of generated trajectories are
+listed in table 5. From the table we can see that the proposed model have less MSE and
+R-squareerrorandlargerp-valuewiththegroundtruth,whichsimulatethetrajectorybetter.
+Indicator Proposed Baseline
+WalkError 0.837 0.689
+R-square,Grid 0.374 0.492
+p-value,Grid 0.830 0.814
+MSE,Grid(e-8) 8.341 6.767
+RelativeError,OD 0.441 0.316
+R-square,OD 0.668 0.611
+p-value,OD 0.823 0.786
+MSE,OD(e-9) 5.557 6.517
+Table5 EvaluationIndicators
+Static and dynamic indicators are both included to evaluate the models. The static in-
+dicator used in this study is grid population, which represents the number of users located
+withineachcorrespondinggrid,typicallyasquareofafewhundredmeters. Gridpopulation
+providesvaluableinsightsintothespatialdistributionofthepopulationataspecificpointin
+time,allowingustoanalyzethe concentrationof individualsindifferentareas.
+To visualize the spatial distribution of the population, heat maps of the grid population
+are presented in Figure 15, 16, and 17. These heat maps offer a comprehensive view of
+populationdensityacrossthecity,highlightingareaswithhighconcentrationsofindividuals.
+23
+By comparing the generated trajectories with the ground truth, we can observe that
+the TimeGeo-based model demonstrates superior performance in capturing the clusters of
+population in the city center, as well as the radiation lines extending from downtown to
+suburban areas. This is evident in Figure 18 and 19, which illustrate the grid population
+values obtained from the TimeGeo-based model and the baseline model, respectively, in
+comparisontothe groundtruthvalues.
+The dynamic indicator used in this study is OD flow, which represents the number of
+people traveling from one grid to another. OD flow provides valuable insights into the spa-
+tiotemporal characteristics of human flows. It serves as a crucial measure to understand the
+dynamicmovementpatternsofindividualsinanurbanenvironment. ThesignificanceofOD
+flow asanindicatorliesinitsabilitytocapturethedynamicnatureofhumanmobility.
+To visualize the OD population among grids, Figure 20 and 21 depict the distribution
+of OD flow. These figures highlight the spatial and temporal patterns of human movement,
+allowing us to identify areas with high travel demand and explore the connections between
+differentlocations.
+Furthermore, the proposed model exhibits improved performance, as evidenced by a
+higher concentration of data points closer to the ideal y = x line. This indicates that the
+model successfully captures and predicts the actual OD flow, resulting in a more accurate
+representationofhumantrajectories.
+24
+Figure15 ProposedModel’sGeneratedGridHeatMapbyHours
+25
+Figure16 Baseline’sGeneratedGridHeatMapbyHours
+26
+Figure17 Ground-Truth’sGeneratedGridHeatMapbyHours
+27
+Figure18 ProposedModel’sGeneratedGridPopulation
+Figure19 Baseline’sGeneratedGridPopulation
+28
+Figure20 ProposedModel’sGeneratedODPopulation
+Figure21 Baseline’sGeneratedODPopulation
+29
+7. Conclusion
+Trajectoriesarewidelyusedinmanyfieldsofstudies,includingurbanplanning,trans-
+portation,riskmanagement,orbusiness. Whilethegroundtruthtrajectoryrecordsarehighly
+sensitive,andunavailableforresearchers. Thisresearchproposesmethodstoresolvethein-
+accessibility for trajectories. With knowing the basic features of human activity, we can
+reconstruct and simulate the trajectories of people living in the area, and guarantee that re-
+constructedtrajectorieshavethesameaggregated-levelandindividual-levelcharacteristicof
+the open statistical data. Based on this goal, we introduced activity-based models to recon-
+structthe trajectoriesfromaggregatedfeaturesandincompletetrajectories.
+This work has discussed the solutions to the “Where”and “How”issues. Trajec-
+tories are generated with characteristics of people’s travel activities. Activities models like
+TimeGeo, are implemented and deployed in generating moving sequences in cities. With
+the human mobility records, we have abstracted the key locations and circadian behavior
+of the users. From the indicators, we have found that the temporal features are well illus-
+tratedinTokyodataset,whilethespatialfeature,especiallyfortraveldistance,needsfurther
+improvement. Also,thetrain-takingbehaviorfor passengersarealsodiscussed.
+Then,POI’sareintroducedtowidertherangeofTimeGeo,andgeneratedprojectswith-
+out prior knowledge of people’s trajectories with the known activity features. With the mo-
+bilitypatternsthatisabstractedfromthegroundtruthtrajectories,orcollectedfromthegov-
+ernment statistical data, we can then generated delicate location-visit sequences from the
+activity-basedmodels. Thisappliesintheconditionsthatwhiletheprivacycodeisstrictand
+researcherscannothave accesstoanyoriginalindividualtrajectories.
+There are still some limitations in the study. TimeGeo is too rough for the location
+choice. It only considers distance as the sorting factor for the candidate locations, which is
+far from the real-world scenario, which much more complicated and related to more issues
+like accessibility, transportation, or the people’s demographic features. Markov-Train still
+needs criteria to evaluate its performance. For the future work, more detailed activity fea-
+30
+tures,besidesPOIs,areexpectedtobeaddedintotheTimeGeo-basedmodel,toimprovethe
+performancefortrajectorygeneration.
+31
+Acknowledgements
+IamgratefultoProf. XuanSongforprovidingmewiththeopportunitytoconductmy
+researchatSUSTech,andforallofthe resourcesandsupporttheyprovided.
+I would like to express my sincere gratitude to Prof. Haoran Zhang, Dr. Peiran Li, Mr.
+YichengZhao,andMs. WenzhouLiu,fortheirinvaluableguidanceandsupportthroughout
+myfinalyearproject. Theirexpertiseandencouragementhelpedmetocompletethisresearch
+andwritethisthesis.
+IwouldliketothanktheSUSTechGlobal,whichprovidesmewithmanyopportunities
+andfinancialsupportsforstudyingabroad. Theyhavesupportedmetogothroughthedarkest
+days.
+I would also like to thank my friends and family for their love and support during this
+process. Withoutthem,thisjourneywouldnothave beenpossible.
+Finally,Iwouldliketothankalloftheparticipantsinmystudyfortheirtimeandwill-
+ingness to share their experiences. This work would not have been possible without their
+contribution.
+34

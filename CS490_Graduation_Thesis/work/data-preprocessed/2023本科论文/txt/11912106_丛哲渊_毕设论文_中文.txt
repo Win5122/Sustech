@@ -1,0 +1,720 @@
+分类号 编号
+U D C 密级
+本科生毕业设计（论文）
+题 目：基于联邦学习的隐私保护行人轨迹预测框架
+姓 名： 丛哲渊
+学 号： 11912106
+系 别： 计算机科学与工程系
+专 业： 计算机科学与技术
+指导教师： 宋轩 副教授
+2023 年 5 月 31 日
+CLC Number
+UDC Availableforreference !Yes !No
+Undergraduate Thesis
+Thesis Title: A Privacy-Preserving Pedestrian Trajectory
+Prediction Framework Via Federated Learning
+Student Name: Zheyuan Cong
+Student ID: 11912106
+Department: Department of
+Computer Science and Engineering
+Program: Computer Science and Technology
+Thesis Advisor: Associate Professor Xuan Song
+Date: May 31, 2023
+诚信承诺书
+1. 本人郑重承诺所呈交的毕业设计（论文），是在导师的指导下，
+独立进行研究工作所取得的成果，所有数据、图片资料均真实可靠。
+2. 除文中已经注明引用的内容外，本论文不包含任何其他人或
+集体已经发表或撰写过的作品或成果。对本论文的研究作出重要贡
+献的个人和集体，均已在文中以明确的方式标明。
+3. 本人承诺在毕业论文（设计）选题和研究内容过程中没有抄袭
+他人研究成果和伪造相关数据等行为。
+4. 在毕业论文（设计）中对侵犯任何方面知识产权的行为，由本
+人承担相应的法律责任。
+从哲渊
+作者签名:
+O23 年 5 月 引 日
+COMMITMENT OF HONESTY
+1. I solemnly promise that the paper presented comes from my
+independent research work under my supervisor’s supervision. All
+statistics and images are real and reliable.
+2. Except for the annotated reference, the paper contents no other
+published work or achievement by person or group. All people making
+important contributions to the study of the paper have been indicated
+clearly in the paper.
+3. I promise that I did not plagiarize other people’s research achievement
+or forge related data in the process of designing topic and research
+content.
+4. If there is violation of any intellectual property right, I will take legal
+responsibility myself.
+Signature: zhe Cong
+yuan
+Date: ω23 5 31
+. .
+基于联邦学习的隐私保护行人轨迹预测框架
+丛哲渊
+（
+计算机科学与工程系 指导教师：宋轩）
+[摘要]：本文分析了行人轨迹预测中的常见问题和挑战，如场景中的行
+人轨迹相对多变、场景之间存在数据孤岛等。本文简述了传统 RNN 对于
+轨迹预测问题的局限性和 LSTM 模型对传统 RNN 的改进。本文分析了
+联邦学习模型在轨迹预测问题中的优势，主要在于能在确保准确性的前
+提下更好地保护有关客户端数据的隐私。本文选取 SDD 和 ETH-UCY 数
+据集中特定场景的数据并进行适当的处理，采用 LSTM 作为基本的预测
+模型，搭建了 fedavg-LSTM、fedprox-LSTM、fedsgd-LSTM、FML-LSTM
+联邦学习框架进行训练和测试，通过限制总的训练轮次模拟服务器和客
+户端之间有限的通信成本。相比于仅在本地使用 LSTM 模型训练，在平
+均位移误差和最终位移误差的结果上，fedsgd-LSTM 受通信成本限制，在
+误差指标上仅有较小提升；而fedavg-LSTM、fedprox-LSTM、FML-LSTM
+可以获得误差指标上的较大提升。模型仍存在改进空间，例如可以加入
+行人之间交互的影响和场景中的位置信息等。
+[关键词]：轨迹预测，LSTM，联邦学习，FML
+I
+[ABSTRACT]: This thesis analyzes the common problems and challenges
+inpedestriantrajectoryprediction,suchastherelativelyvariablepedestriantra-
+jectory and the existence of data islands between scenes. This paper describes
+the limitations of traditional RNN for trajectory prediction and the improve-
+ment of LSTM model on traditional RNN. This paper analyzes the advantages
+of federated learning model in trajectory prediction, mainly in that it can better
+protect the privacy of relevant client data on the premise of ensuring the ac-
+curacy. In this paper, the data of specific scenes in SDD and ETH-UCY data
+sets are selected and processed appropriately. LSTM is used as the basic pre-
+diction model, and the federal learning framework of fedavg-LSTM, fedprox-
+LSTM, fedsgd-LSTM and FML-LSTM is built for training and testing. Simu-
+late the limited communication cost between server and client by limiting the
+total training rounds. Compared with only using LSTM model training locally,
+fedsgd-LSTM, limited by the communication cost, has a small improvement in
+the error index in terms of the average and final displacement errors. fedavg-
+LSTM, fedprox-LSTM and FML-LSTM can greatly improve the error index.
+There is still room for improvement in the model, for example, the influence of
+pedestrian interaction and location information in the scene can be added.
+[Key words]: Trajectory Prediction, LSTM, Federated Learning, FML
+II
+目录
+1. 选题背景 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+2. 文献综述 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+2.1 循环神经网络 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+2.2 长短时记忆网络 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2.3 联邦学习 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+2.4 深度相互学习 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3. 数据集构建 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.1 斯坦福无人机数据集 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.2 ETH-UCY 数据集 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+4. 算法模型 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.1 Fedavg . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.2 Fedsgd . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.3 Fedprox . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.4 FML . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+5. 实验结果和分析 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.1 实验环境和评价指标 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.2 LSTM 在数据集上的表现 . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.3 Fedavg-LSTM 在数据集上的表现 . . . . . . . . . . . . . . . . . . . . 15
+5.4 Fedsgd-LSTM 在数据集上的表现 . . . . . . . . . . . . . . . . . . . . 17
+5.5 Fedprox-LSTM 在数据集上的表现 . . . . . . . . . . . . . . . . . . . . 20
+III
+5.6 FML-LSTM 在数据集上的表现 . . . . . . . . . . . . . . . . . . . . . . 22
+5.7 联邦学习框架之间的比较 . . . . . . . . . . . . . . . . . . . . . . . . . 26
+5.8 小结 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+6. 总结 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+参考文献 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+致谢 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+IV
+1. 选题背景
+行人轨迹预测模型在城市规划、智能交通、智慧城市、安全监控等多个领域得到
+了广泛的应用。行人是许多交通场景中的主要参与者，其轨迹具有复杂的多样性。对
+行人移动轨迹进行具有较高准确率的预测非常重要，这是提升自动驾驶等技术可靠
+性的关键因素。在实际交通场景中，相对于自行车和汽车，行人的移动通常更加复杂
+灵活，其受交通规则的硬性约束较少，更容易因为各种主观因素改变运动速度，这
+增加了行人轨迹预测的难度[1]。大多数算法都是基于对象本身的相对空间关系进行预
+测，例如行人的相对位置、相对速度大小等。此外，行人的运动轨迹不仅受到自身主
+观的影响，还会受到附近行人、车辆等其他交通参与者的影响。复杂场景中的行人轨
+迹不仅包含个体运动的时空特征，还包括行人与周围其他交通参与者之间的交互特
+征，这些抽象的交互关系往往难以被精确地包含在预测模型中。如何深入综合行人轨
+迹的时序性和互动性特征，并根据场景中即时的变化进行预测，是复杂场景下行人轨
+迹预测的关键问题[2]。
+在传统的机器学习中，模型的训练数据通常集中于一处。这样可以更方便地进行
+数据清洗和预处理，也可以更容易地对数据进行操作和管理。但在实际应用中数据往
+往以孤岛的形式存在[3]。以行人轨迹数据的主要来源摄像头为例，每个终端的上传数
+据的能力可能有限，上传大量的数据难度较大；由于摄像头的所有者不同，数据难以
+在不同的企业和单位间共享；由于隐私问题，并不是所有的摄像头的数据都能公开上
+传。来自各个摄像头的数据集具有相同的特征空间和不同的样本空间，因此，应用横
+向联邦学习可以有效解决传统中央化模型训练时遇到的隐私和数据难以共享等问题，
+在分散的设备和系统上进行模型训练，提高训练预测模型的效率和可扩展性[4]。基于
+联邦学习的行人轨迹预测框架可以在不泄露用户隐私的情况下，使用大规模、分散在
+各个终端的数据集训练；通过使用不同终端上更大规模、更多样化的数据集学习，提
+高模型的性能和准确度；在实际应用中，因为是多个设备和系统共同训练和使用一个
+模型，所以能降低模型开发成本并实现更高效的模型部署[5]。本文将搭建多个联邦学
+习框架，将它们与仅在本地训练的模型的性能表现进行对比、将它们在相同数据集上
+的性能表现进行相互对比。
+1
+2. 文献综述
+2.1 循环神经网络
+循环神经网络（RNN，RecurrentNeuralNetwork）是最早应用于行人轨迹预测的
+模型，它能通过当前的输入和存储于网络中的历史信息生成输出的预测值[6]。网络中
+时间步t 的隐藏状态h （hiddenstate）的计算方式为：
+t
+h = σ(W x +W h +b ), (1)
+t ih t hh t 1 h
+−
+x 是时间步t的输入，W 是输入到隐藏状态的权重矩阵，W 是隐藏状态到隐藏状
+t ih hh
+态的权重矩阵，b 是隐藏状态的偏置项，σ 是激活函数，通常使用tanh或ReLU。
+h
+隐藏状态 h 可以被看作是网络在时间步 t 的记忆状态，它存储了过去时间步的
+t
+信息。通过将当前输入x 和前一个时间步的隐藏状态h 传递给RNN，可以得到新
+t t 1
+−
+的隐藏状态h 。这种递归结构使得 RNN 可以在处理序列数据时考虑上下文信息。
+t
+根据任务的不同，RNN 可以有不同的输出形式。对于时间序列预测任务，可以
+使用全连接层将隐藏状态h 映射到输出y ：
+t t
+y = σ(W h +b ), (2)
+t hy t y
+其中,y 是时间步t 的输出,W 是隐藏状态到输出的权重矩阵，b 是输出的偏置项。
+t hy y
+RNN 的训练通常使用反向传播算法和梯度下降来最小化损失函数，以优化权重
+和偏置项。但传统的循环神经网络存在梯度消失和梯度爆炸的问题，这主要是反向传
+播算法中的链式法则导致的。在 RNN 中，每个时刻的输出都是由输入和上一时刻的
+隐藏状态计算得出的，而隐藏状态又会被作为下一时刻的输入和隐藏状态使用。在
+进行反向传播时，梯度需要沿着时间步逐步传播回去。RNN 的权重共享性质导致梯
+度会被重复乘上相同的权重，而当这个权重小于 1 时就会造成梯度消失，大于 1 时
+则会造成梯度爆炸[7]。梯度消失和梯度爆炸都会导致训练过程出现问题。当梯度消失
+时，反向传播的梯度会变得非常小，这使得网络的参数更新变得非常缓慢，甚至有可
+能停止更新；当梯度爆炸时，反向传播的梯度变得非常大，这会导致网络中更新后的
+权重变得非常大或者非常小，导致网络变得不稳定且性能下降。
+2
+2.2 长短时记忆网络
+在行人轨迹预测的情景中，往往需要大量的网络节点和庞大的数据集对网络进
+行训练以提高预测的精度。在这种情况下，传统的 RNN 并不能满足行人轨迹预测的
+需求。为了解决 RNN 对复杂时序的预测问题，Hochreiter 等提出了长短时记忆网络
+（LongShort-TermMemory,LSTM）[8]，它是一种能学习到长期依赖信息的特殊RNN结
+构，LSTM通过增加遗忘网络层来丢弃导致错误预测结果的信息，在解决梯度消失问
+题的同时提升网络预测的精度。LSTM 相对于传统 RNN 的主要改进在于引入了三个
+门控机制，即遗忘门、输入门和输出门，分别控制信息的遗忘、输入和输出。
+遗忘门控制着前一时刻的细胞状态中哪些信息需要被遗忘。假设当前时刻的输
+入为 x ，前一时刻的输出为 h ，前一时刻的细胞状态为 C ，遗忘门的计算方式
+t t 1 t 1
+− −
+为：
+f = σ(W [h ,x ]+b ). (3)
+t f t 1 t f
+· −
+其中，W 是遗忘门的权重参数，b 是偏置参数，σ 是sigmoid函数，[h ,x ]是将前
+f f t 1 t
+−
+一时刻的输出和当前时刻的输入在特征维度上进行拼接得到的向量。遗忘门的输出
+f 是一个0-1之间的数值，表示前一时刻的细胞状态中有多少信息需要被遗忘。
+t
+输入门控制着当前时刻输入的信息中哪些需要被加入到细胞状态中。输入门的
+计算方式为：
+i = σ(W [h ,x ]+b ), (4)
+t i t 1 t i
+· −
+C˜ = tanh(W [h ,x ]+b ). (5)
+t C t 1 t C
+· −
+其中，W 和W 分别是输入门和细胞状态的权重参数，b 和b 分别是输入门和细胞
+i C i C
+状态的偏置参数，σ 是 sigmoid 函数，tanh 是双曲正切函数。i 表示当前时刻有多少
+t
+信息需要被加入到细胞状态中，C˜ 表示当前时刻的输入信息经过处理后的候选细胞
+t
+状态。LSTM引入了一个细胞状态来存储网络中的信息，这个状态可以在不同的时间
+步中被传递和更新，从而使网络能够更好地捕捉序列数据中的长期依赖关系。细胞状
+态的更新公式为：
+C = f C +i C˜ . (6)
+t t t 1 t t
+! − !
+3
+其中， 表示按元素相乘的操作。将前一时刻的细胞状态中被遗忘的部分和当前时刻
+!
+输入的信息中被选中的部分加权相加，得到当前时刻的细胞状态。
+输出门则决定了当前时刻的输出应该是细胞状态的哪些部分，它由sigmoid函数
+和点积运算组成，控制从 LSTM 单元输出的信息量。若当前时刻的输入为 x ，前一
+t
+时刻的输出为h ，当前时刻的细胞状态为c ，则LSTM的输出门的计算为：
+t 1 t
+−
+o = σ(W [h ,x ]+b ). (7)
+t o t 1 t o
+· −
+其中，W 是输出门的权重矩阵，b 是偏置项。[h ,x ] 表示将前一时刻的输出和当
+o o t 1 t
+−
+前时刻的输入拼接起来，作为输入。输出门的作用是控制当前时刻的细胞状态 c 中
+t
+有多少信息需要被输出。当输出门接近0时，细胞状态中的信息将被完全遮盖，不会
+被输出；当输出门接近1时，细胞状态中的信息将完全输出。这样，LSTM可以自适
+应地控制输出的信息量。
+这些门控机制能够自适应地选择性地保留或遗忘信息，有效地解决了梯度消失
+和梯度爆炸问题，同时能使 LSTM 网络够处理长期依赖关系，从而在序列建模任务
+中表现出色[9]。
+2.3 联邦学习
+联邦学习（FederatedLearning）是一种分布式机器学习的方法，旨在解决数据隐
+私和数据安全性的问题。在传统的机器学习中，数据通常被收集到中心服务器进行训
+练，但这种方式可能涉及大量敏感数据的集中存储和传输，存在隐私泄露和数据安全
+性的风险。而联邦学习通过在本地设备上进行模型训练，并仅传输模型参数更新，来
+保护用户的数据隐私。联邦学习的基本思想是将机器学习的计算和模型训练过程推
+到本地设备上，例如移动设备、边缘设备或用户端，使得数据始终保持在本地，不离
+开用户的设备。这样可以避免数据隐私泄露的风险[10]。在联邦学习中，有一个中央的
+服务器（通常由数据拥有者或第三方管理），用于协调和整合本地设备上的模型参数
+更新。中央服务器首先将初始化一个全局的模型参数。本地设备接收全局模型参数，
+并使用本地数据进行模型训练。在本地训练过程中，数据不会离开本地设备，只有模
+型参数的更新会被发送到中央服务器。本地设备将更新后的模型参数发送给中央服
+4
+务器。中央服务器根据接收到的模型参数进行聚合操作，例如加权平均或其他集成方
+法，以生成一个新的全局模型参数。上述步骤循环迭代进行，直到达到一定的训练轮
+次或收敛条件[11]。
+本文基于联邦学习的原理，以LSTM为底层模型，搭建了Fedavg-LSTM、Fedprox-
+LSTM、Fedsgd-LSTM的联邦学习框架，并将其与只在本地训练的LSTM模型进行对
+比。
+2.4 深度相互学习
+深度相互学习（DML，Deep Mutual Learning）是一种集体智慧的训练框架，旨
+在通过多个模型的互相学习和协作来提高整体模型的性能[12]。在传统的深度学习中，
+通常使用单个模型来训练并进行预测。然而，单个模型可能面临一些限制，如局部
+最优、过拟合等问题。DML的目标是通过引入多个模型的相互学习来克服这些问题，
+从而提高整体模型的性能。DML 的核心思想是在同一任务上同时训练多个模型，并
+通过互相学习和交互来提高各个模型的性能。这些模型可以具有不同的结构、初始
+化或训练策略，形成一个模型集合。在训练过程中，每个模型除了学习自身的任务目
+标外，还利用其他模型的特征和知识来辅助训练[13]。通过这种协作学习的方式，各
+个模型可以互相促进、互相纠正，从而达到更好的整体性能。DML 方法中的模型之
+间可以通过多种方式进行互相学习，常见的方式包括特征交换、特征融合和互相监督
+等。例如，特征交换可以使每个模型通过从其他模型中获取的特征来丰富自身的特征
+表示。特征融合可以将多个模型的特征进行融合，得到更全面的特征表示。互相监督
+可以通过引入额外的任务或目标来指导模型的学习，并从其他模型中获取监督信号。
+DML 的优势在于通过模型之间的互相学习和协作，提高了整体模型的性能和泛化能
+力。模型之间的相互学习可以帮助解决传统单个模型面临的局部最优、过拟合等问
+题。此外，DML 还可以在资源有限的情况下充分利用多个模型的计算能力，提高训
+练效率和模型的鲁棒性。
+本文基于联邦学习和 DML 的原理，以 LSTM 为底层模型，搭建了 FML-LSTM，
+即联邦相互学习框架（Federated Mutual Learning），并将其与本文中搭建的其他联邦
+学习模型和只在本地训练的LSTM模型进行对比。
+5
+3. 数据集构建
+3.1 斯坦福无人机数据集
+斯坦福无人机数据集（SDD，StanfordDroneDataset）[14]是由斯坦福大学计算机视
+觉实验室（StanfordVisionLab）创建的一个广泛使用的数据集，旨在促进无人机视觉
+和行人行为分析的研究。
+该数据集使用无人机在校园拥挤的时间段以俯视的方式手机了 8 个不同地点
+（表1）下约20,000个物体的轨迹交互信息，包含行人、自行车、滑板、汽车、公共汽车
+等各类交通参与者，每个物体的轨迹通过唯一的 ID 标识（表2），旨在解决目标跟踪
+或轨迹预测类的任务，非常适用于目标轨迹预测与多目标跟踪领域的研究。SDD 数
+据集包含多个室外场景的无人机视频，每个场景中都有不同的行人和物体进行各种
+动作和交互。数据集提供了视频帧、注释的边界框和轨迹信息，以及相应的时间戳。
+注释信息包括行人和物体的类别标签，用于标识和跟踪不同的目标
+地点 场景数量
+Gates 9
+Little 4
+Nexus 12
+Coupa 4
+Bookstore 7
+DeathCircle 5
+Quad 4
+Hyang 15
+表1 SDD数据集中的地点和场景数量
+3.2 ETH-UCY 数据集
+ETH[15]-UCY[16]数据集是用于行人轨迹预测研究的常用数据集之一。它由苏黎世
+联邦理工学院（ETH Zurich）和德国马克斯普朗克学会的智能系统研究所（MPI-IS）
+合作创建。该数据集旨在提供真实世界场景下的行人行为数据，用于评估和比较行人
+轨迹预测算法的性能。ETH-UCY数据集包含了多个场景的视频采集数据，每个场景
+都记录了行人在不同环境下的运动轨迹。数据集提供了行人的二维坐标位置和对应
+的时间戳，以及其他与行人相关的信息，如行人的身份、速度、方向等。ETH数据集
+6
+a) bookstore b) deathCircle
+c) gates d) hyang
+图1 SDD数据集样例图
+名称 描述
+TrackID 目标ID
+xmin 标注框左上的x坐标
+ymin 标注框左上的y坐标
+xmax 标注框右下的x坐标
+ymax 标注框右下的y坐标
+frame 该标注对应的帧号
+lost 是否丢失，1表示目标在视野范围外
+occluded 是否遮挡，1表示目标有遮挡
+generated 是否为生成的标注
+表2 SDD数据集中的字段
+是在苏黎世的一个大型室外空间采集的，UCY 数据集则是在德国采集的，二者共包
+含了8个场景和行人的运动轨迹。ETH-UCY数据集广泛用于行人轨迹预测算法的研
+究和评估。研究人员可以利用这个数据集来开发和验证各种预测方法，如基于概率模
+7
+名称 描述
+frameid 该场景中的帧编号
+personid 该场景中的行人编号
+offsetx x方向上相对于上一帧的位移
+offsety y方向上相对于上一帧的位移
+velocityx x方向上相对于上一帧的速度
+veloctiyy y方向上相对于上一帧的速度
+locationx x方向的位置
+lcationy y方向的位置
+表3 ETH-UCY数据集中的字段
+型、深度学习网络等。数据集中的样例图如2。
+a) ETH数据集中的一个场景 b) UCY数据集中的一个场景
+图2 ETH和UCY数据集样例图
+在加载包含行人轨迹预测数据的 CSV 后，进行数据清洗，如去除无效或错误的
+数据、处理缺失值等。SDD数据集中视频的帧率为30FPS，ETH-UCY数据集中视频
+的帧率 2.5FPS，为了便于训练，对 SDD 数据集中的行人轨迹进行采样和格式转换，
+使其使其符合表3中的格式并与 ETH-UCY 数据集的帧率保持一致。再对数据集中的
+行人轨迹进行合理筛选，如去除仅在视频边缘出现或在视频中出现时间很短的行人
+轨迹、去除包含数据量较少的轨迹和其他异常值。ETH-UCY数据集已经符合表3中所
+给的格式。使用offsetx和offsety作为训练模型的输入，因为其在轨迹预测中的表现
+更加稳定[17]。其中，选取ETH-UCY的全部8个场景，选取SDD数据集中bookstore
+8
+附近的7个场景，按6：2：2的比例划分训练集、验证集和测试集。不同场景的数据
+量如图3：
+a) ETH-UCY数据集
+b) SDD数据集
+图3 训练使用的SDD和ETH-UCY的数据量
+9
+4. 算法模型
+本文根据Fedavg，Fedsgd，Fedprox，FML共四种联邦学习算法，将其与LSTM
+模型结合，搭建Fedavg—LSTM，Fedprox—LSTM，Fedsgd—LSTM，FML—LSTM共
+四种联邦学习框架。
+4.1 Fedavg
+在 Fedavg（Federated Averaging）中，每个本地设备（客户端）在本地训练自己
+的模型，并将模型参数的更新发送到中央服务器（服务端）。然后，中央服务器对接
+收到的模型参数进行平均，得到全局模型参数的更新，并将其发送回各个本地设备。
+这个过程迭代进行多轮，直到达到收敛条件[18]。FedAvg 使用简单的平均操作来整合
+模型参数，适用于具有相似数据分布的场景。平均聚合的方式为：
+N
+1
+wk+1 = wk. (8)
+global N i
+i=1
+!
+其中，wk+1 为第k+1轮全局模型的参数，N是参与方的数量，wk 是第i个参与方在
+global i
+第k轮训练后的本地模型参数。下文中提到的平均聚合即为公式(8)描述的方式。
+4.2 Fedsgd
+在Fedsgd（FederatedStochasticGradientDescent）中，每个本地设备在本地使用
+随机梯度下降算法训练自己的模型。然后，每个本地设备将模型的局部梯度的更新发
+送到中央服务器。中央服务器收集所有的参数更新，并使用平均聚合的方式进行模型
+参数的更新。Fedsgd 使用局部更新和集中更新相结合的方式，可以在不同的本地设
+备上处理不同的数据分布[19]。
+4.3 Fedprox
+Fedprox（Federated Proximal）可以解决数据不平衡或不完整的情况下的模型优
+化问题。在Fedprox中，每个本地设备在本地进行模型训练，并将模型参数的更新发
+送到中央服务器。与传统的联邦学习不同，Fedprox 引入了正则化项，用于惩罚模型
+参数与全局模型参数的差异。这样做可以在迭代过程中对数据不平衡或不完整性进
+行补偿，从而更好地适应各个本地设备的数据特点[20]。客户端中加入正则化项后的
+10
+目标函数为：
+λ
+minh (w;wt) = F (w)+ w wt 2. (9)
+i k
+w 2| − |
+其中 λ 为正则化系数，在训练开始前指定，本文中指定为 0.5，用于平衡本地模型对
+全局模型的影响，F (w)为第k个参与方的损失函数，w是全局模型的参数，wt 是第
+k
+k 个参与方在第 t 伦训练后的本地模型参数。在客户端完成本地模型的更新后，上传
+模型的参数，服务器对各个模型上传的参数进行平均聚合，更新全局模型。在下一轮
+通信中，服务器下发新的全局模型。
+4.4 FML
+联邦相互学习（FML，FederatedMutualLearning）是一种联邦学习框架，旨在解
+决数据隐私和安全性的问题，同时允许分布式设备协作进行模型训练和知识共享[21]。
+可以认为 FML 使在传统的联邦学习框架中加入了 DML（Deep Mutual Learning，深
+度相互学习）结构，从而使中心的模型具有更好的性能。FML 的核心思想是在联邦
+学习的框架下，引入相互交互的多个设备或边缘节点，每个节点拥有本地的数据集和
+模型。这些节点通过相互交换本地模型的参数和梯度信息来进行模型训练。FML 采
+用了互相学习的策略，即节点之间相互学习，互相传递信息，从而共同提高模型的性
+能[22]。在FML中，每个节点在本地进行模型的更新和训练，然后将本地的模型参数
+和梯度信息传输给其他节点。通过聚合这些节点的参数和梯度，可以得到一个全局的
+模型更新。这种联邦学习的方式使得每个节点都可以从其他节点的知识中受益，并共
+同学习到更全面的模型。FML 的优势在于保护数据隐私和提高模型的泛化性能。由
+于数据始终保留在本地，FML可以防止敏感数据的泄露。同时，每个节点可以根据本
+地数据的特点进行个性化的模型训练，从而提高了模型的泛化能力。此外，FML还可
+以减少数据传输量和计算开销，因为每个节点只需传输本地的模型参数和梯度信息，
+而无需传输原始数据。
+如图4，FML 中的 DML 结构是通过添加一层 meme（模因）模型实现的。首先，
+服务器下发模因模型至各个客户端，客户端在本地对模因模型和本地模型同时训练，
+并在模因模型和本地模型之间进行深度相互学习，使模因模型和本地模型互相进行
+11
+知识蒸馏。在这一过程中，模因模型和本地模型loss 的计算公式如下：
+L = αL +(1 α)D (p p ), (10)
+local Clocal kl meme local
+− |
+L = βL +(1 β)D (p p ). (11)
+meme meme kl local meme
+− |
+其中，L 和L 分别为模因模型和本地模型的loss，α和β 为超参数，在本
+local meme
+文中均设置为 0.5。在以上公式中，由于原始的 FML 模型是分类模型，在 loss 部分
+是基于 softmax + KL 散度进行的设计。但该方法在回归问题上并不适用，因此本文
+使用与 Local 与 MEME 模型的 MSELoss（平均平方误差损失）来代替 KL 散度部分，
+来对模型进行知识蒸馏。
+客户端根据以上公式计算得到本地模型和模因模型的 loss 后，分别更新本地模
+型和模因模型，并上传模因模型的参数至服务器。服务器通过平均聚合模因模型的参
+数来更新全局模型，并在下一轮通信中下发新的全局模型作为各客户端的模因模型。
+图4 FML框架结构[21]
+12
+5. 实验结果和分析
+5.1 实验环境和评价指标
+实验环境设置：硬件环境为 Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz，GPU
+NVIDIAGeForceRTX2060，使用CUDA11.7，pytorch2.0.0。所有代码均是基于Python3.10
+编写。
+在轨迹预测任务中，平均位移误差ADE（AverageDisplacementError）和最终位
+移误差 FDE（FinalDisplacement Error）是两个常用的评估指标，ADE 是指预测轨迹
+中每个时间步预测位置与真实位置之间的平均欧氏距离[23]。在轨迹预测中，通常会
+将预测的轨迹与真实轨迹进行比较，计算两者之间的欧氏距离，并对所有时间步的距
+离进行平均。ADE 的数值越小，表示预测结果与真实轨迹越接近。FDE 是指预测轨
+迹中最后一个时间步预测位置与真实位置之间的欧氏距离[24]。与ADE不同，FDE只
+关注最终预测的位置与真实位置之间的误差。FDE 的数值越小，表示最终预测结果
+与真实位置越接近。实验通过比较不同模型的ADE 和FDE 来评价其表现和性能。
+依照之前对SDD中booksore地点的7个场景和ETH-UCY中共8个场景按6:2:2
+划分的训练集、验证集和测试集，对LSTM，Fedavg-LSTM，Fedprox-LSTM，Fedsgd-
+LSTM，FML-LSTM 每种模型均训练 200 轮次，即服务器与各客户端交互的轮次为
+200，以模拟相同的通信成本。每个本地训练轮次Epoch=5。模型的学习率为0.00003。
+在 LSTM 中，模型通过前 20 次的输入预测下一个状态。Fedprox-LSTM 中，惩罚系
+数λ=0.5。在FML中，α和β为0.5。除Fedsgd外，本地模型的优化器为adam。在
+SDD 中 booksore 地点的 7 个场景和 ETH-UCY 中共 8 个场景进行实验，得到对比结
+果，主要比较Fedavg-LSTM，Fedprox-LSTM，FedsgdLSTM，FML-LSTM对只在本地
+训练的LSTM的提升。
+5.2 LSTM 在数据集上的表现
+13
+a) ETH-UCY
+b) SDD
+图5 LSTM在ETH-UCY和SDD上的FDE和ADE
+图5展现了只在本地训练的 LSTM 的性能，在不同场景中 ADE 和 FDE 的相对大
+小基本一致，但是二者在不同场景中的绝对大小有一定的波动。由于录制数据集中视
+频的摄像头角度存在差异，虽然误差的单位都是像素，但误差在两个数据集间的绝对
+大小存在差距，如 ETH-UCY 数据集中平均 FDE 为 1.329，SDD 数据集中平均 ADE
+为46.351。
+14
+a) ETH-UCY
+b) SDD
+图6 Fedavg在ETH-UCY和SDD上的FDE和ADE
+5.3 Fedavg-LSTM 在数据集上的表现
+图6和图7展现了 Fedavg-LSTM 在 ETH-UCY 和 SDD 数据集上的性能。FedAvg-
+LSTM相对于只在本地训练的LSTM在各个场景上都获得了较大提升：在ETH-UCY
+数据集上的提升最大为30.2%，平均约为15%；在SDD数据集上的提升最大为47.9%，
+平均约为 37%。FedAvg 通过集中式服务器对参与方的本地模型进行聚合，得到全局
+模型。这个全局模型能够受益于联邦学习中多个参与方的数据，从而具有更好的数据
+多样性和代表性。相比之下，仅在本地训练的模型受限于单个参与方的数据，可能存
+15
+a) ETH-UCY
+b) SDD
+图7 Fedavg在FDE和ADE指标上相对本地LSTM的提升
+16
+在数据偏差或局部特征的问题。在FedAvg中，全局模型的更新被反馈给参与方，使
+得每个参与方都能从其他参与方的知识中受益，有助于提升整体模型的性能和泛化
+能力。而仅在本地训练的模型无法获得其他参与方的知识和模型更新，可能错过了
+一些有益的信息。参与方的本地数据分布可能是不均衡的，即不同参与方的数据特
+征和样本数量存在差异，FedAvg 通过聚合操作，对各个参与方的本地模型参数平均
+化，能够降低个体模型的噪声和偏差，使得全局模型能够更好地适应整体数据分布而
+仅在本地训练的模型受限于单个参与方的数据分布，可能无法充分捕捉整体数据分
+布的特征。通过聚合全局模型、平均化模型参数、解决数据分布的不均衡以及共享知
+识和模型更新等机制，FedAvg-LSTM 可以获得相对于仅在本地训练的 LSTM 模型的
+较大性能提升。
+5.4 Fedsgd-LSTM 在数据集上的表现
+图8和图9展现了Fedsgd-LSTM在ETH-UCY和SDD数据集上的性能。在一些场
+景中，Fedsgd-LSTM的性能较差，相对于仅在本地训练的LSTM方法，Fedsgd-LSTM
+可能出现负优化的情况。在SDD数据集上，Fedsgd-LSTM的性能可以在ADE和FDE
+指标上获得约 3.4% 和 6.1% 的小幅提升；但在 ETH-UCY 数据集上表现不如仅在本
+地训练的 LSTM。这与 Fedsgd 需要更大的通信成本有关。在联邦学习中，当参与方
+通常具有的分布式本地数据集较为庞大时，每轮训练中，参与方需要将本地模型参
+数的更新发送给中央服务器，而这些更新的大小与数据量和模型大小相关。如果数
+据量和模型大小较大，通信成本就会显著增加。此外，在联邦学习中，参与方的本地
+数据集可能具有不均衡的分布，即不同参与方的数据特征和样本数量可能存在差异。
+在这种情况下，参与方之间的通信可能变得不平衡，某些参与方可能需要传输更多的
+更新信息，而某些参与方可能只需传输很少的更新信息。在 Fedsgd 中，传递给中央
+服务器的数据是训练得到的梯度，虽然相对模型参数传输的数据量较小，但是由于本
+地模型采取随机梯度下降的方法，导致全局模型收敛可能较大。Fedsgd-LSTM 可能
+需要更多的通信轮次来达到最终收敛的结果，在通信次数受到限制时，Fedsgd-LSTM
+各个客户端的模型和全局模型的训练就可能不够充分，导致一些模型欠拟合。
+17
+a) ETH-UCY
+b) SDD
+图8 Fedsgd在ETH-UCY和SDD上的FDE和ADE
+18
+a) ETH-UCY
+b) SDD
+图9 Fedsgd在FDE和ADE指标上相对本地LSTM的提升
+19
+5.5 Fedprox-LSTM 在数据集上的表现
+a) ETH-UCY
+b) SDD
+图10 Fedprox在ETH-UCY和SDD上的FDE和ADE
+图10和图11展现了Fedprox-LSTM在ETH-UCY和SDD数据集上的性能。Fedprox-
+LSTM相对于只在本地训练的LSTM在各个场景上都获得了较大提升：在ETH-UCY
+数据集上的提升最大为29.4%，平均约为20%；在SDD数据集上的提升最大为47.5%，
+平均约为37%。FedProx引入了联邦罚项，这里的惩罚系数µ取值为0.5。联邦罚项通
+过正则化个体参与方的本地模型参数与全局模型参数之间的差异，促使参与方的模
+型保持一致，有助于减少个体模型的方差，并提高整体模型的泛化能力。当参与方的
+20
+a) ETH-UCY
+b) SDD
+图11 Fedsprox在FDE和ADE指标上相对本地LSTM的提升
+21
+模型与全局模型保持一致时，模型聚合的效果更好，因此能够获得更好的整体性能。
+此外，个体参与方的数据分布可能存在差异，导致过拟合问题，联邦罚项还可以降低
+过拟合风险。联邦罚项通过限制个体参与方模型的自由度，约束了个体参与方的模型
+参数，起到了正则化的作用，可以降低过拟合的风险。相对于只在本地训练的LSTM
+模型，总体上Fedprox-LSTM的性能提升的比例与Fedavg-LSTM相近，但是Fedprox-
+LSTM的提升更为稳定。例如在ETH-UCY数据集中，虽然Fedavg-LSTM在场景4的
+优化效果很好，但是在场景2和场景8的优化效果明显较低，而Fedprox-LSTM没有
+出现某个场景优化效果明显较低的情况。
+5.6 FML-LSTM 在数据集上的表现
+图12和图13展现了 FML-LSTM 在 ETH-UCY 和 SDD 数据集上的性能。FML-
+LSTM相对于只在本地训练的LSTM在各个场景上都获得了较大提升：在ETH-UCY
+数据集上的提升最大为35.2%，平均约为16%；在SDD数据集上的提升最大为40.4%，
+平均约为 34%。FML-LSTM 在联邦学习过程中进行模型参数的交换和聚合，通过知
+识蒸馏的机制，每个参与方可以从其他参与方的模型中获取知识和信息。这种跨参
+与方的知识共享使得每个参与方能够从全局视角获取更丰富的信息，进而改善模型
+的性能。在 FML-LSTM 中，知识蒸馏机制还使得参与方能够从其他参与方中学习到
+不同的特征表示和模式，通过融合不同参与方的特征，模型可以更好地适应多样的
+数据分布，提高泛化能力。但FML-LSTM的优化性能没有明显优于Fedavg-LSTM和
+Fedprox-LSTM，可能是因为底层的LSTM模型较为简单，没有包含人与人之间的社交
+因素和每个场景特有的地形因素等，模型之间共享的信息种类较少，导致FML-LSTM
+中知识蒸馏的结构没有形成明显的优势。相对于 Fedavg-LSTM，FML 的优化性能较
+为稳定，在两个数据集的各个场景上都有比较稳定的优化，这与Fedprox-LSTM的表
+现类似。知识蒸馏的结构约束了个体参与方的模型参数，限制了其对全局模型的影
+响，减少了客户端局部特征对全局模型的干扰，所以 FML-LSTM 中也没有出现某个
+场景的优化明显较差的情况。
+22
+a) ETH-UCY
+b) SDD
+图12 FML在ETH-UCY和SDD上的FDE和ADE
+23
+a) ETH-UCY
+b) SDD
+图13 FML在FDE和ADE指标上相对本地LSTM的提升
+24
+a) ETH-UCY
+b) SDD
+图14 四种方法在FDE和ADE指标上相对本地LSTM的提升
+25
+5.7 联邦学习框架之间的比较
+图14展现了四种方法在ETH-UCY和SDD上对LSTM的平均提升。综上，在相同
+的通信成本之下，Fedsgd-LSTM的性能提升最小，且可能会出现因训练欠拟合而导致
+负优化的情况；Fedprox-LSTM的在整体优化性能最好；Fedavg-LSTM与FML-LSTM
+都有比较好的优化性能，但FML-LSTM的优化更稳定，Fedavg-LSTM的优化性能可
+能存在一些波动。
+a) ETH-UCY
+b) SDD
+图15 各种方法在SDD和ETH-UCY数据集上的误差棒图
+26
+图15展示了各种方法在两个数据集上的误差棒图，其中选择标准差作为误差指
+标。与前文的分析类似，实验中，Fedsgd-LSTM的性能较差，Fedavg-LSTM，Fedprox-
+LSTM和FML-LSTM 从误差的均值上看表现较为接近，且都有相对LSTM的提升。
+a) FDE
+b) ADE
+图16 ETH-UCY数据集上各种方法预测结果的FDE和ADE
+图16和图17展示了在 ETH-UCY 数据集和 SDD 数据集上各种方法预测结果的
+FDE 和 ADE。如图可见虽然不同方法预测的结果有差异，但是各种方法的性能体现
+出了对特定场景的一致性，比如在ETH-UCY的场景2中，各种方法预测的误差值都
+较低，而在ETH-UCY的场景5中误差值都较高，说明在底层的预测模型向模型中添
+加地形因素等客户端特有的特征是必要的。例如在某个场景中存在弯道处而行人常
+27
+a) FDE
+b) ADE
+图17 SDD数据集上各种方法预测结果的FDE和ADE
+28
+常在此转弯，类似的这种客户端特有的特征并没有在当前的模型中体现。使用带社交
+属性或地形属性的 LSTM[25]是模型的一个改进方向，这样可以进一步减小模型预测
+的误差。
+5.8 小结
+本章将 LSTM，Fedavg-LSTM，Fedprox-LSTM，Fedsgd-LSTM，FML-LSTM 在
+SDD 和 ETH-UCY 数据集上进行测试，以平均位移误差和最终位移误差作为评价指
+标，分别对比了Fedavg-LSTM，Fedprox-LSTM，Fedsgd-LSTM，FML-LSTM在数据
+集上的性能，对比了它们对于仅在本地训练的 LSTM 的提升，并提出了模型可能的
+改进方案。
+29
+6. 总结
+本文主要分析了行人轨迹预测领域中的常见问题和挑战，并对传统的循环神经
+网络（RNN）在轨迹预测问题中的局限性进行了分析。在此基础上，本文探讨了联邦
+学习模型在轨迹预测中的优势，主要体现在确保准确性的同时更好地保护客户端数
+据隐私方面。本文选择了 SDD 和 ETH-UCY 数据集中特定场景的数据，为了便于训
+练，对其进行了适当的预处理。在实验中构建了LSTM模型，并搭建了Fedavg-LSTM、
+Fedprox-LSTM、Fedsgd-LSTM和FML-LSTM等联邦学习框架进行训练和测试，通过
+限制总的训练轮次来模拟服务器和客户端之间有限的通信成本，验证了联邦学习在
+轨迹预测中的有效性并测试其性能对于仅在本地训练模型的提升。通过对比仅在本
+地使用LSTM模型训练的结果，实验结果显示，在ADE和FDE指标上，Fedsgd-LSTM
+受到通信成本限制仅有较小的性能提升。而 Fedavg-LSTM、Fedprox-LSTM 和 FML-
+LSTM 则可以获得较大的性能提升。不同的预测模型在各个场景中的相对值具有相
+似性，由此考虑，模型仍然存在改进的空间。例如，可以在底层的模型中加入行人之
+间的交互影响以及场景中的位置信息等因素来进一步提升预测模型的性能。
+30
+参考文献
+[1] 孔玮, 刘云, 李辉, 等. 基于深度学习的行人轨迹预测方法综述[J]. 控制与决策,
+2021,36(12):2841-2850.
+[2] SONGX,CHENK,LIX,etal.Pedestriantrajectorypredictionbasedondeepconvo-
+lutionalLSTMnetwork[J].IEEETransactionsonIntelligentTransportationSystems,
+2020,22(6):3285-3302.
+[3] LI T, SAHU A K, TALWALKAR A, et al. Federated learning: Challenges, methods,
+andfuturedirections[J].IEEEsignalprocessingmagazine,2020,37(3):50-60.
+[4] LI L, FAN Y, TSE M, et al. A review of applications in federated learning[J]. Com-
+puters&IndustrialEngineering,2020,149:106854.
+[5] LIZ,SHARMAV,MOHANTYSP.Preservingdataprivacyviafederatedlearning:
+Challengesandsolutions[J].IEEEConsumerElectronicsMagazine,2020,9(3):8-16.
+[6] BAHDANAUD,CHOK,BENGIOY.Neuralmachinetranslationbyjointlylearning
+toalignandtranslate[J].arXivpreprintarXiv:1409.0473,2014.
+[7] 杨丽,吴雨茜,王俊丽,等.循环神经网络研究综述[J].计算机应用,2018,38(A02):
+1-6.
+[8] HOCHREITER S, SCHMIDHUBER J. Long Short-Term Memory[J]. Neural Com-
+putation,1997,9(8):1735-1780.DOI:10.1162/neco.1997.9.8.1735.
+[9] SMAGULOVA K, JAMES A P. A survey on LSTM memristive neural network ar-
+chitecturesandapplications[J].TheEuropeanPhysicalJournalSpecialTopics,2019,
+228(10):2313-2324.
+[10] KAIROUZ P, MCMAHAN H B, AVENT B, et al. Advances and open problems in
+federatedlearning[J].FoundationsandTrends®inMachineLearning,2021,14(1–2):
+1-210.
+[11] ZHANGC,XIEY,BAIH,etal.Asurveyonfederatedlearning[J].Knowledge-Based
+Systems,2021,216:106775.
+[12] ZHANG Y, XIANG T, HOSPEDALES T M, et al. Deep mutual learning[C]//
+ProceedingsoftheIEEEconferenceoncomputervisionandpatternrecognition.2018:
+4320-4328.
+[13] ZHAOH,YANGG,WANGD,etal.Deepmutuallearningforvisualobjecttracking
+[J].PatternRecognition,2021,112:107796.
+31
+[14] ROBICQUETA,SADEGHIANA,ALAHIA,etal.Learningsocialetiquette:Human
+trajectory understanding in crowded scenes[C]//European conference on computer
+vision.2016:549-565.
+[15] PELLEGRINI S, ESS A, SCHINDLER K, et al. You’ll never walk alone: Modeling
+social behavior for multi-target tracking[C]//2009 IEEE 12th international confer-
+enceoncomputervision.2009:261-268.
+[16] MANGALAM K, AN Y, GIRASE H, et al. From goals, waypoints & paths to long
+term human trajectory forecasting[C]//Proceedings of the IEEE/CVF International
+ConferenceonComputerVision.2021:15233-15242.
+[17] FANG L, JIANG Q, SHI J, et al. TPNet: Trajectory Proposal Network for Motion
+Prediction[C]//Proceedings of the IEEE/CVF Conference on Computer Vision and
+PatternRecognition(CVPR).2020.
+[18] DENGY,KAMANIMM,MAHDAVIM.Distributionallyrobustfederatedaveraging
+[J].Advancesinneuralinformationprocessingsystems,2020,33:15111-15122.
+[19] THONGLEK K, TAKAHASHI K, ICHIKAWA K, et al. Federated learning of neu-
+ralnetworkmodelswithheterogeneousstructures[C]//202019thIEEEInternational
+ConferenceonMachine LearningandApplications(ICMLA).2020:735-740.
+[20] LI T, SAHU A K, ZAHEER M, et al. Federated optimization in heterogeneous net-
+works[J].ProceedingsofMachine learningandsystems,2020,2:429-450.
+[21] SHEN T, ZHANG J, JIA X, et al. Federated mutual learning[J]. arXiv preprint
+arXiv:2006.16765,2020.
+[22] MATSUDA K, SASAKI Y, XIAO C, et al. FedMe: federated learning via model ex-
+change[C]//Proceedingsofthe2022SIAMInternationalConferenceonDataMining
+(SDM).2022:459-467.
+[23] RUDENKO A, PALMIERI L, HUANG W, et al. The Atlas Benchmark: an Auto-
+matedEvaluationFrameworkforHumanMotionPrediction[C]//202231stIEEEIn-
+ternationalConferenceonRobotandHumanInteractiveCommunication(RO-MAN).
+2022:636-643.
+[24] NGUYENTT,JANGSY,KOSTADINOVB,etal.PreActo:EfficientCross-Camera
+Object Tracking System in Video Analytics Edge Computing[C]//2023 IEEE Inter-
+nationalConferenceonPervasiveComputingandCommunications(PerCom).2023:
+101-110.
+[25] ALAHIA,GOELK,RAMANATHANV,etal.Sociallstm:Humantrajectorypredic-
+tionincrowdedspaces[C]//ProceedingsoftheIEEEconferenceoncomputervision
+andpatternrecognition.2016:961-971.
+32
+致谢
+时光匆匆，我四年的本科生活即将画上句号。没有各位老师的帮助，我不可能拥
+有这样充实多彩的大学生活。感谢宋轩老师，他给予了我无微不至的指导和帮助，他
+的专业知识启迪了我很多，他的耐心和关心让我在学习生活中充满力量和信心，让我
+更加努力地学习和探索；感谢赵弈丞老师，他不仅给予我学术上的指导，还帮助我制
+定各种计划，在我手忙脚乱时帮我理清头绪，让我能更合理地安排时间；感谢史小丹
+老师，她为我的毕设指导了很多，在我遇到问题时给我及时而关键的意见；感谢唐茗
+老师，她在百忙之中为我的毕设提出了详细的修改意见，让我注意到了很多此前未能
+关注的细节；感谢听取我答辩的各位老师，他们的意见让我能够找到毕设中存在的问
+题并进一步完善。
+在完成毕设的过程中，我学到了很多有用的知识和技能，并且也克服了很多困难
+和挑战。我相信这次经历将会成为我未来职业和学术生涯的宝贵财富。最后，我还要
+感谢所有支持和帮助我的同学和家人，我将会一直珍惜这份友谊和亲情，继续努力、
+继续成长。
+33

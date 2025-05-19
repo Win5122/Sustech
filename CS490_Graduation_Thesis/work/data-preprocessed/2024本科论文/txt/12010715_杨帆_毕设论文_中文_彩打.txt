@@ -1,0 +1,1032 @@
+分类号 编号
+U D C 密级
+本科生毕业设计（论文）
+题 目： 多目标进化算法优化地形可视分析
+姓 名： 杨帆
+学 号： 12010715
+系 别： 计算机科学与工程系
+专 业： 计算机科学与技术
+指导教师： 马昱欣 副教授
+2024 年 06 月 07 日
+诚信承诺书
+1. 本人郑重承诺所呈交的毕业设计（论文），是在导师的指导下，
+独立进行研究工作所取得的成果，所有数据、图片资料均真实可靠。
+2. 除文中已经注明引用的内容外，本论文不包含任何其他人或
+集体已经发表或撰写过的作品或成果。对本论文的研究作出重要贡
+献的个人和集体，均已在文中以明确的方式标明。
+3. 本人承诺在毕业论文（设计）选题和研究内容过程中没有抄袭
+他人研究成果和伪造相关数据等行为。
+4. 在毕业论文（设计）中对侵犯任何方面知识产权的行为，由本
+人承担相应的法律责任。
+作者签名:
+年 月 日
+多目标进化算法优化地形可视分析
+杨帆
+（
+计算机科学与工程系 指导教师：马昱欣）
+[摘要]：优化问题是指研究如何在给定一组约束条件下找到最优解的一
+系列问题，这些问题可以只涉及单一的目标函数（单目标优化），也可以
+有多个可能相互冲突的目标函数（多目标优化）。随着优化算法领域前沿
+研究的不断进步，多目标进化算法（MOEA）已经逐渐成为解决这些复
+杂多目标优化问题的强有力工具。虽然近几年 MOEA 在计算效率、解集
+的多样性和收敛性方面已经取得了可观的进展，但是仍然存在一个关键
+问题：进化算法的内部机制对人类用户来说仍是不透明、不直观的。本
+研究受到人工智能可解释性在阐释复杂算法及模型机制方面取得的巨大
+成功的启发，决定将这一思路应用于理解 MOEA 的内部运作机制和进化
+算法的动态过程。通过审阅文献综述和开展专家访谈，本研究初步建立
+了一个从检查解集质量指标的整体趋势到对进化操作详细分析的多层次
+可视分析方案。为帮助用户更好地查看连续代际之间的时间趋势和动态
+变化、参与探索性分析过程，本研究采用了集成式可视化设计方案，设
+计并实现了全新可视分析框架——ParetoTracker。最后，本研究通过两个
+详尽的基准优化问题案例研究和一系列专家访谈证明了该框架的有效性。
+[关键词]：可视分析; 多目标进化算法; 演化计算
+I
+[ABSTRACT]: Multi-objective evolutionary algorithms (MOEA) have
+emerged as powerful tools for solving complex optimization problems charac-
+terized by multiple, often conflicting, objectives. While advancements have
+been made in computational efficiency as well as diversity and convergence of
+solutions,acriticalchallengepersists: theinternalevolutionarymechanismsare
+opaque to human users. Drawing upon the successes of explainable AI in ex-
+plaining complex algorithms and models, we argue that the need to understand
+the underlying evolutionary operators and population dynamics within MOEA
+aligns well with a visual analytics paradigm. This paper introduces Pareto-
+Tracker, a visual analytics framework designed to support the comprehension
+andinspectionofpopulationdynamicsintheevolutionaryprocessesofMOEA.
+Informedbypreliminaryliteraturereviewandexpertinterviews,theframework
+establishes a multi-level analysis scheme, which caters to user engagement and
+exploration ranging from examining overall trends in performance metrics to
+conducting fine-grained inspections of evolutionary operations. In contrast to
+conventional practices that require manual plotting of solutions for each gen-
+eration, ParetoTracker facilitates the examination of temporal trends and dy-
+namics across consecutive generations in an integrated visual interface. The
+effectivenessoftheframeworkisdemonstratedthroughcasestudiesandexpert
+interviews focused on widely adopted benchmark optimization problems.
+[Key words]: Visual Analytics; Multi-Objective Evolutionary Algorithms;
+Evolutionary Computation
+II
+目录
+1. 引言 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+2. 相关工作 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2.1 进化多目标优化领域的可视化 . . . . . . . . . . . . . . . . . . . . . . 3
+2.2 可解释人工智能中的可视分析 . . . . . . . . . . . . . . . . . . . . . . 4
+3. 研究背景 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.1 多目标优化问题 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.2 多目标进化算法 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+4. 设计总览 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.1 研究挑战总结 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.2 需求整理汇总 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+4.3 可视分析任务 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+5. 可视分析框架 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+5.1 质量指标和种群统计信息概览 . . . . . . . . . . . . . . . . . . . . . . 12
+5.1.1 世代级别质量指标视图 . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+5.1.2 种群统计信息概览视图 . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.2 连续代际种群动态变化概览 . . . . . . . . . . . . . . . . . . . . . . . . 13
+5.2.1 决策空间与目标空间分析视图 . . . . . . . . . . . . . . . . . . . . . 13
+5.2.2 家族谱系分析视图 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+5.3 进化操作算子的深度检查 . . . . . . . . . . . . . . . . . . . . . . . . . 15
+5.3.1 各进化操作算子的数据抽象 . . . . . . . . . . . . . . . . . . . . . . . 15
+III
+5.3.2 各进化操作算子的可视化与交互设计 . . . . . . . . . . . . . . . . 17
+6. 研究案例与专家访谈 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+6.1 研究案例 1: SMS-EMOA 算法在 DDMOP2 基准问题上的表现 . 19
+6.1.1 质量指标和统计信息 . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+6.1.2 世代级别种群分析 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+6.1.3 代际动态变化细节分析 . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+6.2 研究案例 2: NSGA-II 算法在 DTLZ3 基准问题上的表现 . . . . . 21
+6.2.1 质量指标和统计信息 . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+6.2.2 世代级别种群分析 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+6.2.3 代际动态变化细节分析 . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+6.3 专家访谈 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+6.3.1 总体分析流程反馈 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+6.3.2 可视化和交互设计 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+6.3.3 相关改进建议 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+7. 总结与讨论 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+7.1 散点图中投影方法的选择 . . . . . . . . . . . . . . . . . . . . . . . . . 25
+7.2 数据尺度上的可扩展性 . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+7.3 可视分析框架的普适性 . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+7.4 未来工作 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+参考文献 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+附录 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+致谢 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+IV
+1. 引言
+在众多的决策场景中，我们常常会遇到需要同时优化多个目标的问题。这种多目
+标优化问题在工程设计[1]、环境规划[2]以及人工智能[3]等领域频繁出现。与只专注于
+优化单一目标函数的单目标优化问题不同，这类多目标优化问题的主要挑战在于需
+要同时处理多个目标函数，而这些目标之间往往会存在相互冲突的情况，也就是说，
+优化一个目标函数可能会对其他目标的效果产生负面影响。因此，这类问题的解并不
+像单目标优化问题的解一样是单一的最优点，而是一组可行的解组成的集合。并且，
+在这个解集中，每一个解都是非支配的，换而言之，没有任何一个解在所有目标上都
+比其他解更优。
+为了应对这种复杂的冲突特性，多目标进化算法（MOEA）采用进化计算的方法
+来协调这些目标函数[4]。这些算法的基本机制受到自然进化的启发，通过仅保留最适
+应目标函数的解集[5]的方式，在优化的过程中同时保证了解集的多样性和高收敛特
+征。进化算法的一般流程如下：在每一代进化过程中，一组父代个体被选中，组成交
+配对，通过交叉和突变操作生成一组后代个体。随后，环境选择步骤将对这些个体进
+行筛选，仅保留具有最高优化适应度的个体，这些个体共同组成了下一代进化过程的
+初始种群。
+虽然 MOEA 在解决复杂的多目标优化问题上十分有效，但它们的运行往往不直
+观、缺乏透明度，对人类用户而言就像一个黑匣子[6]。尽管在揭示最优解集的各种模
+式方面[7]，进化计算和可视化领域的研究已经取得了一定进展，但是由于各种MOEA
+采用了复杂各异的进化策略[8-9]，在更好地引导用户参与并理解进化过程的动态变化
+这个问题上，仍有很大的探索空间。传统方法通常用数值指标来反应解集特征在进化
+过程中的变化[10]。然而，要全面理解解集是如何向最优方向收敛的，详细解释连续代
+际之间的进化操作是必要的，这么做不仅能从聚合质量指标之外提供新的检查视角，
+也能更好地帮助算法开发者和终端用户判断算法的进化操作是否成功有效。
+在过去的十年中，可视化研究社区成功地将视觉分析范式运用于解释复杂的算
+法过程，在提高各类算法和模型透明度方面[11-14]取得了巨大进展。受此启发，本研究
+认为这种范式也同样适用于阐明 MOEA 内部的进化动态，据这些范式设计并实现了
+1
+新的可视分析框架——ParetoTracker。通过对相关文献的广泛审查和与进化计算领域
+专家的合作访谈，本研究提出了一系列分析任务，以分层方式指导可视分析和交互设
+计。通过采用“概览+细节”方案，ParetoTracker利用多层次设计从三个角度解释了
+代际之间的进化过程：解集的聚合质量指标和统计信息，解个体及其家族谱系的跨代
+追踪，以及连续代际之间进化操作算子的深入分析。经过案例研究和专家访谈，已证
+实ParetoTracker在MOEA 领域常见基准问题上的有效性。
+总结来说，本研究的贡献如下：
+• 一套用于理解 MOEA 进化过程并检查解集种群的变化动态的可视分析框架；
+• 一套用于突出进化过程中各代之间显著进化模式的探索性可视分析流程；
+• 用于证明该系统有效性的基准测试问题案例研究和专家访谈。
+2
+2. 相关工作
+本研究旨在解决探索多目标进化算法的进化过程中涉及的挑战。本节将回顾现
+有文献，探讨可视化技术在进化多目标进化算法以及可解释人工智能中的应用。
+2.1 进化多目标优化领域的可视化
+在进化多目标优化的研究和应用中，可视化技术因其有效地促进对最终解集的
+直观理解而起着关键的作用。在处理这些优化问题的决策空间和目标空间时，由于
+它们的复杂特性，我们往往需要用两个维度以上的向量来描述它们。在这种情况下，
+我们需要使用高维可视化技术来展示解集。为了将原始的决策或目标向量转换为在
+视觉上可感知的二位点集，目前主流的可视化方法使用了线性和非线性降维技术，包
+括主成分分析（PCA）[15]、t-分布随机邻近嵌入（t-SNE）[16]以及均匀流形逼近和投影
+（UMAP）[17]。这些技术旨在保留解集的重要模式，如方差、距离和聚类，从而使数据更
+易于理解。此外，除了改变原始向量的投影方法外，平行坐标[18]和散点图矩阵[19-20]也
+是常用的直观展示高维数据的技术。
+除了前述的常规高维可视化方法外，优化领域还积极探索其他可视化技术和方
+法，以更有效地解决与可视化解集相关的挑战。He和Yen[21]通过调整角度和半径数值
+重新定位目标向量，并将它们投影到二维径向坐标系统中。根据映射向量的轮廓，可
+以观察到帕累托前沿的凸性和线性等特征。iSOM投影方法[22-23]通过采用可解释的映
+射策略，增强了传统自组织映射算法的可解释性。3D-RadVis[24]在单一可视化设计中
+同时展示了解分布及其收敛到帕累托前沿的情况。PalleteViz[25]和 PaletteStarViz[26]旨
+在通过突出特定几何属性和解的约束边界接近度，帮助支持多目标优化问题中的决
+策制定过程。
+除了静态可视化优化算法的输出之外，近期的研究已经开始涉及对进化过程进
+行可视化，以展示算法的动态特征。De Lorenzo 等人[27]利用多维缩放（MDS）来呈
+现决策空间内的搜索轨迹；然而，他们的方法仅限于单目标优化问题。Walter等人在
+这一方法基础上将其应用范围扩展到多目标场景[8]，甚至更为复杂的问题领域[9]，使
+用户能够探索有更加复杂特征的决策空间优化地形。此外，一项后续工作在离散优化
+场景下揭示了进化过程中解之间的代际联系[6]。在可视分析社区中，VisEvol[28]利用
+3
+进化算法确定机器学习模型的最佳超参数设置，设计了专门的可视化工具来处理包
+括交叉和突变在内的内部搜索机制。另外，Huang 等人[29]提出了一个比较分析框架，
+利用时间线和邻近图来研究不同算法运行之间的相似性。
+综上所述，已经存在许多研究致力于可视化解集和进化代际动态。然而，这些方
+法普遍存在一个常见局限，即它们提供的交互能力有限，具有很强的静态特性。此
+外，这些方法通常不能很好地在算法运行过程中为不同粒度的进化操作提供详细分
+析。为了弥补这一不足，本研究的可视分析框架增强了分析能力，为用户提供了从种
+群聚合质量指标到详细粒度的进化过程的探索和检查方式。
+2.2 可解释人工智能中的可视分析
+可视分析范式的应用已被广泛证明可以用于解释和检查复杂的计算模型。在过
+去的十年中，一系列调查报告[11-14]总结了应用于机器学习模型的可视分析的进展，涵
+盖了学任务、模型类型和数据处理流程等多个方面。本节主要回顾了与本研究的研究
+重点密切相关的用于阐明机器学习模型基本机制以及进化过程的可视分析技术。
+为了打开机器学习模型的“黑盒子”，可视化社区锲而不舍地提出了多种技术与
+可视分析框架[30-31]。为响应对实时修复和交互反馈计算的呼吁[32]，Muhlbacher 等人
+的工作总结了在黑盒模型中呈现信息和整合用户控制的相关策略。其主要贡献在于
+提出了“用户参与类型（TUI）”的分类法，该分类法基于信息方向和关注实体对反
+馈和控制进行了分类。在涉及迭代优化过程的模型中，Kim 等人[33]提出了每次迭代
+可视化环境（PIVE），为用户提供对中间迭代的洞察，并通过整合人类知识，使用户
+能够对特定迭代进行交互控制，从而影响后续迭代进程。
+除了这些通用框架和方法论之外，一些研究也着手于为白盒模型提供解释。决策
+树模型因其直观的层级结构而被认为易于理解[34]。BaobabView[35] 提出了一种视觉分
+析方法，用于展示决策树节点中的分类标准。在解决分析集成模型中单独树的复杂性
+方面，刘等人的研究[36] 和赵等人的研究[37] 考察了单个树在整个模型背景下的作用。
+RuleMatrix[38] 提供了一个框架，用于从一般的分类模型中提取代表性规则，旨在揭示
+类似树状结构的决策过程。与决策树模型类似，线性模型也被认为是容易解释的，而
+且一些研究（例如[39-41]）利用高维投影技术可视化线性分类边界，以揭示边界附近的
+4
+数据分布和不同特征的贡献。
+随着诸如神经网络等大规模模型的不断迭代进步，更佳清晰地阐明它们的训练和
+预测过程变得愈发重要。通常，训练进展通过每次迭代的统计信息图表来描述，这些
+图表显示关键的性能指标，如损失值或准确率值[42-46]。此外，还有一系列研究致力于
+通过针对特定模型或任务的可视化来探索这些发展趋势。例如，TensorflowPlayground
+系统提供了一个交互式在线平台，可用于构建简单的神经网络，并通过实时动画展示
+训练过程[47]。DeepTracker[48]则通过跟踪滤波器和权重的变化揭示了卷积神经网络的
+训练动态。在深度强化学习领域，DQNViz[44]通过多层次分析描绘了深度Q网络的收
+敛过程。至于深度生成模型，DGMTracker[45]有助于在训练过程中识别异常行为和错
+误，而GANViz[49]和GANLab[50]则专注于生成器和鉴别器模型之间的相互作用。
+总之，可解释AI领域已经存在大量致力于阐明复杂模型的内部机制的研究工作。
+而本研究的研究也受到类似的打开黑箱模型范式的启发，并聚焦于多目标进化算法
+（MOEA）领域。在这个领域中，进化过程对于人类分析者而言难以理解。本研究力
+求揭示隐藏在其底层操作中的复杂进化行为，以提供一个更加细致的视角，作为对常
+用聚合质量指标[10]的补充。
+5
+3. 研究背景
+为了建立对算法中使用的术语和关键组件的初步理解，本节提供了 MOEA 的初
+步概述。本节首先阐述多目标优化问题的概念，随后探讨了将进化算法作为解决这些
+复杂问题的优化范式的应用。
+3.1 多目标优化问题
+多目标优化问题可以被表述为最小化一系列目标函数：
+min f(x) = (f (x),f (x),...,f (x)) (1)
+1 2 m
+其中，x = (x 1,x 2,...,x n) 是位于决策空间 Rn 的中 n 维决策向量，而 x 在 m 个
+目标函数上的函数评估值组成了位于 Rm 的目标向量，记为f(x)。鉴于目标经常存在
+冲突，例如图1（A）所示，调整 x 以最小化 f (x) 的值可能会增加 f (x) 的结果，因
+1 2
+此不可能找到一个单一的解同时最小化所有目标。
+(A)多目标优化问题
+决策空间 目标空间
+(3-维度) (2-维度)
+解 (个体)
+决 向策 量 目 向标 量 f1 参 考 点
+集
+x f(x) f2
+(B)多目标进化算法 (MOEA) 第 k - 1 代种群
+P(k - 1)
+交配池 保留个体集
+多目标进化算法中
+MP(k) R(k)
+特定进化算子的数据抽象
+配对
+交配: 与常规配对方式一致
+交配对
+M(k)
+交叉: 模拟二进制交叉（SBX） 交叉
+与交叉后随机扰动
+交叉子代
+O(k)
+O'(k) O(k) - O'(k)
+突变
+突变: 多项式突变
+突变子代
+O~'(k)
+环境选择:
+(排序)候选解分组 + 适应度评分 环境选择
+第 k 代种群
+P(k)
+图1 (A)多目标优化问题的示例。(B)右侧是通用的进化计算流程，左侧是MOEA中运算符的专
+门数据抽象。
+6
+对于两个解 x 和 x ，如果 x 在所有目标上都不比 x 差，并且在至少一个目标
+1 2 1 2
+上严格优于 x ，则称 x 支配 x （记作 x x ）。如果在目标空间中不存在其他解支
+2 1 2 1 2
+≺
+配x，则解x被认为是帕累托最优的。所有帕累托最优解构成了帕累托集，而这些解
+对应的目标向量构成了帕累托前沿。基于这些定义，解决多目标优化问题的主要目标
+是获取帕累托前沿。
+值得注意的是，为了进行基准测试，一些基准测试问题提供了包含大量目标向量
+的参考集，这些目标向量采样自帕累托前沿附近，如图 1（A）所示。这样可以将算
+法生成的结果与参考数据集进行比较，从而评估算法的性能。
+3.2 多目标进化算法
+在解决多目标优化问题的各种策略中，进化算法以其在单次运行中获取解集的
+高效性、保持多样性和收敛性而脱颖而出。从决策空间中随机抽样的初始样本集开
+始，MOEA具有多个主要迭代循环，称为代。一个迭代包括一定数量的进化步骤，称
+为进化操作算子，以驱动候选个体的种群向帕累托前沿靠近。在MOEA的背景下，每
+个个体对应于一个解，包含一个决策向量。
+如图1（B）的右侧所示，一个典型的进化算法流程从一个初始化种群 P(1) =
+p ,p ,...,p 开始，其中包含了 µ 个个体，第 i 个个体 p = (x ,f ) 由解的决策向
+{
+1 2 µ
+}
+i pi pi
+量和相应的目标向量组成。在迭代演化过程中，第 k 代产生了一个新的解集，记为
+P(k)，作为演化的结果。第k 代内部的流程涉及以下操作算子：
+• 交配(Mating)。首先，第k 1代中的个体被划分为两组：一个交配池MP(k)和一
+−
+个保留集R(k)。然后，MP(k) 中的个体被配对为各种不同的交配对：
+M(k) = (p ,p ) p ,p MP(k), i = j (2)
+i j i j
+{ | ∈ ̸ }
+其中 p 和 p 是下一步进化的父代。配对数量记为 λ。需要注意的是，R(k) 中的那
+i j
+些保留个体将不参与交叉和突变操作。
+• 交叉(Crossover)。在这一步中，每对交配对 (p ,p ) 通过组合父代的决策向量特征
+i j
+（即xp 和xp ）生成两个后代。所有的 2λ 个新后代形成了一个后代集合：
+i j
+7
+O(k) = o 1 i 2λ (3)
+i
+{ | ≤ ≤ }
+其中o = (xo ,f(xo )) 表示后代的相应决策和目标向量。
+i i i
+• 突变(Mutation)。从后代集合 O(k) 中选择一个随机子集 O (k)，O (k) O(k)，并
+′ ′
+⊆
+对O (k)中的所有个体应用扰动操作来进行突变，从而得到一个突变后的后代集合
+′
+O˜ (k)。换而言之，剩下的后代O(k) O (k) 不进行突变。
+′ ′
+−
+• 环境选择(Environmental Selection)。为了确定最优的个体解，通过合并来自前面步
+骤的各种种群集合构建一个大型联合种群Q(k)：
+Q(k) = R(k) MP(k) O˜ (k) (O(k) O (k)) (4)
+′ ′
+∪ ∪ ∪ −
+这意味着所有来自上一代的父代个体（无论是保留的还是被选为交配的），以及它
+们的交叉和突变后代，都要根据某些选择标准进行相互竞争，这些标准通常是基于
+它们目标向量的适应度分数。因此，在这个选择过程中脱颖而出的最佳µ个个体形
+成了当前代k 的种群P(k) 的输出。
+当满足预定义的终止条件时，例如达到最大代数，迭代过程停止。虽然 MOEA
+共享上述种群演化的流程，但它们在交配、交叉、突变和环境选择算子的具体实现上
+存在较多差异。其中，环境选择步骤设计上的差异构成了进化计算领域的主要研究方
+向。
+8
+4. 设计总览
+基于 MOEA 的核心原理，本研究提出了一个可视分析框架，旨在审查和解释这
+些算法内部的进化过程。本节概述了从文献综述及与进化计算领域专家的合作访谈
+中总结出的需求。然后基于这些确定的需求推导出了框架支持的分析任务。
+4.1 研究挑战总结
+为了更准确地阐明来自目标领域（即 MOEA）的需求，本研究审阅了相关的文
+献和综述，包括对进化过程动态和 MOEA 中可视化的方法论研究。这些文献综述有
+助于确定主题中的潜在研究空白。为了验证文献综述的发现并深入了解，本研究与两
+位演化计算领域的专家进行了数次访谈，记为E1和E2。E1在开发新的MOEA及其
+在工程设计中的应用方面拥有超过十年的研究经验。E2 是一位专攻多目标优化和强
+化学习的高年级博士生。访谈从讨论他们在应用 MOEA 方面的标准做法和使用可视
+化评估解集的经验开始。然后，讨论了他们在现有可视化工具中遇到的挑战，并进一
+步细化了文献综述中确定的开放性研究问题。具体来说，已确定的研究挑战主要集中
+在以下两个方面：
+• 进化过程的原生可视化方法有限。虽然广泛使用的 MOEA 工具包（如[51-52]）集成
+了一系列基于坐标轴或投影的可视化技术来绘制单个代的解集，但如果需要检查进
+化过程中的每代的变化，则需要手动绘制，这个过程往往过于繁琐。此外，由于难
+以进行代际之间的相互比较，检查单个解的动态或种群趋势也十分困难。
+• 缺乏对进化操作算子的详细检查。现有工具包中的另一个重要限制是缺乏深入到进
+化操作算子级别的可视化。为了对算法进行详细分析，探索特定个体的突变和选择
+操作以及与其对应的父代之间的关联是至关重要的。
+4.2 需求整理汇总
+除了上述研究挑战外，这些讨论还产生了本研究的框架应该解决的关键需求，以
+确保它能够有效地满足进化计算领域研究人员和实践者的需求：
+• R1: 采用质量指标作为切入点。使用聚合质量指标作为理解 MOEA 性能的手段是
+算法评估的基础[10]。E1建议可以将这些指标作为发现种群内潜在问题的切入点，从
+9
+而指引更深入细致的分析。
+• R2: 采用多级数据粒度。在评估进化过程中，种群聚合指标级别、世代级别、单个
+解级别和进化操作算子级别的各种数据粒度共存。将不同粒度级别集成到同一框架
+中可以促使更全面更便捷的检查。
+• R3: 定位并连接关键的进化行为。在第二个需求的基础上，专家强调了识别代表性
+趋势和跨世代的显著变化的重要性。访谈专家 E2 指出，在更高级别观察到的宏观
+模式与在更细粒度级别的相应数据特征之间建立链接，可以有效增强分析的深度。
+• R4: 提供对进化操作算子的更合适抽象协议。除了可视化进化操作算子通用细节的
+挑战外，应对不同操作算子的各异实现的需求也至关重要。由于 MOEA 在不同操
+作算子的设计上有显著的差异，尤其是环境选择步骤，开发一个能兼容各种操作算
+子的通用可视化协议对于将本框架应用于广泛的进化算法是十分有必要的。
+4.3 可视分析任务
+基于上述研究挑战和需求，本研究提炼出以下可视分析任务，以指导框架设计：
+T1: 理解整体质量指标。质量指标作为进化算法领域最主要且最常用的指标，提
+供了目标空间中解的分布和性能的粗粒度概述。这些质量指标的作用包括：
+• 评估特定代的解集质量；（R1，R2）
+• 识别这些指标内部的趋势以及显著的变化。（R1，R3）
+T2: 探索个体在代际间的动态变化过程。在更细粒度的层次上，揭示单个解的质
+量以及它们在代际间的传承关系是至关重要的，为此，本研究需要：
+• 检查解在不同代之间的分布以及单个解的质量；（R1，R2）
+• 追踪单个解并获得跨多个代际的家族谱系。（R3）
+T3: 检查详细的进化操作。在最详细的分析层次上，为深入审查分析进化操作中
+的各种细节，本研究需要了解：
+• 进化操作算子对解集和单个解实施的具体行为；（R3，R4）
+• 调查来自上一代的个体在下一代中如何参与进化进程。
+10
+5. 可视分析框架
+根据目前已确定的研究需求和分析任务，旨在展示多目标进化算法中种群代际
+动态，本研究提出了名为ParetoTracker的可视分析框架，如图2所示。为了与指定的
+分析任务密切对齐，本框架由三个基本模块组成：
+质量指标和种群 进化操作算子
+连续代际种群动态变化概览模块
+统计信息概览模块 的深度检查模块
+保留个体 配对个体 交叉个体 突变个体
+图2 （顶部）框架的概览。(底部)整个界面中个体来源的颜色方案。
+C D
+(d.1) #5856 在第71代被环境选择淘汰
+A (a.1) 500代的总体趋势 (d.2) #7054替代了#5856 的位置
+(c.1) #5856 并存活到第87代
+(点的大小映射到决策空
+间内最近邻居解的距离)
+(d.3) 在第 71 代的目标空间
+(c.2) #5680 散点图中的#5856与#7054
+(#5856 的父代)
+(a.2) MS 与 SP 的
+微小增长
+(b.1) 进化早期，突变个体存活比例更大
+B E
+(e.1) #7054位于
+全部被淘汰的第二组
+(b.2) 突变个体存活变少
+(e.2) #7054被一个新的突变个体
+#8605 支配
+图3 ParetoTracker的界面包含五个可视化组件：(A)质量指标折线图，(B)世代种群统计信息堆
+叠柱图，(C)选定代的决策和目标空间散点图，(D)家族谱系视图，以及(E)进化操作算子视图。
+质量指标和种群统计信息概览模块（T1）：作为可视化探索流程的初始阶段，该
+组件提供了算法质量指标的可视化呈现，同时还提供了跨所有代的个体来源统计信
+息，见图 3 (A, B)。这种设计使分析人员能够全面了解进化过程，识别趋势，并发现
+各种指标中的重要模式，从而引导下文各组件中的进一步详细分析。
+连续代际种群动态变化概览模块（T2）：在总览中识别出具有显著模式的代序列
+后，界面的主工作区中提供了关于决策和目标向量的详细信息，见图 3 (C)。此视图
+11
+在图3(D)中展示的谱系视图的帮助下，可以致力于进行谱系追踪和个体间的比较分
+析。
+进化操作算子的深度检查模块（T3）：用户可以展开两个连续代之间的进化操作
+算子视图，见图3(E)，以获得更为详细的信息。该模块描绘了交配、交叉、突变和环
+境选择等进化操作算子在每个个体上的复杂操作，从而深入分析正在发挥作用的进
+化机制。
+5.1 质量指标和种群统计信息概览
+在这个部分，本研究使用了一套质量评估指标和相应的可视化模块，以便为各个
+世代提供全面的见解（T1,R1）。此外，本研究还提供了关于进化操作类型的统计信
+息，以提供对每个世代中发生的进化过程的进一步认识。
+5.1.1 世代级别质量指标视图
+根据多目标优化解集质量评估的已有文献[10]，本研究选择了以下四种质量指标
+来评估各个世代。这些指标分为两类：聚合指标：同时评估多个方面性能的聚合指标；
+特定指标：专注于某一特定方面的性能指标。
+• 逆代际距离(IGD) 和超体积(HV)：IGD 和 HV 是多目标进化算法文献中最常用的
+聚合指标，它们同时评估收敛性和多样性。IGD计算目标空间中种群解与参考集点
+之间的平均距离，而HV则量化种群相对于目标空间中预定义点所支配的区域的体
+积。较低的IGD 或较高的HV 值表示种群具有优越的收敛性和多样性。
+• 间距(SP)和最大扩散度(MS)：与聚合质量指标相比，SP和MS关注解集质量的特
+定方面。SP通过测量解之间距离的方差来计算解的均匀性，较大的SP值表示解的
+分布不均匀。MS 评估解在每个目标上的扩展程度，较大的 MS 值表示解的扩散范
+围更广。
+如图3 (A) 所示，所选的质量指标使用四个独立的折线图分别进行可视化。所有
+折线图的水平轴对齐，表示世代的序列，而垂直轴代表相应的指标值。这些折线图在
+水平轴上实现了语义缩放功能，用于检查特定世代范围，且缩放比例被同步，以支持
+所有折线图的对齐和比较。
+12
+5.1.2 种群统计信息概览视图
+除了质量指标外，了解个体相对于进化操作的起源对于分析种群动态也至关重
+要。具体来说，用户希望理解给定世代中的个体是直接从前一代遗传下来的父代，还
+是从父代对中演化出的突变后代。为了解决这个问题，本研究利用基于堆叠条形图设
+计的可视化来描绘按照他们起源的个体比例。如图 3（B）所示，世代的序数索引放
+在堆叠条形图的左侧。在第k 世代的条形图内部，一系列段表示个体的以下四种类型
+的起源的比例：
+1) 保留自前一代，即R(k)；
+2) 在交配池中，即MP(k)；
+3) 基于他们的父代对的交叉后代，即O(k) O (k)；
+′
+−
+4) 突变后代，即O˜ (k)。
+′
+如图2（底部）所示，该框架采用了一个全局分类颜色方案，以便于区分四种个
+体来源，其中浅蓝色代表保留的个体，绿色代表来自交配池的个体，紫色代表交叉后
+代，黄色代表突变后代。值得注意的是，这种颜色映射在整个可视框架中都是一致
+的。此外，具有条纹遮罩的条形图段表示没有通过环境选择过程的个体。
+5.2 连续代际种群动态变化概览
+该视图可视化了所有世代解集中所有个体的决策向量和目标向量，有助于在质
+量指标和统计信息之外，对进化动态进行更细粒度的理解（T2，R3）。该组件在界面
+的主工作区展示了个体及其质量指标的抽象表示，并配有其遗传谱系视图，详见图3
+(C,D)。
+5.2.1 决策空间与目标空间分析视图
+当在质量指标视图中发现如某个指标显著增加或减少等模式，用户可以通过在
+水平轴上刷选或点击折线图中的任何数据点来选择一系列的世代。然后，该选择区间
+将在主工作区以并列的方式展示，如图 3 (C) 所示。根据 R4 所述：为每个分析粒度
+提供合适的数据抽象，单个解被描述为两组向量——决策向量和目标向量，并在垂直
+堆叠的分别代表目标空间和决策空间的两个散点图中进行可视化。
+13
+解集分布：在决策和目标空间中，向量维度往往超过两个，有时甚至超过十个。高
+维度数据一般需要采用降维技术进行处理，因此，本研究决定对目标空间使用 PCA，
+对决策空间使用t-SNE[16]。为了确保可比性，本研究解决了同一空间内投影结果的对
+齐问题：
+• 对于目标空间，本研究使用参考集合拟合 PCA 投影矩阵，并在所有散点图中应用，
+使得可以清楚地观察到相对于真实参考点的解集分布。
+• 对于决策空间，t-SNE 参数是基于选定世代中所有决策向量的并集训练的，这些参
+数在所有选定世代中保持一致。
+视觉编码：点的颜色映射方案与框架全局中针对进化操作来源的分类方案保持
+一致。为了突出个体的质量，用户可以选择将点的大小映射到：1）到最近参考点的
+距离[53]，表示向帕累托前沿的收敛程度；和2）到目标空间中最近解的距离，表示分
+布的均匀性。在后者映射方式下，点的大小越小，表示两个解之间距离越短。此外，
+决策空间的散点图通过使用到决策空间内最近解的距离，进一步揭示了决策空间内
+解之间的空间关系。为了说明每个世代环境选择过程的结果，未能生存下来的个体在
+散点图中被明显标记为十字形，并且在后续的世代中不会出现。在具有参考集的测试
+问题中，一个代表参考点的蓝色密度图被渲染在目标空间散点图中所有点和十字形
+的下方，以便将解的分布与参考点进行比较。
+交互设计：当鼠标指针悬停在一个点上时，可以激活一个悬浮面板来显示关于该
+解的关键属性。这些信息包括世代序号、个体 ID、进化操作的起源、到最近参考点
+的距离、所有目标上的具体值，以及在相应世代中经过环境选择过程后的生存状态。
+5.2.2 家族谱系分析视图
+除了将所有选定的世代的散点图并排放置外，本研究还提供了对世代之间亲属
+谱系关系的详细描绘，如图 3 (C) 所示。在散点图中选择任何一个点都会触发显示连
+接曲线，这些曲线将个体连接到其父代个体（或者如果它是从前一代直接留存的，则
+回到它自己）。这些谱系连接一直延伸到所选范围的初始世代。曲线的颜色对应于后
+14
+代的进化操作来源，而曲线的宽度则说明了后代与所连接的父代在目标空间中的距
+离。值得一提的是，本框架支持同时查看多个个体的谱系连接。
+当用户对一组个体感到好奇，想要确定他们的长期演化历程以及他们是否来自
+一组共同的祖先。然而，在大量世代的散点图中可视化族谱系树可能会导致视觉表达
+混乱，尤其是在比较多个个体的多个树时。为了解决这个问题，本研究设计了一个专
+门的谱系视图来清楚地描绘多个谱系，如图3所示，该视图由两个面板组成：
+左面板：水平轴代表世代的顺序，每个启用谱系视图的个体都用一行的时间线表
+示。时间线突出显示了个体的起源世代和它环境选择淘汰的结束位置。为了描绘个体
+之间的共同祖先，使用跨行的曲线链接来显示确定最近的共同祖先的世代。
+右面板：除了时间比较外，这个面板还在决策和目标向量的两个散点图上分别可
+视化了选定个体及其谱系树在各世代的分布。从父代指向后代的箭头以渐变色渲染，
+其中较浅的色调表示早期的世代。这有助于检查谱系树上所有的相关个体的决策/目
+标向量的分布情况。
+5.3 进化操作算子的深度检查
+在最详细的分析层次上，本模块提供了在一个世代内，对用于创建下一个世代种
+群的一系列进化操作的详细洞察。当在主工作区选择一系列世代时，点击两个连续
+世代的散点图之间的“加号”会展开一个用于描述每个进化操作的复杂步骤的进化
+操作算子视图。为提供如R4所建议的与分析者需求相符的数据抽象，本研究根据在
+章节3中概述的进化计算的基本原则，在多目标优化的背景下重新提供这些操作的定
+义。
+5.3.1 各进化操作算子的数据抽象
+通过与领域专家的讨论和对 PlatEMO[51]和 Pymoo[52]等主流 MOEA 工具包的研
+究，本研究确定了交配、交叉、突变和环境选择操作的详细抽象。这些数据抽象协议
+适用于绝大多数MOEA。
+交配和交叉：MOEA 中常用的配对协议与 章节 3中构建 M(k) 的方式相同。对
+于交叉，本研究关注的是专为实值重组操作设计的模拟二进制交叉（SBX）操作算
+15
+子[54]。给定一对个体(p ,p )及其决策向量x 和x ，SBX产生两个后代o 和o ，其
+i j pi pj i j
+决策向量计算如下：
+x = 0.5 (1+β)x +(1 β)x (5)
+oi pi
+−
+pj
+x = 0.5 (1 β)x +(1+β)x (6)
+oj !
+−
+pi pj"
+! "
+其中，β 是从特定概率分布中得出的扩散因子。更直观地说，这种方法将父代的
+决策向量与对称随机扰动进行线性组合，所有四个向量在决策空间中处于同一条线
+上。值得注意的是，一些实现方法[52]引入了额外的交叉后随机扰动，以增强后代的遗
+传多样性。
+突变：除了 SBX（模拟二进制交叉）中会有一定量的随机变化，多项式突变也
+常被用在 MOEA 中。对于在 O (k) 中选择的每个进行突变的后代，为避免过度和不
+′
+现实的扰动与修改，这些突变操作一般会在预定义的范围内生成一个随机扰动向量
+δ Rn。
+∈
+环境选择：在最高层次的抽象中，这一过程涉及将候选解标记为“存活”或“死
+亡”。然而，这种抽象可能无法完全捕捉到MOEA中固有的选择机制的各种细节。在
+探索各种算法的搜索和选择策略后[5]，本研究提出了一种更复杂的两级抽象：分组和
+适应度评分。
+• 首先根据特定标准将候选解分组。像非支配排序这样的策略[55]会对所有个体进行
+优先级排序，使得低优先级组中的个体至少被高级别组中的一个个体所支配，然后
+得到一系列具有优先级的组。相反，像均匀空间划分这样的方法[56]则将所有的组都
+视为同等优先级。
+• 在这些组内，个体根据其适应度得分来决定其竞争生存的地位。在存在优先级的分
+组策略下，主要决定因素是组排名，其次是个体适应度得分。对于非优先分组，每
+组内的生存配额根据适应度得分进行分配。
+16
+5.3.2 各进化操作算子的可视化与交互设计
+聚焦于进化操作算子的可视化模块，界面被划分为三个独立的面板，每个面板对
+应之前讨论过的一种进化操作。这些面板的基本布局包括一个个体列表，以及决策空
+间和目标空间的一对散点图。然而，每个面板都有针对性的设计，以便有效地展示不
+同进化操作的细节。
+子代个体
+(a) 交配 & 交叉
+父代个体
+子代 突变结果
+(b) 突变
+图4 (a)交配和交叉面板的图标示例。(b)突变面板的图标示例。
+交配和交叉面板：该面板采用列表格式展示了上一代的每对父代及其后代，其中
+使用了一种图形设计（见图4）来展示父代与后代之间的关系。在这个图形中，两个
+绿色的点代表父代个体，两个紫色的小点代表后代个体。两个父代点之间连线的长度
+表示决策空间中父代个体之间的欧几里得距离。紫色后代点周围的高斯模糊光晕表
+示后代个体在突变前后受到随机扰动的程度，光晕越大，扰动越大。虚线同心圆环绕
+在点周围，代表着个体的质量，这些映射关系与本研究在章节5.2中使用的个体级质
+量指标是一致的。这些圆的半径与距离最近参考点的距离成正比，这种设计能直观地
+反映出交叉操作是否成功产生了优于父代的后代个体。决策空间和目标空间的散点
+图显示了这两个空间中父代、上一代保留的个体以及后代的空间分布。列表中的行可
+以按照父代个体之间的距离或父代离子代的距离进行排序。
+突变面板：本研究采用了类似的图形设计来列出所有突变后的后代，如图4（b）
+所示，其中紫色和黄色的点分别代表交叉后的后代及其突变的对应个体。点与点之间
+的连线长度描绘了后代在决策空间中因为突变所受到的扰动的欧氏距离。点周围的
+同心虚线圆同样表示个体的质量，对应了其对帕累托前沿的收敛程度。为了展示决策
+向量在每一个维度上的突变的程度，本研究使用了条形图来显示所有维度的变化值，
+表示为 Rn 中的x
+mutation
+x offspring。值得注意的是，同一维度上的值已经经过归一化处
+−
+理，便于直接比较不同个体在每一个维度上突变的程度。此外，列表不仅支持基于后
+17
+代与相应突变结果之间的距离排序，也支持在每一个维度上根据突变程度的排序。
+环境选择面板：进入环境选择过程的个体最初会被分组，每个组中的个体按照其
+优先级在列表中逐个显示。每个组内的小矩形表示个体ID、进化操作的来源（由背景
+色标明）以及适应度分数。组内的个体会进一步按照适应度分数进行重新排序，以突
+出表现最佳的个体。每个组内的进化来源比例以堆叠条形图表示，这与本研究在 章
+节 5.1中用于代际统计的设计保持一致。所有组的堆叠条形图的总长度根据组内个体
+数量进行归一化，每一组的标题栏中显示了该组总个体数和存活个体数。
+跨面板交互设计：本研究中的进化操作算子视图支持丰富的交互功能。点击任何
+列表中的行或散点图上的点，可以在整个视图中高亮显示对应的个体；同时，点与点
+之间的连线也会显示出来，以便可视化交配和交叉面板中的父子代关系，以及后代与
+其突变个体之间的关系。点击环境选择面板组标题栏中的切换按钮可以同时高亮显
+示一组中的所有个体。此外，在 5.2节中讨论的针对单个解的悬浮面板功能，在该视
+图的所有散点图中仍然可用。
+18
+6. 研究案例与专家访谈
+本节将通过详尽的案例研究和专家访谈，来验证 ParetoTracker 在基准测试和真
+实世界多目标优化问题上的有效性。ParetoTracker 采用浏览器-服务器架构，服务端
+使用PythonFlask实现，客户端则使用Vue3和D3.js。为了在测试问题上运行多目标
+进化算法，本研究使用了Pymoo库[52]。
+6.1 研究案例 1: SMS-EMOA 算法在 DDMOP2 基准问题上的表现
+在第一个案例研究中，本研究采用了DDMOP测试集中的DDMOP2测试问题[57]，
+该问题是根据现实应用中遇到的情景设计的。DDMOP2 问题包括五个代表了汽车前
+部加固部件的决策变量，优化目标是最小化三个目标函数。SMS-EMOA 算法因其在
+基于指标的多目标进化算法中占据重要地位，被本研究选中来执行此优化任务。该算
+法根据个体对超体积（HV）指标的贡献度进行排序，从而保证了解集在决策空间中
+良好的覆盖率和在帕累托前沿上的分布的均匀性。在本实验中，种群规模设定为100，
+算法运行持续500代。
+(c)
+(a) 交叉 (b) 突变
+图5 第59代的进化操作算子视图。
+6.1.1 质量指标和统计信息
+在加载完进化算法记录的日志数据后，通过初步审查质量指标折线图和世代种
+群统计信息堆叠图，可以对进化过程有一个概览，见图3(a.1)。可以看出，HV和IGD
+这两个综合指标呈现出相对单调的趋势，具体表现为HV值增加，IGD值减少，这与
+19
+预期的优化方向保持一致。与此同时，SP 和 MS 在早期的进化阶段（直到第 40 代）
+显示出明显波动，然后趋于稳定，这表明进化进程几乎没有再出现有效的突变，解
+集的分布开始达到稳定状态。这种稳定状态可以通过堆叠图来确认，在第40代之后，
+如见图 3 (b.1, b.2) 所示，存活的突变个体数量下降。值得注意的是，在第 58 代和第
+87代之间观察到MS稍微增加，且SP值也表现出类似增长，见图3(a.2)，这说明解
+集的分布存在显著变化，需要更细粒度的检查。
+6.1.2 世代级别种群分析
+受到 MS 和 SP 显著增加的启发，本研究通过在第 58 代周围激活一系列世代的
+散点图对解集分布进行了详细的检查。在 MS 线图中点击代表第 58 代的点后，可以
+在主工作区显示前后三个连续代的散点图，见图3(C)。可以看到，第59代相对第58
+代多出了一个突变个体（ID #5856），其在目标空间散点图的左上角扩展了解集的覆
+盖范围，见图3(c.1)。这种突变通过扩展解集的范围，对MS的增加做出了重要贡献。
+此外，通过将点的大小映射方式改为基于目标空间最近邻点距离，可以发现#5856的
+半径明显大于大多数其他个体，这表明这次突变在增加 SP 值方面也起着重要作用。
+质量指标折线图的变化也从侧面印证了这一点。
+通过进一步点击 #5856 的点进行调查，在以往世代的散点图中显示的谱系连接
+揭示了 #5856 是从一对父代进行的突变中产生的，其中一个父代为来自第 58 代的
+#5680，该点在目标空间中与后代 #5856 非常接近（见图 3 (c.2)）。如图 3 (d.1) 所示，
+谱系视图中的时间轴表明#5856并未延续到第71代。尽管如此，MS和SP的测量值
+仍然保持在较高水平，直到第87代。这一观察表明，决策空间中#5856附近的其他解
+可能已经接管了它的角色。通过检查第 71 代周围的散点图，可以验证这一假设：在
+几乎相同的位置出现了另一个个体#7054，见图3(d.2,d.3)。
+6.1.3 代际动态变化细节分析
+为了进行细致的分析，本研究深入探讨了 #5856 是如何在第 59 代中产生的，以
+及导致 #7054 在第 87 代被淘汰的具体原因。通过在第 59 代激活进化操作算子视图，
+并在环境选择面板的目标空间散点图中选择#5856，可以高亮显示与#5856相关的所
+20
+有元素，如图5所示。
+移步交配和交叉面板，可以看到，交叉操作产生的后代最初并未占据#5856的位
+置，见图5(a)。随后，突变操作将后代个体推向了聚类的左上部分，从而塑造了#5856
+的独特特征，见图5(b)。如图5(c)所示，在环境选择面板的分组列表中，#5856在第
+一组中的适应度评分排名第二，这反映了其对 SMS-EMOA 中 HV 指标的显著贡献，
+进而影响了整体解集质量。其他突变个体也表现出类似的模式，如 #5877 和 #5849，
+见图 5 (d)，它们在关键拐角位置表现出类似的对解集覆盖范围的拓展能力。这些模
+式暗示了算法可能偏好于扩大帕累托前沿覆盖范围的解。
+转向第 87 代的进化操作算子视图，见图 3 (e.1)，环境选择面板显示 #7054 排在
+第二组中，而该组所有成员都未幸存。这种情况是由于SMS-EMOA采用了非支配排
+序机制，其中#7054被优先级最高的第一组中的至少一个个体支配。在图3(e.2)中对
+目标向量值的细致检查表明，#7054 在所有目标上都被一个突变个体 #8605 所超越，
+因此该个体在进化过程中被淘汰。这种分析揭示了进化操作算子和环境选择步骤之
+间的动态相互作用，这种复杂特性塑造了MOEA中解集的发展历程和最终淘汰机制。
+6.2 研究案例 2: NSGA-II 算法在 DTLZ3 基准问题上的表现
+第二个案例研究探索了在多目标优化中广泛使用的DTLZ基准测试集中的DTLZ3
+问题[58]，该问题具有10个决策变量和3个目标函数。本研究选择了NSGA-II算法[55]进
+行这次分析。本研究采用了与第一个案例研究相同的种群规模和代数设置。
+6.2.1 质量指标和统计信息
+在质量指标折线图和世代种群统计信息堆叠图（见图6(A)）中观察到，在第371
+代 HV 指标出现显著增长，同时 IGD 指标下降。这种同时指向最优化的趋势强烈暗
+示，在经历了一段测探阶段后，种群可能已经开始收敛于帕累托前沿；然而在此之前，
+很可能解集与帕累托前沿之间仍存在相当大的距离。
+6.2.2 世代级别种群分析
+观察到 HV 和 IGD 指标中的显著变化后，需要更仔细地围绕第 371 代的决策空
+间和目标空间散点图探索，见图6(B.1)。在第371代之前，一群个体位于参考点密度
+21
+(A)质量指标折线图
+自 371 代开始HV
+显著增长
+IGD 显著下降
+个体
+#37085
+(B.1)散点图 (370-372 代)
+大量个体被淘汰
+(B.2)决策空间与目标空间散点图 (371 代)
+决策空间 目标空间 决策空间
+(点的大小映射到与 (点的大小映射到与 (点的大小映射到决策空间内最
+最近参考点的距离) 最近参考点的距离) 近邻居解的距离)
+(C)环境选择面板 (371 代)
+个体
+#37085
+图6 NSGA-II算法在DTLZ3问题上的运行表现。(A)HV指标从第371代开始增加。(B.1)第371
+代中的个体#37085已经支配了相当数量的附近个体。(B.2)决策和目标向量的分布呈现出较大的
+不一致性。(C)图示了#37085如何支配其他个体的细节。
+22
+图的左下部。然而，第 371 代发生了关键转变，除了一个突变后的幸存者 #37085 之
+外，大多数个体未能在环境选择下存活。从第372代开始，在这个区域出现了新的交
+叉和突变个体。
+当将散点图中点的大小映射到最近参考点距离时，见图6(B.2)，决策空间散点图
+中出现了大量黄色十字，而在目标空间散点图中很少看到这些对应点。移动目标空间
+散点图的视窗，可以发现这些十字距离参考密度图区域较远。这种现象与决策空间中
+t-SNE投影呈现的均匀分布结果形成鲜明对比。当将点的大小映射到决策空间中最近
+解的距离时，可以进一步确认这种均匀性，此时点的大小变化很少。决策空间中的均
+匀分布与目标空间中的多样分布之间的差异突显了目标函数对输入决策向量的高敏
+感性。换句话说，决策空间中的微小变化可能导致目标空间中的显著差异，这表明决
+策空间地形的复杂性较高[59]。
+6.2.3 代际动态变化细节分析
+为了进一步了解 #37085 在第 371 代中的存活情况，本研究将聚焦于该个体，见
+图6(C)。在这一代的环境选择面板中，#37085因为NSGA-II中的非支配排序机制而
+被放置在第一组中。通过激活悬浮面板，可以看到 #37085 到最近参考点的距离明显
+较低，其目标向量值在所有目标维度上也低于周围未存活候选解。这些证据进一步证
+实了 #37085 相对于附近的其他候选解的优越性，这些原因确保了它在种群中的较高
+适应度。
+6.3 专家访谈
+6.3.1 总体分析流程反馈
+专家们对于将交互式可视化技术整合到框架中以深入研究多目标进化算法的演
+化过程表达了极大的热忱。他们表示框架在表达质量指标、世代统计信息和详细的进
+化过程都展示了非常强的表现力。E1 强调了 ParetoTracker 多层次设计相对于依赖静
+态可视化的传统系统的优势，尤其是其能够促进了对各代的交互式探索和典型模式
+的发现。E4 认识到 ParetoTracker 融入日常研究工作流程的潜力，并赞扬其对不同算
+法进行全面分析的适应性。E4评论道：“该系统提出的数据抽象方法适用于大多数多
+23
+目标进化算法。通过调整进化算法的记录机制，只要算法的输出符合数据抽象协议，
+ParetoTracker就可以无缝连接到其他计算工具中。”
+6.3.2 可视化和交互设计
+交互式可视化设计因其有效地展示各种指标、解集分布以及跨代的环境选择过
+程而获得了积极的反馈。E2 提到，高层次分析发现的模式可以作为后续详细调查的
+线索，从而获得更有效的指引。E3 强调了详细查看进化操作算子细节的价值，他表
+示，“有时算法会陷入由质量指标指示的次优条件中。而个体级的可视化，描绘了个
+体从创建到消失的完整生存流程，这可以帮助识别关键的进化事件，而这些关键事件
+要么增强了优化效果，要么阻碍了优化进程。”
+6.3.3 相关改进建议
+为提高可视分析框架的实用性和有效性，专家们提出了一些建议。E4 提议需要
+拓展数据抽象协议，以更好地适应当 MOEA 向种群中引入新的随机选择的新个体的
+情况。而 E3 则推荐将测试问题的特定应用领域的上下文信息，或信息可视化视图融
+入框架，以增强其在特定场景下的实用性。
+24
+7. 总结与讨论
+为展示多目标进化算法的内在进化动态，本研究设计并实现了全新可视化分析
+框架ParetoTracker。因其集成式、可交互设计，该框架比传统针对单一代际解集可视
+分析的方法更方便、更全面。此外，因其独特的多层次设计，该框架从质量指标和代
+际统计信息、解集分布和变化趋势、以及进化操作的具体行为等多个角度提供丰富的
+细节，从而赋予用户了逐层递进、深入探索进化过程的能力。
+7.1 散点图中投影方法的选择
+鉴于多目标优化问题中的典型配置，大多数优化问题的目标函数不超过十个，通
+常在四个左右。相比之下，决策空间的维度可以从几十到数千个不等[4]。由于这种差
+异，线性降维技术可能无法充分揭示决策空间内复杂的分布和模式。因此，为了使
+用散点图在决策空间和目标空间中可视化解集 (种群)，本研究分别选择使用 PCA 和
+t-SNE来处理目标空间和决策空间。在目标空间中，因为需要根据帕累托前沿作为最
+优参考，所以先拟合 PCA 投影矩阵，再应用到所有散点图中，使得解集相对于真实
+参考解集的位置更加清晰。在决策空间中，因为需要更好地展示决策向量的聚合/离
+散情况并确保投影效果在所有代际中保持一致，本研究选用t-SNE方式投影，并基于
+所有世代的所有决策向量联合训练其模型参数。未来本研究可以尝试使用时间投影
+方法[60]，以增强对跨代解集的比较能力。
+7.2 数据尺度上的可扩展性
+当前的框架针对典型配置下的多目标优化问题的多数实验表现优秀，在每代种
+群规模在数百时仍然流畅运行。然而，在大规模优化场景[4] 中，决策/目标维度和种
+群规模都显著较大的情况下，进化过程的日志数据量可能会迅速增加。为了应对这
+一挑战，本研究将考虑使用先进的采样策略，优先考虑关键的代数子序列，以减小日
+志数据体积。此外，在这种情况下，基于散点图的可视化视图可能存在视觉混乱的倾
+向，因此需要探索散点图简化方法[61-62]来缓解这一问题。
+7.3 可视分析框架的普适性
+当前设计下的数据抽象协议不仅提供了足够的细节，同时确保了适应各种环境
+选择过程，因此可以兼容大多数多目标进化算法。然而，因为基于分解的多目标进化
+25
+算法的环境选择机制复杂且不易进行简单的抽象，本框架的数据抽象协议在这类算
+法上表现不佳。针对这一类进化算法，本研究目前的策略是采用更高层次的抽象方
+法：仅跟踪个体的生存状态。未来，本研究将致力于设计更细致的数据协议，以更好
+地支持基于分解的多目标进化算法。
+7.4 未来工作
+未来，本研究的工作重点将会放在创建基于插件的运行环境，以降低用户的使用
+门槛以及用最小的代码量拓展新的进化操作算子可视分析模块。此外，可以通过整合
+目前不支持的其他特定应用信息，例如其他第三方多目标进化工具包，以扩展框架的
+实用性。为了将该工具推广给更广泛的受众，并将应用场景拓展到包括教学场景在内
+的其他领域，本研究计划评估 ParetoTracker 在不同专业背景和知识水平的用户群体
+中的可用性和使用效率。
+26
+参考文献
+[1] PEREIRAJLJ,OLIVERGA,FRANCISCOMB,etal.Areviewofmulti-objectiveoptimiza-
+tion:methodsandalgorithmsinmechanicalengineeringproblems[J].ArchivesofComputational
+MethodsinEngineering,2022,29(4):2285-2308.
+[2] ARBOLINOR,BOFFARDIR,DESIMONEL,etal.Multi-objectiveoptimizationtechnique:A
+novelapproachintourismsustainabilityplanning[J].JournalofEnvironmentalManagement,2021,
+285:112016.
+[3] ZHANGY,YANGQ.Asurveyonmulti-tasklearning[J].IEEETransactionsonKnowledgeand
+DataEngineering,2021,34(12):5586-5609.
+[4] TIANY,SIL,ZHANGX,etal.EvolutionaryLarge-ScaleMulti-ObjectiveOptimization:ASurvey
+[J].ACMComputingSurveys,2021,54(8).
+[5] WANGZ,PEIY,LIJ.Asurveyonsearchstrategyofevolutionarymulti-objectiveoptimization
+algorithms[J].AppliedSciences,2023,13(7):4643.
+[6] WALTER M J, WALKER D J, CRAVEN M J. An explainable visualisation of the evolutionary
+searchprocess[C].in:ProceedingsoftheGeneticandEvolutionaryComputationConferenceCom-
+panion.2022:1794-1802.
+[7] FILIPIČ B, TUŠAR T. A taxonomy of methods for visualizing pareto front approximations[J].
+ProceedingsoftheGeneticandEvolutionaryComputationConference,2018:649-656.
+[8] WALTERMJ,WALKERDJ,CRAVENMJ.VisualisingEvolutionHistoryinMulti-andMany-
+objectiveOptimisation[C].in:ParallelProblemSolvingfromNature.2020:299-312.
+[9] WALTERMJ,WALKERDJ,CRAVENMJ.VisualizingPopulationDynamicstoExamineAlgo-
+rithmPerformance[J].IEEETransactionsonEvolutionaryComputation,2022,26(6):1501-1510.
+[10] LI M, YAO X. Quality evaluation of solution sets in multiobjective optimisation: A survey[J].
+ACMComputingSurveys,2019,52(2).
+[11] HOHMANFM,KAHNGM,PIENTAR,etal.VisualAnalyticsinDeepLearning:AnInterroga-
+tiveSurveyfortheNextFrontiers[J].IEEETransactionsonVisualizationandComputerGraphics,
+2018,25(8):2674-2693.
+[12] YUANJ,CHENC,YANGW,etal.Asurveyofvisualanalyticstechniquesformachinelearning
+[J].ComputationalVisualMedia,2021,7:3-36.
+[13] WANGJ,LIUS,ZHANGW.VisualAnalyticsforMachineLearning:ADataPerspectiveSurvey
+[J].IEEETransactionsonVisualizationandComputerGraphics,2024:1-20.
+[14] LAROSAB,BLASILLIG,BOURQUIR,etal.StateoftheArtofVisualAnalyticsforeXplainable
+DeepLearning[J].ComputerGraphicsForum,2023,42(1):319-355.
+[15] JOLLIFFEI.PrincipalComponentAnalysis[M].in:WileyStatsRef:StatisticsReferenceOnline.
+JohnWiley&Sons,Ltd,2014.
+[16] VANDERMAATENL,HINTONG.Visualizingdatausingt-SNE[J].JournalofMachineLearn-
+ingResearch,2008,9(11).
+27
+[17] MCINNESL,HEALYJ,SAULN,etal.UMAP:UniformManifoldApproximationandProjection
+[J].TheJournalofOpenSourceSoftware,2018,3(29):861.
+[18] INSELBERG A. Parallel Coordinates: Visual Multidimensional Geometry and Its Applications
+[M].SpringerNewYork,2009:554.
+[19] BECKER R A, CLEVELAND W S. Brushing Scatterplots[J]. Technometrics, 1987, 29(2):127-
+142.
+[20] YUANX,REND,WANGZ,etal.DimensionProjectionMatrix/Tree:InteractiveSubspaceVisual
+Exploration and Analysis of High Dimensional Data[J]. IEEE Transactions on Visualization and
+ComputerGraphics,2013,19(12):2625-2633.
+[21] HEZ,YENGG.VisualizationandPerformanceMetricinMany-ObjectiveOptimization[J].IEEE
+TransactionsonEvolutionaryComputation,2016,20(3):386-402.
+[22] NAGAR D, RAMU P, DEB K. Visualization and analysis of Pareto-optimal fronts using inter-
+pretableself-organizingmap(iSOM)[J].SwarmandEvolutionaryComputation,2022,76(August
+2022):101202.
+[23] YADAVD,NAGARD,RAMUP,etal.Visualization-aidedmulti-criteriadecision-makingusing
+interpretable self-organizing maps[J]. European Journal of Operational Research, 2023, 309(3):
+1183-1200.
+[24] IBRAHIMA,RAHNAMAYANS,MARTINMV,etal.3D-RadVis:VisualizationofParetofront
+inmany-objectiveoptimization[C].in:ProceedingsoftheIEEECongressonEvolutionaryCom-
+putation.2016:736-745.
+[25] TALUKDER A K A, DEB K. PaletteViz: A visualization method for functional Understanding
+of High-Dimensional Pareto-Optimal Data-Sets to Aid Multi-Criteria Decision Making[J]. IEEE
+ComputationalIntelligenceMagazine,2020,15(2):36-48.
+[26] TALUKDER A K A, DEB K. PaletteStarViz: A visualization method for multi-criteria decision
+makingfromhigh-dimensionalPareto-optimalfront[C].in:ProceedingsoftheGeneticandEvo-
+lutionaryComputationConferenceCompanion.2020:175-176.
+[27] DE LORENZO A, MEDVET E, TUŠAR T, et al. An analysis of dimensionality reduction tech-
+niquesforvisualizingevolution[C].in:ProceedingsoftheGeneticandEvolutionaryComputation
+ConferenceCompanion.2019:1864-1872.
+[28] CHATZIMPARMPASA,MARTINSRM,KUCHERK,etal.VisEvol:VisualAnalyticstoSupport
+HyperparameterSearchthroughEvolutionaryOptimization[J].ComputerGraphicsForum,2021,
+40(3):201-214.
+[29] HUANGY,ZHANGZ,JIAOA,etal.AComparativeVisualAnalyticsFrameworkforEvaluating
+Evolutionary Processes in Multi-objective Optimization[J]. IEEE Transactions on Visualization
+andComputerGraphics,2024,30(1):661-671.
+[30] ENDERTA,RIBARSKYW,TURKAYC,etal.TheStateoftheArtinIntegratingMachineLearn-
+ingintoVisualAnalytics[J].ComputerGraphicsForum,2017,36(8):458-486.
+[31] ANDRIENKON,ANDRIENKOG,MIKSCHS,etal.Atheoreticalmodelforpatterndiscovery
+invisualanalytics[J].VisualInformatics,2021,5(1):23-42.
+28
+[32] FEKETEJD.VisualAnalyticsInfrastructures:FromDataManagementtoExploration[J].Com-
+puter,2013,46(7):22-29.
+[33] KIMH,CHOOJ,LEEC,etal.PIVE:Per-Iterationvisualizationenvironmentforreal-timeinter-
+actionswithdimensionreductionandclustering[C].in:ProceedingsoftheAAAIConferenceon
+ArtificialIntelligence.2017:1001-1009.
+[34] LUNDBERG S M, ERION G, CHEN H, et al. From local explanations to global understanding
+withexplainableAIfortrees[J].2020,2(1):56-67.
+[35] VANDENELZENS,VANWIJKJJ.BaobabView:Interactiveconstructionandanalysisofdeci-
+siontrees[C].in:ProceedingsoftheIEEEConferenceonVisualAnalyticsScienceandTechnology.
+2011:151-160.
+[36] LIUS,XIAOJ,LIUJ,etal.VisualDiagnosisofTreeBoostingMethods[J].IEEETransactionson
+VisualizationandComputerGraphics,2017,24(1):163-173.
+[37] ZHAO X, WU Y, LEE D L, et al. iForest: Interpreting Random Forests via Visual Analytics[J].
+IEEETransactionsonVisualizationandComputerGraphics,2019,25(1):407-416.
+[38] MINGY,QUH,BERTINIE.RuleMatrix:VisualizingandUnderstandingClassifierswithRules
+[J].IEEETransactionsonVisualizationandComputerGraphics,2019,25(1):342-352.
+[39] WANGY,FENGK,CHUX,etal.APerception-DrivenApproachtoSupervisedDimensionality
+ReductionforVisualization[J].IEEETransactionsonVisualizationandComputerGraphics,2018,
+24(5):1828-1840.
+[40] MA Y, CHEN W, MA X, et al. EasySVM: A Visual Analysis Approach for Open-Box Support
+VectorMachines[J].ComputationalVisualMedia,2017,3(2):161-175.
+[41] DELAFORGEA,AZEJ,BRINGAYS,etal.EBBE-Text:ExplainingNeuralNetworksbyExplor-
+ingTextClassificationDecisionBoundaries[J].IEEETransactionsonVisualizationandComputer
+Graphics,2023,29(10):4154-4171.
+[42] CHAEJ,STEEDC,TOURASSIGD.VisualizationforClassificationinDeepNeuralNetworks
+[C].in:ProceedingsoftheWorkshoponVisualAnalyticsforDeepLearning.2017.
+[43] PEZZOTTI N, HÖLLT T, VAN GEMERT J, et al. DeepEyes: Progressive Visual Analytics for
+DesigningDeepNeuralNetworks[J].IEEETransactionsonVisualizationandComputerGraphics,
+2018,24(1):98-108.
+[44] WANGJ,GOUL,SHENHW,etal.DQNViz:AVisualAnalyticsApproachtoUnderstandDeep
+Q-Networks[J].IEEETransactionsonVisualizationandComputerGraphics,2019,25(1):288-298.
+[45] LIU M, SHI J, CAO K, et al. Analyzing the Training Processes of Deep Generative Models[J].
+IEEETransactionsonVisualizationandComputerGraphics,2018,24(1):77-87.
+[46] MAY,FANA,HEJ,etal.AVisualAnalyticsFrameworkforExplainingandDiagnosingTransfer
+LearningProcesses[J].IEEETransactionsonVisualizationandComputerGraphics,2021,27(2):
+1385-1395.
+[47] SMILKOVD,CARTERS,SCULLEYD,etal.Direct-manipulationvisualizationofdeepnetworks
+[C].in:ICMLWorkshoponWorkshoponVisualizationforDeepLearning.2016.
+29
+[48] LIUD,CUIW,JINK,etal.DeepTracker:Visualizingthetrainingprocessofconvolutionalneural
+networks[J].ACMTransactionsonIntelligentSystemsandTechnology,2018,10(1):1-25.
+[49] WANG J, GOU L, YANG H, et al. GANViz: A Visual Analytics Approach to Understand the
+Adversarial Game[J]. IEEE Transactions on Visualization and Computer Graphics, 2018, 24(6):
+1905-1917.
+[50] KAHNG M, THORAT N, HORNG D, et al. GAN Lab: Understanding Complex Deep Genera-
+tiveModelsusingInteractiveVisualExperimentation[J].IEEETransactionsonVisualizationand
+ComputerGraphics,2019,25(1):310-320.
+[51] TIAN Y, CHENG R, ZHANG X, et al. PlatEMO: A MATLAB platform for evolutionary multi-
+objectiveoptimization[J].IEEEComputationalIntelligenceMagazine,2017,12(4):73-87.
+[52] BLANK J, DEB K. Pymoo: Multi-Objective Optimization in Python[J]. IEEE Access, 2020, 8:
+89497-89509.
+[53] VANVELDHUIZENDA,LAMONTGB,etal.Evolutionarycomputationandconvergencetoa
+paretofront[C].in:ProceedingsoftheGeneticProgrammingConference–Late-breakingPapers.
+1998:221-228.
+[54] DEB K, SINDHYA K, OKABE T. Self-adaptive simulated binary crossover for real-parameter
+optimization[C].in:ProceedingsoftheGeneticandEvolutionaryComputationConference.2007:
+1187-1194.
+[55] DEB K, PRATAP A, AGARWAL S, et al. A fast and elitist multiobjective genetic algorithm:
+NSGA-II[J].IEEETransactionsonEvolutionaryComputation,2002,6(2):182-197.
+[56] CHENG R, JIN Y, OLHOFER M, et al. A reference vector guided evolutionary algorithm for
+many-objective optimization[J]. IEEE Transactions on Evolutionary Computation, 2016, 20(5):
+773-791.
+[57] HEC,TIANY,WANGH,etal.Arepositoryofreal-worlddatasetsfordata-drivenevolutionary
+multiobjectiveoptimization[J].ComplexandIntelligentSystems,2020,6(1):189-197.
+[58] DEB K, THIELE L, LAUMANNS M, et al. Scalable multi-objective optimization test problems
+[C].in:ProceedingsoftheCongressonEvolutionaryComputation:vol.1.2002:825-830.
+[59] MUÑOZ M A, KIRLEY M, HALGAMUGE S K. Exploratory landscape analysis of continuous
+space optimization problems using information content[J]. IEEE Transactions on Evolutionary
+Computation,2015,19(1):74-87.
+[60] FUJIWARAT,CHOUJK,Shilpika,etal.AnIncrementalDimensionalityReductionMethodfor
+Visualizing Streaming Multidimensional Data[J]. IEEE Transactions on Visualization and Com-
+puterGraphics,2020,26(1):418-428.
+[61] YUANJ,XIANGS,XIAJ,etal.EvaluationofSamplingMethodsforScatterplots[J].IEEETrans-
+actionsonVisualizationandComputerGraphics,2021,27(2):1720-1730.
+[62] SARIKAYA A, MEMBER S, GLEICHER M. Scatterplots : Tasks, Data, and Designs[J]. IEEE
+TransactionsonVisualizationandComputerGraphics,2018,24(1):402-412.
+30
+附录
+案例研究中涉及的算法以及测试问题
+表1 案例研究中使用到的算法缩写与全称对照表
+算法缩写 算法全称
+SMS-EMOA TheSMetricSelectionEvolutionaryMulti-ObjectiveAlgorithm
+NSGA-II Non-dominatedSortingGeneticAlgorithmII
+表2 案例研究中使用到的测试问题集
+问题集 问题定义
+Min. f (x)=1640.2823+2.3573285x +2.3220035x +4.5688768x
+1 1 2 3
++7.7213633x +4.4559504x
+4 5
+Min. f (x)=6.5856+1.15x 1.0427x +0.9738x +0.8364x
+2 1 2 3 4
+−
+0.3695x x +0.0861x x +0.3628x x 0.1106x2
+− 1 4 1 5 2 4 − 1
+DDMOP2 0.3437x2+0.1764x2
+− 3 4
+Min. f (x)= 0.0551+0.0181x +0.1024x +0.0421x 0.0073x x
+3 1 2 3 1 2
+− −
++0.024x x 0.0118x x 0.0204x x 0.008x x
+2 3 2 4 3 4 3 5
+− − −
+0.0241x2+0.0109x2
+− 2 4
+with 1 x 3, fori=1,2,...,5.
+i
+≤ ≤
+Min. f (x)=(1+g(x ))cos(x π/2)cos(x π/2)sin(x π/2),
+1 M 1 2 3
+Min. f (x)=(1+g(x ))cos(x π/2)sin(x π/2),
+2 M 1 2
+Min. f (x)=(1+g(x ))sin(x π/2),
+DTLZ3 3 M 1
+with 0 x 1, fori=1,2,...,10,
+i
+≤ ≤
+g(x )=100 8+ [(x 0.5)2 cos(20π(x 0.5))] ,
+x
+M
+= x ,x
+,...x ,i∈xxM
+,
+i w− hereM− =3,n=10.i −
+M { M M# +1 $ n } %
+31
+致谢
+四年千日，聚散有时，行文于此，落笔为终。这篇致谢词的开始，标志着我的四
+年本科生活即将走向尾声，在2024年的盛夏，纵有万般不舍，也要告别亲切的老师，
+告别可爱的同学朋友，告别美丽的校园，告别这段难忘的求学岁月。在此，要多谢陪
+伴我一路走过的人们，有你们的陪伴，才使我在南科大的学习生涯更加丰富多彩。
+落其实者思其树，学其成时念吾师。首先我要特别感谢我的专业导师马昱欣教授
+与生活导师李卓钊教授。无论是在第一次创新实践课程项目中还是在留学申请事宜
+上，李卓钊老师都为我提供了丰富的指导与帮助。从两年前在数据库原理课上第一次
+见到马昱欣老师，到重新确定研究方向、加入DVALab参与科研学习、第一次担任课
+程助教、加入VAST竞赛团队并荣获特等奖、第一次参与VIS投稿的全过程，马老师
+一直注视着我的每一步成长。感谢老师为我提供的丰富锻炼机会和学习资源，让我能
+在自己感兴趣的领域中自由探索学习。两位老师渊博的知识储备，高尚的科研情怀，
+严谨的学术作风都深深感染着我，让我受益匪浅，期待在未来得到老师的更多指导。
+此外，我还要特别感谢公共关系与宣传部的苏佳慧老师、李田恬老师，研究生院的艾
+跞老师、魏振强老师，高教中心的刘绪老师、高媛老师，感谢你们为我提供的宝贵的
+社会实践机会和耐心指导。人生有幸，得遇良师，感谢每一位教过我、帮助过我的老
+师，未来我也会永不停下前进的脚步，愿各位老师工作顺利，学术长青，桃李满园。
+时间为证，岁月为名，感谢四年来遇到的每一位朋友们。从刚进入大学的懵懂少
+年，到即将毕业的南科大“老油条”，在我成长的道路上，安徽群的群友们对我来说
+亦师亦友。感谢夏飞廉、汪至圆、尚恒锐、陈思放、张润泽、匡浩玮、牛圣杰、程进
+雄、王灏宇、郭傲、陈逸轩等群友在选课、选专业、准备英语考试、出国交流、申请
+套瓷、面试准备、科研入门等方面提供的宝贵建议和热情指导，感谢王立全、张一鸣、
+张子烨等几位挚友在大学四年里的陪伴和鼓励，你们既是我值得信赖的好友，也是我
+人生中的榜样和目标，愿我们在未来山高水长，互勉共进。感谢张哲瑞、黄严淞、王
+焕辰、崔俞崧、朱昉、黄颖盈、张宝、阮琪楷、陈逸书、张闻城等 DVA Lab 的每一
+位师兄师姐和同学们，感谢大家两年来对我的帮助、指导，感谢我们一同经历共同奋
+32
+斗的日子，期待团结、专注、坚持的我们都能够在未来获得我们想要的一切。篇幅有
+限，无法罗列所有珍贵的遇见，但总而言之感谢大学中遇到的每一位朋友，愿我们同
+赴山海，依旧心怀热爱，共迎星河蓝天。
+当时父母念，今日尔应知。感谢父母将我养育成人，一路走来，爸爸妈妈一直是
+我最坚强的后盾。爸爸认真负责的工作态度、积极乐观的心态一直激励着我努力向
+前，妈妈无微不至的关心、坚定不移的支持给了我在成长路上面对困难不言放弃的力
+量。养育之恩无以报，唯有不断努力，不负期望。愿我的家人身体健康，平安喜乐。
+从走过迎新桥畔，到迈出塘朗山下，在学苑大道 1088 号的四年里，我一路或慢
+或快地走着，深陷于山重水复疑无路的晦暗，也留恋于春风得意马蹄疾的高光。一路
+走来，最后感谢奋力前行的自己，愿你在未来的漫漫长路中，莫听穿林打叶声，永远
+勇敢，永远热烈，永远生长！
+一路向南，未来可期！
+33

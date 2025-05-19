@@ -1,1 +1,0 @@
-docker run --rm -v "D:/Sustech/course/CS328_Distributed_and_Cloud_Computing/DCC_assignment/assignment2_Instructions/src/API_Service:/app/" openapitools/openapi-generator-cli generate -i /app/assignment2.yaml -g python-flask -o /app/generated/

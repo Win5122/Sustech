@@ -1,0 +1,584 @@
+CLC Number
+UDC Availableforreference !Yes !No
+Undergraduate Thesis
+Thesis Title: Design of Digital Art Installation
+Based on Human Biological Signal
+Student Name: Diyun Lu
+Student ID: 12011537
+Department: Computer Science and Engineering
+Program: Intelligence Science and Technology
+Thesis Advisor: Associate Professor Yuxin Ma
+Date: June 7, 2024
+COMMITMENT OF HONESTY
+1. I solemnly promise that the paper presented comes from my
+independent research work under my supervisor’s supervision. All
+statistics and images are real and reliable.
+2. Except for the annotated reference, the paper contents no other
+published work or achievement by person or group. All people making
+important contributions to the study of the paper have been indicated
+clearly in the paper.
+3. I promise that I did not plagiarize other people’s research achievement
+or forge related data in the process of designing topic and research
+content.
+4. If there is violation of any intellectual property right, I will take legal
+responsibility myself.
+Signature:
+Date: June 7, 2024
+Design of Digital Art Installation
+Based on Human Biological Signal
+[ABSTRACT]: Throughtheanalysisofquantifiablebio-signaldata,abstract
+emotionscanbetranslatedintovisualrepresentations. Thisinteractiveinstalla-
+tion engages audiences’ real-time biology data like facial expressions and heart
+rate to display their emotional state, aiming to raise the question of the exis-
+tence of self-recognition. Within the mirror’s reflection, emotions are depicted
+as tangible entities surrounding users, despite their intangible nature. The dis-
+tance created by the mirror and the designed display of emotion helps to con-
+struct the understanding of the psychological self and emotions. Through the
+interaction between humans and the mirror as well as the visual stimuli in the
+mirror, users are invited to explore the complexities of their inner emotional
+feelings and the nature of self-awareness. This work explores the potential of
+leveragingtechnologytobridgethegapbetweenabstractemotionsandtangible
+visual representations, fostering a deeper understanding of the human psyche
+and the concept of self.
+[Key words]: Affective Design, Emotion Recognition, Visualization
+I
+[摘要]：抽象的情绪可以通过建立与可被量化的生物信号数据之间的联
+系，而被转化为具体的视觉表现形式。本文中的互动装置利用用户的实
+时生物数据，如面部心情和心率，来展示实时的情绪状态。情绪作为认
+知的一部分，该作品通过镜子对情绪的可视化，意图引发用户对自我认
+知的思考。尽管情绪本身是不可触摸、无形的，但在镜子的反射中，情绪
+被描绘为具体的图像，环绕用户的人像。镜子中的“我”是被情绪环绕
+但却无法真正被触碰、被抓取的。镜子构造的物理距离本质上是对感知
+心理自我的存在的提问。这样在镜中世界的互动以及情绪本身的可视化
+设计带来的视觉刺激，邀请参与者在这个过程中探索内在情感感受的复
+杂性以及自我认知的本质。本文的装置作品探索了如何利用技术去架起
+抽象情绪和具体视觉表现之间的桥梁，引发作品使用者的思考，促进对
+心理认知和自我的概念的反思与理解。
+[关键词]：情感设计；情感识别；可视化
+II
+Content
+1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+2. Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+3. Design and Implementation . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.1 Installation Connotation . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.2 Backend Process . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3.2.1 Heart Rate Detection . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+3.2.2 Emotion Recognition . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.3 Visualization Design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+3.3.1 Original Static Drafts . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+3.3.2 Dynamic Output . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+3.4 Installation Setup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+4. Experiments and Results . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+4.1 Experiment for the Static Drafts . . . . . . . . . . . . . . . . . . . . . . 17
+4.2 Experiment for the Installation Work . . . . . . . . . . . . . . . . . . . 18
+5. Future Work and Conclusion . . . . . . . . . . . . . . . . . . . . . . . . 20
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+Acknowledgment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+III
+1. Introduction
+Self-recognitionisawidelydiscussedconceptinmanyfieldsfromphilosophytorobotics.
+Famous philosopher Albert Camus summarized the complex feeling of trying to know one-
+selfinTheMythofSisyphus: “ForifItrytoseizethisselfofwhichIfeelsure,ifItrytodefine
+andtosummarizeit,itisnothingbutwaterslippingthroughmyfingers”[1]. Humanemotion
+is of great complexity that cannot be comprehended in a simple dimension, leading to the
+researchareaof AffectiveComputing[2] whichconstructssystemsforunderstandinghuman
+emotion in a computational way. Ekman and his team proposed the classification of six
+basic emotions: emotions have categories that are inherent and universal across cultures[3].
+Withtheassumptionofthebasicemotions,moreapproachesexisttoquantifyresearch. One
+of the most used descriptors is the 2-dimensional Valence-Arousal model[4]. This model
+proposes that emotions can be mapped along these two dimensions; valence refers to the
+positivity or negativity of an emotional experience, while arousal measures how activated
+an emotional experience is[4]. This measurement enabled researchers to project emotions
+to the valence-arousal coordinate for a universal description. Inspired by the elusive nature
+of self-recognition, the mirror was introduced as a part of the installation. As Rochat and
+Zahavi concluded, mirror reflection externalizes the physical body we perceive internally,
+whichcanformtheexperienceof questioningone’sownexistence[5].
+Toenhanceawarenessofone’sownmentalworldandcontributetoamoreconcreteun-
+derstanding of one’s existence, an installation artwork was created. This artwork visualizes
+the six basic human emotions by capturing biological signals. Emotions are a key display
+partofself-awareness,whichisaimedatinvokingusers’thoughtsfurtherandhelpingtoex-
+posethespiritualworld. Promptsarecreateddescribingthemappingsbetweenphysicalfea-
+tures, valence-arousal level, and six basic emotions. Then, the generative AI was deployed
+to provide design drafts for the emotion display. The emotion recognition technique was
+usedtoestablishtheconnectionsbetweentheusers’facialexpressionsandthepre-designed
+emotion visualization. Additionally, heart rate will be used as another indicator associated
+1
+with the dynamic features of the visualization to enhance the immersive experience further.
+Sinceheartrateisratherchallengingtomanipulateandsolelycontrolledbythenervousand
+endocrine systems, it aids in revealing actual emotions more objectively. The cooperation
+betweenfacialexpressionsandheartrateisalsotheinteractionbetweentheheartandbrain.
+Throughoutthehistoryofscience,philosophy,andliterature,theroleofthesetwoorgansin
+self-recognitionhasbeenextensivelydiscussed.
+Bycombiningthevisualizedartdisplayandemotionrecognitiontogether,theinstalla-
+tion aims to arouse the question of the intangible essence of self-awareness and to make an
+efforttotrytounderstandmore aboutintrinsichumanity.
+2
+2. Related Work
+Emotion recognition and visualization design are two main parts of this work. First
+is to retrieve users’ emotion, then to display the corresponding visualization. For the emo-
+tion recognition part, the combination of facial expressions and heart rate as indicators was
+proventobeusablebymanystudies. Algorithmsextractingheartrateandfacialexpressions’
+featureswereproposedtoclassifyemotionsfordifferentpurposes: maintaininggameusers’
+experience[6],preventingphysiologicaldisordersinadvance[7],andbuildingacompletesys-
+temfor inferringemotions[8].
+In terms of design, many researchers have studied the intricate connections between
+abstract emotional states and specific visual stimuli such as color, texture, and literature de-
+scriptions. To effectively map emotions to discrete color categories, experimental surveys
+arecommonlyemployed,withparticipantstaskedtomatchcolorswithemotionsundervar-
+iouscircumstances. Forinstance,Kaya[9] conductedexperimentsamongcollegestudentsto
+collect evidence to show the relationships between emotional responses and five principle
+hues. Similarly, A. Manning and N. Amare also did experiments on university students and
+developedamodeltodemonstrateastableemotion-spectrumresponse[10]. Inreal-lifeprod-
+ucts,thecorrelationbetweencolorsandemotionsalsoindirectlyrelatesproductstospecific
+moods for consumers, which may affect individuals’ choices[11]. Moreover, there exists a
+wealth of information feedback from the texture of the subjects that often goes unnoticed.
+As visual textures may trigger viewers’ specific emotional qualities and expectations[12], it
+is also an important factor to be considered in product design. Together with the dynamic
+featuresintroducedbymeasuringtheemotions’valenceandarousal,variousspatiotemporal
+dynamictexturescanhave differenteffectsonhumanemotion[13].
+To enrich the contents of the visual display further and invoke more concrete associ-
+ations, literature descriptions of given emotions are also taken into account. There is one
+master metaphor form for emotions according to Kövecses: emotions are forces. Specific
+variations are like describing emotions as physical force, natural force, or pressure against
+3
+containers[14]. By reviewing metaphors in different languages describing the same emotion,
+amoredetailedcategorywasproposedbyMashak[15]. Morespecifically,sixbasicemotions
+canbemappedtoclassicalsymbols,suchasflowerandlightforjoy,heat,andfireforanger.
+Regarding the implementation of the concept mirror detecting bio-signal data, various
+approacheshavebeenexplored. TheworkMagicmirrorusedaprojectortodisplaythepro-
+cessed data collected from the fitness tracker to visualize the Quantified Self[16]. Another
+installation called Aware Mirror was created by attaching an acrylic board to a monitor to
+enablethemirrortodetecthumanfaces,withatoothbrushservingasanindicatortoactivate
+the program[17]. In addition to Aware Mirror, the installation work Mirror Ritual also incor-
+poratesatwo-waymirrorglassattachedtoadisplaywithacameratocreateavirtualmirror
+world[18].
+4
+3. Design and Implementation
+The work collects audiences’ bio-signals, including facial expressions and heart rate,
+thatarefurtherprocessedbyalgorithmstodistinguishemotions. Itisrepresentedasamirror,
+andalldevicesareconnectedtotheprocessingcomputerforfurtherbackenduse. Thewhole
+pipelineisestablishedinfigure1.
+Figure1 DesignOverview
+3.1 Installation Connotation
+Theworkprovidesdesignedvisualfeedbackwhenusersobservethemselvesinthemir-
+ror. The visual representation of the user’s emotion will surround the people in the mirror,
+whichcanneverbegrasped. Thevisualdisplayavoidstheareaoftheobserver’simageinside
+the mirror as if the water is sipping through our fingers. Creating the intangible emotional
+spaceinsidethemirroraimstoinvokeusers’reflectionsontheiremotions. Furthermore,ob-
+servingthereflectioninsidethemirrorprovokesself-examination: bothobservingandbeing
+observed, knowing oneself and being known, occur simultaneously, generating relatively
+objectivecognitioninanovelway.
+Manyphilosophersthroughouthistoryhavediscussedtheintangibleessenceofourin-
+ner selves. Philosopher Friedrich Nietzsche wrote in his work Daybreak: “However far a
+man may go in self-knowledge, nothing however can be more incomplete than his image
+of the totality of drives which constitutes its being”[19]. Jorge Luis Borges also wrote many
+5
+poems about self-awareness, and he hated mirrors as the projection creates many of him,
+which upsets him. Though the inner self is invisible in essence, a mirror can transform the
+intangibleselfintophysicalreflections. TheliterarytheoristTerryEagletonsaidinthebook
+LiteraryTheory: AnIntroduction: “MyexistenceisneversomethingwhichIcangraspasa
+finishedobject,butalwaysaquestionoffreshpossibility,alwaysproblematic”[20]. However,
+itdestroystheintegrityofthesubjectconsciousnessatthesametime. MichelFoucaultwrote
+inhisbookTheOrderofThingsthatthemirrorcutsthroughthewholefieldofrepresentation
+andrestoresthevisibilityofthingsoutsidetheview[21]. Itproducesthepresenceoftheother,
+confirming the existence of self-presence through the gaze from the third perspective as an
+other.
+Thus,intheinstallationartfield,manyartworksinvolvemirrors. ArtistOlafurEliasson
+from Danmark focuses on exploring the relevance of art in the world and has created many
+installations using mirrors. Like the Pentagonal mirror tunnel (2017): five mirrors form a
+circle reflecting each other’s images, forming a tunnel inside the mirror; the Midnight Sun:
+a mono-frequency yellow lamp behind a convex mirror, constructing a distorted space; the
+Planetary Perspective: a semi-circle of LED lights attached perpendicular to the plane of a
+circular mirror, creating a ring segment inside the mirror. A simple mirror can be turned
+into a carrier of rich images and metaphors using its physical features and users’ cognitive
+feelings.
+Inspired by the untouchable nature of emotions and cognition and the vital role of the
+mirrorinexposingtheobjectivityofhumanexistence,Thisinteractiveinstallationbasedon
+themirrorchallengesviewerstoreflectonthisphilosophicalviewpointofself-awareness.
+3.2 Backend Process
+Behindthemirrorisadisplayandacamera. Thecameracontinuouslysurveilsthesur-
+roundings to check if someone’s staring at the mirror. When the face is detected, the mirror
+will be activated, initiating the emotion visualization. Detected faces are classified into six
+basic emotions using the Deepface algorithm[22]. The emotion model can classify six basic
+6
+emotions as well as the neutral category. The facial expressions are vague and confusing
+to classify under many situations, so the test accuracy is dataset-specific. Thus, while test
+accuracyisaconsideration,thefocusliesmoreonusabilityandinferencetimeoptimization.
+Despitefacialexpressions,heartrateisalsoconsideredforemotionrecognition. Asensoris
+connected to the backend; when the users put their fingers on it, the sensor starts to collect
+heartrate. ResultsaresenttothecomputerthroughanArduinoandthenfurtherprocessed. To
+implementtheeffectofthevideoavoidingtheuser,apre-trainedhumansegmentationalgo-
+rithmprovidedbyPaddlePaddleisapplied. ThemodelversionisPP-HumanSegV2-Lite[23],
+which is based on a lightweight neural network for portrait segmentation: ConnectNet. By
+compressing the number of stages and channels and introducing depth-wise separable con-
+volution,theefficiencyishighlyimproved,enablingfastreal-timeinferencethatcanhandle
+the need[23]. For a more stable and consistent experience, the visualization display of each
+emotion remains on the screen until the designed video ends. Within this interval, emotion
+detection will not work. A black background will be displayed when no face is detected,
+enablingthemirrortofunctionnormally.
+3.2.1 HeartRateDetection
+Heart rate detection is done through a sensor connected to Arduino. The sensor is a
+non-invasive sensor based on optical principles. By attaching the sensor at the fingertip or
+earlobe, it emits light that goes through the skin and is absorbed by the blood. When the
+heart pumps the blood flow, the amount of light in the blood changes, which can then be
+detected by the sensor. The change will be turned into electric signals and then calculated
+to retrieve the heart rate. Arduino helps to translate the signal and enable it to be processed
+by computer. Python codes further embed the heart rate in the whole coding pipeline. The
+sensor is attached to the mirror surface and requires users to put their fingertips on it to
+generateheartratedetection.
+7
+a) SensorandArduino b) ProcessSteps
+Figure2 HeartRateSensor
+3.2.2 EmotionRecognition
+Deepface is a classification model trained on the FER-2013[24] dataset, which contains
+all images in the size of 48x48 in seven categories: six basic emotions and neutral. The
+trainingdatasetexhibitsanimbalancebetweenclasses,withthe”disgust”categorybeingthe
+least represented and ”happy” the most prevalent. This pattern is consistently reflected in
+the performance on the test set, with disgust having the lowest accuracy and happiness the
+highest. Figure 3 shows the confusion matrix of the prediction result on the test set. The
+deepface model can overall accurately identify seven emotions, except for “disgust”. Test
+images are most commonly misclassified as sad and neutral, with an average misclassifica-
+tionscoreabove80%. Inthedesignpartofthiswork,visualizationfortheneutralemotionis
+excludedfromconsiderationthatstemsfromasimilarreason: undernormalcircumstances,
+most facial expressions are recognized as neutral. Among all test images misclassified as
+neutral, 40% of the correct categories received the second-highest scores, with an average
+score of 75 for the neutral category. It can be roughly assumed that facial expressions clas-
+sified as neutral, scoring below 75, can be classified as the second-highest-scoring category
+withacertain degreeofreliability.
+8
+Figure3 ConfusionMatrix
+Tobetterunderstandtheperformanceofthismodelonthereal-timevideos,thedatawas
+collected through a camera. Six basic emotions were performed for an equal interval of 5
+secondseachfollowingtheinstructionoftheFacialActionCodingSystem(FACS)[25]. With
+acameraof30FPS,atotalof900frameswerecaptured. Duetothehightimeconsumption
+of the inference step of emotion recognition, about 300 emotion predictions will be made
+in 30 seconds. According to the FACS proposed by Ekman et al., facial expressions can
+be broken down into the movements of muscles, which are called action units[25]. Different
+actionunitscontributetootherkindsofemotionexpressions,figure5showssamplesofthe
+facial expressions of six basic emotions. Featured action units of six basic emotions can be
+concludedastable1.
+Table1 EmotionMappinginFACS[26]
+Emotion TypicalActionUnitsCombination
+Happy 12/6+12
+Anger 4+5+7+23/4+5
+Disgust 9+16
+Sad 1+4
+Fear 1+2+4+5
+Surprise 1+2+5/5+26/2+26
+9
+Aligned with common perception, the upward lip corner means happy, and the down-
+wardeyebrowsandlipcornerindicatesad. However,whenusers’facialexpressionsarenot
+that exaggerated, it isn’t very clear to distinguish the specific type of emotion. Thus, the
+experimentfocusesonhow tocategorize thedetectedneutralcategory.
+Figure4 ActionUnits[27]
+Figure5 SampleFacialExpressions[26]
+10
+Table 2 shows the average prediction data for six basic emotions. The experiment was
+conducted 3 times, and the average data was shown. In table 2, TDE means Total Detected
+Emotion, Correct Rate is the correctly detected rate, Neutral Number is the number of de-
+tected neutral faces, SHCR means Second Highest Correct Rate: the rate of the correctly
+detected emotions scores the second highest of the neutral category, SHCS means Second
+Highest Correct Score: the average score of the correctly detected emotions scores the sec-
+ond highest of the neutral category, TCR means the total correct rate counting the emotion
+withSHCSascorrect.
+Thefollowingresultscanbe concludedfromtheexperimentabove:
+• Facialexpressionsareattributedtotheneutralcategoryinahighpossibility,especially
+whentheexpressionsare notobvious.
+• Whenneutralscoredthehighest,ratingthecurrentemotionasthesecondhighestsig-
+nificantlyimprovedthe accuracy.
+• Disgust is almost undetectable by facial expressions in a short time period like 5 sec-
+onds.
+Table2 DeepfacePerformanceStatistics
+Emotion\Indicator TDE CorrectRate NeutralNumber SHCR SHCS TCR
+Happy 50 40% 27.67 46.44% 14.06 65.67%
+Angry 53.33 25.69% 19.33 42.61% 33.54 31.29%
+Disgust 84.5 4.16% 32 0 0 4.16%
+Sad 54.67 17.12% 41.67 91.91% 6.79 87.50%
+Fear 50.33 45.62% 24.67 83.56% 18.39 83.43%
+Surprise 52.67 61.32% 11 27.48% 11.12 65.72%
+Furthermore, specific unavoidable classification errors provide insights into artificial
+intelligence judging human emotion, which may arouse users’ thoughts of their genuine
+emotions and doubt about AI judgments behind the scenes. Micro expressions may be cap-
+tured by the camera, which is made by subtle muscle movements and lasts short[28]. These
+expressions show people’s true thoughts instead of facial expressions when trying to hide
+something. Such instances may inadvertently expose users’ inner thoughts by displaying
+emotions.
+11
+3.3 Visualization Design
+Facial expressions and heart rate are indicators mapping users’ emotional state to the
+visualization display. Facial expression determines the category of detected emotion, and
+heart rate helps rank the emotion’s degree and correct the disgust classification. The design
+processconsistsofstaticanddynamic partsandisbidirectionalasfigure6shows.
+Figure6 DesignProcess
+3.3.1 OriginalStatic Drafts
+For the design, mappings between six basic emotions and literature symbols, colors,
+textures, and display speed are constructed. The original drafts were created by generative
+AI Midjourney using the mapping provided in the table below. Six basic emotions are dis-
+tributed in the valence-arousal coordinate as Figure 7. Under these two dimensions, Wilms
+conducted experiments to examine how hue, saturation, and brightness affect people’s cog-
+nition towards valence and arousal levels[29]. The results were proved to be aligned with
+what Kaya proposed[9], and also the same as Nijdam concluded[30]. High arousal emotions
+tend to be perceived as highly saturated chromatic colors, and high valence is seen more in
+chromaticcolorstimuli.
+Fortexture,bothhapticandvisualaspectshavebeenpaidmuchattentiontoinresearch.
+Iosifyanexperimentedwithhaptictextures: participantsratedtheemotionleveltouchingdif-
+12
+Figure7 ValenceArousalModel[31]
+ferenttactilesurfaces[32]. Liuproposedacalculationmodelthatevaluatesthemostsignificant
+15 features in visual texture affecting emotions[33]. Thus, the haptic descriptions are refer-
+enced along with the visual texture as input. The final mapping is as Table 3. Combining
+theresultsandtheaestheticconsideration,originaldraftswereproducedasFigure9shows.
+TheworkingprocessisasFigure8shows.
+Figure8 WorkingProcess
+Table3 DesignMapping
+Emotion Description Color Texture Valence Arousal
+Happy Light,Flower,Up Yellow,Red,Pink Soft,Velvet High Low
+Angry Heat,Fire Red,Black Metal,Rough Low High
+Fear Vicious,Eyes Gray,Black Misty Low High
+Sad Low,Cold Blue,Black,Gray Flowing Low Low
+Surprise Daze,Thunder Orange,Red Fancy High High
+Disgust Dirty,Unappetizing Green,Yellow ToySlime Low High
+13
+a) Happy b) Angry c) Fear
+d) Sad e) Surprise f) Disgust
+Figure9 DesignDrafts
+3.3.2 DynamicOutput
+Dynamictexturesincludevisualpatternsthatvaryfromtime,whichcanbeeithercon-
+tinuousordiscrete[13]. Theyalsocontributetoarousingemotionsinmanywaysjustlikestatic
+features. Motion features like speed and amplitude were found to have unpleasant effects,
+while the consistency of the dynamics may amplify the impact of the video content in elic-
+iting emotions[13]. Since dynamic content can draw more visual attention and specific ones
+can cooperate to regulate the degree of the displayed emotion, original drafts were turned
+into short videos of about 4 seconds using the keyframe animation in Adobe Photoshop. In
+addition, the dynamic design also incorporates the elements in the static drafts to provide a
+moreimmersiveexperience. Thedynamic designfollowedtable4patterns.
+Detected heart rate helps to classify the output visual display in more detail and can
+helptoreducetheclassificationerrorcausedbyusingfacialexpressionsonly. Accordingto
+14
+Table4 DynamicDesignPatterns
+Emotion\Change Color Texture Motion
+Happy Saturation Blur FlowerAnimation
+Sad - Twisted WaveEffect
+Anger ColorBalance Sharpen BlowUpEffect
+Disgust - Liquidation DrippingProcess
+Fear Contrast - EyeBlinkingAnimation
+Surprise - - FireworkAnimation,SuddenBasePictureChange
+experimental results, heart rate increases when people are angry, decreases when in a state
+of disgust, and is lower when people are happy than in the neutral mood[34]. And compared
+tothesadstate,theaverageheartrateofthehappystateislower[35]. Aspecificrankofheart
+rate was concluded by Kenneth, M. et al.[36], which was concluded from the experimental
+results.
+Figure10 HeartRateDataofSixEmotions[36]
+Combining the heart rate performance and the dynamic texture performance together,
+thefinal dynamicdesignconsideredthefollowingaspects:
+• For Anger and Sad, heart rate will be distributed to 3 levels: high, medium, and low.
+When the heart rate is high, the visualization video will be played at a faster speed
+followingtheequation HRnow v 1.2. HRisshortforheartrate,v istheoriginal
+HR base × ori × ori
+speed of thevideo. Thevideowasacceleratedbyskippingframes.
+• Whentheheartrate islow,Anger andSadwillbe classifiedasdisgust.
+15
+• Since heart rate may range widely for different people under different conditions, the
+hierarchy is based on data under general situations. HR is 70, 60 to 80 is in the
+base
+mediumrange,above 80ishigh,andbelow 60islow.
+3.4 Installation Setup
+The installation comprises a double-way mirror, a monitor, a camera, a sports watch,
+andacomputer. Thecompleteworkisshowninfigure12. Thecomponentsarelikefigure11
+shows; the heart rate sensor is covered under a heart-shaped paper, which is about the heart
+levelhigh. Themirror’sframehidesthecameraconnectedtothecomputerrunningtheback-
+end algorithms. The mirror is attached to the monitor to display the emotion visualizations
+whileusersarelookingintothe mirror.
+Part Size/Parameters Function
+Mirror 380mm 247mm Conceptsetup
+×
+Monitor 15.6inchscreen Displayemotionvisualizationdesign
+Camera 1280p 720p,30fps Retrievereal-timevideo
+×
+Sensor 3.3-5V,Analogsignal Retrieveheartrate
+Computer NVIDIA3070ti Executebackendalgorithms
+Figure11 InstallationComposition
+16
+4. Experiments and Results
+4.1 Experiment for the Static Drafts
+Asmall-scalesurveywasconveyed,and15participants,evenlysplitbygenderwithone
+unwilling to reveal, were invited to evaluate the generated drafts. Among the five emotions
+assessed,allbutsurprisewerereliablydistinguishedbyatleast80%oftheparticipants. De-
+spitebeingrecognizedasoneofthebasicemotions,surpriseprovedchallengingtodefinedue
+tothecomplexityoftheconceptitself. Notably,astudybyNijdamin2009revealedthatsur-
+prisewasnotexplicitlyassociatedwithaspecificcolorinanyofthemodelshereviewed[30].
+The survey findings indicated that sadness and disgust were occasionally misinterpreted as
+surprise, while half of the participants mistakenly attributed surprise to happiness. Without
+clearclarification,thevalenceofsurprisedependsonthesituationitismentioned,andstatic
+design may find it hard to reflect its dynamic nature. So, in the next version, the design of
+the surprise added more unpredictable changes, and the design focused on its unexpected
+features. Astheonlyassertivepositivebasicemotion,happinesswasrecognized100%right
+inthesurvey. Withoutanydivergence,allparticipantsthoughtcolorwasthemostsignificant
+featurethatdenoted thisemotion.
+The table below shows detailed statistics. Participants were asked to rate the level of
+emotion if they put it into the right category, the column value is the average score of this
+level out of 5 points. The following ranks represent the relative importance attributed by
+participants to various components of the design sketches. PAR means Positive Answer
+Rate. Elements,Color,andTexturerecordthe relativerankofthese 3partsofthe drafts.
+Table5 SurveyResults
+Emotion PAR(%) WrongAnswers AverageScore Elements Color Texture
+Happiness 100 - 4.33 3 1 2
+Anger 80 Sadness,Fear 3.67 3 1 2
+Fear 86.67 Anger 4.08 1 2 3
+Sadness 86.67 Surprise 3.54 3 1 2
+Surprise 53.33 Happiness 4.25 2 1 3
+Disgust 93.33 Surprise 4.07 2 1 3
+After the feedback, small adjustments were made, and static pictures were turned into
+17
+videos. Thepipelineofbackendprocessingfacialexpressionsisbuilt.
+4.2 Experiment for the Installation Work
+Afterallpartsoftheworkhadbeensetup,anexperimentinvolvinguserstoexperience
+this work was conducted using the completed installation. 13 undergraduate students par-
+ticipated. The installation was set up in a classroom, allowing users to explore freely. The
+introduction is posted on the wall beside the poster, and participants were asked to explore
+the installation freely. They were asked to finish a survey before they left. And partici-
+pants were encouraged to leave a memo describing their emotions now or for today. The
+surveyconsistsoftwoparts: oneisabouttheusabilityofthework,andtheotherisaboutthe
+experience ofemotionvisualization.
+a) SceneSetup b) Exampleofusage
+Figure12 SceneoftheExperiment
+The usability ratings are overall high, scoring an average of 4.15 out of 5. All partic-
+ipants have left positive words in the survey to describe the experience. More specifically,
+about80%oftheparticipantsthoughttheinteractiveprocessleftthemwithdeepimpressions,
+whileoverhalfthoughtthevisualdisplayattractedtheirattention. Alignedwiththeprevious
+studyofstaticdrafts,colorisstillthemostsignificantelementrepresentingemotions,while
+18
+However, for the emotion recognition parts, the feedback showed divergence. Half of
+the participants approved of the installation’s emotional feedback, while the other half felt
+uncertain about the recognized emotion. One of the most confusing usage experiences was
+thattheworkonlyshowedsixbasicemotions,whichcannotconcludethecomplexemotional
+experience. Anotherreasonwasthatparticipantsagreedthattheirself-perceptionwasvague
+andmaybeaffectedbythe environment.
+At the end of the survey, participants were invited to share their overall experience.
+What they had in common was a positive attitude towards the form of the work and the
+connotation behind the installation. However, a few aspects of the work listed below were
+notalignedwithintuitionandcanbe furtherimproved.
+• No direct instructions on collecting heart rate and no direct feedback after heart rate
+collected.
+• The length of the visualized video is too long, causing users to be confused about the
+responsepace.
+• Most of the participants asked for further explanations about the work. The whole
+settingwasnotimmersiveenoughtoallowuserstogetlostintheirthoughts.
+19
+5. Future Work and Conclusion
+Theinstallationhassuccessfullysetupthepipelineofrecognizingusers’emotionsfrom
+theirfacialexpressionsandheartrateandthenmappingtheresultstoavisualizationdisplay.
+For the process, the connection between different emotions can be added since the experi-
+ence of emotion is often mixed. The segmented human portrait now is the floating effect,
+whichlacksinteractionbetweentheuserandthevisualization. Amoreimmersiveexperience
+environmentcanbecreatedtobemorethought-provoking.
+The work not only provides a portal of thinking but also has the potential to apply it
+to mental health care. Recognizing your emotions correctly helps to improve mental health
+significantly. The form of this work is highly expandable, enabling expanding the current
+frameworktoincorporateadditionalbio-signalsanddevelopingamorecomprehensivesys-
+tem, which would significantly contribute to its effectiveness and relevance in various do-
+mains. An innovative approach to visualize emotion and invoke users’ thoughts about self-
+awareness is proposed. Detecting facial expressions for displaying emotion visualization in
+the mirror provides the chance to know oneself’s inner spiritual world by exposing it. This
+process of self-exploration through the external representation of emotions encourages in-
+trospectionandfostersadeeper understandingofone’semotionalstate.
+Preliminaryusersurveyshaveindicatedapositivereceptiontotheprocessedwork,val-
+idatingitspotentialforengagingusersandpromotingself-awareness. Furtherimprovements
+in usability and the fertility of the installation artwork will be made at the next stage. The
+workisahighlythought-provokingandexpandableformofartthatrelatescomputerscience
+and recognition science together. The displayed visualization can have a further emotional
+effect on users rather than only a reflection of their facial expressions, which is a multidi-
+rectionalexchangeofinformationthatcanbeexploredforfutureapplicationsinpsychology
+andemotionalwell-being.
+20
+References
+[1] CAMUSA,O’BRIENJ,WOODJ.TheMythofSisyphus[M].PenguinBooksLimited,2013.
+[2] TAOJ,TANT.AffectiveComputing:AReview[C].in:AffectiveComputingandIntelligentIn-
+teraction.2005:981-995.
+[3] EKMANP,FRIESENW,O’SULLIVANM,etal.UniversalsandCulturalDifferencesintheJudg-
+ments of Facial Expressions of Emotion[J]. Journal of Personality and Social Psychology, 1987:
+712-717.
+[4] POSNER J, RUSSELL J A, PETERSON B S. The Circumplex Model of Affect: An Integrative
+ApproachtoAffectiveNeuroscience,CognitiveDevelopment,andPsychopathology[J].Develop-
+mentandPsychopathology,2005,17(03):715-734.
+[5] ROCHATP,ZAHAVID.TheUncannyMirror:ARe-framingofMirrorSelf-experience[J].Con-
+sciousnessandCognition,2011,20(2):204-213.
+[6] DUG,LONGS,YUANH.Non-ContactEmotionRecognitionCombiningHeartRateandFacial
+ExpressionforInteractiveGamingEnvironments[J].IEEEAccess,2020,8:11896-11906.
+[7] HSIEHPY,CHINCL.TheEmotionRecognitionSystemwithHeartRateVariabilityandFacial
+ImageFeatures[C].in:2011IEEEInternationalConferenceonFuzzySystems:1933-1940.
+[8] CHANGCY,TSAIJS,WANGCJ,etal.EmotionRecognitionwithConsiderationofFacialEx-
+pressionandPhysiologicalSignals[C].in:2009IEEESymposiumonComputationalIntelligence
+inBioinformaticsandComputationalBiology:278-283.
+[9] KAYAN.RelationshipBetweenColorandEmotion:AStudyofCollegeStudents[J].CollegeStu-
+dentJournal,2004:396-405.
+[10] MANNINGA,AMAREN.Emotion-spectrumResponsetoFormandColor:ImplicationsforUs-
+ability[C].in:2009IEEEInternationalProfessionalCommunicationConference:1-9.
+[11] GILBERTAN,FRIDLUNDAJ,LUCCHINALA.TheColorofEmotion:AMetricforImplicit
+ColorAssociations[J].FoodQualityandPreference,2016,52:203-210.
+[12] LIUJ,LUGHOFERE,ZENGX,etal.ThePowerofVisualTextureinAestheticPerception:An
+ExplorationofthePredictabilityofPerceivedAestheticEmotions[J].ComputationalIntelligence
+andNeuroscience,2018:e1812980.
+[13] TOETA,HENSELMANSM,LUCASSENMP,etal.EmotionalEffectsofDynamicTextures[J].
+i-Perception,2011,2:969-991.
+[14] KÖVECSESZ.Metaphorandemotion:Language,culture,andbodyinhumanfeeling[M].Cam-
+bridgeUniversityPress,2003.
+[15] MASHAK S P, PAZHAKH A, HAYATI A. A Comparative Study on Basic Emotion Conceptual
+Metaphors in English and Persian Literary Texts[J]. International Education Studies, 2012, 5(1):
+200-207.
+21
+[16] SUBRAMONYAM H. SIGCHI: Magic Mirror - Embodied Interactions for the Quantified Self
+[J]. Proceedings of the 33rd Annual ACM Conference Extended Abstracts on Human Factors in
+ComputingSystems,2015.
+[17] FUJINAMIK,KAWSARF,NAKAJIMAT.AwareMirror:APersonalizedDisplayUsingaMirror
+[G].in:HUTCHISOND,KANADET,KITTLERJ,etal.PervasiveComputing:vol.3468.Berlin,
+Heidelberg:SpringerBerlinHeidelberg,2005:315-332.
+[18] RAJCICN,MCCORMACKJ.MirrorRitual:AnAffectiveInterfaceforEmotionalSelf-Reflection
+[C].in:Proceedingsofthe2020CHIConferenceonHumanFactorsinComputingSystems:1-13.
+[19] NIETZSCHEF.Nietzsche:Daybreak:ThoughtsonthePrejudicesofMorality[M].Ed.byCLARK
+M,LEITERB.2nded.CambridgeUniversityPress,1997.
+[20] EAGLETONT.LiteraryTheory:AnIntroduction[M].UniversityofMinnesotaPress,2008.
+[21] FOUCAULT M. The Order of Things: An Archaeology of the Human Sciences[M]. Routledge,
+2002.
+[22] SERENGILSI,OZPINARA.HyperExtendedLightFace:AFacialAttributeAnalysisFramework
+[C].in:2021InternationalConferenceonEngineeringandEmergingTechnologies:1-4.
+[23] CHU L, LIU Y, WU Z, et al. PP-HumanSeg: Connectivity-Aware Portrait Segmentation with a
+Large-ScaleTeleconferencingVideoDataset[Z].2021.
+[24] GOODFELLOWIJ,ERHAND,CARRIERPL,etal.ChallengesinRepresentationLearning:A
+ReportonThreeMachineLearningContests[C].in:InternationalConferenceonNeuralInforma-
+tionProcessing.2013:117-124.
+[25] EKMANP,FRIESENWV.FacialActionCodingSystem[J].EnvironmentalPsychology&Non-
+verbalBehavior,1978.
+[26] CLARKE,KESSINGERJ,DUNCANS,etal.TheFacialActionCodingSystemforCharacteri-
+zationofHumanAffectiveResponsetoConsumerProduct-BasedStimuli:ASystematicReview
+[J].FrontiersinPsychology,2020,11.
+[27] COHNJF,AMBADARZ,EKMANP.Observer-basedMeasurementofFacialExpressionwith
+theFacialActionCodingSystem[J].TheHandbookofEmotionElicitationandAssessment,2007,
+1:203-221.
+[28] EKMANP,FRIESENWV.NonverbalLeakageandCluestoDeception[J].Psychiatry,1969,32:
+88-106.
+[29] WILMS L, OBERFELD D. Color and Emotion: Effects of Hue, Saturation, and Brightness[J].
+PsychologicalResearch,2018,82:896-914.
+[30] NIJDAMN.MappingEmotiontoColor[J].BookMappingEmotiontoColor,2009:2-9.
+[31] RUSSELLJ,BULLOCKM.OntheDimensionsPreschoolersUsetoInterpretFacialExpressions
+ofEmotion[J].DevelopmentalPsychology,1986,22.
+[32] IOSIFYANM,KOROLKOVAO.EmotionsAssociatedwithDifferentTexturesDuringTouch[J].
+ConsciousnessandCognition,2019,71:79-85.
+22
+[33] LIUJ,LUGHOFERE,ZENGX.AestheticPerceptionofVisualTextures:AHolisticExploration
+UsingTextureAnalysis,PsychologicalExperiment,andPerceptionModeling[J].FrontiersinCom-
+putationalNeuroscience,2015,9.
+[34] SHU L, YU Y, CHEN W, et al. Wearable Emotion Recognition Using Heart Rate Data from a
+SmartBracelet[J].Sensors(Basel,Switzerland),2020,20.
+[35] VALDERASMT,BOLEAJ,LAGUNAP,etal.HumanEmotionRecognitionUsingHeartRate
+VariabilityAnalysiswithSpectralBandsBasedonRespiration[C].in:2015AnnualInternational
+ConferenceoftheIEEEEngineeringinMedicineandBiologySociety.2015:6134-6137.
+[36] PRKACHINKM,WILLIAMS-AVERYRM,ZWAALC,etal.CardiovascularChangesDuring
+InducedEmotion:AnApplicationofLang’sTheoryofEmotionalImagery[J].JournalofPsycho-
+somaticResearch,1999,47:255-267.
+23
+Acknowledgement
+Thank you to everyone who protected me from dreaming in my own rough world: my
+family, academic advisors, dear friends, and all those who supported me. Thank you for all
+theencounters,thelove,the understanding,andthe fantasies.
+24

@@ -1,0 +1,794 @@
+分类号 编号
+U D C 密级
+本科生毕业设计（论文）
+题 目： 基于跨域数据的白内障手术场景
+分割算法研究
+姓 名： 区明阳
+学 号： 11913001
+系 别： 计算机科学与工程系
+专 业： 计算机科学与技术
+指导教师： 刘江 教授
+2023 年 5 月 1 日
+CLC Number
+UDC Availableforreference □Yes □No
+Undergraduate Thesis
+Thesis Title: Semantic Segmentation of Cataract
+Surgical Scene on Cross Domain Data
+Student Name: Ou Mingyang
+Student ID: 11913001
+Department: Department of Computer Science
+and Engineering
+Program: Computer Science and Technology
+Thesis Advisor: Professor Liu Jiang
+Date: May 1, 2023
+诚信承诺书
+1. 本人郑重承诺所呈交的毕业设计（论文），是在导师的指导下，
+独立进行研究工作所取得的成果，所有数据、图片资料均真实可靠。
+2. 除文中已经注明引用的内容外，本论文不包含任何其他人或
+集体已经发表或撰写过的作品或成果。对本论文的研究作出重要贡
+献的个人和集体，均已在文中以明确的方式标明。
+3. 本人承诺在毕业论文（设计）选题和研究内容过程中没有抄袭
+他人研究成果和伪造相关数据等行为。
+4. 在毕业论文（设计）中对侵犯任何方面知识产权的行为，由本
+人承担相应的法律责任。
+作者签名:
+年 月 日
+COMMITMENT OF HONESTY
+1. I solemnly promise that the paper presented comes from my
+independent research work under my supervisor’s supervision. All
+statistics and images are real and reliable.
+2. Except for the annotated reference, the paper contents no other
+published work or achievement by person or group. All people making
+important contributions to the study of the paper have been indicated
+clearly in the paper.
+3. I promise that I did not plagiarize other people’s research achievement
+or forge related data in the process of designing topic and research
+content.
+4. If there is violation of any intellectual property right, I will take legal
+responsibility myself.
+Signature:
+Date:
+基于跨域数据的白内障手术场景
+分割算法研究
+区明阳
+（计算机科学与工程系 指导教师：刘江）
+[摘要]：白内障手术是治疗白内障的主要手段，而开发手术系统有助
+于为手术医师在术中提供手术环境感知，提供技术支持。其中，手术
+场景的语义分割人物是基础性任务。
+基于监督训练的深度神经网络在手术场景的语义分割任务上有较
+好的表现。然而，1）像素级别的手术场景训练标签的获取是极其昂贵
+的。2）在单一数据集中训练的深度神经网络在临床应用中由于数据分
+布偏移问题常出现分割性能下降的情况 3）尽管领域自适应方法的提
+出能有效改善数据分布偏移所带来的负面影响。近年来，由于对数据
+隐私保护的重视程度提升，在实际场景中我们往往无法直接利用训练
+域数据。
+基于以上难点与挑战，本文提出了一种基于知识蒸馏框架下的无
+源域领域自适应算法。该算法首先利用多视图学习与特征一致性约束，
+在带训练标签的源域中训练出鲁棒性强的白内障手术场景语义分割网
+络。随后结合知识蒸馏框架与熵最小化的方法，我们提出一套仅仅使
+用目标域无标签数据和源域模型的领域自适应方法，提升模型在目标
+域的分割性能。
+为了验证方法的可行性，我们在两个白内障手术数据集上展开了
+一系列的对比实验，实验结果表明提出的方法具有一定的有效性。
+[关键词]：语义分割；白内障手术；无源域领域自适应
+I
+[ABSTRACT]: Cataract surgery is the main treatment for cataracts, and
+developingsurgicalsystemscanprovidesurgeonswithsurgicalenvironment
+perception and technical support. Among them, semantic segmentation of
+surgical scenes is a fundamental task.
+Supervised deep neural networks have shown good performance in se-
+mantic segmentation tasks of surgical scenes. However, 1) obtaining pixel-
+leveltraininglabelsforsurgicalsceneisextremelyexpensive. 2)Deepneural
+networks trained on a single dataset often show a decrease in segmentation
+performance due to the problem of data distribution shift in clinical applica-
+tions. 3) Although the proposed domain adaptation methods can effectively
+improve the negative impact of data distribution shift, in practical scenarios,
+we often cannot directly use the training domain data due to the increasing
+importance of data privacy protection.
+Basedontheabovechallenges,thispaperproposesasource-freedomain
+adaptationalgorithmbasedontheknowledgedistillationframework. Theal-
+gorithm first uses multi-view learning and feature consistency constraints to
+train a robust cataract surgery semantic segmentation network in the source
+domain with labeled training data. Then, combining the knowledge distilla-
+tion framework and the entropy minimization method, we propose a domain
+adaptation method that only uses unlabeled target domain data and source
+domain model to improve the segmentation performance of the model in the
+target domain.
+To verify the feasibility of the proposed method, we conducted a series
+of comparative experiments on two cataract surgery datasets, and the exper-
+imental results show that the proposed method has certain effectiveness.
+[Key words]: Semantic Segmentation; Cataract surgery; Source-free do-
+main adaptation
+II
+目录
+1. 引言 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.1 研究背景和意义 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.2 存在问题与挑战 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+1.3 论文创新点与贡献 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2. 国内外研究相关研究现状 . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2.1 图像语义分割算法 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2.2 计算机视觉领域自适应算法 . . . . . . . . . . . . . . . . . . . . . . . 4
+3. 研究方法 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.1 问题阐述 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.2 方法概述 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+3.3 基于风格差异性与语义一致性约束的特征提取器 . . . . . . . . . 5
+3.4 基于多视图学习的白内障语义分割网络 . . . . . . . . . . . . . . . 7
+3.5 基于均值教师知识蒸馏的领域自适应方法 . . . . . . . . . . . . . 8
+4. 实验 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.1 实验数据集 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.1.1 CaDIS 数据集 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+4.1.2 CatInstSeg 数据集 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+4.2 实现细节 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+4.2.1 软硬件环境与超参数 . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+4.2.2 实验目的 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+4.2.3 对比方法 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+4.2.4 评价指标 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+4.3 实验结果 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+5. 结论 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+III
+参考文献 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+附录 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+致谢 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+IV
+1. 引言
+1.1 研究背景和意义
+眼球接受光线的照射并在视网膜上成像，是人体形成视觉，对外界环境感知
+最重要的器官之一。眼球的结构如图1所示，大致可以分为外部结构和内部结构。
+外部结构包含外层、中层和内层三层。外层包括在前半部分的透明近球状结构角
+膜（Cornea）以及在后半部分的稠密的白色纤维状的结构巩膜（Sclera）。中层包括
+由虹膜（Iris）、睫状体（Ciliary body）和脉络膜（Choroid）组成的葡萄膜。其中
+虹膜中有圆形开口，称为瞳孔（Pupil）。后层主要是视网膜，通过视神经将成像转
+化为电信号传输给大脑。眼球的内部结构可以分为前房（Anteriorchamber）、后房
+（Posterior chamber）以及 (Vitreous chamber) 玻璃房。在虹膜后房，晶状体（Lens）
+通过睫状小带（Zonules）和睫状体相连。
+在成像的过程中，外界物体的光线首先透过角膜折射照进眼球，虹膜通过调
+节瞳孔的大小来控制进入光束的大小。随后晶状体对进入光线进行二次折射，使
+其聚焦在视网膜上，形成图像。此外，通过改变晶状体的形状，人可以聚焦不同距
+离的物体。因此在视觉的形成过程中，晶状体起着非常重要的作用[1]。
+图1 眼球结构图，图片来源于Goossens[1]
+晶状体的主要构成成份是晶体蛋白。白内障患者由于各种病理性的因素晶状
+体中晶体蛋白变性，使得晶状体的形态和折射率因此而改变，眼底的成像因此变
+得模糊。在严重的情况下，光线无法透过晶状体，最终导致失明。具体来说，年龄
+的增长、先天性遗传、青光眼手术等其他眼科手术中的创伤、其他眼科疾病的影
+响、药物的使用以及系统性疾病都可能是罹患白内障的原因[2]。根据 Steinmetz 等
+人的研究，白内障是全球中重度视力损伤的主要原因之一，也是失明最主要的原
+因。在2020年，全球50岁以上的白内障患病老年人人数高达152万[3]。通过手术
+1
+将人工晶体替换浑浊的晶状体是最主要的治疗手段。然而，1）在发展中国家，大
+量白内障患者缺乏获得手术治疗的机会，2）白内障手术医师的培训速度远不及每
+年白内障患者的新增速度，3）随着人口老龄化的家具，每年新增的老年白内障患
+者在不断增加以及 4）目前在医学上仍然没有有效的预防或延缓白内障病变的方
+法和途径[2]，以上四点导致了白内障亟需更高效的治疗方法。
+近年来，手术机器人系统有了长足的发展，在包括白内障在内的眼科手术上
+有着良好的应用前景。根据人工介入的程度，手术机器人系统可以分为全人工、机
+器人器械辅助系统、远程操控系统、手术协作系统以及半自动或全自动手术机器
+人系统[4]。在远程操控、手术协作和半自动或全自动手术机器人系统中，手术医师
+都需要通过视觉反馈来对复杂的手术环境进行感知，以作出下一步的手术操作决
+策。语义分割通过对输入图像进行像素级别的分类，能够帮助对白内障手术场景
+进行划分，增强对手术场景的感知，有助于更好地开发实现白内障手术机器人系
+统，提高白内障手术效率。同时，开发针对白内障语义分割的算法并与白内障手
+术培训系统结合，提供增强的视觉反馈，对于加快白内障手术医师的培训也有着
+重要的临床意义。
+1.2 存在问题与挑战
+对于自然图像的语义分割任务，在街景分割、遥感图像分割等领域都已经有
+了大量高效精准的语义分割算法。与此同时，针对医学图像的语义分割也有相应
+的突出研究成果。然而，在白内障手术场景分割的这个子课题下，仍有许多待未
+能解决的问题：
+1. 由于白内障手术属于显微操作手术，手术器械大多形态较为纤细，在手术场
+景中的占比较小。此外，手术过程中可能出现出血，手术强光照射等不确定
+因素，导致手术器械外观形态发生改变。综上两点需要语义分割模型在白内
+障手术场景图像中需要更高的分割精度。
+2. 此外，在医学领域中，待标注的数据集通常数据量较少，特别是白内障语义分
+割相关的医学图像数据集，需要大量的时间和精力对手术器械学习、识别以
+及手术场景的标注，使得良好的白内障手术语义分割数据集非常难以获得。
+与此同时，存在大量未标注的白内障手术数据。但是由于拍摄的场景、设备、
+图像的质量等诸多因素，导致不同数据集之间数据分布存在较大差异，也就
+是域偏移现象。临床运用中输入的数据也与训练数据有较大差异，导致模型
+性能的下降。
+3. 尽管针对领域偏移的问题有许多领域自适应的研究，这些方法往往都需要对
+2
+训练域数据进行获取。而由于数据隐私保护、数据存储和传输的限制以及训
+练计算开销的因素，我们无法对训练域数据进行获取，而只能得到在训练域
+数据上训练好的语义分割模型。如何利用该模型与无标签的目标域数据进行
+领域自适应也是一值得研究的难题。
+1.3 论文创新点与贡献
+基于以上难点，我们提出一种提出一种基于知识蒸馏框架下的无源多视图领
+域自适应白内障手术场景语义分割算法。我们通过在训练域上利用特征一致性和
+差异性约束，结合多视图学习的方法训练出鲁棒的白内障语义分割网络；利用均
+值教师知识蒸馏的方法，实现无源域的领域自适应。具体来说，我们的创新点体
+现在：
+1. 利用风格差异性和语义一致性的约束，结合扰动方程，训练出一个鲁棒的特
+征提取器，提升模型对白内障手术场景语义信息的提取能力。使用多视图学
+习的思路，利用两个差异化的特征学习器训练出一个鲁棒的白内障语义分割
+网络，提升在训练域分割精度的同时提高模型的泛化能力。
+2. 传统均值教师模型[5]的问题在于由于初始化的时候教师和学生模型都使用训
+练域的模型进行初始化，教师模型和学生模型耦合度高，参数更新方向相似，
+因此可能会导致性能上出现瓶颈。而我们提出的模型相由于在初始化的时候
+两个特征学习器天然的就有较大差异性，在领域自适应的过程中朝着不同的
+方向进行更新，因此理论上能打破传统教师学生模型的性能瓶颈
+2. 国内外研究相关研究现状
+图2 白内障语义分割图，数据来源于Grammatikopoulou[6]
+2.1 图像语义分割算法
+图像分割自计算机视觉领域诞生以来作为最基本的任务之一，在医学图像分
+析，自动驾驶，机器人感知等应用中发挥重要作用。传统的图像分割算法主要包括
+3
+阈值分割方法，区域合并方法，k-means聚类方法，分水岭方法，Markov随机场及
+活动轮廓等算法。2011年，Lalys等[7]通过人工构筑形状，颜色，表面纹理相关特
+征，并结合 HMM 算法实现对白内障手术场景的分割。2014 年，Quellec 等[8]利用
+条件随机场算法 (CRF) 根据帧级信息完成手术场景分割。2015 年，Zhao 等[9]人用
+带有L1正则化的总变分模型实现了对瞳孔和虹膜的分割。2016年，Abdullah[10]等
+提出一种结合活跃轮廓和非循环正则化框架的方法，在瞳孔虹膜分割任务中取得
+良好的结果。
+近年来随着深度学习技术的快速发展，一系列基于该技术的算法在图像语义
+分割领域取得瞩目的成果。在诸多方法中，全卷积网络(FCN)[11]是最为经典的图像
+语义分割解决方案之一。FCN是一个端到端，采用编码器-解码器架构的卷积神经
+网络。相比于VGG-16[12]和Alexnet[13]，FCN用反卷积操作代替全连接来完成上采
+样的工作，从而生成像素层级的分割图像。U-Net[14]采用了完全对称的编码器-解
+码器的结构。同时U-Net增加了下采样特征图和上采样特征图之间的跳连，使得低
+分辨率的信息和高分辨率的信息进行融合，提供更精细的分割预测。PSPNet[15]基
+于 ResNet[16]的 backbone，引入了池化金字塔模块。该模块并联四个不同规格的池
+化层，生成不同尺度的特征图，最后再将这些不同的特征图和原始特征图相加，有
+效地解决了FCN 模型上下文信息丢失的问题。
+2.2 计算机视觉领域自适应算法
+在计算机视觉领域中，来自两个不同域的图片之间往往拥有不同的特征，譬
+如纹理，明暗等存在差异性。因此，当以某个特定域的图片作为训练数据的模型
+倘若直接作用于另一个域时，常有一定程度性能的下降。针对该挑战，领域自适
+应方法尝试通过将两个不同域的数据映射到相同的表征空间中，通过施加约束尽
+量拉近两个域在这个表征空间中特征的距离，从而最大限度维持模型原有的性能。
+在医学图像分支中，受限于数据采集的成像设备的不同，采集场景光线等客观条
+件的不同以及受试者的差异性，不同数据集之间存在域偏移问题，因此领域自适
+应方法同样适用。领域自适应方法的实现主要通过深度学习技术，其中GAN[17]的
+出现使得基于对抗的领域自适应方法成为潮流。GAN 主要包含一个生成网络和一
+个判别网络，生成网络负责完成图像分析的主要任务，而判别器对生成器的输出
+进行真伪判断，两者相互拮抗，一方随着另一方的优化而优化。DCGAN[18]采用步
+长卷积替代上采样层，在每一层加入 batch normalization 层，从而提升了 GAN 训
+练的稳定性问题。CyCADA[19]结合了 CycleGAN[20]的一致性约束，对两个域之间
+的输入图像进行像素级的风格迁移，同时对迁移后的图像之间以及提取的特征之
+间进行对抗学习，实现了具有领域自适应能力的语义分割模型。Luo[21]等提出基于
+4
+协同训练和对抗学习思路的 CLAN 领域自适应模型。传统对抗学习仅在表征空间
+对两个域之间的特征进行全局的对齐，忽视了特征与类别的联合分布之间的对齐，
+导致部分特征语义的一致性遭到破坏。CLAN 提出的解决方案采用主要采用了协
+同训练的思路，使用具有差异性的解码器对相同的特征空间进行学习，生成本地
+特征评估图来匹配局部特征和语义类别，从而减轻全局特征对齐所带来的负面影
+响。此外，也存在一些通过简单图像预处理的方式降低源域和目标域输入图像差
+异的尝试，如 2020 年 Yang[22]等提出结合傅里叶变换和反傅里叶变换，交换源域
+和目标域图像的低频信息，得到具有目标域风格的源域图片，从而降低域之间的
+差异问题。
+3. 研究方法
+3.1 问题阐述
+在本小节我们对要解决的问题进行数学化阐述。源域上的白内障数据集 S 存
+在有 N 个匹配的白内障手术场景图像和语义分割标签 {(X ,Y )}N 。通过监督学
+s s s=1
+习，源域数据集S 可以训练出一个白内障语义分割模型ϕ 。然而，给定目标域T，
+S
+数据集上只有M 个无标签的白内障手术场景图像{X }M 。由于在临床应用上，源
+t t=1
+域 S 和目标域 T 在数据分布上有较大的差异，导致源域模型 ϕ 直接在目标域 T
+S
+上进行白内障手术场景图像分割会出现性能下降的现象。在无源域的问题设置下，
+本论文的任务是研究如何只利用缺乏标签的目标域数据 {X }，将源域模型 ϕ 优
+t S
+化成目标域模型ϕ ，使其在目标域上有较好的分割表现。
+T
+3.2 方法概述
+为了解决白内障手术场景语义分割在无源域设置下的领域自适应任务，本论
+文提出一种基于知识蒸馏框架下的无源多视图领域自适应算法。该算法主要有三
+部分构成。首先算法对输入的源域图像X 利用风格特征差异化约束和内容特征一
+s
+致性约束训练出鲁棒的特征提取器 f（3.3 小节）。随后在第一步的基础上，算法
+基于多视图思想训练两个差异化的特征学习器 g ，g ，在源域上得到具有较强泛
+α β
+化性的白内障手术场景语义分割模型 ϕ = f ◦(g +g )（3.4 小节）。在领域自适
+S α β
+应阶段，由于无法获取源域数据，算法通过均值教师知识蒸馏的领域自适应方法，
+将源域模型ϕ 更新为在目标上有良好的分割性能的目标域模型ϕ （3.5小节）。
+S T
+3.3 基于风格差异性与语义一致性约束的特征提取器
+在计算机视觉领域中，图像包含的信息可以大致分为颜色风格信息，纹理材
+质信息以及结构语义信息。将图像输入全卷积网络后，不同层的卷积层对应不同
+信息的特征的提取。一般来说，颜色风格对应特征更多地在浅层的卷积层进行提
+5
+图3 算法流程图
+取，随后是纹理材质对应的特征，而最深层次的结构语义特征需要经过多层的卷
+积获得[23]。设 ϕ (X) 为给定输入图像 S 经过 i 层卷积后得到的特征图，则对于 L
+i
+层的特征提取器来说，我们可以得到 F = {ϕ (X),ϕ (X),...,ϕ (X)} 的激活特征
+1 2 L
+图集合。在这里，我们选择ϕ (X)和ϕ (X)作为对输入图像颜色风格信息的表述，
+1 2
+通过线性双插值上采样方法分别将特征图采样至输入图大小，随后沿着特征维度
+进行拼接，得到风格特征F 。另一方面，我们选择最后一层的激活特征图ϕ (X)
+sty L
+作为对语义信息的表示F 。
+cont
+由于源域和目标域白内障手术场景图像数据分布的差异性，我们需要特征提
+取器 f 对不同风格的输入图像的语义特征提取具有鲁棒性。因此，给定一张源域
+的白内障手术场景图像X ，我们首先选择两种不同的扰动函数p 和p ，对X 进
+s α β s
+行扰动来模拟风格的变化, 得到两张不同风格的图像 Xα 和 Xβ。我们分别地对他
+s s
+们进行特征提取，并希望他们各自得到的风格特征（Fα , Fβ ）是具有差异性的，
+sty sty
+6
+图4 特征提取图
+因此我们添加一个风格差异化的损失L 对特征提取器f 进行约束，定义如下:
+sty
+Xn Xm
+1 1
+L = max( G(Fβ ,Fβ ), G(Fβ ,Fβ )) (1)
+sty n sty sty m sty sty
+i j
+其中G(Fα ,Fβ ) 为Xα 和Xβ 的Gram矩阵，计算方法为：
+sty sty s s
+G(Fα ,Fβ ) = 1−D (Fα ,Fβ )
+sty sty cosine sty sty
+Fα ,Fβ (2)
+= sty sty
+∥Fα ∥∥Fβ ∥
+sty sty
+同时，我们希望Xα 和Xβ 提取出来的语义特征Fα ,Fβ 尽可能的相似，因此我
+s s cont cont
+们对特征提取器施加语义一致性损失L ：
+cont
+(cid:13) (cid:13)
+(cid:13) (cid:13)
+L = (cid:13)G(Fα ,Fα )−G(Fβ ,Fβ )(cid:13) (3)
+cont cont cont cont cont
+1
+最终我们得到的特征提取器的训练损失L = L +L 。
+enc sty cont
+3.4 基于多视图学习的白内障语义分割网络
+图5 多视图学习，图片来源于Ou[24]
+7
+深度学习在现实世界的应用时，往往会面临来源于不同采集方式的数据，即
+多视图数据。举例来说，在对网页分类的任务中，网页的文字内容和超链接信息
+分别可以作为对同一个网页描述的两组不同视图的数据。多视图学习针对这类数
+据集，对每个视图都分别学习一个函数实现样本到标签的映射，通过函数之间的
+联合优化提升模型的泛化性能。与此同时，单视图的数据通过人为地创造出多视
+图并与用多视图学习方法也能训练出泛化性强的模型[25]。
+基于以上研究，不同风格的源域图像Xα 和Xβ 作为不同视图的数据进行特征
+s s
+提取，紧接着两个差异化的特征学习器g ,g 分别对特征进行学习，输出像素级别
+α β
+ˆ
+的语义分割图像 Yˆα, Yβ 并根据真实标签 Y 进行监督训练。监督训练的分割损失
+s s s
+为：
+XK
+ˆ
+L = − Y log(Yˆα +Yβ) (4)
+Seg s,k s s
+k=1
+为了保证特征学习器的差异性，我们对 g 和 g 的参数（param）进行约束
+α β
+L :
+Discrepancy
+L = 1−D (param(g ),param(g ))
+Discrepancy cosine α β
+param(g )·param(g ) (5)
+α β
+=
+|param(g )||param(g )|
+α β
+通过该约束，我们希望学习器g 和g 对于相同的特征有不同的激活程度，即选择
+α β
+不同的特征进行学习。同时由于两个学习器都在监督训练的损失L 约束下优化，
+seg
+各自都能保证较好的分割能力。最终，结合特征提取器的损失函数L ,我们得到
+enc
+源域训练阶段的损失函数L :
+S
+L = λ L +λ L +L (6)
+S 1 enc 2 Discrepancy Seg
+3.5 基于均值教师知识蒸馏的领域自适应方法
+在领域自适应阶段，我们无法获取源域数据集S 进行训练，只能利用无标签的
+目标域数据集T 对源域模型ϕ 进行优化。在这种问题设置下，均值教师模型[5,26]提
+S
+出利用知识蒸馏框架进行无源域的领域自适应。其思想是利用源域训练好的模型
+ϕ 初始化教师模型ϕ 和学生模型ϕ ，将目标域的图像X 分别输入两个
+S teacher student t
+模型，得到输出Yˆ ,Yˆ ，并计算一致性损失L 。由于教师模型
+t,teacher t,student Consistency
+更新速度更慢，保留更多源域的分割能力。另一方面，学生模型更新速度更快，因
+此对目标域数据的特征学习更为积极，结合一致性损失从而将源域模型ϕ 迁移到
+S
+目标域模型 ϕ 。基于这种思想，本论文结合源域训练好的鲁棒白内障语义分割网
+T
+络进行领域自适应。
+如图3下半部分所示，首先设置教师模型和学生模型，两者都与源域训练模型
+8
+具有相同的结构。在源域上测试得到的泛化性能较高的源域模型参数初始化教师
+模型，使得教师模型保留源域的分割能力。同时，考虑到源域模型参数会引入域
+偏见（DomainBias），影响学生模型在对目标域的学习和更新，使用随机参数对其
+进行初始化。
+与传统知识蒸馏框架[5]类似, 教师模型和学生模型分别对输入的目标与图像进
+行分割，通过教师模型的分割结果引导学生模型的更新。由于源域和目标域的数
+据分布不一致，教师模型的分割结果可能包含较多的噪声，因此本论文引入自监
+督学习的思路通过设置阈值构建伪标签：
+(cid:26)
+yˆn,∗ yˆn,∗
+> τ
+yˆn = teacher teacher (7)
+teacher 0 else
+其中，yˆn 对应教师模型分割结果Yˆ 的像素点,而yˆn,∗ = argmax(ϕ (X ))
+teacher t,teacher teacher teacher t
+代表着该像素点上模型的预测结果，τ 则为选择的阈值。通过阈值选择，教师模型
+的输出噪声能够得到一定程度的过滤，提升对学生模型引导的准确程度。
+对于学生模型，为了使得学生模型对图像边缘进行更好的学习，我们首先对根
+据目标域图像构建拉普拉斯金字塔（Laplacian Pyramid）对目标域图像进行增强。
+随后输入到学生模型中 ϕ 得到分割图像 Yˆ 。将学生模型的输出和教师
+student t,student
+模型的输出进行自监督训练，得到损失L ：
+SSL
+XK
+L = − Yˆ log(Yˆ ) (8)
+SSL t,teacher t,student
+k=1
+在学生模型每经历 k 次迭代更新后，本文使用指数移动平均（Exponential Moving
+Average, EMA）的方法将学生模型的知识迁移到教师模型当中。对于第 k 次迭代
+时教师模型的参数θ(ϕ )和学生模型的参数θ(ϕ )，本文的更新策略如下:
+teacher student
+θ (ϕ ) = ψθ (ϕ )+(1−ψ)θ (ϕ ) (9)
+t teacher t−k teacher t student
+其中ψ 为常量，表示教师模型参数在更新后保留源域知识的程度。
+模型在更新的过程中，单凭自监督损失模型无法对包含噪声的区域进行处理，
+因此本文在提出的框架之上引入了最大平方损失（MaximumSquareLoss）[27]，通过
+降低噪声区域的不确定度提升模型的输出效果:
+XH XW
+1
+L = − (pi,j )2 (10)
+Entropy 2HxW student
+i=1 j=1
+公式中，pi,j 代表着学生模型在某一个像素点上输出的概率分布。
+student
+9
+为了进一步进一步提高学生模型对目标域的数据的学习，方法额外加入了一
+致性的约束。具体的做法是对拉普拉斯金字塔增强后的图像进行旋转的增广，输
+入到学生模型得到输出Yˆ′ ，并于无增广的分割结果计算一致性损失：
+t,student
+(cid:13) (cid:13)
+(cid:13) (cid:13)
+L = (cid:13)Yˆ′ −Yˆ (cid:13) (11)
+Rotation t,student t,student
+1
+最终我们在目标与进行领域自适应的总损失如下:
+L = L +L +L
+T SSL Entropy Rotation
+4. 实验
+在本章中，我们将对上一章所提出的无源域领域自适应算法进行实验与展示。
+我们将会首先介绍实验当中使用到的数据集。随后我们将会对实验细节，包括软
+硬件环境与超参数，使用的对比方法，实验任务以及评估指标进行详细的阐述。最
+后我们将对实验结果进行展示。
+4.1 实验数据集
+首先我们将对实验用到的数据集进行介绍。我们将会用到两个白内障手术场
+景语义分割的数据集，分别是CaDIS[6]数据集和CatInstSeg数据集[28]
+4.1.1 CaDIS 数据集
+CaDIS[6]数据集全称CataractdatasetforsurgicalRGB-imagesegmentation，是一
+个白内障手术场景语义分割数据集（图6）。该数据集是根据AlHajj等人[29]于2019
+年发布的CATARACTS白内障手术视频数据集得到的。
+CATARACTS[29]手术视频记录于 2015 年 1 月至 9 月的布雷斯特大学医院，共
+计50段白内障超声乳化手术视频。患者年龄最小23岁，最大83岁，平均年年龄
+61 岁。患者的患病情况包括老年白内障，外伤性白内障和屈光不正。手术总共由
+三位外科医生进行清晰度为1920x1080 像素。
+CaDIS 数据集从 CATARACTS 数据集中其中 25 个训练视频中进行抽帧操作，
+并将图像清晰度从1920x1080像素调整为960x540的大小，共计4670张手术图
+片，每一张样本图片都有一张对应的像素级别的分割标签，两者皆为png格式。数
+据集由 4 名标注者对白内障手术场景进行像素级别的语义标注。其中，标注类别
+共36类，包含29类手术器械类别和4类解剖学构造以及3个杂项类别。
+在处理白内障手术数据集时，我们首先需要对样本图片进行大小归一化，为
+了确保所有图片在尺寸上保持一致，我们需要将图片的大小进行归一化处理。这
+10
+图6 CaDIS数据集[6]
+可以通过将所有图片调整为相同的分辨率720x405来实现。这将使得计算过程更
+加高效，并减少由于图片尺寸差异带来的计算误差。接下来，原始数据集中可能
+包含许多细分的手术标签。为了简化模型的训练过程并提高准确性，我们需要将
+这些细分标签合并成13个大类。这可以通过为每个原始标签分配一个新的类别编
+号来实现。合并后的标签类别应该具有较高的区分度，以便于模型更好地识别不
+同类型的手术。最后，删除实验不使用的标签类别：在某些情况下，我们可能不需
+要使用所有的标签类别来进行实验。为了提高实验效率，我们可以删除实验中不
+需要使用的标签类别。这可以通过筛选出与实验目标相关的标签类别，然后从数
+据集中移除其他不相关的类别来实现。这将有助于减少计算资源的浪费，并加快
+模型训练速度。通过以上步骤，我们可以为白内障手术数据集进行有效的预处理，
+为后续的实验和分析打下坚实的基础。
+4.1.2 CatInstSeg数据集
+此数据集的内容是从公开的白内障手术视频集中精选而来的特定白内障手术
+帧，这些视频经过COCOAnnotator手动进行了详细的标注。在挑选过程中，相关
+机构专注于筛选具有最佳视觉质量的帧，如避免出现运动模糊等影响观察的因素，
+并确保涵盖各种不同的白内障手术场景，以便为每个类别提供丰富的样本。
+最终发布的这个白内障手术数据集包含了广泛应用于COCO-Format的9种关
+键手术器械的详细标注信息。数据集中共收录了 281 张具有不同白内障手术特点
+11
+图7 CatInstSeg数据集[28]
+的已标注图像。这些图像不仅有助于研究人员了解手术过程中所需的各种器械，还
+有助于开发和优化计算机视觉算法在白内障手术领域的应用。
+在处理白内障手术数据集的过程中，我们首先要对样本图片的尺寸进行统一
+化，从而确保所有图片具有一致的大小，便于后续计算和分析。然后，我们将对图
+片手术标签进行整合，将其归为13个类别，这样做有助于简化模型训练流程并提
+高模型的预测精度。最后，为了优化实验效果和精确度，我们将移除实验过程中
+不必要的标签类别。
+4.2 实现细节
+4.2.1 软硬件环境与超参数
+此次试验的硬件与软件设施如下表所示。表2阐述了实验所需的硬件条件。表1描
+述了实验涉及的软件配置。
+表1 软件环境配置
+OS Ubuntu22.04.2LTS
+Compiler GNUCompilerv7.5.0，CUDACompilerv10.0
+MPI OpenMPI4.0.4
+Pythonversion Python3.10.9
+12
+表2 硬件环境配置
+CPU 12thGenIntel®Core™i7-12700×20
+GPU NVIDIAGeForceRTX3070
+Memory 32.0 GiB,DDR42133Mhz
+HardDisk 3.0 TBSSD
+4.2.2 实验目的
+我们的实验目标是验证所提出的基于知识蒸馏框架下的无源多视图领域自适
+应白内障手术场景语义分割算法在应对白内障手术场景分割任务时所展现的有效
+性和鲁棒性。为实现此目标，我们将通过以下几个方面的实验验证和评估：
+首先，我们将评估所提出算法在训练域上的分割精度，通过对比其他领域自
+适应方法和传统语义分割方法，以展示我们的方法在提取白内障手术场景的语义
+信息方面的优势。
+其次，我们将探讨所提出算法的泛化能力。通过将算法应用于具有不同数据
+分布的测试域，我们将评估该方法在处理不同来源和质量数据时的稳定性和鲁棒
+性。
+进一步，我们将分析所提出的多视图学习策略以及知识蒸馏框架在提升模型
+性能方面的贡献。通过对比仅使用单一视图和不采用知识蒸馏的方法，我们将揭
+示这些创新点在改善分割性能和泛化能力方面的作用。
+最后，我们将关注所提出的无源领域自适应策略在处理未标注目标域数据时
+的有效性。通过在不同的目标域进行实验，我们将评估该方法在缺乏标注数据的
+情况下是否仍能实现领域自适应。
+综合以上各方面的实验评估，我们希望充分验证所提出的基于知识蒸馏框架
+下的无源多视图领域自适应白内障手术场景语义分割算法在解决白内障手术场景
+分割任务中的有效性和鲁棒性。
+4.2.3 对比方法
+在本小节中，我们对将要进行对比的方法逐一进行介绍。为了验证我们提出
+的基于多视图学习的白内障手术场景语义分割模型在目标域上的鲁棒性，我们选
+择了U-net[14]、Deeplabv3[30]、FCN8s、FCN16s、FCN32s[11]。我们希望多视图语义
+分割模型通过与上述模型的对比实现更优的性能表现，以此来验证模型的泛化性
+能。
+同时，为了验证我们提出的基于均值教师知识蒸馏的领域自适应方法在无源
+域领域自适应白内障语义分割任务上的有效性，我们将提出的框架与 Maximum
+13
+SquareLoss[27],Tent[31],STROTSS[32],SFDA-CellSeg[33]进行比较。
+4.2.4 评价指标
+语义分割任务是计算机视觉领域中的一个重要任务，其目的是将图像中的每
+个像素分配给一个特定的类别。为了评估语义分割模型的性能，我们通常使用一
+些指标来衡量模型的准确性。其中一个常用的指标就是并交比（Intersection over
+Union，IoU）[34]。
+并交比（IoU）是一种评估模型预测准确性的指标，它衡量了两个区域之间的
+重叠程度。在语义分割任务中，IoU用于衡量预测的分割区域和真实分割区域之间
+的相似性。具体来说，IoU=（预测区域与真实区域的交集）/（预测区域与真实区
+域的并集）,计算方法如下：
+P P
+m n (P(i,j)∩G(i,j))
+IoU =
+Pi=1Pj=1
+(12)
+m n (P(i,j)∪G(i,j))
+i=1 j=1
+值得注意的是，IoU的取值范围为0到1。当IoU为0时，表示预测区域与真
+实区域完全不重叠；当IoU为1时，表示预测区域与真实区域完全重叠。因此，较
+高的IoU 值意味着模型预测的分割效果较好。
+为了评估整个语义分割模型的性能，我们通常会计算所有类别的平均 IoU
+（mean IoU，mIoU）。mIoU 是所有类别的 IoU 分数的平均值，它可以综合反映
+模型在不同类别上的预测性能。在实际应用中，我们会使用mIoU来比较不同语义
+分割模型的性能，并据此选择合适的模型
+4.3 实验结果
+表3 以CaDIS数据集训练的模型在目标域CatInstSeg数据集上的测试结果(%)其中红色为
+该类上性能最佳指标，蓝色为次佳指标
+Model Iris Pupil Cornea Skin Knife Cannula Forceps Handpiece EyeRe. mIoU
+U-Net 28.57 49.96 42.63 51.76 15.93 11.91 17.63 5.61 15.74 26.64
+Deeplabv3 40.48 68.77 54.70 58.31 23.82 19.66 14.11 13.54 27.12 35.61
+FCN8s 23.08 36.29 19.85 45.21 6.38 10.71 8.87 6.50 11.90 18.76
+FCN16s 22.12 37.15 21.70 47.37 7.53 13.20 8.19 8.80 17.43 20.39
+FCN32s 24.02 40.48 30.77 50.98 2.15 16.93 6.50 13.25 16.43 22.39
+Ours 28.23 75.08 60.86 58.21 13.81 15.38 14.43 14.58 28.33 34.32
+根据提供的表格3数据，以CaDIS数据集训练的模型在目标域CatInstSeg数据集上
+的测试结果在Iris分割任务上，Deeplabv3表现最好，准确率为40.48%，远高于其
+他模型。在 Pupil 分割任务上，我们提出的模型表现最佳，准确率达到了 75.08%，
+14
+明显优于其他模型。在Cornea分割任务上，我们提出的模型同样优于其他模型，准
+确率为60.86%，领先第二名Deeplabv3（54.70%）。在Skin分割任务上，Deeplabv3
+和我们提出的模型表现相近，分别为 58.3% 和 58.21%。这两个模型在 Skin 任务
+上的表现均优于其他模型。在 Knife 分割任务上，Deeplabv3 的准确率为 23.82%，
+领先其他模型。在 Handpiece 分割任务上，我们提出的模型表现最好，准确率为
+14.58%，略高于其他模型。在 Retractor 分割任务上，我们提出的模型再次取得最
+佳表现，准确率为28.33%，领先第二名Deeplabv3（27.12%）。在IoU（Intersection
+overUnion）评价指标上，Deeplabv3的表现最好，达到了35.61%，紧随其后的是
+我们提出的模型，准确率为35.61%。
+我们提出的模型在Pupil、Cornea、Handpiece和Retractor四个任务上表现最佳，
+这表明我们的模型在解决这些关键组件的分割问题上具有较强的能力。Deeplabv3
+在Iris、Skin和Knife三个任务上表现最好。尽管在其他任务上略逊于我们提出的
+模型，但Deeplabv3在这些部分的表现仍然相当出色。U-Net在Iris和Knife两个任
+务上表现较好，但在其他任务上的表现相对较差，尤其是在Handpiece和Retractor
+任务上。FCN8s、FCN16s 和 FCN32s 三个模型在所有任务上的表现均较弱。这可
+能表明，这些传统的语义分割方法在解决白内障手术场景分割任务时存在局限性。
+在IoU（IntersectionoverUnion）评价指标上，Deeplabv3的表现最好（35.61%），我
+们的模型紧随其后（35.61%）。这意味着，虽然我们的模型在某些任务上的表现优
+于 Deeplabv3，但在整体性能上，Deeplabv3 略胜一筹。总体来说，我们提出的模
+型在多个分割任务上表现优异，尤其在Pupil、Cornea、Handpiece和Retractor任务
+上表现最佳。尽管在IoU指标上略逊于Deeplabv3，但我们的模型仍展现出了良好
+的有效性和鲁棒性。这些结果为我们在进一步优化和改进模型时提供了有价值的
+参考。同时这些结果表明，我们提出的基于知识蒸馏框架下的无源多视图领域自
+适应白内障手术场景语义分割算法在解决白内障手术场景分割任务上具有潜力。
+表 4 基于 CaDIS 数据集训练的源域模型在目标域 CatInstSeg 数据集上进行领域自适应的测
+试结果(%)其中红色为该类上性能最佳指标，蓝色为次佳指标
+Model D√S D
+T
+Iris Pupil Cornea Skin Knife Cannula Forceps Handpiece EyeRe. mIoU
+Sourceonly √ √ 28.23 75.08 60.86 58.21 13.81 15.38 14.43 14.58 28.33 34.32
+Max.SquareLoss √ √ 63.27 85.72 62.73 69.96 36.12 15.73 13.71 22.02 14.23 42.61
+STROTSS(DeepLabv3) √ 47.43 78.16 47.88 61.52 13.96 15.66 13.92 3.75 28.57 34.54
+SFDA-CellSeg √ - - - - - - - - - -
+Tent √ 54.47 88.05 67.83 66.56 0.00 0.00 1.34 1.35 0.24 31.09
+Ours(τ=0.75) √ 56.24 86.38 65.46 69.67 28.54 14.43 20.00 14.39 18.04 41.46
+Ours(τ=0.99) 54.36 77.59 56.53 64.57 43.61 12.47 14.27 21.07 0.00 38.28
+在横向分析基于 CaDIS 数据集训练的源域模型在目标域 CatInstSeg 数据集上进行
+15
+领域自适应的测试结果时，我们可以从以下几个方面进行观察：MaxSquareLoss模
+型在Iris、Skin、Cannula、Handpiece任务上表现较好，总体上的mIoU指标也为最
+佳，然而该模型在训练过程中使用到了源域数据，在实际临床应用中可能面临隐私
+保护等诸多短板。Tent 模型在 Pupil 和 Cornea 任务上表现优秀，分别取得 88.05%
+和67.83%的准确率，但在Knife和Forceps分割上表现不佳，得分为0.00%，总体
+mIoU 为 31.09%。这是由于 Tent 模型使用的是熵最小化领域自适应损失函数，该
+种损失函数很容易由于类别不平衡问题导致手术器械等图像中占比较小，出现频
+率较少的模型在目标域上分割性能大幅下降。STROTSS模型在各个任务上的表现
+均不太理想，总体IoU 为34.54%，在五种模型中排名次低。
+我们的模型（τ =0.75）在Iris，Pupil，Cornea以及Skin上都有较高的性能表
+现任务上具有最高的准确率，相比于源域模型提升了7.14、%，在总体上的性能也
+达到了 41.46%，总体排名第二。尽管 MaxSquareLoss 方法在总体上优于我们的模
+型，但是我们的模型在数值上与 MaxSquareLoss 差距较少，且我们的模型没有使
+用源域数据，在临床应用上更具优势。我们的模型（τ = 0.99）在 Knife 任务上表
+现出最高的准确率，达到43.61%，但在其他任务上表现一般，总体IoU为38.28%。
+总体来看，我们的模型（τ =0.75）在整体性能上具有较高的mIoU，表明在进行领
+域自适应时，我们的模型具有较好的有效性和鲁棒性。然而，在处理器械分割的
+类别不平衡问题上我们仍有较大的进步空间。
+通过观察和分析两个表格中的实验结果，我们可以得出以下结论：
+在源域 CaDIS 数据集上训练的模型在目标域 CatInstSeg 数据集上的测试结果
+表明，Deeplabv3 模型和我们的模型在绝大多数任务上表现优越，尤其是在 Pupil、
+Cornea和Skin任务上。然而，在Knife和Handpiece任务上，我们的模型具有更高
+的准确率。
+在进行领域自适应的测试时，我们的模型（τ =0.75）在总体性能上表现最佳，
+具有较高高的 IoU，表明我们的无源多视图领域自适应白内障手术场景语义分割
+算法在处理白内障手术场景分割任务时具有较好的有效性和鲁棒性。
+在某些特定任务上，例如Pupil和Cornea，其他模型（如Tent）在这些任务上
+的表现优于我们的模型，这意味着我们的模型在这些任务上仍有优化和改进的空
+间。
+综上所述，我们的无源多视图领域自适应白内障手术场景语义分割算法在大
+部分任务上表现出优越的性能，并在总体 IoU 上优于其他模型。然而，在某些特
+定任务上，我们的模型仍有改进的空间，需要进一步优化和调整以提升整体性能。
+16
+5. 结论
+白内障手术场景的语义分割对于开发白内障手术术中辅助系统具有重要意义。
+然而，由于1）像素级别的人工数据标注是及其昂贵的。2）基于单一训练数据集的
+白内障手术场景语义分割模型在临床应用中由于输入数据分布的差异问题导致分
+割性能下降。3）尽管领域自适应方法能够较好地解决前两点的问题，由于数据隐
+私，传输存储等限制导致在现实应用场景下只有训练域训练出来的分割模型，而
+无法用到训练数据进行领域自适应。基于以上三点挑战，一种基于知识蒸馏框架
+下的无源域领域自适应算法，该方法分为两个阶段。在源域训练阶段，结合图像
+扰动与特征一致性，方法约束源域模型对输入数据有较好的特征提取能力。同时
+结合多试图学习方法，两个差异性的解码器对特征进行不同视图的学习，通过互
+补提升最终模型的鲁棒性。在目标域领域自适应阶段，由于缺少源域训练数据的
+参与，本文提出利用均值教师的知识蒸馏框架对目标域数据进行自监督学习，同
+时加入熵最小化和旋转一致性约束提高模型对目标域数据的学习能力，实现无源
+域领域自适应的语义分割任务。本文为了验证提出方法的可行性，在 CaDIS 数据
+集和 CatInstSeg 数据集上进行白内障手术场景语义分割的领域自适应实验，并与
+其他领域自适应方法进行比较，实验结果表明本文提出的算法的能够在无源域训
+练数据的条件下提升模型的手术场景语义分割性能，具有一定程度的有效性。
+17
+参考文献
+[1] Goossens M, Mittelbach F, Samarin A. The LATEX companion[M]. Addison-
+WesleyReading,1994.
+[2] LamD,RaoSK,RatraV,etal.Cataract[J].NaturereviewsDiseaseprimers,2015,
+1(1):1-15.
+[3] Steinmetz J D, Bourne R R, Briant P S, et al. Causes of blindness and vision im-
+pairment in 2020 and trends over 30 years, and prevalence of avoidable blindness
+in relation to VISION 2020: the Right to Sight: an analysis for the Global Burden
+ofDiseaseStudy[J].TheLancetGlobalHealth,2021,9(2):e144-e160.
+[4] GerberMJ,PettenkoferM,HubschmanJP.Advancedroboticsurgicalsystemsin
+ophthalmology[J].Eye,2020,34(9):1554-1562.
+[5] Tarvainen A, Valpola H. Mean teachers are better role models: Weight-averaged
+consistencytargetsimprovesemi-superviseddeeplearningresults[J].Advancesin
+neuralinformationprocessingsystems,2017,30.
+[6] GrammatikopoulouM,FloutyE,KadkhodamohammadiA,etal.CaDIS:Cataract
+dataset for surgical RGB-image segmentation[J]. Medical Image Analysis, 2021,
+71:102053.
+[7] LalysF,RiffaudL,BougetD,etal.Aframeworkfortherecognitionofhigh-level
+surgical tasks from video images for cataract surgeries[J]. IEEE Transactions on
+BiomedicalEngineering,2011,59(4):966-976.
+[8] QuellecG,LamardM,CochenerB,etal.Real-timesegmentationandrecognition
+ofsurgicaltasksincataractsurgeryvideos[J].IEEEtransactionsonmedicalimag-
+ing,2014,33(12):2352-2360.
+[9] Zhao Z, Ajay K. An accurate iris segmentation framework under relaxed imaging
+constraints using total variation model[C]. in: Proceedings of the IEEE interna-
+tionalconferenceoncomputervision.2015:3828-3836.
+[10] AbdullahMA,DlaySS,WooWL,etal.Robustirissegmentationmethodbasedon
+a new active contour force with a noncircular normalization[J]. IEEE transactions
+onsystems,man,andcybernetics:Systems,2016,47(12):3128-3141.
+[11] Long J, Shelhamer E, Darrell T. Fully convolutional networks for semantic seg-
+mentation[C].in:ProceedingsoftheIEEEconferenceoncomputervisionandpat-
+ternrecognition.2015:3431-3440.
+[12] Simonyan K, Zisserman A. Very deep convolutional networks for large-scale im-
+agerecognition[J].ArXivpreprintarXiv:1409.1556,2014.
+18
+[13] KrizhevskyA,SutskeverI,HintonGE.ImageNetClassificationwithDeepConvo-
+lutionalNeuralNetworks[C/OL].in:PereiraF,BurgesC,BottouL,etal.Advances
+inNeuralInformationProcessingSystems:vol.25.CurranAssociates,Inc.,2012.
+https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c84
+36e924a68c45b-Paper.pdf.
+[14] Ronneberger O, Fischer P, Brox T. U-net: Convolutional networks for biomedi-
+calimagesegmentation[C].in:MedicalImageComputingandComputer-Assisted
+Intervention–MICCAI 2015: 18th International Conference, Munich, Germany,
+October5-9,2015,Proceedings,PartIII 18.2015:234-241.
+[15] Zhao H, Shi J, Qi X, et al. Pyramid scene parsing network[C]. in: Proceedings of
+theIEEEconferenceoncomputervisionandpatternrecognition.2017:2881-2890.
+[16] He K, Zhang X, Ren S, et al. Deep residual learning for image recognition[C]. in:
+Proceedings of the IEEE conference on computer vision and pattern recognition.
+2016:770-778.
+[17] GoodfellowI,Pouget-AbadieJ,MirzaM,etal.Generativeadversarialnetworks[J].
+CommunicationsoftheACM,2020,63(11):139-144.
+[18] Radford A, Metz L, Chintala S. Unsupervised representation learning with deep
+convolutionalgenerativeadversarialnetworks[J].ArXivpreprintarXiv:1511.06434,
+2015.
+[19] Hoffman J, Tzeng E, Park T, et al. Cycada: Cycle-consistent adversarial domain
+adaptation[C].in:Internationalconferenceonmachinelearning.2018:1989-1998.
+[20] Zhu J Y, Park T, Isola P, et al. Unpaired image-to-image translation using cycle-
+consistentadversarialnetworks[C].in:ProceedingsoftheIEEEinternationalcon-
+ferenceoncomputervision.2017:2223-2232.
+[21] Luo Y, Zheng L, Guan T, et al. Taking a closer look at domain shift: Category-
+level adversaries for semantics consistent domain adaptation[C]. in: Proceedings
+oftheIEEE/CVFConferenceonComputerVisionandPatternRecognition.2019:
+2507-2516.
+[22] Yang Y, Soatto S. Fda: Fourier domain adaptation for semantic segmentation[C].
+in: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
+Recognition.2020:4085-4095.
+[23] Zeiler M D, Fergus R. Visualizing and understanding convolutional networks[C].
+in: Computer Vision–ECCV 2014: 13th European Conference, Zurich, Switzer-
+land,September6-12,2014,Proceedings,PartI13.2014:818-833.
+[24] Ou M, Li H, Liu H, et al. MVD-Net: Semantic Segmentation of Cataract Surgery
+UsingMulti-ViewLearning[C].in:202244thAnnualInternationalConferenceof
+theIEEEEngineeringinMedicine&BiologySociety(EMBC).2022:5035-5038.
+19
+[25] ZhaoJ,XieX,XuX,etal.Multi-viewlearningoverview:Recentprogressandnew
+challenges[J].InformationFusion,2017,38:43-54.
+[26] Araslanov N, Roth S. Self-supervised augmentation consistency for adapting se-
+mantic segmentation[C]. in: Proceedings of the IEEE/CVF Conference on Com-
+puterVisionandPatternRecognition.2021:15384-15394.
+[27] Chen M, Xue H, Cai D. Domain adaptation for semantic segmentation with max-
+imumsquaresloss[C].in:ProceedingsoftheIEEE/CVFInternationalConference
+onComputerVision.2019:2090-2099.
+[28] Fox M, Taschwer M, Schoeffmann K. Pixel-Based Tool Segmentation in Cataract
+Surgery Videos with Mask R-CNN[C/OL]. in: de Herrera A G S, González A R,
+SantoshKC,etal.33rdIEEEInternationalSymposiumonComputer-BasedMed-
+ical Systems, CBMS 2020, Rochester, MN, USA, July 28-30, 2020. IEEE, 2020:
+565-568. https://doi.org/10.1109/CBMS49503.2020.00112. DOI: 10.1109/CBMS
+49503.2020.00112.
+[29] Al Hajj H, Lamard M, Conze P H, et al. CATARACTS: Challenge on automatic
+toolannotationforcataRACTsurgery[J].Medicalimageanalysis,2019,52:24-41.
+[30] Chen L C, Papandreou G, Schroff F, et al. Rethinking atrous convolution for se-
+manticimagesegmentation[J].ArXivpreprintarXiv:1706.05587,2017.
+[31] Wang D, Shelhamer E, Liu S, et al. Tent: Fully test-time adaptation by entropy
+minimization[J].ArXivpreprintarXiv:2006.10726,2020.
+[32] KolkinN,SalavonJ,ShakhnarovichG.Styletransferbyrelaxedoptimaltransport
+andself-similarity[C].in:ProceedingsoftheIEEE/CVFConferenceonComputer
+VisionandPatternRecognition.2019:10051-10060.
+[33] Li Z, Li C, Luo X, et al. Towards Source-Free Cross Tissues Histopathological
+CellSegmentationviaTarget-SpecificFinetuning[J].IEEETransactionsonMedi-
+calImaging,2023.
+[34] GirshickR,DonahueJ,DarrellT,etal.Richfeaturehierarchiesforaccurateobject
+detection and semantic segmentation[C]. in: Proceedings of the IEEE conference
+oncomputervisionandpatternrecognition.2014:580-587.
+20
+附录
+21
+致谢
+大学入学以前，我曾对自己说要做一个优秀的人。如今大学即将毕业，我距离
+入学的目标仍有一段距离，但是无论如何在这四年中，我得到了一定程度的成长。
+在这段四年的旅途中，要感谢的人太多，在背后默默支持我的家人，我遇到的
+每一位老师，每一位朋友，每一位只有一面之缘的人。可以说我是幸运的，这么多
+相遇的人都曾在某一个时刻给予我启迪，给我温暖，向我伸出援助之手。
+在这里，我诚挚地感谢家人与每一位在大学四年里交谈的，结识的，相遇的老
+师、同学、朋友甚至是陌生人，你们或刻意或不经意的帮助都对我心智上的成长
+起了重要的作用。衷心祝愿各位在往后的生活中，平安喜乐，万事顺遂。
+22

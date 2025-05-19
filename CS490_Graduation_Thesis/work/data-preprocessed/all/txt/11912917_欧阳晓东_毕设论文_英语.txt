@@ -1,0 +1,874 @@
+CLC Number
+UDC Availableforreference □Yes □No
+Undergraduate Thesis
+Thesis Title: Spatio-Temporal Adaptive Traffic
+Forecasting via Deep Meta Learning
+Student Name: Xiaodong Ouyang
+Student ID: 11912917
+Department: Department of Computer Science
+and Engineering
+Program: Computer Science and Technology
+Thesis Advisor: Associate Professor Xuan Song
+Date: May 24, 2023
+COMMITMENT OF HONESTY
+1. I solemnly promise that the paper presented comes from my
+independent research work under my supervisor’s supervision. All
+statistics and images are real and reliable.
+2. Except for the annotated reference, the paper contents no other
+published work or achievement by person or group. All people making
+important contributions to the study of the paper have been indicated
+clearly in the paper.
+3. I promise that I did not plagiarize other people’s research achievement
+or forge related data in the process of designing topic and research
+content.
+4. If there is violation of any intellectual property right, I will take legal
+responsibility myself.
+Signature:
+Date:
+Spatio-Temporal Adaptive Traffic Forecasting via
+Deep Meta Learning
+Xiaodong Ouyang
+(DepartmentofComputerScience
+andEngineering ThesisAdvisor: XuanSong)
+[ABSTRACT]: Traffic forecasting is a crucial task in intelligent transporta-
+tion systems and is widely applied in areas such as traffic management, route
+planning, and public transport scheduling. However, accurate traffic forecast-
+ing is challenging due to traffic data’s complex spatio-temporal correlation and
+dynamics. Deeplearninghasbecomeapromisingmethodfortrafficforecasting
+because of its ability to capture the complex non-linear relationships between
+various factors in traffic data. However, current deep learning models use the
+same set of parameters and graphs for different times and locations, which can-
+notreflectthedynamicchangesintrafficpatternswell. Toaddresstheseissues,
+this paper proposes a meta learning method that uses meta knowledge contain-
+ing temporal and spatial information to generate parameters and meta graph
+that can be applied to any deep learning-based spatio-temporal traffic forecast-
+ing model and employs curriculum learning to train the model. The results of
+theexperimentindicatethatthemethodproposedinthispaperhashighertraffic
+forecasting accuracy than traditional methods. The relevant code of this paper
+has been open-sourced on GitHub1.
+[Key words]: Urban Traffic Prediction, Spatio-Temporal Data Mining,
+Deep Learning, Meta Learning
+1https://github.com/Yoyo-Luming/MetaDL-Traff
+I
+[摘要]：交通预测是智能交通系统中一项非常重要的任务，其在交通管
+理、路线规划和公共交通调度等领域得到广泛应用。然而，由于交通数
+据复杂的时空相关性和动态性，准确地交通预测具有很大的挑战性。深
+度学习因其能够捕捉交通数据中各种因素之间的复杂非线性关系，已被
+广泛应用于交通预测任务中。然而，当前的深度学习模型对于不同时间
+和地点使用同一套参数和图，不能很好地反映交通模式的动态变化。为
+了解决这些问题，本文提出了一种使用包含时间和空间信息的元知识生
+成参数和元图的元学习方法，能应用在任何基于深度学习的时空交通预
+测模型上，并采用课程学习来训练模型。实验结果表明，相比传统方法，
+本文提出的方法在交通预测中具有更高的准确性。本文的相关代码已在
+GitHub 2上开源。
+[关键词]：城市交通预测；时空数据挖掘；深度学习；元学习
+2https://github.com/Yoyo-Luming/MetaDL-Traff
+II
+Contents
+1. Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+2. Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.1 Traffic Forecasting Methods . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2.2 Graph Structure Learning . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2.3 Meta Learning for Weight Generation . . . . . . . . . . . . . . . . . . . 6
+3. Preliminaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.1 Problem Definition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.2 Recurrent Neural Networks . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.3 Temporal Convolution Neural Networks . . . . . . . . . . . . . . . . . 9
+3.4 Graph Convolutional Neural Networks . . . . . . . . . . . . . . . . . . 10
+4. Methodology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+4.1 Meta Knowledge Generation . . . . . . . . . . . . . . . . . . . . . . . . 11
+4.2 Spatio-temporal Graph Convolutional Neural Networks . . . . . . . . 14
+4.3 Meta Graph Convolution Layer . . . . . . . . . . . . . . . . . . . . . . . 15
+4.4 Curriculum Learning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+5. Experiments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+5.1 Datasets and Settings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+5.2 Baseline Models. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+5.3 Evaluation Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+5.4 Performance and Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+III
+5.5 Ablation Experiment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+5.6 Meta Graph Case study . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+6. Conclusion and Future Work . . . . . . . . . . . . . . . . . . . . . . . . 24
+References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+Acknowledgement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+IV
+1. Introduction
+As cities expand and people flock to urban areas, traffic systems become more com-
+plex and congested, causing a heavy burden on urban management. At the same time with
+the rapid advancement of Internet of Things (IoT) technology, sensors are becoming more
+affordable and can collect data in real-time and upload it to data centers. Traffic data from
+different sources, such as GPS devices, traffic speed cameras, and road sensors, is therefore
+becoming vast and complex. It is through mining these spatio-temporal big data for traffic
+patternsthatintelligenttransportsystems(ITS)[1]canmaketherightdecisionsautonomously,
+thus solving a range of problems such as traffic congestion and uneven allocation of traffic
+resources.
+Traffic forecasting is a crucial element in managing and planning traffic, and it plays
+a significant role in ITS. Its primary objective is to forecast future traffic conditions based
+on historical data. Accurate traffic forecasts offer critical insights for decision-making, in-
+cludingoptimizingtrafficsystemsandminimizingcongestion,ultimatelyimprovingtheef-
+fectiveness of city operations. At the same time, it helps the public plan their travel routes
+wiselyandsavetime.
+Trafficforecastingisanextremelychallengingtaskduetotrafficdata’scomplexspatio-
+temporalcorrelationanddynamics.
+• Spatial correlation: The topology of the urban road network can have a significant
+impactoneach node,with thestate oftrafficat the upstream nodesaffectingthe state
+of traffic downstream. Specifically, congestion at upstream nodes is passed on to
+downstream nodes, while smooth traffic at upstream nodes will alleviate congestion
+atdownstreamnodes.
+• Spatialdynamics: Trafficpatternscanvarysignificantlyfromlocationtolocation,as
+showninFigure1,whichshowsthegeographicallocationsofthreedifferentlocations
+andtheircorrespondingtimeseriesdataforaweek. Location1hasasignificantmorn-
+ing peak on weekdays, corresponding to a decrease in sensor-detected traffic speed,
+1
+Figure1 ComplexSpatio-TemporalPatterninTrafficTimeSeries
+whileLocation3showsasignificanteveningpeakonweekdays,forLocation2there
+isnotmuchfluctuationinvehicle speedonweekdays.
+• Temporalcorrelation: Intime,trafficstatechangesarecontinuousandcyclical. For
+Location1themorningpeakisdetectedeveryweekdayandforLocation3theevening
+peakisdetectedeveryweekday.
+• Temporaldynamics: Forthesamelocation,thetrafficpatternisdifferentatdifferent
+timesaswell. Location1showsthatonweekdaysthereisanoticeablemorningrush,
+while on weekends it stays smooth with no congestion. It can also be seen that on
+Wednesdaythereisasharptroughintrafficspeedsatlocation1(markedwithablack
+circle),whichisacommonoccurrence. Unexpectedevents,suchasaccidents,concerts
+andotherevents,cancausesuddenchangesinthestateoftraffic.
+In summary, it is vital that traffic forecasting models capture spatial-temporal correla-
+tions in traffic data and remain sensitive to changes in time and space, making appropriate
+2
+adjustments.
+Traditional traffic forecasting methods include time series analysis, statistical models,
+andmachinelearning,whicharebasedonhistoricaldataandmathematicalmodelsforfore-
+casting. However, it is difficult to capture the complex, non-linear spatio-temporal correla-
+tionintrafficdata. Inrecentyears,deeplearninghasbecomeapromisingmethodfortraffic
+forecasting due to its ability to capture complex non-linear relationships between various
+factors in traffic data. Capturing temporal dependencies by as Recurrent Neural Network
+(RNN)[2] orWaveNet[3] andspatialdependenciesbyusingGraphConvolutionalNeuralNet-
+work(GCN)[4],suchasDCRNN[5],GraphWaveNet[6],have achievedgoodresults.
+However, these methods cannot adequately capture many features of real traffic pat-
+terns, such as significant changes in the spatial and temporal extent and granularity. Firstly,
+themodelparametersarestaticandthereforecannotcapturepatternsthatchangeovertime.
+In particular, the weight matrix in the RNN cell, the convolution filter in the TCN, and the
+graph used for the graph convolution remain constant at different times. Secondly, by as-
+suming similar traffic patterns at all locations, the same parameters are utilized for the time
+series from different locations. However, as shown in Figure 1, this is often not the prac-
+tice case. This modeling forces the learned parameters to represent the “average” of traffic
+patternsacrosstheall-timeseries,rather thanspecifictrafficpatterns.
+Toaddresstheseissues,themainobjectiveofthisresearchistoaugmentexistingtraffic
+forecasting models by using deep meta learning methods, where the models learn different
+spatio-temporal specific traffic patterns using different sets of parameters or graphs in dif-
+ferent spatio-temporal periods, which can further capture the spatio-temporal dependencies
+and dynamics in the traffic data. The models are then trained on real-world traffic datasets
+andtestedforaccuracyandeffectiveness.
+Finally,tosummarizethe contributionsof thispaper:
+• Weverifiedtheeffectivenessofthemetalearningapproachintrafficforecastingtasks.
+• We explore how to effectively apply meta learning methods to existing models, in-
+3
+cludinggeneratingallparametersandgeneratingmetagraph.
+• Theproposedapproachachievesstate-of-the-artresultsontwopubliclyavailabletraf-
+ficforecastingdatasets.
+• The relevant code of this work has been open-sourced on https://github.com/Yoyo-
+Luming/MetaDL-Traff.
+4
+2. Related Work
+2.1 Traffic Forecasting Methods
+Traditional traffic forecasting methods typically use statistical models to examine his-
+toricaltrafficdataandidentifypotentialpatternsandtrends. Themainstatisticalmodelsused
+include time series models such as Autoregressive Integrated Moving Average (ARIMA)[7]
+and exponential smoothing models. Subsequently, traditional machine learning techniques,
+whichincludebutarenotlimitedtoSupportVectorRegression(SVR)[8] andRandomForest
+(RF)[9],havealsobeenusedfortrafficforecastingwithgoodresults. Despitetheseadvances,
+these models have obvious limitations as they are unable to capture the complex spatio-
+temporal dependencies in traffic data well, which limits their accuracy and generalization
+capabilities.
+Recent advancements in deep learning have been successfully applied to traffic fore-
+casting. ClassicdeeplearningarchitecturesuchasRecurrentNeuralNetworks(RNN)[2] and
+its variants Long Short-Term Memory (LSTM)[10] and Gated Recurrent Units (GRU)[11]. In
+additiontoRNN,therearesomeworkssuchasSTGCN[12]usingTemporalConvolution,and
+GraphWaveNet(GWNET)[6] usingWaveNet[3] tocapturelong-termtimedependencies. In-
+spiredbytheexcellentperformanceofTransformer[13]insequentialtasks,manyrecentworks
+haveappliedTransformertotrafficforecastingtocapturemorecomplextimedependencies,
+suchasASTGNN[14] andST-WA[15].Toaddressthespatialdependenceoftrafficforecasting,
+researchers have pioneered the use of graph neural network (GNN)-based models. Notably,
+the Diffusion Convolution Recurrent Neural Network (DCRNN)[5], STGCN[12], and Graph
+WaveNet[6]havebeenfrequentlyutilizedasGNN-basedmodelsintrafficforecasting.
+These GNN-based deep learning models have been shown to be more accurate than
+traditionalmethods,particularlyincapturingthespatio-temporaldependenceoftrafficdata.
+However,thesemodelsmustmakeacarefulselectionofgraphconstructionandaggregation
+methods. Furthermore, these models contain fixed parameters that remain constant with
+timeandspace,suggestingthattheyareunabletocapturedynamicspatio-temporalpatterns,
+5
+whichreducesthe accuracyof their forecasts.
+2.2 Graph Structure Learning
+Inthefieldoftrafficforecasting,relevantresearchonGraphStructureLearning(GSL)[16]
+has begun to attract attention. This is because the traffic network can be represented as a
+graph, with nodes representing intersections or road sections, and edges representing the
+connection between these nodes. However, how to effectively learn this graph structure to
+capture the complex spatial dependencies of the traffic network remains a significant chal-
+lenge.
+Earlyresearchworkoftenassumedastaticgraphstructure,whichwaspredefinedbased
+on geographical location. However, such assumptions often fail to capture the dynamic
+changes in traffic data. Therefore, more research has started to focus on dynamic graph
+structure learning. For instance, Graph WaveNet first introduced an adaptive graph mod-
+eling method, developed a novel adaptive dependency matrix, and learned it through node
+embedding. Following this, the adjacency matrix is incorporated as a learnable parame-
+ter within the Adaptive Graph Convolutional Recurrent Network (AGCRN)[17], facilitating
+adaptive mapping. Concurrently, AGCRN introduces node-adaptive parameter learning to
+enhancemodeladaptability.
+2.3 Meta Learning for Weight Generation
+Metalearningmethodsforneuralnetworkweightgenerationhavebeenintroducedinto
+deep learning models. Dynamic Filter Networks(DFN)[18] introduced the use of a dynamic
+filternetworktogenerateconvolutionalfiltersbasedontheinput. Followingthis,Bertinetto
+et al.[19] unveiled the concept of a ‘learnet’, a model designed to predict the parameters of a
+pupilnetwork fromasingleinstance.
+Haetal.proposedtheincorporationofhypernetworks[20]togenerateweightsforalarger
+network,whichcanberegardedasweightsharingacrossvariouslayers. Buildinguponthis
+concept, Meta-LSTM[21] use a meta network to generate weights for different task so that
+canlearntask-specificsemanticfunction.
+6
+Buildinguponthisconcept,significantadvancementsinMetaLearningforNeuralNet-
+work Weight Generation have been applied in Traffic Forecasting. ST-MetaNet[22] lever-
+ages a unique meta learning framework to capture complex spatio-temporal dependencies
+in traffic data. Sun et al.[23] utilizing deep meta learning techniques to accurately predict
+the evolution of traffic congestion on various road segments. Lastly, ST-WA[15] uses the
+Spatio-Temporal Aware Parameter Generation Network, generating location-specific and
+time-varying model parameters, and enhancing model adaptation to traffic patterns. These
+modelsshowthattheapplicationofmetalearningmethodstotrafficforecastingisreasonable
+andpromising.
+However, when faced with a model with a large number of parameters, it is too costly
+to use meta learning methods to generate all parameters. In this paper, we explore a more
+suitableapplicationofmetalearningtotrafficforecastinginconjunctionwithgraphstructure
+learning.
+7
+3. Preliminaries
+3.1 Problem Definition
+Assume that there are N sensors located at different positions in a spatial network,
+each sensor measures attributes (such as traffic speed, traffic flow) over time, forming a
+multi-dimensional time series. Let there be T timestamps in total, using X to represent the
+timeseriesdataofallsensors,whosedimensionisN ×T. Thegoalofspatio-temporaldata
+forecastingistolearnafunctionF,usingtheattributedataofallsensorsintheαtimestamps
+beforetimestampt,topredicttheirattributedataintheβ timestampsaftertimestampt. The
+mathematicalexpressionisasfollows:
+h i
+[X ,...,X ,X ]
+−F→ Xˆ ,Xˆ ,...,Xˆ
+(1)
+t−α+1 t−1 t t+1 t+2 t+β
+θ
+ˆ
+where θ is the parameter that needs to be learned in the model, X is the forecasting of the
+j
+attributedataattimej.
+3.2 Recurrent Neural Networks
+Recurrent Neural Networks (RNN) are a class of artificial neural networks aimed to
+process sequential data. In an RNN, each neuron has a recurrent connection to itself, al-
+lowingthenetworktomaintainastateormemoryofpastinput. ThispropertymakesRNNs
+particularlyusefulforprocessingsequencesofvariablelengths,suchasnaturallanguageand
+timeseriesdata.
+LongShort-TermMemory(LSTM)andGatedRecurrentUnit(GRU)aretwocommon
+variants of the basic RNN architecture. LSTM networks use an additional memory cell and
+threegates(input,output,andforget)tocontroltheflowofinformationthroughthecell. This
+allowsLSTMstoselectivelyrememberorforgetinformationfromthepastinput,preventing
+thegradientdisappearanceor explosionproblemthatcanoccurintraditionalRNN.
+GRU networks have a simpler architecture than LSTMs, with only two gates (update
+and reset) controlling the flow of information. Despite their simpler architecture, GRUs are
+8
+effectiveinvariousnaturallanguageprocessingandtimeseriesforecastingtasks.
+8
+> > < r t = σ(W rx t +U rh t−1 +b r)
+z = σ(W x +U h +b )
+t z t z t−1 z (2)
+> >
+:
+C
+t
+= tanh(W cx
+t
++r
+t
+⊙U c(z
+t
+⊙h t−1)+b c)
+h = (1−z )⊙h +z ⊙C
+t t t−1 t t
+In the above equations, x is the input at time step t, h is the hidden state from the
+t t−1
+previoustimestep,W,U,andbareweightmatricesandbiasestobelearnedduringtraining,
+σ and tanh are the sigmoid and hyperbolic tangent activation functions, respectively. ⊙
+denoteselement-wisemultiplication.
+3.3 Temporal Convolution Neural Networks
+TemporalConvolutionalNetworks(TCN)arealsoneuralnetworkarchitecturesthatcan
+handle sequential data. TCN makes use of dilation causal convolution so that it can capture
+thetemporaltrendsofnodes.
+Dilatedcausalconvolutionnetworksaredesignedtohandlelongsequencesofdataina
+non-recursiveway,whichenablesparallelcomputationandalleviatesthegradientexplosion
+problem. The dilated causal convolution operation preserves the temporal causal order of
+the input data by padding zeros to the inputs so that forecasting made on the current time
+steponlyinvolveshistoricalinformation.
+Thedilatedcausalconvolutionoperationisaspecialcaseof1Dconvolution,wherethe
+operationslidesovertheinputsequencebyskippingvalueswithacertainstep,controlledby
+a dilation factor. Mathematically, given a 1D sequence input x ∈ RT and a filter f ∈ RK,
+thedilatedcausalconvolutionoperationofx withf atstep t isrepresentedas
+KX−1
+x⋆ f(t) = f(s)x(t−d×s), (3)
+T
+s=0
+whered isthedilationfactor,⋆ representsthe temporalconvolutionoperation.
+T
+By stacking dilated causal convolution layers with increasing dilation factors, the re-
+ceptive field of a TCN grows exponentially, enabling it to capture longer sequences with
+fewer layers, which saves computation resources. Compared to RNN-based approaches,
+9
+TCNisabletohandlelong-rangesequencesmoreefficiently,makingitapopularchoicefor
+processingsequentialdata.
+3.4 Graph Convolutional Neural Networks
+Graph Convolutional Neural Networks (GCN) are a type of neural network designed
+to process data represented in the form of graphs. GCN uses convolutional filters to extract
+features from the input graph data. The core idea behind GCN is to define convolutional
+operations on graphs. The filters operate on the graph’s adjacency matrix, which captures
+thegraph’sstructure.
+Onepopularformulationofthe GCNlayer canbeexpressedasfollows:
+(cid:16) (cid:17)
+˜−1 ˜˜−1
+H = σ(X ⋆
+G
+W) = σ D 2AD 2XW , (4)
+where X is the input, H is the feature matrix, W is the weight matrix, ⋆ represents
+G
+˜
+the temporal convolution operation, A is the adjacency matrix of the graph with added unit
+matrixI,D˜ isthecorrespondingdegreematrix,D˜−1A˜ D˜−1
+meansnormalizationofthead-
+2 2
+jacencymatrixtobetteraccountfortherelativeimportancebetweennodes,andσ issigmoid
+activationfunction.
+10
+4. Methodology
+Inthissection,wefirstoutlinetheframeworkforimprovingmodelsusingmetalearning
+methods. Next, the generation of meta knowledge, Spatio-temporal Graph Convolutional
+NeuralNetworks,andthemethodofmetagraphconvolutionaredescribedindetail. Finally,
+trainingmethodsareintroducedforcurriculumlearning.
+Figure2 InsightoftheFramework
+The framework diagram is shown in Figure 2. A spatio-temporal traffic forecasting
+model, it has modules that can extract spatial dependencies such as GCN, as well as mod-
+ules that can extract temporal dependencies such as RNN, TCN, or Attention. The meta
+learningmethodistousethemetaknowledgegeneratortogeneratemetaknowledgeaccord-
+ing to the current input and meta information input, and then generative model parameters
+(W ) or meta graph (G ) to affect the original model, for the purpose of spatio-temporal
+M M
+dynamic adjustment. Also, our approach can be applied to any spatio-temporal traffic fore-
+casting model, as meta knowledge generators can produce model parameters or meta graph
+dependingonthe typeofmodel.
+4.1 Meta Knowledge Generation
+Theprocessofmetaknowledge generationisshowninFigure3.
+Meta Information processing. Meta information I refers to additional information
+inputinadditiontotheoriginaldata,whichincludestimeinformation,locationinformation,
+weather information, Point of Interest (POI), etc. In this paper, we only use temporal and
+11
+Figure3 GenerationofMetaKnowledge
+spatial information. For temporal information, since both week w and hour h are variables
+with different discrete values, it is well suited to use the one-hot encoding, for example,
+assuming that the time is Wednesday or Friday, the corresponding one-hot encoding would
+be:
+”Wednesday” → [0,0,1,0,0,0,0]
+”Friday” → [0,0,0,0,1,0,0]
+we use one-hot encoding for the day of the week and the hour and then contact them to
+generatetemporalembeddingsE .
+T
+E = onehot(w)⊕onehot(h), (5)
+T
+where dayofweek and timeofday are encoded with one hot and have dimensions
+RT×N×7 andRT×N×24,respectively. SothedimensionofE isRT×N×31.
+T
+Forspatialinformation,weusethenode2vec[24] methodtogeneratespatialembeddings
+E .
+S
+E = node2vec(G) (6)
+S
+ThencontactE andE togettheembeddingofmeta informationE .
+T S I
+E = E ⊕E (7)
+I T S
+12
+Learning about spatio-temporal adaptation variables. We refer to the approach in
+the ST-WA[15] model for the i-th time series in the time period ending in t using a unique
+randomlatentvariableΘ(i)
+asthesumoftworandomlatentvariablesspatiallyawarevariable
+t
+z(i) andtemporallyadaptive variablez(i) .
+t
+Θ(i) = z(i) +z(i) (8)
+t t
+Here, we expect the spatial aware variable z(i) to capture the most general and salient
+patternofthei-thtimeseriesandexpectthetemporaladaptivevariablez(i)
+toaccommodate
+t
+specificchangesinthemostgeneralpatternatdifferenttimes. Forthespatialawarevariables
+z(i)itisassumedthattheyfollowamultivariateGaussiandistributionink-dimensionalspace
+(see Equation 9), where z(i) is learned directly in a purely data-driven manner without the
+useofanencoder. Thismeansthatthemeanµ(i) andthecovariancematrixΣ(i) arelearnable
+parameters.
+z(i) ∼ N(µ(i),Σ(i)) (9)
+Next,thetemporaladaptivevariablez(i)
+representsthetrafficpatternataparticulartime
+t
+tasdeterminedbyz(i). Wegeneratethetemporaladaptivevariablez(i)t,whichisconditioned
+on the latest α timestamps from the i-th time series. So it is time aware because it changes
+over time. Specifically, given a
+{x(1) ...x(1)}
+consisting of the latest H timestamps from
+t−α+1 t
+the i-th time series, we chose the variational encoder to generate the model parameters as it
+captures the distribution of the input data and thus better generalizes to situations not seen
+duringtraining. TheformulaisshowninEquation11.
+µ(i),Σ(i) = E (x(1) ...x(1)}) (10)
+t t ψ t−α+1 t
+z(i) ∼ N(µ(i),Σ(i)) (11)
+t t t
+Notethatµ(i) andΣ(i) aretheoutputsoftheencoderE ,wheretheencoderparameters
+t t ψ
+inψ arelearnable.
+13
+Then,thespatio-temporaladaptationvariablesΘ,andmetainformationembeddingE
+I
+are concatenated and input into the meta learner, which consists of two linear layers and a
+layerofReLUactivationfunctionstoobtainthenodeembeddingE. E(i) representsthefea-
+t
+turerepresentationofthei-thnodeattimet,whichisalsocanbeviewedasmetaknowledge.
+Thenwecanuse ittogeneratemodelparametersW andmetagraphG .
+M M
+E = Linear(ReLU (Linear(Θ⊕E ))) (12)
+I
+4.2 Spatio-temporal Graph Convolutional Neural Networks
+Graph Convolutional Recurrent Neural Networks (GCRN). GCRN combines the
+power of both GCN and RNN to process graph-structured time series data. Specifically,
+GCRN uses graph convolutional layers to extract features from the input graph data, and
+then uses a recurrent layer, such as a Gated Recurrent Unit (GRU), to model the temporal
+dependenciesbetweenthe features.
+FromEquation2andEquation4,theformulationoftheGCRNlayercanbeexpressed
+asEquation13. 8
+> > < u t = σ([X t,H t−1]⋆ G W u +b u)
+r = σ([X ,H ]⋆ W +b )
+t t t−1 G r r (13)
+> > : C t = tanh([X t,(r t ⊙H t−1)]⋆ G W C +b C)
+H = u ⊙H +(1−u )⊙C
+t t t−1 t t
+In the above equations, x is the input at time step t, H is the hidden state from the
+t t−1
+previoustimestep,W andbareweightmatricesandbiasestobelearnedduringtraining,⋆
+G
+is the graph convolution operation, and σ and tanh are the sigmoid and hyperbolic tangent
+activationfunctions,respectively. ⊙ denoteselement-wisemultiplication.
+Graph Temporal Convolutional Neural Networks (GTCN). GTCN combines the
+features of Temporal Convolutional Networks (TCN) and Graph Convolutional Networks
+(GCN),enablingittoextractbothtemporalandspatialdependenciesfromdata. Specifically,
+theGTCNfeedstheoutputoftheTCNintotheGCNtosimultaneouslyextractfeaturesfrom
+graphdatainboththetemporalandspatialdimensions. CombiningEquation3andEquation
+4yieldsthefollowingequation.
+14
+H = σ((X ⋆ f(t))⋆ W), (14)
+T G
+where X is the input, H is the feature matrix, W is the GCN weight matrix, ⋆ is the
+G
+graph convolution operation, ⋆ is the temporal convolution operation, f is the filter, and σ
+T
+issigmoidactivationfunction.
+4.3 Meta Graph Convolution Layer
+MetaWeights(W ). Forthemethodofgeneratingparameters,MultilayerPerceptron
+M
+(MLP) with two linear layers and a layer of ReLU activation functions is used to generate
+parameters W based on each meta knowledge, and then the parameters in the graph con-
+M
+volutionarereplacedwithW .
+M
+W = Linear(ReLU (Linear(E))) (15)
+M
+(cid:16) (cid:17)
+˜−1 ˜˜−1
+H = σ(X ⋆
+G
+W M) = σ D 2AD 2XW
+M
+(16)
+However,thismethodhastoomanyparameterstotrainandlacksgeneralizationability.
+Therefore,weconsiderchangingthe graphinthe GCN formulaofEquation4.
+Meta Graph (G ). Considering that the adjacency matrix can also be learned, the
+M
+spatial dependencies between each pair of nodes by multiplying E and ET, where E is the
+nodeembeddinggeneratedfrommetainformationandspatio-temporaladaptationvariables.
+Thismethodisthenusedtoobtainourmeta graphG .
+M
+(cid:0) (cid:0) (cid:1)(cid:1)
+G = softmax ReLU E ·ET (17)
+M
+We use the ReLU activation function to eliminate weak connections. The meta graph
+is normalized by applying the SoftMax function. Thus, the normalized meta graph can be
+consideredasthetransfermatrixofthe hiddendiffusionprocess.
+Wethenhavethreewaysofusingthemetagraph. Thefirstistocombinethepredefined
+15
+spatialdependencymatrixwiththemetagraphtoperformagraphconvolutionwiththeinput,
+whichisequivalenttoamulti-grapheffect. Theformulaisasfollows。
+(cid:16) (cid:17)
+H = σ G MXW
+1
+⊕D˜−1 2A˜ D˜−1
+2XW
+2
+(18)
+Second,left-multiplyingthepredefinedspatialdependencymatrixbythemetagraphto
+adjust spatial dependencies according to different meta knowledge, similar to the attention
+mechanismwithgraphs. Theformulaisasfollows.
+(cid:16) (cid:17)
+˜−1 ˜˜−1
+H = σ G MD 2AD 2XW (19)
+Third, using only the meta graph. The meta graph is substituted for the original spatial
+dependencymatrix,withthefollowingformula.
+H = σ(G XW ) (20)
+M 1
+4.4 Curriculum Learning
+Curriculumlearning(CL)isacutting-edgedirectionthathasbecomeincreasinglypop-
+ularinrecentyears. Bengioetal.[25]firstproposedtheconceptofCurriculumlearning,which
+is a training strategy that mimics human learning processes. It let models to start learning
+fromeasysamplesandgraduallyadvancetocomplexsamplesandknowledge. Intrafficfore-
+castingtasks,short-termforecastingtasksareeasierthanlong-termforecastingtasks. Letthe
+model train short-term forecasting tasks first, and as the number of iterations increases, we
+gradually increase the forecasting length of the model so that the model can learn difficult
+tasksstepbystep,andgetbetterforecastingaccuracy.
+16
+5. Experiments
+In this section, we will provide training details for traffic forecasting models based on
+meta learning methods, present experimental results, and explain the effectiveness of the
+metalearning method.
+5.1 Datasets and Settings
+Figure4 PhysicalLocationsofeachSensor
+Datasets. ThedatasetsweusedareMETR-LAandPEMS-BAY.TheMETR-LAtraffic
+datasetcontainstrafficinformationcollectedfromloopdetectorsontheLosAngelesCounty
+Highway,with a total of 207 detectors over a period of four months from March 1, 2012, to
+June30,2012. ThePEMS-BAYtrafficdatasetwascollectedbytheCaliforniaTransportation
+Agency(CalTrans)PerformanceMeasurementSystem(PeMS),withatotalof325detectors
+fromJanuary12017toMay31,2017,foratotalofsixmonths. Thesetwoarealsocommonly
+used public datasets in the field of communication traffic forecasting. Figure 4 shows the
+physicallocationsofeachsensor. Thedatasetisdividedintochronologicalorder,with70%
+usedfortraining,10%forvalidation,and20%fortesting. Table1providesdetailedstatistics
+onthedataset.
+Settings. Toextractmetainformation,weuseaspatialembeddingof64dimensions,a
+temporal embedding of 31 dimensions (7 for week and 24 for hour), and 64 dimensions for
+the spatio-temporal dynamic variables. Adam is used as an optimizer, and if the validation
+17
+Table1 SummaryofDatasets
+Dataset METR-LA PEMS-BAY
+StartTime 2012/3/1 2017/1/1
+EndTime 2012/6/30 2017/5/31
+TimeInterval 5minutes 5minutes
+#TimeSteps 34,272 52,116
+#Node 207 325
+error converges within 10 periods, the optimizer will stop early, or after 200 periods. The
+specific parameters of each model are searched for optimal results, so batch sizes, learning
+rates,etc. willvary. WeconductedourexperimentsonaserverthathasanIntel(R)Xeon(R)
+Silver4216CPU@2.10GHzand8NVIDIAGeForceRTX2080Tigraphicscards. Weused
+PyTorch[26] version1.7.1withPython3.7.7.
+5.2 Baseline Models.
+The selection of models is governed by the following principles. First, we consider
+modelsthat can capture temporal information, namely,Long Short-TermMemory (LSTM),
+GatedRecurrentUnit(GRU),andAttentionmodels. Thenweusemetalearningmethodsto
+generateparameterinputforthesemodels,resultinginMetaLSTM,MetaGRU,andMetaAt-
+tention. Second,weexaminemodelsthatcansimultaneouslycapturespatialinformationus-
+ing GCN, including GC-LSTM, GC-GRU, and ST-Attention. Again, we use meta learning
+methodstogeneratethesemodels’parameters,leadingtothedevelopmentofMetaGC-GRU,
+and MetaST-Attention. We also explore additional methods for incorporating meta knowl-
+edge into the MetaGC-GRU model. Finally, we consider models based on WaveNet, such
+asGraphWaveNet(GWNET)andMTGNN,andmodifythemusingmetalearningmethods
+toproduceMetaGWNETandMetaMTGNN,respectively.
+Fortheuseofmetalearningmethodtoimprovethemodel,wehaveexperimentedwith
+three ways. The first way is to generate model parameters (W ), shown as Equation 16,
+M
+usingmetaknowledgetodirectlygeneratemodelparameters. Thesecondwayistousemeta
+knowledge to generate meta graph, and convolution it with the original adjacency graph
+(G⊕G ), which is equivalent to the effect of multiple graphs, shown as Equation 18. The
+M
+18
+thirdmethodusestheoriginaladjacencygraphleft-multipliedbythemetagraph(G ×G)
+M
+to adjust the relationships between various nodes, shown as Equation 19. The fourth type
+onlyusesmetagraphs(G ),shownasEquation20.
+M
+5.3 Evaluation Metrics
+Through prior research, the performance of various techniques will be evaluated using
+theRootMeanSquareError(RMSE),MeanAbsoluteError(MAE),andMeanAbsolutePer-
+centage Error (MAPE) metrics. Zero values shall be excluded from the analysis, and lower
+errorsindicatebetterperformance. The definitionof themisasEquation21.
+Xn
+1
+MAE = |yˆ −y |
+i i
+n
+i=1
+1
+Xn
+yˆ −y
+MAPE = | i i|
+n y (21)
+i
+vi=1
+u
+u Xn
+t1
+RMSE = (yˆ −y )2,
+i i
+n
+i=1
+where,y isthetruevalueandyˆisthepredictedvalue.
+5.4 Performance and Analysis
+The experimental results are shown in the Table 2, and the best result are marked by
+bolded.
+First, we analyze the results of a model that uses meta learning methods to generate
+parameters. As shown in Figure 5, for the simpler model that only captures temporal infor-
+mation MetaLSTM improves by 13.4%, MetaGRU by 13.3%, and MetaAttention by 6%,
+indicatingthatthemetalearningmethodisindeedeffective. TheGC-GRU,whichalsocap-
+tures spatial information, improved by 2.4% in the METR-LA dataset but did not perform
+well in the PEMS-BAY dataset, dropping by 25% instead, due to a decrease in forecasting
+accuracy due to the large number of parameters. There was also an 8% improvement in
+MetaST-Attention.
+For the method of using meta learning method to generate meta graph, three methods
+19
+Table2 PerformanceEvaluation
+15min/horizon3 30min/horizon6 60min/horizon12
+Dataset Model MetaWay
+MAE RMSE MAPE MAE RMSE MAPE MAE RMSE MAPE
+FC-LSTM 3.066 6.085 8.138 3.765 7.655 10.679 4.871 9.685 14.857
+FC-GRU 3.068 6.086 8.138 3.766 7.655 10.676 4.874 9.686 14.816
+Attention 2.999 5.915 8.032 3.595 7.241 10.294 4.473 9.021 13.733
+ST-Attention 2.981 5.846 7.975 3.556 7.106 10.187 4.379 8.817 13.327
+MetaLSTM W 2.855 5.642 7.796 3.266 6.791 9.535 3.675 7.750 11.193
+M
+MetaGRU W 2.853 5.617 7.798 3.270 6.775 9.534 3.675 7.747 11.228
+M
+MetaAttention W 2.993 5.986 8.444 3.290 6.813 9.666 3.917 8.245 11.799
+M
+MetaST-Attention W 2.839 5.523 7.549 3.169 6.437 8.883 3.572 7.437 10.409
+M
+DCRNN 2.770 5.380 7.300 3.150 6.450 8.800 3.600 7.590 10.500
+GC-LSTM 2.842 5.406 7.450 3.245 6.488 9.029 3.809 7.843 11.207
+GC-GRU 2.834 5.388 7.449 3.255 6.507 8.983 3.815 7.812 11.030
+METR-LA W 2.777 5.382 7.278 3.167 6.482 8.775 3.642 7.631 10.641
+M
+G⊕G 2.768 5.355 7.256 3.171 6.510 8.829 3.628 7.696 10.709
+MetaGC-GRU
+G
+×M
+G 2.738 5.257 7.192 3.118 6.344 8.630 3.570 7.502 10.419
+M
+G 2.732 5.270 7.167 3.111 6.305 8.674 3.567 7.406 10.505
+M
+GWNET 2.690 5.150 6.900 3.070 6.220 8.370 3.530 7.370 10.010
+G⊕G 2.646 5.039 6.782 3.011 6.035 8.184 3.426 7.077 9.768
+M
+MetaGWNET G M×G 2.684 5.085 6.930 3.070 6.111 8.387 3.527 7.182 10.044
+G 2.978 5.883 7.918 3.579 7.263 10.229 4.437 8.924 13.695
+M
+MTGNN 2.690 5.180 6.860 3.050 6.170 8.190 3.490 7.230 9.870
+G⊕G 2.650 5.117 6.832 3.001 6.119 8.285 3.408 7.164 9.999
+M
+MetaMTGNN G M×G 2.671 5.167 6.915 3.018 6.166 8.307 3.409 7.169 9.915
+G 2.669 5.168 6.892 3.001 6.131 8.203 3.402 7.143 9.827
+M
+FC-LSTM 1.441 3.146 3.004 1.971 4.591 4.470 2.708 6.256 6.755
+FC-GRU 1.439 3.152 3.003 1.969 4.611 4.446 2.702 6.276 6.711
+Attention 1.413 3.049 2.967 1.857 4.243 4.231 2.393 5.526 5.898
+ST-Attention 1.383 2.989 2.914 1.813 4.158 4.140 2.321 5.341 5.694
+MetaLSTM W 1.349 2.882 2.865 1.706 3.938 3.911 2.008 4.748 4.805
+M
+MetaGRU W 1.351 2.875 2.888 1.707 3.914 3.922 2.006 4.712 4.811
+M
+MetaAttention W 1.403 2.985 3.020 1.732 3.887 3.924 2.134 4.938 4.983
+M
+MetaST-Attention W 1.351 2.865 2.883 1.660 3.744 3.765 1.945 4.493 4.588
+M
+DCRNN 1.380 2.950 2.900 1.740 3.970 3.900 2.070 4.740 4.900
+GC-LSTM 1.362 2.858 2.876 1.726 3.946 3.991 2.092 4.887 5.139
+GC-GRU 1.349 2.824 2.839 1.708 3.899 3.883 2.074 4.823 4.909
+PEMS-BAY W 1.741 3.461 3.931 2.146 4.559 4.984 2.775 6.008 6.794
+M
+G⊕G 1.340 2.845 2.841 1.666 3.828 3.781 1.968 4.580 4.694
+MetaGC-GRU
+G
+×M
+G 1.341 2.814 2.846 1.662 3.773 3.776 1.952 4.487 4.670
+M
+G 1.306 2.776 2.765 1.616 3.722 3.698 1.888 4.396 4.487
+M
+GWNET 1.300 2.740 2.730 1.630 3.700 3.670 1.950 4.520 4.630
+G⊕G 1.289 2.695 2.690 1.607 3.618 3.602 1.895 4.341 4.455
+M
+MetaGWNET G M×G 1.316 2.784 2.741 1.644 3.703 3.708 1.953 4.433 4.672
+G 1.410 3.026 3.002 1.872 4.294 4.406 2.410 5.576 6.222
+M
+MTGNN 1.320 2.790 2.770 1.650 3.740 3.690 1.940 4.490 4.530
+G⊕G 1.323 2.781 2.753 1.638 3.719 3.633 1.912 4.413 4.486
+M
+MetaMTGNN G M×G 1.396 2.844 3.190 1.676 3.723 3.893 1.939 4.419 4.643
+G 1.326 2.788 2.752 1.646 3.725 3.656 1.927 4.422 4.475
+M
+20
+Figure5 ResultinPEMS-BAYDataset,MAE,6Horizons
+of using meta graph (G⊕G , G ×G, G ) also have different effects on the model. For
+M M M
+theGC-GRUmodel,G⊕G increasedby2.5%,G ×Gincreasedby2.6%,andonlyG
+M M M
+increasedby5.4%. FortheGWNETmodel,G⊕G increasedby1.4%,G ×Gdecreased
+M M
+by0.8%,andonlyG decreasedby14.8%. FortheMTGNNmodel,G⊕G increasedby
+M M
+0.7%,G ×Gdecreasedby1.6%,andonlyG increasedby0.2%. Itiscurrentlynecessary
+M M
+toexploresuitableimplantationmethodsfordifferentmodels. Inbothdatasets,theGWNET
+model with predefined graph and meta graph (G ⊕ G ) has the best results and achieves
+M
+nearlystateofartresults.
+5.5 Ablation Experiment
+Table3 AblationTestacrossAllHorizons
+METR-LA PEMS-BAY
+Ablation MAE RMSE MAPE MAE RMSE MAPE
+Temporal embedding 3.0533 6.1273 8.1072 1.7919 4.2174 4.1367
+Spatial embedding 3.0642 6.1730 8.3174 1.8003 4.2465 4.2117
+ST adaption variable 3.0401 6.2133 8.2364 1.8099 4.2273 4.1987
+Curriculum Learning 3.0532 6.2101 8.3696 1.8212 4.2950 4.1806
+STMeta-GWNET 2.9693 5.9825 8.0334 1.5452 3.5266 3.4551
+The results of the ablation experiment are shown in Table 3. Here we have selected
+21
+the MetaGWNET model with the original adjacency graph and meta graph (G ⊕ G ),
+M
+removing the temporal embedding, spatial embedding, and ST dynamic variables from the
+meta knowledge and curriculum learning respectively. As shown in Figure 6, the effect of
+removing temporal embedding decreases by 2.8% in the METR-LA dataset and by 16.0%
+in the PEMS-BAY dataset. The effect of removing spatial embedding decreases by 3.2%
+in the METR-LA dataset and by 16.5% in the PEMS-BAY dataset. Removing ST dynamic
+variables reduced the effect by 2.4% in the METR-LA dataset and 17.1% in the PEMS-
+BAY dataset. The effect of removing course learning decreased by 2.8% in the METR-LA
+dataset and by 17.9% in the PEMS-BAY dataset. This demonstrates that these components
+areeffectiveforthemodel.
+Figure6 AblationResultofMAEacrossAllHorizons
+5.6 Meta Graph Case study
+We selected a two-day time series from sensor#66 in the test set and then plotted the
+12-step prediction results for the true value, GRU, GC-GRU, and MetaGWNET. As shown
+in the top half of Figure 7, the GC-GRU, which can also extract spatial dependence, fits the
+truevaluesbetterthantheGRU,whichcanonlyextracttemporaldependence. MetaGWNET
+with the meta learning method is more effective, especially during the morning peak (7:00-
+8:00), with less fluctuation. This shows that the meta learning method is able to extract
+22
+Figure7 TrafficForecastingandMetaGraphVisualization
+spatio-temporaldependenciesandismore adaptable tothedynamicsoftrafficpatterns.
+The lower part of Figure 7 shows a heat map of the correlation between this node and
+other nodes in the meta graph generated by the MetaGWNET model over time, with the
+darkerthecolorindicatingthatthecorrelationbetweenthetwonodesisless,i.e. lesseffective
+in influencing each other. Here it is clear that the meta graph changes over time, with the
+correlationbetweenthisnodeandothernodesbecomingsmallerbetweenthemorningpeaks
+(7:00-8:00), as traffic jams prevent them from influencing other roadways, indicating that
+themetagraphisaneffectiverepresentationoftrafficpatterns.
+23
+6. Conclusion and Future Work
+Thisstudydemonstratesthatanapproachcombiningdeepmetalearningalgorithmsand
+advanced graph structure learning techniques is an effective method for traffic forecasting.
+In experiments, the method outperforms traditional forecasting techniques by better captur-
+ingthespatio-temporaldependenceintrafficpatterns,whiledynamicallyadaptingtoabrupt
+changes in traffic patterns, and demonstrating higher forecasting accuracy in tests on two
+publicly available datasets. Therefore, the method proposed in this paper is expected to be
+widelyusedin practicaltrafficforecasting.
+Themethodofgeneratingparametersusingmetalearningmethodsmaybelesseffective
+due to the large number of parameters, but the spatio-temporal correlation in traffic data
+can be exploited to reduce the number of parameters generated for simplification purposes,
+therebyreducingtrainingdifficultyandimprovinggeneralization. Inthefuture,wealsoplan
+toapplythemethodtomore modelstoverifytheeffect.
+24
+References
+[1] Zhang J, Wang F Y, Wang K, et al. Data-driven intelligent transportation systems:
+A survey[J]. IEEE Transactions on Intelligent Transportation Systems, 2011, 12(4):
+1624-1639.
+[2] ConnorJT,MartinRD,AtlasLE.Recurrentneuralnetworksandrobusttimeseries
+prediction[J].IEEEtransactionsonneuralnetworks,1994,5(2):240-254.
+[3] oordA,DielemanS,ZenH,etal.WaveNet:AGenerativeModelforRawAudio[J].,
+2016.
+[4] Kipf T N, Welling M. Semi-supervised classification with graph convolutional net-
+works[J].arXivpreprintarXiv:1609.02907,2016.
+[5] Li Y, Yu R, Shahabi C, et al. Diffusion Convolutional Recurrent Neural Network:
+Data-DrivenTrafficForecasting[C].InternationalConferenceonLearningRepresen-
+tations.2018.
+[6] WuZ,PanS,LongG,etal.GraphWavenetforDeepSpatial-TemporalGraphModel-
+ing[C].IJCAI’19:Proceedingsofthe28thInternationalJointConferenceonArtificial
+Intelligence.Macao,China:AAAIPress,2019:1907-1913.
+[7] Williams B M, Durvasula P K, Brown D E. Urban freeway traffic flow prediction:
+application of seasonal autoregressive integrated moving average and exponential
+smoothingmodels[J].TransportationResearchRecord,1998,1644(1):132-141.
+[8] Ahn J, Ko E, Kim E Y. Highway traffic flow prediction using support vector regres-
+sionandBayesianclassifier[C].2016InternationalConferenceonBigDataandSmart
+Computing(BigComp).2016:239-244.
+[9] Liu Y, Wu H. Prediction of Road Traffic Congestion Based on Random Forest[C].
+2017 10th International Symposium on Computational Intelligence and Design (IS-
+CID):vol.2.2017:361-364.
+[10] HochreiterS,SchmidhuberJ.Longshort-termmemory[J].Neuralcomputation,1997,
+9(8):1735-1780.
+[11] Cho K, van Merrienboer B, Gulcehre C, et al. Learning phrase representations using
+RNNencoder-decoderforstatisticalmachinetranslation[C].ConferenceonEmpirical
+MethodsinNaturalLanguage Processing(EMNLP2014).2014.
+[12] Yu B, Yin H, Zhu Z. Spatio-temporal graph convolutional networks: a deep learn-
+ing framework for traffic forecasting[C]. Proceedings of the 27th International Joint
+ConferenceonArtificialIntelligence.2018:3634-3640.
+25
+[13] Vaswani A, Shazeer N, Parmar N, et al. Attention is All you Need[C]. Guyon I,
+Luxburg U V, Bengio S, et al. Advances in Neural Information Processing Systems:
+vol.30.CurranAssociates,Inc.,2017.
+[14] Guo S, Lin Y, Wan H, et al. Learning Dynamics and Heterogeneity of Spatial-
+Temporal Graph Data for Traffic Forecasting[J]. IEEE Transactions on Knowledge
+andDataEngineering,2022,34(11):5415-5428.
+[15] Cirstea R G, Yang B, Guo C, et al. Towards Spatio- Temporal Aware Traffic Time
+SeriesForecasting[C].2022IEEE38thInternationalConferenceonDataEngineering
+(ICDE).2022:2900-2913.
+[16] Zhu Y, Xu W, Zhang J, et al. A Survey on Graph Structure Learning: Progress and
+Opportunities[Z].2022.arXiv:2103.03036[cs.LG].
+[17] Bai L, Yao L, Li C, et al. Adaptive graph convolutional recurrent network for traffic
+forecasting[J].AdvancesinNeuralInformationProcessingSystems,2020,33:17804-
+17815.
+[18] Jia X, Brabandere B D, Tuytelaars T, et al. Dynamic Filter Networks[C]. Lee D D,
+SugiyamaM,vonLuxburgU,etal.AdvancesinNeuralInformationProcessingSys-
+tems 29: Annual Conference on Neural Information Processing Systems 2016, De-
+cember5-10,2016,Barcelona,Spain.2016:667-675.
+[19] Bertinetto L, Henriques J F, Valmadre J, et al. Learning Feed-Forward One-Shot
+Learners[C].NIPS’16:Proceedingsofthe30thInternationalConferenceonNeuralIn-
+formation Processing Systems. Barcelona, Spain: Curran Associates Inc., 2016:523-
+531.
+[20] HaD,DaiA,LeQ V.Hypernetworks[J].arXivpreprintarXiv:1609.09106,2016.
+[21] Chen J, Qiu X, Liu P, et al. Meta Multi-Task Learning for Sequence Modeling[Z].
+2018.arXiv: 1802.08969[cs.AI].
+[22] PanZ,LiangY,WangW,etal.UrbanTrafficPredictionfromSpatio-TemporalData
+UsingDeepMetaLearning[J].KDD’192019:1720-1730.
+[23] Sun Y, Jiang G, Lam S K, et al. Predicting Traffic Congestion Evolution: A Deep
+MetaLearningApproach[C].ZhouZ.ProceedingsoftheThirtiethInternationalJoint
+ConferenceonArtificialIntelligence,IJCAI2021,VirtualEvent/Montreal,Canada,
+19-27August2021.ijcai.org,2021:3031-3037.
+[24] GroverA,LeskovecJ.node2vec:Scalablefeaturelearningfornetworks[C].Proceed-
+ings of the 22nd ACM SIGKDD international conference on Knowledge discovery
+anddatamining.2016:855-864.
+26
+[25] Bengio Y, Louradour J, Collobert R, et al. Curriculum Learning[C]. ICML ’09: Pro-
+ceedingsofthe26thAnnualInternationalConferenceonMachineLearning.Montreal,
+Quebec,Canada:Associationfor ComputingMachinery,2009:41-48.
+[26] Paszke A, Gross S, Massa F, et al. Pytorch: An imperative style, high-performance
+deep learning library[J]. Advances in neural information processing systems, 2019,
+32.
+27
+Acknowledgement
+I would like to express my sincere gratitude to all those who have supported and en-
+couragedmeduringmyuniversitystudiesandthe completionofmyundergraduatethesis.
+Firstly,IwouldliketothanktheDepartmentofComputerScienceandEngineeringand
+the Urban Computing Research Group at Southern University of Science and Technology
+for providingmewiththevaluableopportunitytoparticipateinresearch.
+I am also very grateful to Associate Professor Xuan Song, Lecturer Renhe Jiang, and
+SeniorDongZhengfortheirvaluableguidanceandsupportthroughouttheresearchprocess.
+They have been my guides on my research journey and this achievement would not have
+beenpossiblewithouttheirdedicatedguidance.
+In addition, I would like to express my heartfelt gratitude to my family and friends,
+whose unwavering support has been a great source of strength and motivation, and I will
+alwayslovethem.
+My four years at university have flown by, but I believe that all of yesterday’s experi-
+ences will be the strength of tomorrow, thanks to the person I was yesterday and all that I
+haveexperienced.
+28

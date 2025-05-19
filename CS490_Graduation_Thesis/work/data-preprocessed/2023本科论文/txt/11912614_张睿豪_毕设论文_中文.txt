@@ -1,0 +1,1837 @@
+动款用技炎学
+
+SOUTHERN UNIVER9SITY OF SCIENCE AND TECHNOLOGY
+
+本科生毕业设计《论文)
+
+题 目:
+姓 名:
+学 号:
+系 “”别:
+专 “”业:
+指导教师:
+
+基于深度聚类的
+
+大规模图中的节点特征增强
+
+张睿
+
+11912014
+
+计算机科学与工程系
+计算机科学与技术
+
+宋轩 副教授
+
+2023 年6月2日
+
+CLC                                                                                                                           Number
+
+UDC                                                                    Available for reference       Yes       No
+
+E                                             Southern University
+避         |  全 人C  of Science and
+V                                                 Technology
+
+Undergraduate Thesls
+
+Thesis Title:            Node feature enhancement in
+
+large-scale graphs based on deep clustering
+
+student Name:                       Ruihao Zhang
+
+student ID:                                 11912014
+
+Department:                          Department of
+
+Computer Science and Engineering
+
+Program:               Computer Science and TIechonlogy
+Thesis Advisor:          ASssociate Professor Xuan Song
+
+Date: June 2, 2023
+
+诚信承诺书
+
+1. 本人郑重承诺所呈区的毕业设计《论文)，是在导师的指导下，
+独立进行研究工作所取得的成果，所有数据、图片资料均真实可靠。
+
+2. 除文中已经注明引用的内容外，本论文不包舍任何其他人或
+集体已经发表或撰写过的作品或成果。对本论文的研究作出重要页
+献的个人和集体，均已在文中以明确的方式标明。
+
+3. 本人承诺在毕业论文《设计) 选题和研究内容过程中没有抄约
+他人研究成果和伪造相关数据等行为。
+
+4.在毕业论文《设计) 中对侵犯任何方面知识产权的行为，由本
+人承担相应的法律责任。
+
+作者签名:
+
+COMMIIMENT OF HONENSTY
+
+]. solemnly Promilse that the paper presented comes from my
+independent research work under my Supervlsor”Ss Supervision. All
+statistics and images are real and relliable.
+
+2. Except for the annotated reference，the paper contents no other
+puplished work or achievement by person Or group，All people making
+Important contributions to the Study of the paper have been indicated
+clearly in the paper.
+
+3. 工promilse that I did not plaglarize other people's reseafch achievement
+or forge related data in the process of designing toplc and research
+content.
+
+4. Ithere ls violation of any lntellectual property right,， II will take legal
+
+responsibility myself.
+
+Signature:
+
+Date:
+
+基于识度聚关的
+大规模图中的节操特征增强
+
+张蹇各
+《计算机科学与工程系，指导教师: 宋轩)
+
+[摘要]: 图结构广泛运用于各类场景如论文引用关系网等，这些场景中
+主要包含三类任务: 节点级别任务、边级别任务以及图级别任务，其分别
+对节点、边和整个图进行分类和属性预测等。作为图中最基础的元素, 节
+点在以上所有任务中都有重要的研究价值，如何对其特征进行有效的表
+征始终是一个重要课题。许多工作对某个节点进行表征时主要单独考虑
+其在图中的信息，而缺乏从节点集的角度进行节点表达的研究，但是直
+观上，节点集对其中的节点蕴含着相比于图中信息更加细致与独特的信
+息, 这或诈有助与提高节点表达。为此, 有工作使用图分割将相似的节点
+归为一类，然后进行进一步的节点表达，然而它们通常是两步的方法，即
+先使用训练好的模型编码得到代入后再使用图分割算法得到节点集，之
+后进一步编码解久，这种方法将特征编码和分割解灶使得分割算法不是
+针对特定任务的。为此，本文提出了一种即插即用的基于聚类的插件式
+模型以及其训练与测试流程。本算法首先使用图分割算法获得初始划分，
+为每个马创建复节点以及相应边并将它们加入原图获得增广图。将原模
+型整合到本模型中后可以编码增广图便能获得被增强的节点表征以及更
+新后的图划分。本模型将节点特征编码以及图分割整合到一起，能够面
+对不同任务同时进行表征学习以及分割学习，同时得益于插件形式，本
+模型能适用于多数现有模型，增强它们的节点表达效果从而一定程度提
+高相应任务的指标。
+
+[关键词]， 图神经网络，节点级任务;大规模图，图分害
+
+工
+
+[ABSTRACT |]: Graph structures are widely used in various scenarios such
+as thesils citation networks, which contain three main types of tasks: node-level]，
+edge-level and graph-level tasks, which classify and predict attributes of nodes，
+edges and the whole graph, respectively. As the most fbndamental element of
+graphs, nodes have important value in all above tasks, and how to character-
+lize them effectively is always an Important toplc. Many works characterize a
+node mainly by conslidering its information in the graph alone, but there ls a
+lack of research on node representation from the perspective of node sets, but
+intultively, node sets contain more detalled and unlidque information about the
+nodes than that In the graph, which may help to Improve node representation .
+To this end, there are works that use graph partition to group Simjlar nodes to-
+gether and then perform further node representation, however they are usually
+two-step approaches, l.e., first using a trained model to get nodes” embedding
+and then using a graph partiton algorithm to obtain the node set, followed by
+further encoding and decoding, which means the partition algorithm ls not task-
+Specific. Therefore, thls paper proposes a plug-and-play plug-in model pased
+on clustering and its training and testing process，The algorithm first uses a
+graph partitioning algorithm to obtain an initial partition, creates cluster nodes
+and corresponding edges for each cluster and adds them to the original graph
+to obtain an augmented graph.， After integrating the original model into this
+model, the augmented graph can be encoded to obtain the enhanced node rep-
+resentations and the Updated graph partitioning.， This model integrates node
+feature encoding and graph partitioning into one model，which can perform
+both representation learning and partitioning learning for different tasks, and
+thanks to theplug-in format, thlis model can be applied to most exlsting models
+to enhance their node representation effects and thus improve the metrics of the
+
+Corresponding tasks to a certalin extent.
+
+[Key words]: GNN; Node-level tasks; Large-scale graphs; Graph partition
+
+工
+
+1. 引言 1
+1.1 图结构. 1
+1.2 图任务与图神经网络 . .| 2
+1.3 大规模图与图分制 . 3
+1.4 本文贡献 . 3
+2. 相关工作 . 4
+2.1 节点表征学习 . 4
+2.2 感受野和可扩展性 . 5
+2.3 图分割与聚类 . 6
+3. 问题定义 . 6
+4. 提出的算法，ClusterALL .    7
+4.1 算法流程 . 7
+4.1.1 训练流程 . 9
+4.1.2 测试推理流程 .10
+4.2 预处理模块.11
+4.3 表征增强模块 .13
+4.3.1 表征增强聚类器RAC . 13
+4.3.2 艇更新. 16
+4.4 模型解释与训练. .816
+4.3 复杂度分析.18
+
+II
+
+5.1 实验效果对比 . 20
+5$.2 消融实验 .9 20
+5.3 超参数测试. 22
+5.4 聚类效果分析 . .4 23
+6. 结论 .0 2S
+参考文献 . .| 26
+附录 .| 29
+致谢 . 31
+
+TV
+
+1， 引言
+1.1 图结构
+
+本文研究图为图论中的图结构而非人们通常所说的图片，以下将从数据结构方
+
+面描述图像〈“以及类似的数据如文本) 和图结构
+
+的特定与区别。
+
+日常生活中最常见到的数据是图像，文本和
+
+音频。直观来看，图像是由许多像素
+
+点构成的网格结构，文本和音频分别是一个个字符或者信号值排列形成得序列结构。
+如果统一称每个像素、字符和信号值为节点，那么以上数据中地节点都排列整齐，贡
+
+点的邻居数量和位置是有规律的甚至是固定的，
+
+所以可以直接使用张量进行显式地
+
+表达。而节点之间的距离也很好定义，通常是欧几里德距离《欧氏距离)。假设节点
+
+的特征变量为X，其维度为彤，那么两个节点 已
+
+,u 之间的欧式距离坟定义为
+
+d 一 Van 一 10) 十(Zil一 Z7
+
+上 .. .二 (25  2
+
+由于以上性质，图片、文本和音频等数据称为欧
+
+然而图是非欧几里德结构数据，其性质与以上数据有着显彰的差异。首先图是
+
+几里德结构数据。
+
+由项点和连接项点的边构成的，图可以表示为 G = (多本，其中 G 代表图、妇表示
+顶点集、妃表示边集。不同于图像等数据，每个顶点的邻居 N(Y) 数量并不一致同时
+
+它们的位置也难以定义，所以顶点之间的距离并没那么显然，距离可能根据顶点和
+这的性质进行定义。此外,图的存储方式与歇几里德数据结构有所不同，其需要两个
+而不是一个张量存储，分别用来存储顶点的特征变量以及岁的邻接移阵《或者邻接
+
+链表)。令图 G 中的顶点数量为 |了|，那么邻接矩阵 M 大小为 |Jz|7，一般来资知
+
+51 的值非 0 则表示存在从顶点;到顶点了 的边。
+
+虽然图片、文本等是排列整齐，但
+
+也能转换成非欧几里德结构,用图的形式表达一一将像素看为项点，相邻的像素之间
+即有连边，这样可以用更加抽象和一般的方式处理常见的数据。另外，图也有很多类
+
+型: 按照边是千有方癌分为无向匈和有癌网; 近照项点和边类型的多样性区分分为同
+
+构图和有异构图，同构图中每个项点属于同一个类
+
+三个论文相互引用，其中每个顶点是“论文”类型，每个边是“引用”类型，异构图
+
+存在多个类别的顶点和边，比如一个用户分别买
+
+型、每个边也属于同一个类型，比如
+
+和卖了商品 1 和商品 2，其中项点分
+
+
+为“用户”和“商品”而边分为“买”与“卖”。本文只考虑无向图和同构图，实际
+实现中如果是有疝图则将其转为无向的。
+
+之后章节所说的“图”都于认为图结构而不是图像或影像。
+
+1.2 图任务与图神经网络
+
+以研究目标层次分类，与图有关的人
+
+F务可以分为三个: 节点级别任务、边级别任
+
+务和图级别任务。节点级别任务包括对节点属性进行预测和对节点分类等,研究的目
+标就是节点本身，如果边上有特征那么通常也会将边特征整合到节点中再进行讨论，
+
+点和边的特征然后整合这些信息进
+子中原子的属性以及原子之间的将
+
+具体任务有通过论文间的引用关系预测菜个论文所属的学科; 边级别任务包括通过
+节点预测这的属性,研究目标是边但也需要考虑节点特征,其体的任务有给定一些属
+性不同的蛋白质来预测它们之间的联系; 图级别任务关注整个图的性质，其先编码贡
+步获得图的表征，有具体的任务包括通过一个分
+其来预测该分子的类别或者属性。无论哪种任务，
+
+节点作为图中最基础的元素都必须进行编码和表达，是任何模型和算法必须考虑的
+一环，节点特征学习的好坏以及与任务的自合度都会深刻影响最终结果，因此蔬点的
+
+表征学习于分重要。为此, 本文着重研究节点本身的表征学习以及与其联系紧密的贡
+
+点级任务。
+
+由于图结构的特殊性，深度学习领域中传统的卷积操作不适用于图，因为卷积需
+
+要有固定的邻居数量而图中每个顶点的邻导数不定，简单地套用卷积等常用的深度
+
+学习操作不仅会导致低效的计算效率和宛余的空间资源消耗更有可能因为不合适的
+算法使得下游任务无法完成。为此，出现了基于消妃传递范式的一系列如 GCNUI等
+
+图神经网络算法,其主要思想是将邻居顶点信息聚合到目标顶点,包括了邻居顶点信
+
+奶变换、邻居项点信息聚合以及朝合后的目标顶点信息变换三步。此外，这些算法还
+
+分为直推式和归纳式，直推式模型在训练阶段需要输入测试数据，所能处理的图结
+
+构是固定的，而归纳式模型训练时只需要训练数据能
+
+为了更具有通用性，本文设计了可
+
+多随时处理新加入的顶点与边。
+
+i件形式的归纳式模型，其也能适用于直推式模型。
+
+
+1.3 ”大规模图与图分割
+
+各类任务的图规模不一样，图级别任务的样本以图为单位，每个图的规模小，顶
+点数量从几十到几百不等, 边的数量一般最多也就几干; 然而节点级别和边级别以节
+点和边为单位，一般只有一个图，图规模大，尤其是节点级别任务，顶点数量可达上
+
+百万而边数
+运行速度问
+为此，很多
+
+量可以达到千万甚至亿级别。这种大规模图造成的内存消耗问题、模型
+题始终困扰着研究人员，如何使算法模型具备可扩展性是当下研究热点。
+
+工作致力于降低算法空间和时间上的复杂度以绥解大规模图带来的问题。
+
+部分工作利
+代码实现取
+
+此外也
+图的资源问
+每个顶点、
+分顶点从而
+然后分批j
+数据分布。
+
+图分割
+
+征的节点会
+
+题，平衡算法的效率和效果。在优化采样方面主要有三种和角度，分别限条
+
+j巧妙的数学公式推导与优化算法复杂度，以坚实的理论基础和准确的
+得不错的效果。
+有不少工作从工程的角度,通过优化采样或者图分割的方式,缓解大规模
+
+一
+
+模型每一层或者模型整体采样的邻居数量，因此一个大图可以只采样部
+缓解大规模图的问题。图分割的方式将大图划分成几个互不重奏的子图，
+行训练。 总的来说, 这些方法的本质都是用子图的数据分布近似整个图的
+
+除了可以用于减小大规模图的压力,其很多时候用于图聚类，具有相似特
+
+被分割到同一秘中。由于簇包含相同顶点的信息, 所以一些工作将顶点用
+
+现有模型编码得到隐藏变量后使用图分割算法获得人马，然后利用这种信息对项点进
+行进一步编码解码，然而它们大多数是多步的，编码的模型与图分割〈聚类) 模型未
+
+IT
+
+作对顶点的
+
+攻很好融合，
+
+导致聚类效果是非任务导向的，不是针对特定任务的。实际上，现有工
+编码还是主要研究单个顶点在图中的信息，以顶点集 (如禾) 为单位对项
+
+点进行表征
+1.4 本文
+本文提
+
+通过对原大图进行图分
+每个样本可以从篮中心节点获取跨批的非局部信息，解决了大规模图中小批量
+
+的研究还是较少。
+贡献
+
+出了 ClusterALL 算法，有具体贡献为:
+
+r昱
+
+j并加入可学习的复中心节点，使得在小批量学习时，
+
+学习时每个样本只能获取当前批信息的问题，
+
+3
+
+。 添加的可学习的复中心节点能够高度抽象
+法抽象出的空间内相似便能连接起来，此时它们可能在全图
+
+一类样本的表生
+
+FE，只要样本在本算
+
+任意位置，这种
+
+特性可以使得样本具备全图感受野，能够增强节点表征效果。
+。ClusterALL 为插件式模型，本文创建了接入该模型的接口，使得大部分现有模
+型能够轻易套用在本模型中实现即插即用。
+。借助插件式的特性以及深度聚类，相比于原模型编码的表征，本算法能够获得
+更加适用于聚类的节点表征，并得到针对不同现有模型以及不同节点级节点分
+类任务的聚类结果。
+
+2.， 相关工作
+
+2.1 节点表征学习
+节点作为图中的基础元素，节点表征学习在几乎所有任务中都要进行重点讨论，
+
+为此也有很多工作从不同角度来优化学习效果。一些工作如 DeepwalkD1、
+、SDNEDG和 Struc2Vectg等在原图输入其他模型进行编码解码之前对原展
+
+node2vec轩
+
+进行操作来增强节
+
+点的特生
+
+各自的策略对节点邻居
+
+FE，从而提高其他模型在不同人
+
+会
+
+策略，向原特征空
+生以及泛化能
+
+一>
+
+间，
+
+轻松地插入其他模型进
+方式也通常与任务无关不能进行任务导向的特征增
+实际上所有图神经网络都在进行隐式的节点表征学习，经典的图
+
+GCNIUH、GraphSAGEHMI、GATU基于消息传递范式，其通
+
+了人
+
+的特征传递与
+
+和 口
+
+到和输出，每一层的主要步
+
+添加微小的扰动来改善节点的原
+。以上工作可以算是数据的预处
+行使用, 不过对于不同
+
+IT
+号
+
+对抗数据增强
+
+E务中的效果。 它们通帝使用
+完相邻节点的共现关系，以此学习节点的表
+正。这种表征学习策略大多数时候是在节点的邻域中进行,学习的信息是局部缺和
+局感知，可能会遗失图中更有效的信息。有些工作如 FLAGI3等使有
+
+神经网
+
+以= 9({岂SEN，几王王(oa)
+
+4
+
+2
+
+LINED1、
+
+全
+
+的
+
+特征以提高现有模型的鲁棒
+,与特定模型耦合度不高可以较为
+图它们需要格外的训练,这种预处理
+
+的
+
+如
+
+过堆登多层将多跳邻居节操
+到目标节点中，然后根据不同的下游任务使用对应解码器解码
+又分为以下两部分:
+
+避
+
+到]
+
+节点也在1一1层使用函数 6()引
+
+亚() 将自身特征
+
+和邻居特征
+
+才合若干跳人
+
+了两个方向: 基于谱分解的方法和基于空
+
+号处理, 在谱域进行卷积计算, 其
+新加入的节点故实际应有
+可以归纳式学习，
+某个节点，全图信息
+
+Belkint、
+添加位置编码或者标签编码来
+工作也类似第一
+
+悍
+
+TD
+出
+
+结合得到下一层即! 层的特征。
+x间结构的方法。谱方法如 GCNOD等
+
+的使用率低且信息
+
+Dwivedi0U、Haoruil、
+
+2.2 感受野和可扩展性
+
+因为节点级任务通
+是能达到干万甚至亿级别, 所以直接读取和操作整个多
+对全图的操作是不可行的, 这也
+妨始终不全
+型主要从两个角
+
+优化模型复杂度 2. 使用采样。
+NodeformerI4是第一个角度的典型,其将 Transformerll5l应月
+
+7?竺
+
+常使
+
+度来平衡模型感
+
+目有限。
+能够应对各种未知节
+
+它叫
+
+基于该范式，该领域出现
+
+基于图信
+
+出但几乎都是直推式, 无法处
+
+基于空间结构的方法如 GATI9和 GraphSAGE6等
+
+点。然而大多数模型          是取局部特征，对于
+
+,利用效果不理想。
+
+种预处理形式的方法,不过算法规模和运
+是作为锡上这花的技巧，本文不考虑这种形式的特征增强
+
+former05自提出以来, 得益于其沪
+
+令输入数据
+“值” 的托阵
+
+征向量是妃，T,开
+
+主章力机制，
+
+4 = sojtmaz(亚((殖歼)(I)))TA
+
+NE
+
+Yunsheng Shit5等人的工作问节点特征空间中
+曾强节点携带的信息，以此提高模型
+
+最终的效果。这上坚
+成本相比来说更小,有时
+
+用包含上千节点甚至百万节点大规模图，其中边数量更
+会消耗大量资源，而很多时候
+是为什么图神经网络大多使用局
+看，许多工作仍然希望获得全局的信息来增强模型
+受野和可扩展性，即适应图规模快速
+
+。但是局部信
+
+效果。为此，节点级模
+长的能力: 1
+
+由于大规模图中 .Trans-
+
+它拥有强大的全局信
+正同量分别投影为“查询”%“键”和
+那么注意力机制 attz 可以表示为
+
+内,全 是将特和
+
+使用该架构在图级别任务中获得
+
+羊本数目
+
+莉的时间和至
+
+间复杂度为 O(n2)，
+成功, 但其无法应月
+
+合与表达能
+
+s GraphormerHg等模型
+黄图中。很多工作
+
+如 Informerl74，Autoformer08和 PerformerI9优化了 Transformert5的复杂度但尚未针
+
+对图领域，而 NodeformerI4充分利
+
+用了图结构且将复杂度降至线性使之具有可扩展
+
+也有许多研究利用采样来缓解可扩展性的问题, 其通常会使用各种采样方法从大
+图中获取子图进行特征编码, 采样方法大致分为三种: 1. 节点级采样: GraphSAGEII和
+
+PinSAGEC29等算法对每个节点采检
+
+的邻居数量
+
+革进行了限制而不是采样所有邻居 2. 层
+
+级采样: FastGCNPU等算法限制模型中每
+
+层的邻居采样
+
+数量 3. 子图级采样: Clus-
+
+terGCNLI 和 GraphSAINTC3I等工作不同与前两者围绕一些中心节点对邻居采样，其
+
+时，内存和时间消耗的增长也不会太大。
+
+2.3 图分割与聚类
+
+ 分割可以用于子图采样如 ClusterGCNP223，也能用于聚类。传统的图分割算法
+如 Metis204和 Graclus25等直接利用点和边特征
+
+好的分定，基于深度学习的算法如 DAEG29和 GAPC27等通常会对节点
+之后再进行分割与聚类。由于聚类通常会将拥有相似特征的边和节点
+
+中, 所以直观上艇包含能概括本簇中所有节点和边的特征信息,这种信息
+
+或者边的编码。然而现有图分割算法只针对对
+
+方面的作用, 针对除训类任务之外的下游任务如节点级人有
+
+在整个大图中使用茶种全略直接采样在干个子图。这些方法提高了模型感受野的同
+
+通过贪心算法能在大规模图中获取较
+
+和边进行编码
+放入同一个复
+
+“有利于节点
+
+琵类任务，没有控究聚类在节点特征编码
+
+获得聚类后再进行进一步编码解码来得到结果，聚类结果在这种两步
+不是任务导向的可能并不能很好地适应特定任务。虽然 ClusterGCNP2中使用了图分
+
+S
+
+问题定义
+
+(LUD
+
+训获得划分并以此来训练，但其没有显式地编码与利用每个艇的特征。
+
+F务较少。许多工作通常是先
+
+式流程中由于
+
+不失一般性地，令 9 = (2,2) 表示为一个拥有上万节点的大规模图，该图拥
+
+存在则为0。对于任意一个节点 vw，其拥有特
+
+E。边集通常会表示为
+
+个邻接惩阵
+
+邻接算阵 A 中的元素 oz 为 1，若不
+征 zw E 有ex，对于任意一个边 e，其
+拥有特征 ze E 及“sewee 。本文针对节点级的节点分类任务，每个节点 "
+
+拥有一个标签
+
+名ER ，那么节点分类任务可以表示为:
+
+F(Xnode， 入edoe， A) 一 了
+
+其中下为模型如 GCN 等，Xiou 二 {fzulu e I 为节点特征集合，Xsue 二free8]
+为边特征集合而立 为模型得到的节点分类结果。此类任务致力于提高分类准确度即
+
+1        _
+
+ucy
+其中工为指示函数，当其中条件成立时为1，反之为0。
+
+一般来说模型下 可以分为直推式和归纳式，直推式模型在训练时能够看到测试
+数据但是只能处理固定的图结构无法分类加入的节点，而归纳式模型训练时只需要
+训练数据，可以分类从未见过的节点。为了更具实用性，本文算法设计为归纳式。
+
+4.，提出的算法: ClusterALL
+
+受启发于 Graphormerlg等研究中利用“读出”操作获取全图表征的做法以及
+ClusterGCNE的聚类预处理，本文提出了基于聚类的节点表征增强算法 ClusterALL。
+该算法的核心思想是通过图分割获得图聚类，然后回原图中添加簇中心节点显式统
+码与“该出”簇特征，最终聚合艇中心节点和节点来增强节点表征，从而提高下游任
+务的效果。本算法包含了数据预处理模块、表征增强模块以及一系列训练与推断流
+程，主要针对节点级任务，扯在利用可学习的聚类以及笋中心节点在全网的感受野
+捕获有助于增强各个节点表征的有效信息，从而提高不同模型在相关任务中的效果。
+此节将先提出本算法 ClusterALL 的整体流程包括算法的输入输出以及其训练与测试
+过程，之后进一步详细曾述算法的核心模块一一巴处理模块和表征增强模块，然后对
+本算法从聚类角度解释并提出相应的模型训练策略，最后进行算法的复杂度分析。
+4.1 算法流程
+
+设原图9 = (2,5E)含有立个节点和互条边,且原图可以分为两个互不相交的子图
+9 = {GoaiGsestj， 其中Goroan = (aeEiain) 为包含 Vroin 个节点和 天raan 条边的训
+练子图,Gfes = (ost Sies) 为包含 Wes 个节点和 羽es 条边的测试(包含验证集)子图。
+
+
+训乡
+生息。 属于不同秘的节点         训练
+合合多 对应不同候的筷中心节点     四
+原始边 预处理         分   网
+-- 连接艇中心节点的边    |
+大-
+三三= 。馈的分界线       |            人
+1                      -售       5
+|            SSeSe | ，
+载入扎信息
+训练子图                            人
+加入测试数据                                                    <大汉
+
+图 1 ClusterALL 算法流程
+
+两个子图的节点集合互斥, 边集合同理, 故Y = 全加十Vs 忆= 书om十已es 原图
+的节点特征为和 = {Xerazo Xe E 有7xD ,其中Xeoam E 了orx 和Xe E 要Verxm，
+万 为特征维度。
+
+ClusterALL 算法流程见图1 〈放大版的图见附录中图18) ，本算法包含一个核心
+概念和两个核心模块;
+
+。 核心概念: 复中心节点〈cluster center node)，记为 CCnode。簇中心节点在图分
+割后加入原图，用来代表和表征一个笠，复中心节点会被注册入核心模块二中
+的 RAC 模型中进行学习。令图分割获得K 个秘，则复中心节点集了包含到个
+复中心节点，复中心节点的特征扎阵为Xe 及ix2。下文中带有 . 上标的字符均
+代表与复中心节点有关。
+
+核心模块一，预处理模块C。预处理模块中包含两个主要步骤:图分割操作 了
+和图增广操作A。 令聚类数量为凡，图分割操作将原图的节点分为多个簇〈节点
+集) {肠六1，这些复为原节点集Y 的划分。图增广操作将簇中心节点连接到原
+图, 那么增广后的图为 = (2上),， 其中增广后的节点集了包含站 =六十江个节
+点，增广后的边集& 包含婧= 妃上+大个边。增广后的特征矩阵为入 < 玉 TDxD。
+下文中囊有 Vv 上标的字符表示其已被增广。
+
+。 核心模块二: 表征增强模块了。其中包含一个深度学习模型表征增强聚类器
+
+
+RAC，记为 ML 和一个复更新操作 U。
+
+以上模块和概念将在后面小节详细说明。在算法流程示意图中，图结构由多个圆圈
+和边组成并被矩形框包于着，图结构中各个形状与图标的意义可见图1左上角的图例:
+空心圆圈代表为被聚类的节点; 实心圆圈是已经聚类之后的节点,不同的颜色表示属
+于不同的能; 实心矩形代表艇中心节点，其颜色对应不同簇; 实线是原图中的边; 虚
+线代表贡点与和驴中心节点的连边， 不同颜色的点划线是不同复的边界线。
+
+整个流程从训练子图 Go-oan 开始，算法的训练和测试部分略有不同: 训练部分会
+学习模型参数以及能并得到优化后的聚类结果; 测试时会将测试子图 Gees 和优化后
+的聚类结果载入训练子图 goruin 进行推断，最后测试节点也会被归入到相应簇中。
+
+反
+
+4.1.1 训练流程
+
+Algorithm 1: Training Step
+Data: training subgraph Goroirn 一Train Etraipnj node features Xiroin, label
+Yzrainy nuUmber of clusters 天
+Result: node representation (including cluster nodes) si clusters {户冯 ，
+RAC'S parameters {T
+1 pre-processing Goroiry Xiorai{fPiA 二 C(Goroin Xerain);
+2 Output roin {P{开太，生T(了R， Grain Xirrainy roin)
+
+训练时将训练子图 Grain 输入，经过预处理模块 C 和表征增强模块下 的帮代训
+练后可以获得模型 M 学习好的参数 {TTP 1、训练节点的表征以及更新后的聚类结
+果即每个训练顶点对应的复。
+
+预处理模块 C 中包含聚类操作 卫 和图增广操作 A〈如图1中 pre-processing 部分
+所示)，聚类操作使用 Metis 算法作为聚类器，其可以将图进行划分获得天个互不重
+登的钞，此聚类结果将作为初始状态为后续的操作进行铺垫。得到初始的簇之后将进
+行图增广 A，为每个复创建一个复中心节点并加入训练图 Guo 中，然后各个复中的
+节点连接它们相应的簇中心节点即添加额外的边。总的来说，预处理模块 C 将输入
+的图 Goua 聚类并语加了多个簇中心节点和边，输出增广图 Geren、被增广的节点特
+
+人广
+
+征 Xiroin 以及绢类结果。
+
+
+增广之后的图便可以输入表征增强模块卫中进行模型训练以及聚类的更新，此
+为图1中的训练迭代部分了，在每一轮友代中，被训练的图的聚类结果都将得到更新，
+当到达和友代最大值后将输出最终的到类结果，该聚类结果与所用模型和当前任务密
+切相关。
+
+训练流程的公式化表达见算法1，其中预处理模块 C 和表征增强模块卫 与相应的
+
+模型训练策略工将在小节4.2和小节4.3详细阐述。
+
+4.1.2 测试推理流程
+
+测试过程需要输入训练子图 onm、测试子图 Ges 以及训练所得簇，将它们整合
+好之后输入表征增强模块正即可获得测试节点所对应的侯以及测试节点的表征。
+体来说，测试子图 Ges 先与训练子图连接 ru 获得图 9 (大多数情况下图 9' 即为
+初始大图9)，然后加载训练获得的桶类结果并加入篮中心节点以及相应的与训练节
+点连接的边进行增广。将包含簇信息的图笨入训练好的表征增强模块中运行一次即
+可将测试节点归纳到不同艇之中同时获得它们的表征，此时聚关结果也将得到更新。
+公式化的测试流程见稀法2。
+
+以上算法流程显示地设置了全局的筷中心节点，在训练过程中篮中心节点的特
+征得到持续的学习并保存在模型中，模型也会学习如何利用胡中心节点的信息编码
+节点与增强其特征表达，同时艇也会进行更新以适应节点的编码。在测试阶段，训红
+数据也会参与推断，为测试数据的聚类提供一定程度的监督信息。
+
+和烟
+
+到
+
+Algorithm 2: Inference Step
+Data: training Subgraph Grainy testing Subgraph Ciesr, node features
+兴 一 {Xirain， Airest， clusters {户入-
+Result: node representation (including cluster nodes) X, prediction 立,clusters
+{Pij-
+1 adding testing graph into training graph G/ 入 Goroin Goese ;
+2 augment graph with trained clusters 9 X 和 A(90X{记站)
+
+3 Output 大,Y,{万二 MG X) ;
+
+10
+
+4.2”预处理模块
+
+预处理模块 C 包含图聚类操作 下 和图增广操作 信，如图1中 pre-processing 中所
+
+展示。本文的图聚类策略是先使用一个快速的不需要学习的算法对原图进行初始化
+
+划分, 然后通过本模型的训练来优化聚类结果。这类图聚类或分割算法有 Louvain5251、
+Graclus25 和 Metis算法等, 它们的划分目标是最大化复内节点之间的相似度且最小
+化复之间的相似度，评价该相似度的方法不同算法不一，如 Metis 尽可能使簇内边多
+而使复间边少。本文参考 ClusterGCN 选择了多层次k 路划分实现的 Metis 算法，其
+有多个优点: 1. 运行效率高，百万级别的大图只需要十几秒就能划分成上百个能，比
+
+总
+
+其他和见的图划分算法快一到两个数量级，非常适合于大规模图，具有可扩展性 2.
+
+将图划分为若干个节点数量较均等的和能，增加每个艇初始的感受野，使得簇的在学习
+
+初期能够获得更多信息进行调整。艇的数量 k 作为超参数需要人为设置，聚类乡
+
+震果由
+
+{Pi2   一   了(Georain)
+
+其中国聚类操作 下 为 Metis 算法。
+
+Algorithm 3: Graph Augmentation 从
+Data: graph g = {六,2 node features X, clusters {户}生1]
+Result: augmented graph 9 = {们,5j} ,augmented features 六
+create CCnode setY 一 {2 DO
+augmentnode set了2 一了 U 了
+augment edge set 一ELUE
+// initialize cluster nodes' featuresg
+让 azzzg then
+for7 二1tokdo
+end
+
+0 呈
+
+个 人 情
+
+vv
+
+8 end
+augment node feature set 各 一 买[ 六}大1
+OutputG = {P,E 入;
+
+站
+
+1
+
+一
+
+图聚类操作只是将节点归类，而独增广操作 信〈见算法3) 则将这种归类显示地
+表达在图中。图增广分为两步: 1. 向原图中添加能中心节点和相应的边 2. 初始化艇
+中心节点特征。令簇中心节点集为7 = {on oor}，原节点集为了，那么增广之后
+
+11
+
+了了=7uUD
+而与复中心节点相连的边集 为
+天
+E=LjfooooesP)
+?一|
+
+令原边集为E5，则增广之后的边集 上 为
+
+ESEUE
+
+将入中心节点和相关的边加入原图可以显式地提供节点之间的关系，使得节点编码
+时每个节点可以利用得中心节点和与之相连的边来获取同一复中其他节点的信息, 能
+够扩大学习的感受野，艇的特性也保证了只有相似的节点能够相互学习，本文利用这
+种选择性学习来提高节点特征的表达效果。
+
+由于在表征增强模块中复中心节点要与原节点一同编码，所以要进行徐中心节
+点特征的初始化，此过程在训练和测试部分略有不同。训练阶段中，入中心节点的初
+始化方式是取艇中节点特征的均值，令原节点特征为和，第工个能中市点的数量为
+|P，则复中心节点疡 的初始特征 放 为
+
+2 全 了工 >， 2
+|有Pi|
+
+VE刀;
+
+A
+
+复中心节点的初始化特征将会被注册为表征增强模块正中的可学习参数随着该模块
+起学习，学习结束后表征增强模块中包含能中心节点特征，所以在测试阶段，艇中
+心节点特征的初始化不用显式地进行，只需要加载表征增强模块即可。
+
+Algorithm 4: Pre-processing Module CC
+Data: graph g = (人,Enode features 入
+Result: augmented graph g = f人,2 ,augmented features X, clusters {万]
+1 clustering using Metis {P} 全 了(9) ;
+2 augments graphg = (人,上 二 A(9,{甩上代 ;
+3 Output 9, X,{fPi Ai) ;
+
+12
+
+总的来说，预处理模块 C《〈算法4) 基于图分割结果增广了原图，为后续表征增
+强模甘提供信息更加丰襄的图结构，确保节点能学习到艇的信息。
+4.3 ”表征增强模块
+
+1                        人
++名 4     1 Rac        Me “”,令
+/一音 必 3                      9
+g   和站
+,人镶                      @ 2
+四                          外
+载入簇信息的图                                                                                                     聚类后的图
+
+ 2 表征增强模块的推理流程
+
+表征增强模块下包括可以学习的表征增强诊类天 RACMI 以及不需学习的能更新
+模块 TU。训练阶段需要使用训练货略工对模块下进行运代学习，而测试推斯阶段只需
+要运行一般即可，方便起见本节上只考虑推断阶段〈如岁2) 中该模块运行的情况。参
+考预处理模块 C 的数学表示，表征增强模块下可表示为
+
+Algorithm S: Feature Augmentation Module 下
+
+Data: augmented graph g augmented features XX
+Result: updated augmented graph 9, node representation X, prediction 立
+.updated clusters {亡;}大|
+1 ,了 {万六 MG,X) ;
+2 和UP
+3 Output 9,X, 了,{万]，:
+
+4.3.1 “表征增强聚类器 RAC
+
+表征增强聚类器 M 输入增广图，输出预测值、增强的节点表征和更新的复，在
+训练阶段，复中心节点的初始特征 {2}写1 被注册到模型中学习，使之能学习到全儿
+
+的筷信息，之后用该科信息进行推理。
+
+13
+
+邻接矩阵 下六
+
+              上-噶四                                                                                 钱中心节点的偏置 BC
+2，        恒吓…恒国                                                    站
+      | |   独              2   1   国               Con    FFN2 一”Decoder -一一”预测值马xo
+| Le | | 因曙…畏大                 击…旧天|           区       区
+| 二     避-         -刘                        王寺             时      村
+              6           M                男面…国羡            FFN1                                      间              避 |        |         人                                 |                                                               节点表征
+| SC十地              [本本…面图 |           到                                         L                           凯国，                                                   1                                                                各
+|  di 、     天           F     本清和   3)     二
+      和国国…               | Ru
+|国国… |          秘中心节点的偏置
+本|                                       * 篮信息M
+已增广的图     蝇乔蝇          ao 上|                                          全信必Wi
+特征素zxp
+(节点 羽xp & 簇中心节点 允xnp)                                               钱中心节点的偏置 BG) ws
+
+图 3 表征增强聚类器 (RAC) 结构
+
+如图3〈放大版见附录中图19) 所示, RAC 模型主要由两个向前传播模块 (FFN)、
+码器 〈Encoder)、注意力模块 〈attention module) 和解码器 〈Decoder) 构成，整个
+模型架构可以由它们分割成五层,详细的数学表示见算法6。 在图中, 特征矩阵 Xyxp
+中每一行代表一个节点的特征向量，每个特征向量的颜色代表所属徐，最后有 个向
+量〈图中天= 3) 为篮中心节点的特征，之后的伟入拒阵也是同样的含义。图中每个
+模块都附有该模块输出空间 及，如果处于第! 层，那么该层的输出的维度为 瑟(。
+在不同层之间还会为复中心节点的嵌入加上偏置以提高徐中心节点的学习效果。
+令第! 层的张量为XO) e 了7xa ，其中 万O 表示该层的钳入的维度，那么向前传报
+模块可以写为
+
+于
+
+FFNOXUD) 一已EUUN(Uinear(广人让)
+
+其中 Zinear(:) 为全连接层用于空间维度的转换，ZV() 为层标准化用于提高模型的
+泛化能力与鲁棒性，同时由于层标准化与样本数量无关所以非常适合节点《样本) 数
+量不定的图结构:PPT() 为ELU 激活函数。本表征增强模型是插件式模型，其中的
+编码器可以是其他现有模型，只需要将现有模型的输入和输出维度微调即可插入本
+模型进行运行。由于本模型利用艇信息学习，学习的过程与图的划分等因素相关，所
+以编码器学习到的参数与其原本学习到的不同。针对不同任务解码器会有所不同, 本
+文使用全连接层进行输出。
+
+对于直推式学习，模型训练过程中可见测试数据，所以在训练时便可提前将训
+试节点归于不同复中，然而作为归纳式模型，训练时只可为训练数据划分欠，所以
+如何将新加入的测试数据划分到己知的复中是一个问题。针对这个问题，参考 Trans-
+
+上
+
+14
+
+former15和 GAITDI等工作，本文设计了注意力横块。注意力模块会计算每个节点与各
+个复中心节点的注意力。令节点伦入为 H e 了7>x妃，艇中心节点嵌入为百 E 及sx也，
+中 玖 为嵌入维度，参考 Transformerll，设计两个可学习和抢阵 WW,W e 有Ex二 用于投
+影谋入，则注意力怎阵 4 E 了 产 的计算如下:
+
+了= HWw,了= HW
+4= softrmaz(EE2”)
+
+号到的注意力有两个作用。首先用于更新艇,每个节点寻找最大注意力的复中心
+节点，然后被重新划分于对应簇中，得到更新的聚类结果 {Pi};
+
+{P六 = 47rg70az(4)
+
+其二是进行节点表征增强，先根据注意力矩阵计算能中心节点颈入的加权平均矩阵
+He 了RYxa，将该矩阵与节点嵌入进行拼接后输入向前传播模块 已FNs 获得增强的
+节点特征 He 及Yx28，
+
+He 一 4H
+Ho = 忆NNo(concat(H, Ho
+
+concat(.，) 在特征维度拼接失阵，因 再 大小为了 x 刀，Heoo 大小为六Xx五，所
+以拼接后的维度为了 x 2互。
+
+Algorithm 6: Representation Augmentation Clusterer (了RAC) 人4
+
+Data: augmented graph 9，  augmented features 入
+
+Result: node representation X, prediction 立  updated clusters {肠汽，
+gets the first-layer hidden variables Hil 二 已PNI(X) ;
+
+encodes hidden variables 百2 二 瓦ncoder(HD) ;
+
+splits nodes” embedding and cluster nodes” embedding H2, H2 二 了2 ;
+gets attention 4 from attention module ;
+
+gets welghted cluster node embedding He 二4H
+
+concats embedding in feature dimension Ha < comcat(HL H。y) ;
+
+gets node repfesentation X 全 下已No(Hs) ;
+
+gets prediction 立 二 Decoder(和) ;
+
+名信人上
+
+gets updated clusters {万才， 和 argmaz(4) ;
+Output X, 站,{万] | ;
+
+玫
+己
+
+19
+
+4.3.2 ”徐更新
+
+复的更新展现在图上即是节点与簇中心节点的连边发生改变。在获得更新的艇
+{方}， 之后复更新 U 即为边的更新;
+
+EeeohGo las天
+本 <E=-ESEUC
+
+4.4 模型解释与训练
+在大规模图训练时小批量学习很常见，现有的模型通常在原图中通过多次采样
+或者图分割的方式获取子图进行训练，这种情况下，无论采样或分割策略如何设计，
+每一批子图中都只包含该批的信息，其获取的总是局部信息，其用小图的数据分布近
+似原图的数据分布，这种方式会带来无法忽视的偏差。为此，本算法设计了全局的复
+中心节点，复中心节点对应全图图分审结果并接入原图，此时簇中心节点编码后能够
+抽象与概括各个复的信息，簇中心节点集实际上即可看作全图的特征。为了缓解传统
+小批量学习带来的偏差，复中心节点将注册到表征增强聚类器中，原节点在进行编码
+时便可以利用对应入中心节点的信息，而簇中心攻点包含全局信息，所以即使在小批
+量中,每个节点仍然具备全局视野并利用相关信息，从而缓解了小批量学习中数据分
+布的偏差。
+
+为了设计具体的神经网络结构,本文参考了传统聚类步又,将表征增强聚类器设
+计为一个类聚类器。以经典的 -Means 算法为例，其聚类的过程为， 1. 设置聚类个
+数丰，初始化质心位置 2. 计算各个样本与质心的距离 3. 每个样本归入最近的质心对
+应的复，徐由此更新 4. 使用新簇中的样本计算每个徐的质心 $. 重复步骤2到4，直
+到质心不再变动或者达到最大友代数《〈如图4)。
+
+所
+
+]     |                      ]                            ]     |                      ]            一 人人~             -人
+一 质心初始化 上 距离计算 加 氮更新“上 质心更新 |王一融和杰/最大渤次早一 全 聚类结束)
+
+|
+
+2
+所
+
+图 4 一般训类流程
+
+不同于KMeans 只有一个空间, 本模型 M 含有两个空间: 原特征空间、嵌入空间。
+
+106
+
+以图3中所示,节点特征在未经过严PNi 层之前处于原特征空间,在经过 FJNi ,Enpcoder
+的编码之后进入嵌入空间，在吹入空间中通过注意力模块使用内积衡量质心和样本
+的相似度，越相似内积越大，从而距离越近。由于这两个空间的存在，质心也分为特
+征空间中的和册入空间中的: K-Means 中的质心对应圣入空间质心，该质心的更新在
+距离计算之前，随着编码隐式地进行; 特征空间质心即为簇中心节点，其位置随着模
+型学习，扔入空间质心的生成依赖于复中心节点的位置以及簇中心节点与节点的连
+接关系。总的类比来看，节点为样本、往中心节点为特征空间质心、编码器进行蔡入
+空间质心的更新、注意力模块用于计算样本与嵌入空间质心的距离、4rgmaz 操作和
+后续的镑更新模块 U 用于更新徐。训练阶段本模型会不断迭代学习特征空间质心的
+位置、如何从特征空间转换到骨入空间以及如何计算距离，推理阶段不需欠代可以
+一步获取结果，聚类流程如图$。基于一般的聚类流程设计，本模型有一定的解释性。
+需要注意的是，本模型最终目的还是针对特定节点任务而非生成最好的聚类结果，此
+聚类结果只是模型的副产品，以上只是从聚类的角度对模型进行分析。
+
+入节点初始化     芍公你加时宅 上一> 距离计算 器  侯更新
+
+图 $ 本模型聚类流程
+
+实际训练过程中如果注意力模块和编码器一同学习, 由于编码得到的典入也不稳
+定，容易导致大部分节点被归于同一簇。考虑到注意力模块可学习参数一般较编码器
+少的多,注意力模块的训练策略有所不同,其不在每批进行更新,而是隔4d批更新。令表
+征增强聚类器 RAC 的可学习参数为 T)Miji，其中 忆FN Encoder FFNNa Decoder
+的可学习参数为 ,Ms 5，注意力模块的可学习参数为 My3，那么本模型的学
+习策略为算法7。在实际训练中，考虑到作为编码器的原模型也需要时间学习，其在
+训练初期编码的特征可能不太有效，这时如果注意力模块一同学习可能会导致双方
+的学习效率低甚至学习到错误信息而过早进入局部最优, 因为相对于编码器, 注意力
+模块通常含有较少的学习参数，所以提出了针对注意力模块的热身策略，即先锁定
+主意力机制进行训练, 在 几个迭代轮次之后将其解锁使之随着整个模型一同训练，vw
+需要人工设定〈算法7中未体现热身策略 )。
+
+一<
+
+17
+
+Algorithm 7: Training Strategy工
+Data: augmented graph 9, augmented features X, label 下
+Resujlt: graph with trained clusters 9. models parameters {)M}
+
+1 4和updating gap ofattention module;
+
+2 0attn < 0 )
+
+3 for:z 二1to7p2az ?ter do
+
+4 | runsRAC 7{甩入 二MG,X)
+
+5 | updates clusters in the graphg < U({甩做) ;
+
+6     calculates gradients g, 9， 二 VEL(ZY) ;
+
+7      updates {)M MA Ai using gradient 9 ;
+
+8     gattn gattn 十 390in ，
+
+9      讶?2%d = 0 then
+
+10          updates ]4a using gradient gozrr ;
+芋         gotm 0U
+
+12      end
+
+13 end
+
+14 Output 9， 人人和，
+
+4.$ 复杂度分析
+
+本节将依次从聚类操作、图增广操作以及表征增强模块分析本算法空间和时间
+上的复杂度。聚类操作使用的是 Metis 算法，Metis 算法先随机获得一组节点的匹配，
+使得每个节点最多与另一个节点匹配上，匹配结果是边集，匹配过程对边进行操作，
+所以该过程的时间和空间复杂度为 O(|B)。配到一起的节点看作为一个节点，以此
+来粗化原图，目的是减小图的规模，多次匹配和粗化后获得一个小图，另进行了次
+迭代，那么此过程的时间复杂度为 O(中刀)。接下来进行分割操作，交换节点使得匹
+配变化,使用一个启发式的指标评价交换后的优劣,等达到最大交换次数或者评价指
+标变化幅度小于阅值则停止交换。然后进行细化即粗化的逆过程，将合并的节点拆
+开，然后进行改善操作，思想与分割操作基本一致，也是交换节点贪心地进行改善，
+以上步又一直重复直到图恢复到原图。以上操作有不同变种, 总的来说时间和空间复
+条度为 OU ZI)。图增广操作将得中心节点和相应的边加入原图中，由于每个节点都
+必须且只能属于一个复，所以该操作的时间和空间复杂度为 O(|VYI)。聚类和图增广
+作为预处理都在 CPU 中进行，所以实际上空间上的消耗可以忽略不计，其总的时间
+复杂度为 O(W| 十|五)，实际运行中由于边数量通常会比节点数量大一到两个左右数
+量级上且 Metis 算法时间复杂度有一定大小的稼数项，所以预处理的时间大部分还是在
+
+18
+
+聚类，不过百万节点级别的大图仍然可以在十几秒内完成聚类,，且每次训练只需进行
+一次预处理，所以这部分的时间消耗基本上也能忽略。
+
+表征增强模块包括 RAC 和艇更新模块。侯更新模块更新节点与驴中心节点的连
+青况，时间复杂度为 O(IVY|)。神经网络的复杂度主要在编码器和注意力模块，纺
+
+一一
+
+接
+
+码器是任意模型所以复杂度不可控，令其为 O(Pncoder)。注辣力模块需要将节点内
+
+入与复中心节点能入相乘，另艇中心节点数量为 9，则该模块时间和空间复杂度为
+
+Of(dlYj)。那么表征增强聚类器的时间与空间复杂度为7naz(O(LBmcoder),O(d|P))， 这
+也是表征增强模块总的复杂度。一般来说，编码器的复杂度不会低于 OUV|)，所以该
+
+模块的复杂度可以写为 O(BEncoder)，
+
+还是基本上
+
+委撕
+
+和入的外部模型决定。
+
+因此,基于理论和实际情况,本算法带来的格外时间和空间复杂度不会对加入的
+
+模型造成明显的影响。
+人
+5$.， 买难
+
+本文着重研究节点级任务中的节点分类任务，
+
+使用 OGBP?1 (Open Graph Bench-
+
+mark) 中的 ogbn-arxiv 和 ogbn-proteins 数据集《〈见表1)，它们拥有超过十万个节点和
+百万条边的图,适合用作大规模图进行模型训练与测试。数据集 ogbn-arxiv 为论文之
+间的引用关系图，每个节点代表“论文”对象，节点之间的边代表“论文”之间的
+“引用”关系，任务是利用“引用”关系和“论文”节点特征判断“论文”所属的学
+科，一共 40 种学科; 数据集 ogbn-proteins 为蛋白质关系图，每个节点代表“和蛋白质”
+对象， 边代表蛋白质之间的化学联系,任务是判断“有蛋白质”是否拥有指定的 112 个
+功能。以上数据集均为同构图即每个节点都代表同种对象、每个边代表同种关系，同
+
+时本文将它们都看作无向图进行处理。
+
+因为本算法作为插件用于增强模
+
+型效果，所以使用比较简单和经典图神经网络
+
+进行对比，包括 GCN、GraphSAGE 和 Nodeformer，并使用全连接模型作为基线。本
+
+文实验平台为 11GB 显存的 NVIDIA GeForce RTX 2080 Ti 显卡以及 2.60GHz 频率的
+
+Intel(R) Xeon(R) Gold 6240 处理器。
+
+19
+
+
+数据集
+
+表1 数据集
+
+点数    边数
+
+oOgbn-arxlv         169,343 ”1,166.243
+
+ogbn-proteins
+
+5.1 ”实验效果对
+
+比
+
+任务类型              指标
+多任务分类 accuracy
+
+132,S34 39.561,.2$2 ”多任务二分类 ROC-AUC
+
+本节先获得待测试模型在 ogbn-arxiv 和 ogbn-proteins 数据集上的测试结果作为
+对照组,然后分别给它们添加 ClusterALL 算法再次测试获得实验数据进行对比,表2和
+
+表3分别展示了两个
+
+型结合 ClusterALL
+
+Nodeformer 模型使用线公
+
+进行编码, 其中除了 GCN 是直推式模型外，
+
+“MLP + ClusterALL, k=3”表示 MLP 模
+
+且育类数量为 3。MLP 作为基线，不考虑边只对节点进行编码，
+注意力机制可以编码全图的贡点特征以及图结构，GCN 模
+型是经典的图神经网络一定程度上能反映大部分模型的机制，GraphSAGE 基于采样
+
+他都是归纳式模型。从表2和3可见, 在
+
+添加了 ClusterALL 之后，所有模型的效果都
+
+而提高其在不同任务中的效果。
+
+得到了提升，可见本算法可以很好地与
+直推式和归纳式模型进行结合，能够有针对性地增强模型所编码得到的节点特征从
+
+表 2 ogbn-arxiv 测试结果
+
+Model
+
+MLP
+MLP + ClusterALL, k=3
+Nodeformer
+
+Accuracy (50)
+
+56.12
+S7.71
+67.92
+
+Nodeformer + ClusterALL, k=$        08.06
+
+GCN
+GCN + ClusterALL, k=3
+GraphSAGFE
+
+72.10
+72.8S
+71.87
+
+GraphSAGE + ClusterALL, k=$       72.04
+
+S$.2 ”消融实验
+
+本算法的核心模块在于预处理以及RAC
+
+中的注意力模块，本节通过去除核心模
+
+原图，不进行预处班
+
+到的节点表征直接进行解码，由于不存在艇
+
+20
+
+操作即图聚类和簇中心节点的添加; 注意力模块被移除，编码得
+中心节点，所以与艇中心节点相关的可
+
+部分具体见图6: RAC 模型输入的网为
+
+
+表 3 ogbn-proteins 测试结果
+
+Model                                    ROC-AUC (50)
+MLP                                               72.08
+MLP + ClusterALL  k=10                   73.S8
+Nodeformer                                      76.84
+Noderformer + ClusterALL, kK=10        77.78
+GCN                                               72.49
+GCN + ClusterALL, k=3                     73.28
+GraphSAGE                                     77.36
+GraphSAGE + ClusterALL, k=2          78.37
+邻接矩阵Xwr
+
+RYxoO
+
+FFN2 | ,Decoder 一”预测值蕊xo
+
+民芭BE4
+节点表征
+大
+
+Tx卫9
+
+一 FFN1
+展下兵D)
+
+忒 X
+(节点 思xp& 簇中心节点 叉xm)
+
+图 6 模型消融示意图
+
+学习仿置被移除。由于以上三个部分环环相扣必须进行预处理后才有簇中心节点以
+及之后的编码与簇更新，所以只能三个部分同时消融不能进一步分解消融。消融实
+验使用MLP、Nodeformer、GCN 和 GraphSAGE 模型在 ogbn-arxiv 数据集中进行，评
+价指标为准确度〈%)，实验结果见表4。表的中间列“with ClusterALL, k=0”代表消
+融的 ClusterALL 算法即图6所展示，进行对比的非消融模型使用的袁类数量民统一为
+3，此时的聚类数量不一定为最优的。即使非最优聚类参数，ClusterALL 的加入也能
+一定程度提高原模型的效果，说明本文的基于深度聚类的核心思想有效，簇中心节点
+带来的全局的、跨批的信息有助于节点的表征。
+表 4 消融实验测试结果
+
+Model           with ClusterALL, k=0 with ClusterALL, k=3
+MLP                      56.929%0                     S7.719%4
+Nodeformer             67.839%40                     07.949%0
+GCN                      72.7290                     72.8S9%0
+GraphSAGE            72.3890                     72.40%0
+
+21
+
+5.3 超参数测试
+
+一 使用 clusterALL
+一- 原始核型
+
+妇                                                                        黄 68.2
+昌                                                                                旺
+手 56.8                                                                    坦
+68.0
+三村 -YL
+56.4                                                                       昌7.吕
+56.2
+7三
+56.0
+1       2      3      寻      三      10     25     50     100
+聚类数量 k
+图 8 Nodeformer 模型
+72.8                                                                       72.6
+人了                                                                       72.4
+72.折
+加                                                                         吉72.2
+全 72.5                                                                    划
+加 72.4                                                                    旺720
+72.31 pp
+72.2                                                                       71.8
+72.1                                                                           一一 使用 ClusterALL
+人人
+72.0
+1       的      3      了      5      10     25     50     100                        1       2      3      4      三      10     25     50     100
+聚类数量 k                                                               聚类数量
+图 9 GCN 模型            图 10 GraphSAGE 模型
+
+图 11 育类数量在不同模型中对准确度影响
+
+为进一步探完超参数聚类数量大对本算法 ClusterALL 效果的影响,本节在 ogbn-
+arxiv 数据集中使用不同天测试各个模型，得到如表11所示的结果，表中虚线为单独
+使用原模型的效果，实线为添加 ClusterALL 获得的结果。总体来看，在聚类数量天
+在 100 以内时，大部分情况下添加 ClusterALL 的模型都能获得更好的效果，随着聚
+类数量从小到大变化，ClusterALL 的效果先增加后减少。对于大多数模型，聚类数量
+不用很大《通常在 10 以内) 便能获得几乎最好的结果，为此本文的解释是聚类数量
+过大时可学习参数较多，绢类情况较复杂,， 模型无法在有效时间内完全较好的编码与
+聚类学习，从而导致效果下降，当到类数量较小时，模型可以更专注于编码和特定几
+个聚类特征的学习，此时每个复的规模很大，复学习到的是更加抽象的特征，而艇中
+心节点的存在使得同复内的节点可以相互学习，所以节点能够在图中有选择地获取
+全局信息，这样有利于节点特征编码。Nodeformer 模型在部分聚类数量下获得了较
+差的结果，这可能因为该模型本身具备全局感受野，而 ClusterALL 的簇中心节点也
+
+则|
+
+山
+
+22
+
+祥
+
+能从全图的特定节点即复中抽象特征，当聚类节点不合适时，高度抽象的复特征可能
+会扰乱原模型的全局编码效果。
+
+如小节4.4提到的,本算法还包含用于训练注意力模块的超参数更新间隔 d。本节
+使用 GraphSAGE 模型在 ogbn-arxiv 数据集中测试更新闻陋对准确度的影响，实验结
+果如图12所示。图中虚线表示不更新注意力模块，或者可以看作更新间隔为无穷大
+d = co，实线为更新间隔改变后准确率的变化曲线。从图中可见准确率随着更新闻隔
+兽大先提高后减小，当更新闻隔在 200 左右时准确率能达到最大，说明本文提出的训
+练策略对于注意力模块的学习有效，验证了小节4.4中的猜想。
+
+0                       19                     49                     199                    499
+更新闻隔
+图 12 注意力模块更新间隔对准确度的影响
+
+5.4 聚类效果分析
+
+考虑到以节点任务为导向的情况下，聚类结果通常没有外部标签进行监督,所以
+本文使用内部指标进行聚类效果的评估。内部评价指标通过计算聚类结果中同类中
+样本紧密程度以及不同类间样本的疏离程度评估聚类的优劣，常用的指标有轮廊系
+
+23
+
+数B0、CH 值E1和戴维森宝丁指数B2 (DBI) ，由于轮廓指数复杂度太高不适用于大
+规模图所以本文使用CH 值和DBI值进行评价。CH 值范围为 [0,+co)，CH 值越大表
+示聚类效果越好，DBI值范围 [0,+ce)，该值越小聚类效果越好。
+
+本算法加入的簇中心节点以及可学习的注意力模块能够帮助原模型在针对特定
+任务的情况下获得更加便于聚类的节点表征。为验证以上说法, 本节使用 GraphSAGE
+模型在 ogbn-arxiv 数据集上进行实验，分别得到 ClusterALL (KE = 5) 添加前后训练
+时的节点表征，然后使用 sklearn 库中的小批量 RMeans 算法进行同聚类数量的聚闫，
+最后利用 DBI 和 CH 值评估，获得图1$展示的结果。首先单独看原模型的情况，随
+模型训练，DBI 值先下降后持续上升，CH 值先上升后持续下降，编码得到的节点表
+征随着学习的进行整体来说是越来越不适合进行聚类;添加 CLusterALL 算法后，
+然不断的学习仍然导致节点特征越来越不适于聚类,但是这种趋势得到了缓解,整体
+的聚类效果优于原始模型。因此,本算法能使节点学习到聚类信息从而得到更加适合
+于聚类的表征，这种表征因为是任务导向的所以还能增强模型在相应任务中的效果
+(如小节S$.1所展示)。
+
+十
+
+2.4]                            一一 使用 ClusterALL，k=5                                           一一 使用 clusterALL，k=5
+模型
+
+CH 值 (x1e5)
+9
+
+IO
+
+口
+
+0              50            100            150            200           250           300                                       0              50            100            150           200           250           300
+训练轮次                                                              训练轮次
+
+图13 DBI 对比                                 图14 CH 值对比
+图 1S _ ClusterALL 添加前后节点聚类效果对比
+
+图16展示了在 GraphSAGE 中添加 ClusterALL (KK = 5) 后，在 ogbn-arxiv 数据
+集中的聚类效果。该聚类效果是节点特征降维为 2 维后进行聚类，同时该 2 维特征
+作为节点的坐标显示在图中。为了进一步探究本算法聚类如何影响节点特征的编码，
+图17将图16中红色徐单独提出并保留原图的边连接。可见同一复中的节点也不是完
+
+24
+
+全连通
+
+，部分节
+
+点是扳点，这说明由于复中心节点的存在，节点可以用更大的感受野
+
+有选择地捕获相似节点的信息。
+
+图 16 聚类数量为5 时的聚类结果
+
+6 结论
+本文提出了
+
+正获取全图感受野并有选择地聚合
+
+其了
+
+图 17 同侯中心节点的连接情况
+
+于深度聚类的可以增强节点表征的捐
+
+i件式模型，该模型使节点真
+
+注意力模块使本模型具备归纳能力。
+点，这种情况下同复的节
+
+置，使得各个节点能
+
+局
+
+模型中随模型学习，
+从而使徐中心节点
+
+人
+
+站
+
+-全
+
+含
+
+通过
+
+全局感受时的复特征，使得即使进行4
+点获取来自全图的特定信息。此外,为了使模型更
+类步骤设计与解释神经网络结构。最后，本模
+
+行消融实验并探究了各个超参数对模型
+聚类的可视化对本模型的假设与猜想进行了
+
+位于图中各个位置的同艇
+
+图中有效的信息，同时该模型具备可扩展性能适
+用于大规模图。本算法的核心步骤为聚类和加入可学习的复中心节点与相应边，同时
+禾中心节点连接在高度抽象的维度中相似的贡
+
+能够使用全局信，
+
+点可能并不相连甚至不连通,它们可能分布在大图中任意位
+够感知到更广的信息。更重要的是，艇中心节点储存于特征增强
+中心节点将不断训练相应秘中心节点，
+
+昌表征该复，同时具有簇中心节点又能提供各个
+
+\批量学习，各个节点仍然可以从复中
+
+可解释性，本文从一般的聚
+
+型在多个数据肌
+的影响情况，验证了本模型的有效性与可扩
+
+和模型上进行测试, 进
+
+|
+
+7
+
+25
+
+验证。
+
+[]
+
+[0]
+
+[10]
+
+[H
+
+[12]
+
+[13]
+
+参考文献
+
+KIPF TN,， WELLING M. Semi-supervised classification with graph convolutional
+networks[J]. arxiv preprint arxivV:1009.02907, 2016.
+
+PEROZZI B, AL-RFOU R, SKIENA S$. Deepwalk: Online learning of soclal repre-
+sentations[C]/V/Proceedings of the 20th ACM SIGKDD international conference on
+Knowledge discovery and data mining. 2014: 701-710.
+
+TANG J QU M, WANG M, et al. Line: Large-scale intormation network embed-
+ding[C]//Proceedings ofthe 24th international conference on world wide web. 2015:
+1067-1077.
+
+GROVER A, LESKOVEC J. node2vec: Scalable feature learning for networks[C]
+//Proceedings of the 22nd ACM SIGKEDD international conference on 上nowledge
+discovery and data mining. 2016: 83S-804.
+
+WANG D,CUIP, ZHU W. Structural deep network embedding[C]//Proceedings of
+the 22nd ACM SIGKDD international conference on 上Knowledge discovery and data
+Imining. 2016: 1225-1234.
+
+RIBEIRO LF,SAVERESE P H, FIGUEIREDO D R. struc2vec: Learning node rep-
+Tesentations from structural identity[C]//Proceedings ofthe 23rd ACM SIGKDD in-
+
+ternational conference on knowledge discovery and data mining. 2017: 38S-394.
+
+KEONG下,LIG, DING M et al. Flag: Adversarial data augmentation for graph neural
+networks[J]. arXiv Preprint arXliv:2010.09891, 2020.
+
+HAMILION W L, YING R, LESKOVEC JJ Inductive Representation Learning on
+Larsge Graphs[Z]. 2018.
+
+VELICKOVIC P, CUCURULL G, CASANOVA A, et al. Graph Attention Networks
+[Z]. 2018.
+
+BELKIN M, NIYOGIP. Laplacian eligenmaps for dimensionality reduction and data
+representation[J|. Neural computation, 2003, 13(6): 1373-13906.
+
+DWIVEDIVP,LUUAT,LAURENT T, et al, Graph neural networks with learnable
+Structural and posltional representations[J. arXilv preprint arXiv:2110.07873, 2021.
+
+WANG H, YIN H, ZHANG M, et al. Equivariant and stable positional encoding for
+Imore powerful graph neural networks[J]. arXiv preprint arXiv:2203.00199, 2022.
+
+SHIY, HUANG Z FENG S, et al. Masked label prediction: Unified message passing
+model for semi-sSupervised classification[J]. arXiv preprint arXiv:2009.03309, 2020.
+
+206
+
+[14]
+
+[15]
+
+[16]
+
+[7]
+
+[18]
+
+[19]
+
+[20]
+
+[2]]
+
+[22]
+[23]
+
+[24]
+
+[23]
+
+[20]
+
+[27]
+
+[28]
+
+WU Q, ZHAO W, LI Z, et al. NodeFormer: A Scalable Graph Structure Learning
+Transformer for Node Classification[J]., 2022.
+
+VASWANI A, SHAZEER N, PARMAR N, et al. Attention ls all you need[J]. Ad-
+
+vances in neural information processing Systems, 2017, 30.
+
+YING C, CAIT,LUO S, et al. Do transformers really perform badly for graph repre-
+sentation?[J]. Advances in Neural Information Processing Systems, 2021, 34: 28877-
+28888.
+
+ZHOU 卫, ZHANG S$, PENG J, et al. Informer: Beyond Efficient Transformer for
+Long Sequence Time-Series Forecasting.[J]. Proceedings ofthe AAAI Conference on
+Artificial Intellljgence, 2022: 11106-11113.
+
+WU H, XU J WANG J, et al. Autoformer: Decomposition Transformers with Auto-
+
+Correlation for Long-Term Series Forecasting[Z]. 2022.
+
+CHOROMANSKIK,LIKHOSHERSTOV V, DOHAN D, etal.Rethinking Attention
+with Performers[Z]. 2022.
+
+YINGR,HER,CHENK,etal. Graph Convolutional Neural Networks for Web-Scale
+Recommender Systems[J]., 2018.
+
+CHEN J MA T, 和IAO C. FastGCN: Fast Learning with Graph Convolutional Net-
+works via Importance Sampling[Z .2018.
+
+CHIANG W L, LIU X, SIS, et al. Cluster-GCN[J]., 2019.
+
+ZENG H, ZHOU H, SRIVASTAVA A, et al, GraphSAINT: Graph Sampling Based
+Inductive Learning Method[J]., 2020.
+
+KARYPIS G,KUMAR V.AFastand High Quality Multilevel Scheme for Partitioning
+Jregular Graphs[J]. SIAM Journal on Scientific Computing, 1998, 20(1): 339-392.
+
+DHILLON [SGUAN Y,上ULIS B. Weighted Graph Cuts without Eligenvectors A
+Multilevel Approach[J]. IEEE Transactions on Pattern Analysis and Machine Intelli-
+gence, 2007, 29(11): 1944-1937.
+
+WANG C, PAN S$, HU R, et al. Attriputed graph clustering: A_ deep attentional em-
+bedding approach[J]. arXiv preprint arXiv:1906.060532, 2019.
+NAZI A, HANG W, GOLDIE A, et al. Gap: Generalizable approximate graph parti-
+tioning framework[J]. arXiv preprint arXiv:1903.00614, 2019.
+
+BLONDELYVD,GUILLAUME JIL,LAMBIOTTE R,etal.Fastunfolding ofcommu-
+nities in large networks[J]. Journal of Statistical Mechanics: Theory and Experiment，
+2008, 2008(10):P10008.
+
+27
+
+[29]
+
+130]
+
+[1]
+
+62]
+
+HU W, FEY M, ZITNIK M, et al. Open Graph Benchmark: Datasets for Machine
+Learning on Graphs[J]. arXiv preprint arXiv:2003.006087, 2020.
+
+ROUSSEEUW P J. Silhouettes: A_ graphical aid to the interpretation and validation
+of cluster analysis[J]. Journal of Computational and Applied Mathematics, 1987, 20:
+S3-64.
+
+CALINSKIT, HARABASZJ. A dendrite method for cluster analysis[J. Communi-
+cations in Statistics, 1974, 3(]1): 1-27.
+
+DAVIESDL, BOULDIN D W.ACluster Separation Measure[J]. IEEE Transactions
+on Pattern Analysis and Machine Intelligence, 1979, PAMI-1(2): 224-227.
+
+28
+
+附录
+
+O 请点于cs
+
+全利生。属于不同谍的节点
+合合铺 对应不同艇的息中心节点
+原6
+
+= 连接族中心节点的边
+
+三三: ，焦的分界线
+
+预处理
+
+1天
+7
+
+更新后的仍
+
+训练欠代
+
+训练子
+
+29
+
+图 18 ClusterALL 结构图放大版
+
+邻接矩阵 下六
+
+秘中心节点的偏置 BC)
+
+预测值Zxo
+
+“-属
+旺               -          |                                                                                                                                                                                   zaEieey
+竹 令                                                                                                                                                                                            节点表征
+人E和        竹                                                                                                                                                                                                                                                               四        和yxPd)
+ec                                                                                                                                                    注意力模块
+ee                                                              筷中心节点的偏置                                                                                                                                                      候信息休
+(CD      虽/民妈rx1l
+已增广 的图                                                             也xm                                                                                       LAEmax |
+(节点 鸭xp & 簇中心节点 叉xD中                                                                     簇中心节点的偏置 如
+
+Kx 瑟3)
+
+30
+
+图 19 表征增强聚类器 〈(RAC) 结构图放大版
+
+致谢
+
+我在此向所有在完成本本科毕业设计论文过程中给予我支持和指导的人表示最
+深切的感谢和感激。
+
+感谢我的导师宋轩教授和姜仁河老师以及张博渊学长，感谢他们宝贵的指导、专
+业知识和不断的茧励。他们富有洞察力的反馈和建设性的批评对塑造本研究的方癌
+和质量起到了重要作用。 非常感谢他们的耐心和奉献精神，为我提供必要的工具和资
+源。
+
+感谢计算机科学与工程院系的教职员工传授他们的知识，并在我的整个学习过
+程中提供了一个令人兴大的学术环境。他们对教学的热情和对日越的承话在塑造我
+的学术旅程中发挥了至关重要的作用。
+
+我要对我的家人和朋友在这段时间坚定不移的文持、理解和鼓励表示衷心的感
+谢。他们的爱、耐心和对我能为的信任一直是我动力的源凡。
+
+我很感谢这项研究的参与者,他们慷慨地投入时间并分享他们的经验，使我能够
+为这项研究收集必要的数据。他们的贡献是无价的,没有他们的参与，这项研究是不
+
+之，这篇毕业论文代表了一段本科阶段学习之旅的高淹， 我非常感恩我得到的
+支持和指导。坚无疑问,在此过程中获得的知识和技能将影响我未来的努力。感谢所
+有为实现这一成就做出贡献的人。
+
+31
