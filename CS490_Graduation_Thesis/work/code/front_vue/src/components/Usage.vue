@@ -3,7 +3,7 @@
     <!-- input part -->
     <div class="input">
       <!-- header -->
-      <h1>报告原文</h1>
+      <h1>论文原文</h1>
       <!-- input box -->
       <el-input
           :rows="18"

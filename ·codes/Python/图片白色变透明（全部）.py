@@ -16,7 +16,9 @@ def change_background_to_transparent(image_path, output_path):
     white_threshold = (r > 200) & (g > 200) & (b > 200)
 
     # 将背景像素设置为全透明 (Alpha = 0)
-    image_data[white_threshold] = (255, 255, 255, 0)
+    # image_data[white_threshold] = (255, 255, 255, 0)
+    # 将背景像素设置为白色 (Alpha = 255)
+    image_data[white_threshold] = (255, 255, 255, 255)
 
     # 将 numpy 数组转换回图片
     transparent_image = Image.fromarray(image_data)
@@ -28,6 +30,6 @@ def change_background_to_transparent(image_path, output_path):
 
 
 if __name__ == "__main__":
-    image = "3eda1fe37f17891820c7f464981925c4.png"  # 图片路径
+    image = f"./model-method.png"  # 图片路径
     output = "output_image.png"  # 输出文件路径
     change_background_to_transparent(image, output)
