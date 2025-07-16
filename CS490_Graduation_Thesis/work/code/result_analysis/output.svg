@@ -1,0 +1,51 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .text-box {
+            fill: #f0f8ff;
+            stroke: #00008b;
+            stroke-width: 2;
+        }
+        .dashed-line {
+            stroke: #666666;
+            stroke-width: 2;
+            stroke-dasharray: 5,5;
+        }
+        .index-text {
+            font-family: Arial;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .content-text {
+            font-family: Arial;
+            font-size: 16px;
+        }
+    </style>
+
+    <!-- 中间分隔线 -->
+    <line x1="600" y1="0" x2="600" y2="800" class="dashed-line"/>
+
+    <!-- 文本框生成 -->
+    <g>
+    
+        <!-- Text Box A -->
+        <rect x="100" y="50" width="450" height="100" class="text-box"/>
+        <text x="110" y="80" class="index-text">A</text>
+        <text x="130" y="80" class="content-text">Left Column 1</text>
+        
+        <!-- Text Box B -->
+        <rect x="100" y="190" width="450" height="100" class="text-box"/>
+        <text x="110" y="220" class="index-text">B</text>
+        <text x="130" y="220" class="content-text">Left Column 2</text>
+        
+        <!-- Text Box C -->
+        <rect x="740" y="50" width="450" height="100" class="text-box"/>
+        <text x="750" y="80" class="index-text">C</text>
+        <text x="770" y="80" class="content-text">Right Column 3</text>
+        
+        <!-- Text Box D -->
+        <rect x="740" y="190" width="450" height="100" class="text-box"/>
+        <text x="750" y="220" class="index-text">D</text>
+        <text x="770" y="220" class="content-text">Right Column 4</text>
+        
+    </g>
+    </svg>

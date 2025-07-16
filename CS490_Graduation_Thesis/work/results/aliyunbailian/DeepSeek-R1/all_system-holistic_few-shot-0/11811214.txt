@@ -1,0 +1,2 @@
+最终打分：8
+修改意见：提升语言连贯性（修正拼写如'manufactoring'→'manufacturing'，统一术语如'consortium blockchain'）；优化参考文献规范性（确保URL引用格式统一）；补充图表完整性（Fig.1等需在正文嵌入）；建议加强文献综述深度并全面校对语法。

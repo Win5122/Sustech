@@ -1,4 +1,0 @@
-错误信息：Error code: 400 - {'error': {'code': 'invalid_parameter_error', 'param': None, 'message': '<400> InternalError.Algo.InvalidParameter: Range of input length should be [1, 57344]', 'type': 'invalid_request_error'}, 'id': 'chatcmpl-54a85740-99f9-9471-91eb-234f0ef92c1f', 'request_id': '54a85740-99f9-9471-91eb-234f0ef92c1f'}
-请参考文档：https://help.aliyun.com/zh/model-studio/developer-reference/error-code
-
-tips: total length of message is: 126187

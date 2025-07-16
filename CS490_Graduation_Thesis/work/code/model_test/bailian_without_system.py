@@ -19,8 +19,11 @@ def get_score(model_id, text):
             messages=[
                 {
                     'role': 'user',
-                    'content': f'请给以下报告打分:\n{text}'
-                               f'范围0-10分，给出具体得分'
+                    'content': (
+                        f'请给以下报告打分:\n{text}'
+                        '范围0-10分，给出具体得分，并在返回结果第一行单独一行表明总分\n'
+                        '第一行总分格式具体格式如下：最终打分：<> (范围0-10分)\n'
+                    )
                 },
             ],
         )
@@ -80,28 +83,36 @@ def txt(model_info, path, limitation, saving):
 
 
 if __name__ == '__main__':
+    output_path = rf"D:\Sustech\course\CS490_Graduation_Thesis\work\results\aliyunbailian"
     folder_list = [
         "all",
         # "2023本科论文",
         # "2023组内毕设",
         # "2024本科论文",
     ]
+    models = [
+        # 通义 - 文本生成
+        # ["通义千问-Plus", "qwen-plus"],
+        ["通义千问2.5-14B-1M", "qwen2.5-14b-instruct-1m"],
+        ["通义千问-Turbo", "qwen-turbo"],
+        ["通义千问-Turbo-Latest", "qwen-turbo-latest"],
+        # DeepSeek - 文本生成
+        # ["DeepSeek-V3", "deepseek-v3"],
+        # DeepSeek - 推理模型
+        # ["DeepSeek-R1", "deepseek-r1"],
+    ]
+    min_times = 0
+    max_times = 5
     for folder in folder_list:
         print(f"正在处理：{folder}")
-        fileCount = 500
+        fileCount = 100
         input_path = rf"D:\Sustech\course\CS490_Graduation_Thesis\work\data-preprocessed\{folder}\txt"
-        output_path = rf"D:\Sustech\course\CS490_Graduation_Thesis\work\results\aliyunbailian"
-        models = [
-            # 通义 - 文本生成
-            ["通义千问-Plus", "qwen-plus"],
-            ["通义千问2.5-14B-1M", "qwen2.5-14b-instruct-1m"],
-            ["通义千问-Turbo", "qwen-turbo"],
-            # DeepSeek - 文本生成
-            ["DeepSeek-V3", "deepseek-v3"],
-            # DeepSeek - 推理模型
-            ["DeepSeek-R1", "deepseek-r1"],
-        ]
-        print("save txt file")
         for model in models:
-            txt(model, input_path, fileCount, rf"{output_path}/{model[0]}/{folder}_without_system")
+            print(f"正在处理：{model[0]}")
+            for times in range(min_times, max_times):
+                if max_times > 1:
+                    print(f"正在处理：{times + 1}")
+                saving_path = rf"{output_path}/{model[0]}/{folder}_without-system"
+                saving_path = saving_path + (f"_{times + 1}" if max_times > 1 else "")
+                txt(model, input_path, fileCount, saving_path)
         print(f"处理完成：{folder}")
